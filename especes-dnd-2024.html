@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espèces D&D 2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+
+</style>
+</head>
+<body>
+
+<!-- Définitions partagées des médaillons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="medal" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fbf3de"/>
+      <stop offset="100%" stop-color="#dcc48f"/>
+    </radialGradient>
+    <radialGradient id="medalDark" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#4a2e1c"/>
+      <stop offset="100%" stop-color="#1c130d"/>
+    </radialGradient>
+    <g id="ring">
+      <circle cx="60" cy="60" r="56" fill="none" stroke="#b8892e" stroke-width="3"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#b8892e" stroke-width="1" stroke-dasharray="2 4"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a class="on" href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="sorts-dnd-2024.html">Sorts</a></div>
+<header>
+  <div class="sigil"><span>D</span></div>
+  <h1>Les Espèces de D&amp;D</h1>
+  <p>Manuel des Joueurs · Édition 2024 · Grimoire détaillé</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#apercu">Aperçu</a></li>
+    <li><a href="#aasimar">Aasimar</a></li>
+    <li><a href="#drakeide">Drakéide</a></li>
+    <li><a href="#elfe">Elfe</a></li>
+    <li><a href="#gnome">Gnome</a></li>
+    <li><a href="#goliath">Goliath</a></li>
+    <li><a href="#halfelin">Halfelin</a></li>
+    <li><a href="#humain">Humain</a></li>
+    <li><a href="#nain">Nain</a></li>
+    <li><a href="#orc">Orc</a></li>
+    <li><a href="#tieffelin">Tieffelin</a></li>
+    <li><a href="#autres">Autres espèces</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ===================== APERÇU ===================== -->
+<section class="panel" id="apercu">
+  <h2>Avant de choisir</h2>
+  <p>Depuis la révision 2024, on parle d'<strong>espèces</strong> et non plus de races. Le Manuel des Joueurs en propose dix, dont trois font leur entrée dans le livre de base : l'aasimar, le goliath et l'orc. Les demi-elfes et demi-orcs disparaissent en tant qu'espèces : un personnage d'ascendance mixte choisit simplement les traits de l'un de ses parents.</p>
+
+  <h3>Ce qui a changé par rapport à 2014</h3>
+  <ul>
+    <li><strong>Plus de bonus de caractéristiques liés à l'espèce.</strong> Les +2/+1 viennent désormais du <em>background</em> (historique). N'importe quelle espèce peut donc jouer n'importe quelle classe sans pénalité.</li>
+    <li><strong>Plus de sous-races.</strong> Elles sont remplacées par des <em>lignages</em> (elfe, gnome), des <em>héritages</em> (tieffelin) ou des <em>ascendances</em> (drakéide, goliath) choisis à la création.</li>
+    <li><strong>Progression.</strong> Plusieurs espèces gagnent un nouveau pouvoir aux niveaux 3 et 5.</li>
+    <li><strong>Sorts d'espèce.</strong> Ils sont toujours préparés, se lancent 1 fois par repos long sans emplacement, et peuvent aussi être lancés avec vos emplacements. Vous choisissez souvent la caractéristique d'incantation (Int, Sag ou Cha).</li>
+    <li><strong>Longévité.</strong> La plupart des espèces vivent environ 80 ans ; toutes atteignent la maturité physique à peu près au même âge.</li>
+    <li><strong>Type de créature.</strong> Les dix espèces sont Humanoïdes.</li>
+  </ul>
+
+  <h3>Tableau récapitulatif</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Espèce</th><th>Taille</th><th>Vitesse</th><th>Vision dans le noir</th><th>Point fort</th></tr>
+    <tr><td><a href="#aasimar">Aasimar</a></td><td>M ou P</td><td>9 m</td><td>18 m</td><td>Soin, transformation céleste</td></tr>
+    <tr><td><a href="#drakeide">Drakéide</a></td><td>M</td><td>9 m</td><td>18 m</td><td>Souffle, vol au niv. 5</td></tr>
+    <tr><td><a href="#elfe">Elfe</a></td><td>M</td><td>9 m (10,50 m sylvestre)</td><td>18 m (36 m drow)</td><td>Sorts de lignage, transe</td></tr>
+    <tr><td><a href="#gnome">Gnome</a></td><td>P</td><td>9 m</td><td>18 m</td><td>Avantage aux JS mentaux</td></tr>
+    <tr><td><a href="#goliath">Goliath</a></td><td>M</td><td>10,50 m</td><td>—</td><td>Bienfaits de géant, forme G</td></tr>
+    <tr><td><a href="#halfelin">Halfelin</a></td><td>P</td><td>9 m</td><td>—</td><td>Chance, discrétion</td></tr>
+    <tr><td><a href="#humain">Humain</a></td><td>M ou P</td><td>9 m</td><td>—</td><td>Don d'origine, Inspiration</td></tr>
+    <tr><td><a href="#nain">Nain</a></td><td>M</td><td>9 m</td><td>36 m</td><td>PV bonus, résistance poison</td></tr>
+    <tr><td><a href="#orc">Orc</a></td><td>M</td><td>9 m</td><td>36 m</td><td>Mobilité, refus de tomber</td></tr>
+    <tr><td><a href="#tieffelin">Tieffelin</a></td><td>M ou P</td><td>9 m</td><td>18 m</td><td>Sorts fiélons, résistance</td></tr>
+  </table></div>
+  <div class="links">
+    <span>Référence</span>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/" target="_blank" rel="noopener">Origines des personnages (AideDD)</a>
+    <a href="https://www.dndbeyond.com/species" target="_blank" rel="noopener">Liste des espèces (D&amp;D Beyond)</a>
+  </div>
+</section>
+
+<!-- ===================== AASIMAR ===================== -->
+<section class="panel species" id="aasimar">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème aasimar : auréole et ailes">
+      <circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+      <ellipse cx="60" cy="34" rx="17" ry="5.5" fill="none" stroke="#d9b25f" stroke-width="3"/>
+      <path d="M57 66 C42 48 26 50 14 40 C18 62 32 80 57 84 Z" fill="#f3e6c8"/>
+      <path d="M63 66 C78 48 94 50 106 40 C102 62 88 80 63 84 Z" fill="#f3e6c8"/>
+      <path d="M22 50 L50 72 M28 62 L52 78 M98 50 L70 72 M92 62 L68 78" stroke="#b8892e" stroke-width="1.5"/>
+      <circle cx="60" cy="64" r="8" fill="#d9b25f"/>
+      <path d="M60 46 L60 52 M60 76 L60 82 M44 64 L48 64 M72 64 L76 64" stroke="#d9b25f" stroke-width="2"/>
+    </svg>
+    <div class="species-title">
+      <h2>Aasimar</h2>
+      <div class="sub">L'étincelle céleste</div>
+      <div class="badges"><span class="badge">Nouveau au PHB</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les aasimars sont des mortels qui portent dans leur âme une parcelle de la lumière des Plans supérieurs. Ils naissent de parents ordinaires, souvent après une bénédiction ou l'intervention d'une puissance céleste, et rien ne les distingue au premier regard des autres peuples.</p>
+    <p>Cette nature se trahit par des détails : des taches de rousseur qui scintillent, des yeux lumineux, une aura discrète. Beaucoup reçoivent en rêve la visite d'un guide céleste qui les encourage à combattre le mal. Libre à eux de suivre cette voie ou de s'en détourner.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,20–2,15 m) ou P (0,60–1,20 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>18 m</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Résistance céleste.</strong> Résistance aux dégâts nécrotiques et radiants.</li>
+    <li><strong>Mains guérisseuses.</strong> Par une action Magie, vous touchez une créature et lancez autant de d4 que votre bonus de maîtrise ; elle regagne ce total en PV. 1 fois par repos long. Au niveau 1, c'est 2d4 ; au niveau 17, 6d4.</li>
+    <li><strong>Porteur de lumière.</strong> Vous connaissez le sort mineur <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, lancé avec le Charisme.</li>
+    <li><strong>Révélation céleste</strong><span class="lvl">Niv. 3</span> Par une action bonus, vous libérez votre nature céleste pendant 1 minute (ou jusqu'à ce que vous y mettiez fin), 1 fois par repos long. Pendant ce temps, une fois à chacun de vos tours, vous ajoutez à une attaque ou un sort des dégâts supplémentaires égaux à votre bonus de maîtrise (radiants, ou nécrotiques pour le linceul). Vous choisissez l'effet à chaque transformation :
+      <ul>
+        <li><em>Ailes célestes</em> : deux ailes spectrales vous donnent une vitesse de vol égale à votre vitesse.</li>
+        <li><em>Rayonnement intérieur</em> : vous émettez une lumière vive sur 3 m et faible sur 3 m de plus. À la fin de chacun de vos tours, chaque créature à 3 m ou moins de vous subit des dégâts radiants égaux à votre bonus de maîtrise.</li>
+        <li><em>Linceul nécrotique</em> : vos yeux deviennent des puits de ténèbres. Les créatures à 3 m ou moins (hors alliés) réussissent un JS de Charisme (DD 8 + Cha + maîtrise) ou sont <em>Effrayées</em> jusqu'à la fin de votre prochain tour.</li>
+      </ul>
+    </li>
+  </ul>
+  <details>
+    <summary>Jouer un aasimar</summary>
+    <div class="inner"><ul>
+      <li>Excellent soutien : Mains guérisseuses dépanne n'importe quel groupe, même sans clerc.</li>
+      <li>Les <em>Ailes célestes</em> offrent le vol dès le niveau 3, très tôt comparé aux autres options.</li>
+      <li>Affinités naturelles : paladin, clerc, occultiste (Céleste) ou ensorceleur. Le <em>Rayonnement intérieur</em> brille au corps à corps, le <em>Linceul</em> pour contrôler le terrain.</li>
+      <li>Pistes de roleplay : un guide céleste exigeant, un héritage que l'on cache, ou une lumière qui s'assombrit.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>L'aasimar vient du <em>Volo's Guide</em> puis de <em>Monsters of the Multiverse</em> ; il entre au PHB en 2024.</li>
+      <li>Les sous-races (protecteur, fléau, déchu) deviennent les trois options de Révélation céleste, au choix à chaque utilisation.</li>
+      <li>Mains guérisseuses soigne désormais en d4 au lieu d'un montant égal au niveau.</li>
+      <li>Option de taille Petite ajoutée.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751434-aasimar" target="_blank" rel="noopener">Fiche Aasimar (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/dnd-5/livres/players-handbook-2024/" target="_blank" rel="noopener">PHB 2024 (AideDD)</a>
+  </div>
+</section>
+
+<!-- ===================== DRAKÉIDE ===================== -->
+<section class="panel species" id="drakeide">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème drakéide : œil de dragon">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <path d="M30 34 L42 22 L44 38 Z M90 34 L78 22 L76 38 Z" fill="#5e0f0f"/>
+      <path d="M18 62 Q60 24 102 62 Q60 98 18 62 Z" fill="#8e1b1b"/>
+      <circle cx="60" cy="62" r="18" fill="#d9b25f"/>
+      <circle cx="60" cy="62" r="18" fill="none" stroke="#b8892e" stroke-width="2"/>
+      <ellipse cx="60" cy="62" rx="4.5" ry="16" fill="#1c130d"/>
+      <circle cx="54" cy="55" r="3" fill="#fbf3de" opacity=".8"/>
+      <path d="M26 82 Q40 92 48 90 M94 82 Q80 92 72 90" stroke="#5e0f0f" stroke-width="3" fill="none"/>
+    </svg>
+    <div class="species-title">
+      <h2>Drakéide</h2>
+      <div class="sub">Dragonborn · les enfants des dragons</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les premiers drakéides auraient éclos des œufs de dragons chromatiques et métalliques. D'autres récits les disent façonnés par les dieux dragons, ou nés du sang versé par un dragon. Quelle que soit l'histoire, chaque drakéide porte l'empreinte d'un ancêtre draconique : la couleur de ses écailles, l'énergie de son souffle et la forme de ses ailes spectrales.</p>
+    <p>Grands, sans queue, dotés d'une gueule reptilienne et parfois de cornes ou de crêtes, ils sont souvent fiers de leur lignée. Certains clans placent l'honneur au-dessus de tout, d'autres cherchent à se libérer de l'ombre de leurs ancêtres.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,50–2,15 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>18 m</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Ascendance draconique.</strong> Vous choisissez un dragon ancestral ; il détermine le type de dégâts de votre souffle et de votre résistance, ainsi que votre apparence.
+      <div class="table-wrap"><table>
+        <tr><th>Dragon</th><th>Famille</th><th>Dégâts</th></tr>
+        <tr><td>Noir</td><td>Chromatique</td><td>Acide</td></tr>
+        <tr><td>Bleu</td><td>Chromatique</td><td>Foudre</td></tr>
+        <tr><td>Vert</td><td>Chromatique</td><td>Poison</td></tr>
+        <tr><td>Rouge</td><td>Chromatique</td><td>Feu</td></tr>
+        <tr><td>Blanc</td><td>Chromatique</td><td>Froid</td></tr>
+        <tr><td>Airain</td><td>Métallique</td><td>Feu</td></tr>
+        <tr><td>Bronze</td><td>Métallique</td><td>Foudre</td></tr>
+        <tr><td>Cuivre</td><td>Métallique</td><td>Acide</td></tr>
+        <tr><td>Or</td><td>Métallique</td><td>Feu</td></tr>
+        <tr><td>Argent</td><td>Métallique</td><td>Froid</td></tr>
+      </table></div>
+    </li>
+    <li><strong>Souffle.</strong> Quand vous prenez l'action Attaque, vous pouvez remplacer l'une de vos attaques par une expiration d'énergie : cône de 4,50 m ou ligne de 9 m sur 1,50 m (forme choisie à chaque fois). Les créatures dans la zone font un JS de Dextérité (DD 8 + Con + maîtrise).
+      <ul>
+        <li>Échec : 1d10 dégâts ; réussite : moitié.</li>
+        <li>Progression : 2d10 au niv. 5, 3d10 au niv. 11, 4d10 au niv. 17.</li>
+        <li>Utilisations : autant que votre bonus de maîtrise, récupérées au repos long.</li>
+      </ul>
+    </li>
+    <li><strong>Résistance aux dégâts.</strong> Résistance au type de dégâts de votre ascendance.</li>
+    <li><strong>Vol draconique</strong><span class="lvl">Niv. 5</span> Par une action bonus, des ailes spectrales faites de l'énergie de votre souffle apparaissent pendant 10 minutes : vitesse de vol égale à votre vitesse. Elles disparaissent si vous êtes Neutralisé ou si vous les rétractez. 1 fois par repos long.</li>
+  </ul>
+  <details>
+    <summary>Jouer un drakéide</summary>
+    <div class="inner"><ul>
+      <li>Le souffle remplace une attaque au lieu de coûter une action : il reste utile pour un guerrier qui attaque plusieurs fois.</li>
+      <li>Le choix de l'ascendance compte : le feu est souvent résisté par les démons et diables, le froid et la foudre le sont moins.</li>
+      <li>Affinités naturelles : paladin, guerrier, barbare, ensorceleur (Draconique).</li>
+      <li>Pistes de roleplay : la relation avec un vrai dragon de la même couleur, un clan exigeant, un ancêtre maléfique à renier.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Gain de la vision dans le noir et du vol draconique.</li>
+      <li>Le souffle remplace une attaque (il coûtait une action), se lance plusieurs fois par repos long et monte en d10.</li>
+      <li>Choix entre cône et ligne à chaque utilisation, au lieu d'une forme fixée par la couleur.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751435-dragonborn" target="_blank" rel="noopener">Fiche Dragonborn (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#drakeide" target="_blank" rel="noopener">Drakéide (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/drakeide.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== ELFE ===================== -->
+<section class="panel species" id="elfe">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème elfe : feuille et croissant de lune">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <path d="M60 16 C90 38 90 82 60 104 C30 82 30 38 60 16 Z" fill="#3f6b3a"/>
+      <path d="M60 22 L60 100" stroke="#f3e6c8" stroke-width="2"/>
+      <path d="M60 42 L46 34 M60 42 L74 34 M60 58 L42 48 M60 58 L78 48 M60 74 L44 66 M60 74 L76 66 M60 88 L50 82 M60 88 L70 82" stroke="#f3e6c8" stroke-width="1.5"/>
+      <path d="M92 22 A13 13 0 1 0 100 44 A10 10 0 1 1 92 22 Z" fill="#b8892e"/>
+      <circle cx="24" cy="30" r="1.8" fill="#b8892e"/><circle cx="30" cy="22" r="1.2" fill="#b8892e"/><circle cx="20" cy="40" r="1" fill="#b8892e"/>
+    </svg>
+    <div class="species-title">
+      <h2>Elfe</h2>
+      <div class="sub">Les enfants de la Féerie</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span><span class="badge alt">Basic Rules</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Nés de la magie de la Féerie, les elfes vivent environ 750 ans. Leur curiosité a poussé beaucoup d'entre eux à explorer d'autres plans d'existence, et chaque lignée porte la marque du monde qui l'a façonnée.</p>
+    <p>Les <strong>drows</strong> ont été modelés par l'Outreterre, même si certains vivent ailleurs (dans les jungles de Xen'drik sur Eberron, par exemple). Les <strong>hauts-elfes</strong> sont imprégnés de la magie née aux croisements entre la Féerie et le plan Matériel : on les appelle elfes du soleil ou de la lune dans les Royaumes Oubliés, silvanesti et qualinesti dans Dragonlance, Aereni sur Eberron. Les <strong>elfes des bois</strong> portent la magie des forêts primitives ; on les connaît aussi comme elfes sauvages ou sylvestres, grugach à Greyhawk, kagonesti dans Dragonlance et tairnadal sur Eberron.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,50–1,85 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>18 m</div>
+    <div class="stat"><b>Longévité</b>environ 750 ans</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Lignage elfique.</strong> Vous obtenez le bénéfice de niveau 1 de votre lignage, puis un sort aux niveaux 3 et 5. Caractéristique d'incantation au choix : Intelligence, Sagesse ou Charisme.
+      <div class="table-wrap"><table>
+        <tr><th>Lignage</th><th>Niv. 1</th><th>Niv. 3</th><th>Niv. 5</th></tr>
+        <tr><td><b>Drow</b></td><td>Vision dans le noir portée à 36 m ; sort mineur <a class="spell" href="sorts-dnd-2024.html#lumieres-dansantes">lumières dansantes</a></td><td><a class="spell" href="sorts-dnd-2024.html#lueurs-feeriques">lueurs féeriques</a></td><td><a class="spell" href="sorts-dnd-2024.html#tenebres">ténèbres</a></td></tr>
+        <tr><td><b>Haut-elfe</b></td><td>Sort mineur <a class="spell" href="sorts-dnd-2024.html#prestidigitation">prestidigitation</a>, échangeable contre un autre sort mineur de magicien à chaque repos long</td><td><a class="spell" href="sorts-dnd-2024.html#detection-de-la-magie">détection de la magie</a></td><td><a class="spell" href="sorts-dnd-2024.html#foulee-brumeuse">foulée brumeuse</a></td></tr>
+        <tr><td><b>Elfe des bois</b></td><td>Vitesse 10,50 m ; sort mineur <a class="spell" href="sorts-dnd-2024.html#druidisme">druidisme</a></td><td><a class="spell" href="sorts-dnd-2024.html#grande-foulee">grande foulée</a></td><td><a class="spell" href="sorts-dnd-2024.html#passage-sans-trace">passage sans trace</a></td></tr>
+      </table></div>
+    </li>
+    <li><strong>Ascendance féerique.</strong> Avantage aux JS pour éviter ou mettre fin à l'état <em>Charmé</em>.</li>
+    <li><strong>Sens aiguisés.</strong> Maîtrise d'Intuition, de Perception ou de Survie.</li>
+    <li><strong>Transe.</strong> Vous n'avez pas besoin de dormir et la magie ne peut pas vous endormir. Vous terminez un repos long en 4 heures de méditation, pendant lesquelles vous restez conscient.</li>
+  </ul>
+  <details>
+    <summary>Jouer un elfe</summary>
+    <div class="inner"><ul>
+      <li>Le haut-elfe peut changer de sort mineur chaque jour : très souple pour un lanceur de sorts, ou pour donner <em>trait de feu</em> à un guerrier.</li>
+      <li>L'elfe des bois, avec 10,50 m de vitesse et <em>passage sans trace</em>, est redoutable en rôdeur, roublard ou moine.</li>
+      <li>Le drow voit à 36 m, un atout majeur en exploration souterraine.</li>
+      <li>La transe rend le personnage idéal pour les tours de garde et l'immunise contre <em>sommeil</em>.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Les sous-races deviennent des lignages avec des sorts aux niveaux 3 et 5.</li>
+      <li>Le drow n'a plus de sensibilité à la lumière du soleil.</li>
+      <li>Sens aiguisés laisse le choix entre trois compétences (au lieu de Perception seule).</li>
+      <li>Plus de maîtrise d'armes elfiques.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751437-elf" target="_blank" rel="noopener">Fiche Elf (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#elfe" target="_blank" rel="noopener">Elfe (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/elfe.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== GNOME ===================== -->
+<section class="panel species" id="gnome">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème gnome : engrenage et étincelle">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <circle cx="56" cy="64" r="28" fill="none" stroke="#5a4330" stroke-width="12" stroke-dasharray="8 6.66"/>
+      <circle cx="56" cy="64" r="23" fill="#b8892e"/>
+      <circle cx="56" cy="64" r="9" fill="#f3e6c8" stroke="#5a4330" stroke-width="2"/>
+      <path d="M92 18 L95 30 L107 33 L95 36 L92 48 L89 36 L77 33 L89 30 Z" fill="#8e1b1b"/>
+      <path d="M22 22 L23.5 27 L28.5 28.5 L23.5 30 L22 35 L20.5 30 L15.5 28.5 L20.5 27 Z" fill="#8e1b1b"/>
+    </svg>
+    <div class="species-title">
+      <h2>Gnome</h2>
+      <div class="sub">Inventeurs, illusionnistes et farceurs</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les gnomes sont un peuple magique créé par les dieux de l'invention, de l'illusion et de la vie souterraine. Ils vivent environ 425 ans et semblent en profiter pour ne jamais cesser d'apprendre, de bricoler et de s'amuser.</p>
+    <p>Les <strong>gnomes des forêts</strong> vivent cachés dans les bois, amis des animaux et maîtres de l'illusion. Les <strong>gnomes des roches</strong> sont des artisans nés, capables de transformer un simple tour de magie en petit automate.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>P (0,90–1,20 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>18 m</div>
+    <div class="stat"><b>Longévité</b>environ 425 ans</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Ruse gnome.</strong> Avantage aux JS d'Intelligence, de Sagesse et de Charisme.</li>
+    <li><strong>Lignage gnome.</strong> Caractéristique d'incantation au choix : Int, Sag ou Cha.
+      <ul>
+        <li><em>Gnome des forêts</em> : sort mineur <a class="spell" href="sorts-dnd-2024.html#illusion-mineure">illusion mineure</a>. Vous avez toujours <a class="spell" href="sorts-dnd-2024.html#communication-avec-les-animaux">communication avec les animaux</a> préparé et pouvez le lancer sans emplacement autant de fois que votre bonus de maîtrise par repos long.</li>
+        <li><em>Gnome des roches</em> : sorts mineurs <a class="spell" href="sorts-dnd-2024.html#reparation">réparation</a> et <a class="spell" href="sorts-dnd-2024.html#prestidigitation">prestidigitation</a>. En 10 minutes d'incantation de <em>prestidigitation</em>, vous fabriquez un appareil mécanique Très Petit (CA 5, 1 PV) : jouet, allume-feu, boîte à musique… Il reproduit un effet de <em>prestidigitation</em> choisi à la création quand quelqu'un l'active par une action bonus. Trois appareils au maximum ; chacun cesse de fonctionner au bout de 8 heures ou quand vous le démontez.</li>
+      </ul>
+    </li>
+  </ul>
+  <details>
+    <summary>Jouer un gnome</summary>
+    <div class="inner"><ul>
+      <li>La Ruse gnome protège contre une grande partie des sorts de contrôle mental : un vrai bouclier pour un magicien fragile.</li>
+      <li>Le gnome des forêts devient un éclaireur hors pair en interrogeant les animaux plusieurs fois par jour.</li>
+      <li>Le gnome des roches se prête à l'improvisation : diversion sonore, lumière, petit feu, alarme bricolée.</li>
+      <li>Affinités naturelles : magicien, artificier, barde, roublard (Escroc arcanique).</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Ruse gnome couvre désormais tous les JS d'Int, Sag et Cha, et plus seulement contre la magie.</li>
+      <li>Le gnome des forêts gagne <em>communication avec les animaux</em> en sort, au lieu de parler aux petits animaux.</li>
+      <li>Le gnome des roches perd Connaissances en artisanat mais gagne <em>réparation</em> et <em>prestidigitation</em>.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751438-gnome" target="_blank" rel="noopener">Fiche Gnome (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#gnome" target="_blank" rel="noopener">Gnome (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/gnome.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== GOLIATH ===================== -->
+<section class="panel species" id="goliath">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème goliath : sommets enneigés">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <circle cx="84" cy="36" r="9" fill="#d9b25f"/>
+      <path d="M12 92 L42 46 L56 64 L72 30 L108 92 Z" fill="#5a4330"/>
+      <path d="M72 30 L64 46 L70 43 L75 50 L80 43 L84 46 Z" fill="#fbf3de"/>
+      <path d="M42 46 L36 56 L42 53 L47 57 L50 56 Z" fill="#fbf3de"/>
+      <path d="M12 92 L108 92" stroke="#2b1d12" stroke-width="3"/>
+      <path d="M30 104 L90 104" stroke="#b8892e" stroke-width="1.5"/>
+    </svg>
+    <div class="species-title">
+      <h2>Goliath</h2>
+      <div class="sub">Les héritiers des géants</div>
+      <div class="badges"><span class="badge">Nouveau au PHB</span><span class="badge green">SRD 5.2</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Lointains descendants des géants, les goliaths dépassent la plupart des autres peuples. Beaucoup cherchent à atteindre des sommets que même leurs ancêtres n'ont jamais connus, que ce soit en escaladant des montagnes ou en accomplissant des exploits.</p>
+    <p>Chaque goliath porte l'héritage d'une famille de géants (nuages, feu, givre, collines, pierre ou tempête), qui influence son apparence : peau grise marbrée, motifs rappelant la roche, reflets de braise ou de givre. Au sommet de leur puissance, ils peuvent retrouver un temps la stature de leurs ancêtres.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (2,15–2,45 m)</div>
+    <div class="stat"><b>Vitesse</b>10,50 m</div>
+    <div class="stat"><b>Vision dans le noir</b>aucune</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Ascendance gigante.</strong> Vous choisissez un bienfait, utilisable autant de fois que votre bonus de maîtrise par repos long.
+      <div class="table-wrap"><table>
+        <tr><th>Géant</th><th>Bienfait</th><th>Effet</th></tr>
+        <tr><td>Nuages</td><td><em>Saut des nuées</em></td><td>Action bonus : téléportation jusqu'à 9 m dans un espace libre visible.</td></tr>
+        <tr><td>Feu</td><td><em>Brûlure ignée</em></td><td>Quand une attaque touche et inflige des dégâts : +1d10 dégâts de feu.</td></tr>
+        <tr><td>Givre</td><td><em>Froid mordant</em></td><td>Quand une attaque touche : +1d6 dégâts de froid et −3 m de vitesse jusqu'au début de votre prochain tour.</td></tr>
+        <tr><td>Collines</td><td><em>Renversement des coteaux</em></td><td>Quand une attaque touche une créature G ou plus petite : elle tombe <em>À terre</em>.</td></tr>
+        <tr><td>Pierre</td><td><em>Endurance de la pierre</em></td><td>Réaction quand vous subissez des dégâts : réduction de 1d12 + Con.</td></tr>
+        <tr><td>Tempête</td><td><em>Tonnerre des cieux</em></td><td>Réaction quand une créature à 18 m ou moins vous blesse : elle subit 1d8 dégâts de tonnerre.</td></tr>
+      </table></div>
+    </li>
+    <li><strong>Forme de géant</strong><span class="lvl">Niv. 5</span> Par une action bonus, si l'espace le permet, vous devenez de taille G pendant 10 minutes : avantage aux tests de Force et +3 m de vitesse. 1 fois par repos long.</li>
+    <li><strong>Forte carrure.</strong> Avantage aux tests pour mettre fin à l'état <em>Agrippé</em> ; vous comptez comme une taille au-dessus pour la capacité de charge.</li>
+  </ul>
+  <details>
+    <summary>Jouer un goliath</summary>
+    <div class="inner"><ul>
+      <li>Le goliath des collines, qui renverse sa cible à chaque coup réussi, se combine très bien avec un personnage à attaques multiples : les attaques suivantes profitent de l'avantage contre une cible à terre.</li>
+      <li>La pierre est le choix défensif pour un tank ; les nuages offrent une mobilité rare dès le niveau 1.</li>
+      <li>La forme de géant améliore les empoignades et les bousculades.</li>
+      <li>Affinités naturelles : barbare, guerrier, moine, paladin.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Le goliath (du <em>Elemental Evil Player's Companion</em> puis de <em>Monsters of the Multiverse</em>) entre au PHB.</li>
+      <li>Endurance de la pierre n'est plus qu'une option parmi six ascendances de géants.</li>
+      <li>Né des montagnes (résistance au froid, adaptation à l'altitude) disparaît ; la vitesse passe à 10,50 m.</li>
+      <li>Nouveau trait Forme de géant.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751439-goliath" target="_blank" rel="noopener">Fiche Goliath (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#goliath" target="_blank" rel="noopener">Goliath (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/goliath.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== HALFELIN ===================== -->
+<section class="panel species" id="halfelin">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème halfelin : trèfle à quatre feuilles">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <g fill="#3f6b3a">
+        <path d="M60 58 C48 58 38 50 42 40 C46 32 56 34 60 42 C64 34 74 32 78 40 C82 50 72 58 60 58 Z" transform="rotate(0 60 58)"/>
+        <path d="M60 58 C48 58 38 50 42 40 C46 32 56 34 60 42 C64 34 74 32 78 40 C82 50 72 58 60 58 Z" transform="rotate(90 60 58)"/>
+        <path d="M60 58 C48 58 38 50 42 40 C46 32 56 34 60 42 C64 34 74 32 78 40 C82 50 72 58 60 58 Z" transform="rotate(180 60 58)"/>
+        <path d="M60 58 C48 58 38 50 42 40 C46 32 56 34 60 42 C64 34 74 32 78 40 C82 50 72 58 60 58 Z" transform="rotate(270 60 58)"/>
+      </g>
+      <circle cx="60" cy="58" r="4" fill="#b8892e"/>
+      <path d="M62 62 Q70 84 82 96" stroke="#3f6b3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="species-title">
+      <h2>Halfelin</h2>
+      <div class="sub">Petits, braves et chanceux</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span><span class="badge alt">Basic Rules</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les halfelins possèdent un esprit brave et aventureux qui les pousse sur les routes, à la découverte du monde. Ils vivent environ 150 ans. Beaucoup gardent un profond attachement au foyer, à la bonne chère et à la communauté, même lorsqu'ils la quittent pour voyager.</p>
+    <p>Leur petite taille les aide à passer inaperçus, et une chance proverbiale semble les protéger des pires catastrophes. On les croise dans des villages tranquilles comme dans les grandes cités, souvent là où on ne les attend pas.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>P (0,60–0,90 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>aucune</div>
+    <div class="stat"><b>Longévité</b>environ 150 ans</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Brave.</strong> Avantage aux JS pour éviter ou mettre fin à l'état <em>Effrayé</em>.</li>
+    <li><strong>Agilité halfeline.</strong> Vous pouvez traverser l'espace de toute créature plus grande que vous, sans pouvoir vous y arrêter.</li>
+    <li><strong>Chance.</strong> Quand vous obtenez un 1 au d20 d'un test d20 (attaque, test de caractéristique ou JS), vous pouvez relancer le dé ; vous devez garder le nouveau résultat.</li>
+    <li><strong>Discrétion naturelle.</strong> Vous pouvez prendre l'action <em>Se cacher</em> même si vous n'êtes masqué que par une créature d'au moins une taille de plus que vous.</li>
+  </ul>
+  <details>
+    <summary>Jouer un halfelin</summary>
+    <div class="inner"><ul>
+      <li>La Chance réduit fortement le risque d'échec critique, surtout sur les JS de mort.</li>
+      <li>Discrétion naturelle permet de se cacher derrière un allié en plein combat : parfait pour un roublard qui veut son attaque sournoise.</li>
+      <li>Agilité halfeline aide à contourner les ennemis massifs pour atteindre les lanceurs de sorts.</li>
+      <li>Affinités naturelles : roublard, barde, rôdeur, moine.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Plus de sous-races (pied-léger, robuste) : Discrétion naturelle est commune à tous.</li>
+      <li>La Chance s'applique à tous les tests d20.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751440-halfling" target="_blank" rel="noopener">Fiche Halfling (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#halfelin" target="_blank" rel="noopener">Halfelin (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/halfelin.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== HUMAIN ===================== -->
+<section class="panel species" id="humain">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème humain : torche">
+      <circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+      <path d="M60 16 C78 36 76 52 60 64 C44 52 42 36 60 16 Z" fill="#8e1b1b"/>
+      <path d="M60 30 C70 42 68 52 60 60 C52 52 50 42 60 30 Z" fill="#d9b25f"/>
+      <path d="M60 42 C64 48 63 54 60 58 C57 54 56 48 60 42 Z" fill="#fbf3de"/>
+      <path d="M52 64 L68 64 L64 104 L56 104 Z" fill="#b8892e"/>
+      <rect x="51" y="64" width="18" height="6" fill="#5a4330"/>
+      <rect x="53" y="80" width="14" height="4" fill="#5a4330"/>
+    </svg>
+    <div class="species-title">
+      <h2>Humain</h2>
+      <div class="sub">L'ambition au cœur</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span><span class="badge alt">Basic Rules</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Présents dans tout le multivers, les humains sont aussi variés que nombreux. Leur vie est courte, rarement plus d'un siècle, mais leur ambition et leur faculté d'adaptation leur permettent d'accomplir en quelques décennies ce que d'autres peuples mettent des siècles à bâtir.</p>
+    <p>Aucune culture humaine ne ressemble à une autre : cités marchandes, royaumes, tribus nomades, empires décadents. C'est cette diversité, plus qu'un trait physique, qui définit l'espèce.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,20–2,15 m) ou P (0,60–1,20 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>aucune</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Ingénieux.</strong> Vous gagnez l'<em>Inspiration héroïque</em> chaque fois que vous terminez un repos long. Elle permet de relancer un d20.</li>
+    <li><strong>Compétent.</strong> Maîtrise d'une compétence de votre choix.</li>
+    <li><strong>Polyvalent.</strong> Vous gagnez un <a href="https://www.aidedd.org/feat/fr/" target="_blank" rel="noopener">don d'origine</a> au choix ; <a href="https://www.aidedd.org/feat/fr/doue" target="_blank" rel="noopener">Doué</a> est recommandé. Comme votre background vous en donne déjà un, vous commencez avec deux dons.</li>
+  </ul>
+  <details>
+    <summary>Jouer un humain</summary>
+    <div class="inner"><ul>
+      <li>Deux dons d'origine dès le niveau 1 : combinez par exemple <em>Vigilant</em> (initiative) et <em>Robuste</em> (PV), ou <em>Initié à la magie</em> pour accéder à des sorts.</li>
+      <li>L'Inspiration héroïque quotidienne sauve régulièrement un jet crucial.</li>
+      <li>Aucune affinité imposée : c'est l'espèce la plus polyvalente.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Fin du +1 à toutes les caractéristiques et de la variante à don : le don d'origine est désormais la règle.</li>
+      <li>Nouveau trait Ingénieux (Inspiration héroïque).</li>
+      <li>Option de taille Petite.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751441-human" target="_blank" rel="noopener">Fiche Human (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#humain" target="_blank" rel="noopener">Humain (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/regles-24/dons/" target="_blank" rel="noopener">Règles des dons 2024 (AideDD)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/humain__ResizedImageWzgwMCw1MThd.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== NAIN ===================== -->
+<section class="panel species" id="nain">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème nain : enclume et marteau">
+      <circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+      <g transform="rotate(-35 70 40)">
+        <rect x="66" y="22" width="8" height="40" fill="#5a4330"/>
+        <rect x="56" y="16" width="28" height="12" rx="2" fill="#2b1d12"/>
+      </g>
+      <path d="M22 60 L96 60 L96 68 C86 68 80 72 78 80 L72 80 L72 90 L86 90 L86 98 L34 98 L34 90 L48 90 L48 80 L42 80 C40 72 34 68 22 68 Z" fill="#2b1d12"/>
+      <path d="M22 60 L96 60" stroke="#b8892e" stroke-width="2"/>
+      <path d="M40 52 L42 46 M50 50 L50 44 M60 52 L62 46" stroke="#8e1b1b" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div class="species-title">
+      <h2>Nain</h2>
+      <div class="sub">Les fils de la pierre</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span><span class="badge alt">Basic Rules</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Aux temps anciens, un dieu de la forge a fait surgir les nains de la terre elle-même. Ils vivent environ 350 ans et restent liés à la pierre : ils la sentent vibrer, la travaillent mieux que quiconque et bâtissent leurs cités au cœur des montagnes.</p>
+    <p>Petits mais larges et solides, souvent barbus, les nains sont réputés pour leur endurance, leur mémoire des rancunes comme des dettes, et leur savoir-faire de mineurs, forgerons et bâtisseurs.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,20–1,50 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>36 m</div>
+    <div class="stat"><b>Longévité</b>environ 350 ans</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Résilience naine.</strong> Résistance aux dégâts de poison, et avantage aux JS pour éviter ou mettre fin à l'état <em>Empoisonné</em>.</li>
+    <li><strong>Ténacité naine.</strong> Votre maximum de PV augmente de 1, puis de 1 à chaque niveau gagné (+20 PV au niveau 20).</li>
+    <li><strong>Connaissance de la pierre.</strong> Par une action bonus, vous gagnez <em>Perception des vibrations</em> sur 18 m pendant 10 minutes. Vous devez être sur une surface de pierre (naturelle ou taillée) ou en toucher une. Utilisations : autant que votre bonus de maîtrise, par repos long.</li>
+  </ul>
+  <details>
+    <summary>Jouer un nain</summary>
+    <div class="inner"><ul>
+      <li>Les PV supplémentaires et la résistance au poison en font un excellent personnage de première ligne.</li>
+      <li>La Perception des vibrations détecte les créatures invisibles ou cachées au sol dans un donjon.</li>
+      <li>Vision dans le noir à 36 m : idéal en exploration souterraine.</li>
+      <li>Affinités naturelles : guerrier, clerc, paladin, barbare, mais aussi lanceur de sorts résistant.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Vision dans le noir portée de 18 à 36 m.</li>
+      <li>Ténacité naine (ancien trait du nain des collines) devient commune à tous ; plus de sous-races.</li>
+      <li>Connaissance de la pierre donne désormais une Perception des vibrations au lieu d'un bonus en Histoire.</li>
+      <li>Plus de maîtrise d'armes, d'armures ni d'outils liée à l'espèce.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751436-dwarf" target="_blank" rel="noopener">Fiche Dwarf (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#nain" target="_blank" rel="noopener">Nain (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/nain.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== ORC ===================== -->
+<section class="panel species" id="orc">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème orc : défenses">
+      <circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+      <path d="M26 58 Q60 102 94 58 Q60 82 26 58 Z" fill="#8e1b1b"/>
+      <path d="M40 72 Q30 48 42 30 Q44 54 50 76 Z" fill="#f3e6c8" stroke="#b8892e" stroke-width="1.5"/>
+      <path d="M80 72 Q90 48 78 30 Q76 54 70 76 Z" fill="#f3e6c8" stroke="#b8892e" stroke-width="1.5"/>
+      <path d="M42 44 L50 50 M78 44 L70 50" stroke="#d9b25f" stroke-width="2"/>
+      <path d="M50 96 L60 88 L70 96" stroke="#d9b25f" stroke-width="2" fill="none"/>
+    </svg>
+    <div class="species-title">
+      <h2>Orc</h2>
+      <div class="sub">L'endurance incarnée</div>
+      <div class="badges"><span class="badge">Nouveau au PHB</span><span class="badge green">SRD 5.2</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les orcs font remonter leur création à Gruumsh, un dieu puissant qui les a dotés des dons nécessaires pour parcourir les grandes plaines, les vastes cavernes et les mers déchaînées. Endurance, énergie et vision nocturne font d'eux des voyageurs et des guerriers remarquables.</p>
+    <p>Grands, larges, souvent pourvus de défenses proéminentes, les orcs de 2024 ne sont plus associés par défaut à la brutalité : leurs cultures sont aussi variées que celles des autres peuples, et beaucoup vénèrent d'autres dieux que Gruumsh.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,80–2,15 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>36 m</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Poussée d'adrénaline.</strong> Vous pouvez prendre l'action <em>Foncer</em> par une action bonus ; vous gagnez alors des PV temporaires égaux à votre bonus de maîtrise. Utilisations : autant que votre bonus de maîtrise, récupérées après un repos <strong>court</strong> ou long.</li>
+    <li><strong>Acharnement.</strong> Si vous tombez à 0 PV sans être tué sur le coup, vous pouvez passer à 1 PV à la place. 1 fois par repos long.</li>
+  </ul>
+  <details>
+    <summary>Jouer un orc</summary>
+    <div class="inner"><ul>
+      <li>Poussée d'adrénaline donne une mobilité énorme : combler la distance au corps à corps ou fuir, tout en gagnant des PV temporaires.</li>
+      <li>Récupérable au repos court : on peut l'utiliser à presque chaque combat.</li>
+      <li>Acharnement évite une mise à terre, précieux au corps à corps.</li>
+      <li>Affinités naturelles : barbare, guerrier, paladin, et tout personnage de mêlée mobile (moine, roublard).</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>L'orc remplace le demi-orc dans le PHB.</li>
+      <li>Vision dans le noir à 36 m.</li>
+      <li>Attaques sauvages et Menaçant disparaissent ; Forte carrure (présent dans <em>Monsters of the Multiverse</em>) n'est pas repris.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751442-orc" target="_blank" rel="noopener">Fiche Orc (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#orc" target="_blank" rel="noopener">Orc (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/orc.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== TIEFFELIN ===================== -->
+<section class="panel species" id="tieffelin">
+  <a class="top" href="#apercu">↑ haut</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème tieffelin : cornes et flamme">
+      <circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+      <path d="M52 68 C30 62 20 38 36 20 C32 40 42 52 58 56 Z" fill="#8e1b1b"/>
+      <path d="M68 68 C90 62 100 38 84 20 C88 40 78 52 62 56 Z" fill="#8e1b1b"/>
+      <path d="M36 20 C33 30 36 40 44 48 M84 20 C87 30 84 40 76 48" stroke="#5e0f0f" stroke-width="1.5" fill="none"/>
+      <path d="M60 58 C72 72 70 86 60 100 C50 86 48 72 60 58 Z" fill="#d9b25f"/>
+      <path d="M60 72 C65 80 64 88 60 96 C56 88 55 80 60 72 Z" fill="#fbf3de"/>
+    </svg>
+    <div class="species-title">
+      <h2>Tieffelin</h2>
+      <div class="sub">Le sang des Plans inférieurs</div>
+      <div class="badges"><span class="badge green">SRD 5.2</span></div>
+    </div>
+  </div>
+  <div class="lore">
+    <p>Les tieffelins sont nés dans les Plans inférieurs ou descendent d'ancêtres fiélons venus de là-bas. Ce lien, par le sang ou par un pacte ancien, se manifeste physiquement et magiquement, mais ne dicte en rien leur morale.</p>
+    <p>L'<strong>héritage abyssal</strong> les rattache aux Abysses, au Pandémonium et aux Carcères : cornes, fourrure, défenses ou odeurs étranges, souvent hérités de démons. L'<strong>héritage chthonien</strong> les relie aux Carcères, à la Géhenne et à l'Hadès : certains paraissent cadavériques, d'autres ont une beauté surnaturelle rappelant une succube, une guenaude ou un yugoloth. L'<strong>héritage infernal</strong> les lie aux Neuf Enfers, à la Géhenne et à l'Achéron : cornes, épines, queue, yeux dorés et parfum de soufre, en général hérités de diables.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>Type</b>Humanoïde</div>
+    <div class="stat"><b>Taille</b>M (1,20–2,15 m) ou P (0,90–1,20 m)</div>
+    <div class="stat"><b>Vitesse</b>9 m</div>
+    <div class="stat"><b>Vision dans le noir</b>18 m</div>
+  </div>
+  <ul class="traits">
+    <li><strong>Héritage fiélon.</strong> Vous obtenez la résistance et le sort mineur de votre héritage, puis un sort aux niveaux 3 et 5. Caractéristique d'incantation au choix : Int, Sag ou Cha.
+      <div class="table-wrap"><table>
+        <tr><th>Héritage</th><th>Niv. 1</th><th>Niv. 3</th><th>Niv. 5</th></tr>
+        <tr><td><b>Abyssal</b></td><td>Résistance au poison ; <a class="spell" href="sorts-dnd-2024.html#bouffee-de-poison">bouffée de poison</a></td><td><a class="spell" href="sorts-dnd-2024.html#rayon-empoisonne">rayon empoisonné</a></td><td><a class="spell" href="sorts-dnd-2024.html#immobilisation-de-personne">immobilisation de personne</a></td></tr>
+        <tr><td><b>Chthonien</b></td><td>Résistance nécrotique ; <a class="spell" href="sorts-dnd-2024.html#contact-glacial">contact glacial</a></td><td><a class="spell" href="sorts-dnd-2024.html#simulacre-de-vie">simulacre de vie</a></td><td><a class="spell" href="sorts-dnd-2024.html#rayon-affaiblissant">rayon affaiblissant</a></td></tr>
+        <tr><td><b>Infernal</b></td><td>Résistance au feu ; <a class="spell" href="sorts-dnd-2024.html#trait-de-feu">trait de feu</a></td><td><a class="spell" href="sorts-dnd-2024.html#represailles-infernales">représailles infernales</a></td><td><a class="spell" href="sorts-dnd-2024.html#tenebres">ténèbres</a></td></tr>
+      </table></div>
+    </li>
+    <li><strong>Présence d'Outremonde.</strong> Vous connaissez le sort mineur <a class="spell" href="sorts-dnd-2024.html#thaumaturgie">thaumaturgie</a>, lancé avec la même caractéristique que votre héritage.</li>
+  </ul>
+  <details>
+    <summary>Jouer un tieffelin</summary>
+    <div class="inner"><ul>
+      <li>L'héritage infernal donne un sort mineur offensif (<em>trait de feu</em>) à n'importe quelle classe, et <em>représailles infernales</em> punit les attaquants.</li>
+      <li>L'héritage abyssal apporte le meilleur sort de contrôle au niveau 5 (<em>immobilisation de personne</em>).</li>
+      <li>L'héritage chthonien est défensif : <em>simulacre de vie</em> et résistance nécrotique, utiles contre les morts-vivants.</li>
+      <li>Affinités naturelles : occultiste, ensorceleur, barde, mais tout lanceur de sorts en profite.</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Ce qui change depuis 2014</summary>
+    <div class="inner"><ul>
+      <li>Trois héritages au choix au lieu d'une seule version infernale.</li>
+      <li>Caractéristique d'incantation au choix (elle était imposée : Charisme).</li>
+      <li>Option de taille Petite.</li>
+    </ul></div>
+  </details>
+  <div class="links">
+    <span>Sources</span>
+    <a href="https://www.dndbeyond.com/species/1751443-tiefling" target="_blank" rel="noopener">Fiche Tiefling (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/#tieffelin" target="_blank" rel="noopener">Tieffelin (AideDD, FR)</a>
+    <a href="https://www.aidedd.org/assets/regles/2024/tiefling.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a>
+  </div>
+</section>
+
+<!-- ===================== AUTRES ESPÈCES ===================== -->
+<section class="panel" id="autres">
+  <h2>Autres espèces aux règles 2024</h2>
+  <p>Depuis le PHB, Wizards of the Coast a publié de nouvelles espèces compatibles avec les règles 2024 dans ses suppléments de campagne. Chaque nom renvoie à sa fiche sur D&amp;D Beyond.</p>
+
+  <h3>Eberron: Forge of the Artificer</h3>
+  <div class="other-grid">
+    <div class="other"><a href="https://www.dndbeyond.com/species/2048551-changeling" target="_blank" rel="noopener">Changelin</a><br>Métamorphe capable de changer d'apparence et de se fondre dans n'importe quelle société.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2048552-kalashtar" target="_blank" rel="noopener">Kalashtar</a><br>Humains unis à des esprits quori renégats venus du plan des rêves ; dons télépathiques.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2048553-khoravar" target="_blank" rel="noopener">Khoravar</a><br>Descendants d'humains et d'elfes, avec leurs propres communautés en Khorvaire.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2048554-shifter" target="_blank" rel="noopener">Shifter</a><br>Héritiers d'une lycanthropie partielle, capables de révéler un aspect bestial.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2048555-warforged" target="_blank" rel="noopener">Forgelier</a><br>Êtres artificiels conçus comme armes pour la Dernière Guerre, en quête d'un nouveau but.</div>
+  </div>
+
+  <h3>Lorwyn: First Light</h3>
+  <div class="other-grid">
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043668-boggart" target="_blank" rel="noopener">Boggart</a><br>Petits gobelinoïdes trapus du monde de Lorwyn-Shadowmoor.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043669-faerie" target="_blank" rel="noopener">Faerie</a><br>Petites créatures ailées à la magie innée, amatrices de farces.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043670-flamekin" target="_blank" rel="noopener">Flamekin</a><br>Êtres de flamme profondément liés au monde naturel.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043671-kithkin" target="_blank" rel="noopener">Kithkin</a><br>Petit peuple uni par un lien empathique qui leur fait ressentir les émotions des leurs.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043672-lorwyn-changeling" target="_blank" rel="noopener">Changelin de Lorwyn</a><br>Métamorphes charismatiques qui imitent grossièrement créatures et plantes.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043673-lorwyn-shadowmoor-elf" target="_blank" rel="noopener">Elfe de Lorwyn-Shadowmoor</a><br>Elfes obsédés par la beauté, selon des critères parfois arbitraires.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2043674-rimekin" target="_blank" rel="noopener">Rimekin</a><br>Anciens flamekin devenus froids, qui privilégient la logique à l'émotion.</div>
+  </div>
+
+  <h3>Ravenloft: The Horrors Within</h3>
+  <div class="other-grid">
+    <div class="other"><a href="https://www.dndbeyond.com/species/2038805-dhampir" target="_blank" rel="noopener">Dhampir</a><br>Vivants dotés de pouvoirs vampiriques et d'une faim macabre.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2161358-hexblood" target="_blank" rel="noopener">Sang-maudit</a><br>Individus imprégnés de magie féerique ou de sorcellerie mystérieuse.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2161359-lupin" target="_blank" rel="noopener">Lupin</a><br>Rescapés d'une rencontre avec des loups-garous dont la malédiction n'a pas pris entièrement.</div>
+    <div class="other"><a href="https://www.dndbeyond.com/species/2161360-reborn" target="_blank" rel="noopener">Réincarné</a><br>Personnes mortes qui, inexplicablement, vivent encore.</div>
+  </div>
+  <p class="note">D&amp;D Beyond référence aussi de nombreuses espèces d'éditeurs tiers et d'anciens ouvrages (marquées « Legacy »), non couvertes ici.</p>
+</section>
+
+<!-- ===================== SOURCES ===================== -->
+<section class="panel" id="sources">
+  <h2>Sources et références</h2>
+  <h3>Règles en français</h3>
+  <ul>
+    <li><a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-especes/" target="_blank" rel="noopener">AideDD — Description des espèces 2024</a> : texte complet des 9 espèces du SRD, avec ancres par espèce. L'aasimar n'y figure pas.</li>
+    <li><a href="https://www.aidedd.org/regles-24/origines-des-personnages/" target="_blank" rel="noopener">AideDD — Origines des personnages</a> : fonctionnement des espèces et des historiques.</li>
+    <li><a href="https://www.aidedd.org/regles-24/creation-de-personnage/" target="_blank" rel="noopener">AideDD — Création de personnage</a> : étapes complètes de création en 2024.</li>
+    <li><a href="https://www.aidedd.org/regles-24/dons/" target="_blank" rel="noopener">AideDD — Dons</a> et <a href="https://www.aidedd.org/feat/fr/" target="_blank" rel="noopener">base de données des dons</a>.</li>
+    <li><a href="https://www.aidedd.org/regles-24/glossaire/" target="_blank" rel="noopener">AideDD — Glossaire des règles</a> : définitions des états (Charmé, Effrayé, À terre…).</li>
+    <li><a href="https://www.aidedd.org/dnd-5/livres/players-handbook-2024/" target="_blank" rel="noopener">AideDD — Présentation du PHB 2024</a> : sommaire et nouveautés.</li>
+  </ul>
+  <h3>Sources officielles (anglais)</h3>
+  <ul>
+    <li><a href="https://www.dndbeyond.com/species" target="_blank" rel="noopener">D&amp;D Beyond — Liste de toutes les espèces</a>, avec une fiche par espèce.</li>
+    <li><a href="https://www.dndbeyond.com/sources/dnd/br-2024" target="_blank" rel="noopener">D&amp;D Beyond — Basic Rules 2024</a> : règles gratuites (nain, elfe, halfelin, humain).</li>
+    <li><a href="https://www.dndbeyond.com/sources/dnd/br-2024/rules-glossary" target="_blank" rel="noopener">D&amp;D Beyond — Rules Glossary</a>.</li>
+    <li><a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">SRD 5.2</a> : document de référence sous licence Creative Commons.</li>
+    <li><a href="https://marketplace.dndbeyond.com/category/3709000" target="_blank" rel="noopener">Player's Handbook 2024 (boutique D&amp;D Beyond)</a> : l'ouvrage complet avec les 10 espèces.</li>
+  </ul>
+  <p class="note">Les descriptions de ce grimoire sont des résumés rédigés à partir des règles officielles, pas des extraits du livre. Les médaillons sont des créations originales ; les illustrations officielles sont accessibles via les liens « Illustration officielle ».</p>
+</section>
+
+</main>
+
+<footer>Dungeons &amp; Dragons est une marque de Wizards of the Coast. Page de référence non officielle.</footer>
+
+</body>
+</html>

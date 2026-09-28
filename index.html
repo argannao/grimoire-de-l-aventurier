@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grimoire de l'aventurier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --leather:#1c130d; --shadow:rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.5;
+  background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+}
+header{text-align:center;padding:64px 16px 30px;color:var(--parch)}
+.sigil{width:84px;height:84px;margin:0 auto 18px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 7px rgba(184,137,46,.15),0 0 40px rgba(217,178,95,.15)}
+.sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:34px;color:var(--gold-light)}
+h1{font-family:'Cinzel Decorative',serif;font-size:clamp(32px,6.5vw,62px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 26px rgba(217,178,95,.25)}
+.subtitle{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:12px 0 0}
+.divider{display:flex;align-items:center;gap:14px;max-width:420px;margin:26px auto 0;color:var(--gold)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+main{max-width:1100px;margin:0 auto;padding:10px 16px 60px}
+.section-title{font-family:'Cinzel',serif;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:15px;margin:30px 0 14px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:"";flex:1;height:1px;background:rgba(184,137,46,.5)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.4),transparent 45%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.2),transparent 55%);
+  border-radius:4px;padding:24px 22px 20px;
+  box-shadow:0 10px 26px var(--shadow),inset 0 0 50px rgba(120,80,30,.22);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(184,137,46,.55);border-radius:2px;pointer-events:none}
+a.card:hover,a.card:focus-visible{transform:translateY(-4px);box-shadow:0 16px 34px var(--shadow),0 0 0 2px var(--gold-light),inset 0 0 50px rgba(120,80,30,.22);outline:none}
+.card-top{display:flex;align-items:center;gap:14px}
+.emblem{width:72px;height:72px;flex:none;filter:drop-shadow(0 3px 5px rgba(40,20,5,.4))}
+.card h2{font-family:'Cinzel',serif;font-weight:900;font-size:22px;color:var(--blood);margin:0;line-height:1.15}
+.card .tagline{font-style:italic;color:var(--ink-soft);font-size:15.5px}
+.card p{margin:0;font-size:16.5px}
+.card .meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px dotted rgba(90,67,48,.4)}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:2px;color:var(--parch)}
+.badge.ok{background:#2f5d33}
+.badge.soon{background:var(--ink-soft)}
+.go{font-family:'Cinzel',serif;font-size:13px;color:var(--blood)}
+.card.disabled{opacity:.62;filter:saturate(.6)}
+.card.disabled .go{color:var(--ink-soft)}
+
+.help{margin-top:40px;background:rgba(243,230,200,.08);border:1px solid rgba(184,137,46,.4);border-radius:4px;color:#e8dcc0;padding:4px 18px}
+.help summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--gold-light);padding:10px 0}
+.help code,.help pre{font-family:ui-monospace,Consolas,monospace;font-size:14px}
+.help pre{background:rgba(0,0,0,.35);border:1px solid rgba(184,137,46,.3);padding:12px;border-radius:3px;overflow-x:auto;color:#f3e6c8}
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){header{padding-top:44px}.card{padding:20px 18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sigil"><span>D</span></div>
+  <h1>Grimoire de l'aventurier</h1>
+  <p class="subtitle">Compagnon de jeu · Règles D&amp;D 2024</p>
+  <div class="divider">◆</div>
+</header>
+
+<main id="modules"></main>
+
+<footer>Page d'accueil des modules · compatible 5E</footer>
+
+<script>
+/* =====================================================================
+   LISTE DES MODULES — c'est le seul endroit à modifier.
+   Pour ajouter un module, copiez un bloc { ... } et changez :
+     titre       : nom affiché
+     accroche    : sous-titre court
+     description : une ou deux phrases
+     fichier     : nom du fichier HTML (dans le même dossier que ce menu)
+     categorie   : regroupe les cartes sous un même titre de section
+     icone       : une des clés de ICONES plus bas (ou "etoile" par défaut)
+     statut      : "disponible" ou "bientot" (carte grisée, non cliquable)
+   ===================================================================== */
+const MODULES = [
+  { titre:"Espèces", accroche:"Les peuples du multivers", categorie:"Création de personnage",
+    description:"Les 10 espèces du Manuel des Joueurs 2024 : lore, traits, conseils de jeu et changements depuis 2014.",
+    fichier:"especes-dnd-2024.html", icone:"especes", statut:"disponible" },
+  { titre:"Classes", accroche:"Les 12 voies de l'aventure", categorie:"Création de personnage",
+    description:"Progression du niveau 1 au 20, capacités, 48 sous-classes et conseils pour chaque classe.",
+    fichier:"classes-dnd-2024.html", icone:"classes", statut:"disponible" },
+  { titre:"Sorts", accroche:"Le grimoire complet", categorie:"Magie",
+    description:"390 sorts illustrés, du sort mineur au niveau 9, avec filtres et liens vers les classes et espèces.",
+    fichier:"sorts-dnd-2024.html", icone:"sorts", statut:"disponible" },
+  // Exemple de module à venir (supprimez-le ou changez statut en "disponible") :
+  { titre:"Historiques", accroche:"D'où vient votre héros", categorie:"Création de personnage",
+    description:"Les historiques 2024, leurs caractéristiques et leurs dons d'origine.",
+    fichier:"historiques-dnd-2024.html", icone:"parchemin", statut:"bientot" },
+];
+
+/* Emblèmes disponibles (SVG 120×120). Ajoutez-en si besoin. */
+const RING = '<circle cx="60" cy="60" r="56" fill="none" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#b8892e" stroke-width="1" stroke-dasharray="2 4"/>';
+const ICONES = {
+  especes: `<circle cx="60" cy="60" r="56" fill="#3f6b3a"/>${RING}
+    <path d="M60 22C80 40 80 76 60 98C40 76 40 40 60 22Z" fill="#f3e6c8"/><path d="M60 28V94" stroke="#3f6b3a" stroke-width="2"/>
+    <path d="M60 46L48 38M60 46L72 38M60 62L46 52M60 62L74 52M60 78L50 70M60 78L70 70" stroke="#3f6b3a" stroke-width="1.6"/>`,
+  classes: `<circle cx="60" cy="60" r="56" fill="#8e1b1b"/>${RING}
+    <g transform="rotate(35 60 60)"><rect x="57" y="14" width="6" height="62" fill="#e6d2a6"/><rect x="46" y="74" width="28" height="5" fill="#d9b25f"/><rect x="57" y="79" width="6" height="16" fill="#5a4330"/></g>
+    <path d="M38 40H82V62C82 78 72 88 60 94C48 88 38 78 38 62Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="3"/><path d="M60 44V90M42 58H78" stroke="#8e1b1b" stroke-width="3"/>`,
+  sorts: `<circle cx="60" cy="60" r="56" fill="#2e1f52"/>${RING}
+    <path d="M60 46C48 40 32 40 22 44V90C32 86 48 86 60 92Z" fill="#fbf3de" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 46C72 40 88 40 98 44V90C88 86 72 86 60 92Z" fill="#fbf3de" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 14L64 26L76 28L66 35L69 47L60 40L51 47L54 35L44 28L56 26Z" fill="#d9b25f"/>
+    <circle cx="30" cy="24" r="2" fill="#d9b25f"/><circle cx="92" cy="30" r="1.6" fill="#d9b25f"/>`,
+  parchemin: `<circle cx="60" cy="60" r="56" fill="#5a4330"/>${RING}
+    <path d="M34 30H80C86 30 86 40 80 40H78V86C78 92 72 94 68 90H30C36 88 36 80 36 78V40C36 34 32 30 34 30Z" fill="#f3e6c8"/>
+    <path d="M44 50H70M44 60H70M44 70H64" stroke="#8e1b1b" stroke-width="2.5" stroke-linecap="round"/>`,
+  carte: `<circle cx="60" cy="60" r="56" fill="#1d3550"/>${RING}
+    <path d="M26 34L46 28L74 36L94 30V86L74 92L46 84L26 90Z" fill="#f3e6c8"/><path d="M46 28V84M74 36V92" stroke="#b8892e" stroke-width="2"/>
+    <path d="M34 70C44 56 54 74 64 58S84 50 86 44" fill="none" stroke="#8e1b1b" stroke-width="2.5" stroke-dasharray="4 3"/><path d="M82 40L90 48M90 40L82 48" stroke="#8e1b1b" stroke-width="3"/>`,
+  monstre: `<circle cx="60" cy="60" r="56" fill="#4e0f0c"/>${RING}
+    <path d="M18 60Q60 22 102 60Q60 96 18 60Z" fill="#d9b25f"/><ellipse cx="60" cy="60" rx="5" ry="18" fill="#1c130d"/>
+    <path d="M30 34L42 22L44 38ZM90 34L78 22L76 38Z" fill="#f3e6c8"/>`,
+  des: `<circle cx="60" cy="60" r="56" fill="#5e0f0f"/>${RING}
+    <path d="M60 18L94 38V82L60 102L26 82V38Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 18V58M26 38L60 58L94 38M60 58L60 102" stroke="#8e1b1b" stroke-width="2"/><text x="60" y="85" text-anchor="middle" font-family="Cinzel,serif" font-size="18" font-weight="700" fill="#8e1b1b">20</text>`,
+  objet: `<circle cx="60" cy="60" r="56" fill="#43310c"/>${RING}
+    <path d="M40 46H80L86 60H34Z" fill="#d9b25f"/><rect x="36" y="60" width="48" height="30" rx="3" fill="#b8892e" stroke="#f3e6c8" stroke-width="2"/>
+    <rect x="55" y="66" width="10" height="12" rx="2" fill="#f3e6c8"/><path d="M50 40L54 30L58 40M66 38L70 26L74 38" stroke="#fff4d6" stroke-width="2" fill="none"/>`,
+  etoile: `<circle cx="60" cy="60" r="56" fill="#2b1d12"/>${RING}
+    <path d="M60 20L67 50L96 60L67 70L60 100L53 70L24 60L53 50Z" fill="#d9b25f"/>`,
+};
+
+function emblem(key){
+  return `<svg class="emblem" viewBox="0 0 120 120" aria-hidden="true">${ICONES[key] || ICONES.etoile}</svg>`;
+}
+
+function renderMenu(){
+  const cats = [...new Set(MODULES.map(m => m.categorie || "Modules"))];
+  document.getElementById('modules').innerHTML = cats.map(cat => {
+    const cards = MODULES.filter(m => (m.categorie || "Modules") === cat).map(m => {
+      const ok = m.statut !== "bientot";
+      const inner = `
+        <div class="card-top">${emblem(m.icone)}<div><h2>${m.titre}</h2><div class="tagline">${m.accroche || ""}</div></div></div>
+        <p>${m.description || ""}</p>
+        <div class="meta">${ok ? '<span class="badge ok">Disponible</span><span class="go">Ouvrir ›</span>'
+                                : '<span class="badge soon">Bientôt</span><span class="go">En préparation</span>'}</div>`;
+      return ok ? `<a class="card" href="${m.fichier}">${inner}</a>`
+                : `<div class="card disabled" aria-disabled="true">${inner}</div>`;
+    }).join('');
+    return `<h2 class="section-title">${cat}</h2><div class="grid">${cards}</div>`;
+  }).join('') + `
+    <details class="help"><summary>Ajouter un nouveau module</summary>
+      <p>Placez le fichier HTML du module dans le même dossier que ce menu, puis ouvrez <code>index.html</code> dans un éditeur de texte et ajoutez un bloc dans la liste <code>MODULES</code> :</p>
+      <pre>{ titre:"Bestiaire", accroche:"Créatures et monstres", categorie:"Maître du jeu",
+  description:"Les monstres du SRD avec leurs profils.",
+  fichier:"bestiaire.html", icone:"monstre", statut:"disponible" },</pre>
+      <p>Emblèmes disponibles : ${Object.keys(ICONES).join(', ')}. Une nouvelle catégorie crée automatiquement une nouvelle section.</p>
+    </details>`;
+}
+renderMenu();
+</script>
+</body>
+</html>

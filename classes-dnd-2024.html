@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classes D&amp;D 2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+
+table.prog td.lvlc{font-family:'Cinzel',serif;font-weight:700;color:var(--blood);width:40px}
+table.prog tr.sub-row td{font-style:italic}
+.subgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:700px){.subgrid{grid-template-columns:1fr}}
+.subclass{background:var(--parch-dark);border:1px solid var(--gold);border-radius:2px;padding:12px 16px;display:flex;flex-direction:column}
+.subhead{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid rgba(184,137,46,.6);padding-bottom:6px;margin-bottom:6px}
+.subclass h4{font-family:'Cinzel',serif;font-size:16px;color:var(--blood);margin:0}
+.subdesc{font-style:italic;color:var(--ink-soft);margin:4px 0 8px;font-size:16px}
+.subclass ul{list-style:none;padding:0;margin:0 0 10px;font-size:16px}
+.subclass li{margin-bottom:6px}
+.subclass .lvl{margin:0 4px 0 0}
+.spells{font-size:15px;margin:0 0 10px}
+.spells .lv{display:inline-block;background:var(--blood);color:var(--parch);font-family:'Cinzel',serif;font-size:11px;padding:0 5px;border-radius:2px}
+.sublink{margin-top:auto;font-size:14px;text-decoration:none;border-bottom:1px solid currentColor;align-self:flex-start}
+
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<radialGradient id="medal" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#fbf3de"/><stop offset="100%" stop-color="#dcc48f"/></radialGradient>
+<radialGradient id="medalDark" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#4a2e1c"/><stop offset="100%" stop-color="#1c130d"/></radialGradient>
+<g id="ring"><circle cx="60" cy="60" r="56" fill="none" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#b8892e" stroke-width="1" stroke-dasharray="2 4"/></g>
+</defs></svg>
+
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a class="on" href="classes-dnd-2024.html">Classes</a><a href="sorts-dnd-2024.html">Sorts</a></div>
+<header>
+  <div class="sigil"><span>D</span></div>
+  <h1>Les Classes de D&amp;D</h1>
+  <p>Manuel des Joueurs · Édition 2024 · Grimoire détaillé</p>
+</header>
+
+<nav><ul><li><a href="#apercu">Aperçu</a></li><li><a href="#barbare">Barbare</a></li><li><a href="#barde">Barde</a></li><li><a href="#clerc">Clerc</a></li><li><a href="#druide">Druide</a></li><li><a href="#ensorceleur">Ensorceleur</a></li><li><a href="#guerrier">Guerrier</a></li><li><a href="#magicien">Magicien</a></li><li><a href="#moine">Moine</a></li><li><a href="#occultiste">Occultiste</a></li><li><a href="#paladin">Paladin</a></li><li><a href="#rodeur">Rôdeur</a></li><li><a href="#roublard">Roublard</a></li><li><a href="#autres">Autres classes</a></li><li><a href="#sources">Sources</a></li></ul></nav>
+
+<main>
+<section class="panel" id="apercu">
+  <h2>Avant de choisir</h2>
+  <p>Le Manuel des Joueurs 2024 propose douze classes, chacune avec quatre sous-classes. Votre classe définit l'essentiel de ce que votre personnage sait faire ; votre espèce et votre historique complètent le tableau.</p>
+  <h3>Ce qui change pour toutes les classes</h3>
+  <ul>
+    <li><strong>Sous-classe au niveau 3</strong> pour toutes les classes (au lieu de 1, 2 ou 3 selon les cas en 2014).</li>
+    <li><strong>Bottes d'arme</strong> (maîtrise d'armes) : barbare, guerrier, paladin, rôdeur et roublard débloquent la propriété spéciale de certaines armes (Poussée, Sape, Ralentissement…). <a href="https://www.aidedd.org/regles-24/equipement/armes/#botte" target="_blank" rel="noopener">Voir les bottes</a>.</li>
+    <li><strong>Les améliorations de caractéristique sont des dons</strong>, et chaque classe reçoit une <strong>Faveur épique</strong> au niveau 19. <a href="https://www.aidedd.org/feat/fr/" target="_blank" rel="noopener">Base des dons</a>.</li>
+    <li><strong>Tous les lanceurs de sorts préparent leurs sorts</strong>, selon une colonne « Sorts préparés » dans leur table.</li>
+    <li><strong>Les styles de combat sont des dons</strong>, qu'on peut échanger en montant de niveau.</li>
+  </ul>
+  <h3>Tableau récapitulatif</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Classe</th><th>Dé de vie</th><th>Caractéristique</th><th>JS maîtrisés</th><th>En bref</th></tr>
+    <tr><td><a href="#barbare">Barbare</a></td><td>d12</td><td>Force</td><td>Force et Constitution</td><td>La rage primitive</td></tr><tr><td><a href="#barde">Barde</a></td><td>d8</td><td>Charisme</td><td>Dextérité et Charisme</td><td>La magie du Verbe</td></tr><tr><td><a href="#clerc">Clerc</a></td><td>d8</td><td>Sagesse</td><td>Sagesse et Charisme</td><td>La puissance divine</td></tr><tr><td><a href="#druide">Druide</a></td><td>d8</td><td>Sagesse</td><td>Intelligence et Sagesse</td><td>Le prêtre de la nature</td></tr><tr><td><a href="#ensorceleur">Ensorceleur</a></td><td>d6</td><td>Charisme</td><td>Constitution et Charisme</td><td>La magie innée</td></tr><tr><td><a href="#guerrier">Guerrier</a></td><td>d10</td><td>Force ou Dextérité</td><td>Force et Constitution</td><td>Le maître des armes</td></tr><tr><td><a href="#magicien">Magicien</a></td><td>d6</td><td>Intelligence</td><td>Intelligence et Sagesse</td><td>Le savant des arcanes</td></tr><tr><td><a href="#moine">Moine</a></td><td>d8</td><td>Dextérité et Sagesse</td><td>Force et Dextérité</td><td>L'artiste martial</td></tr><tr><td><a href="#occultiste">Occultiste</a></td><td>d8</td><td>Charisme</td><td>Sagesse et Charisme</td><td>Le pacte interdit</td></tr><tr><td><a href="#paladin">Paladin</a></td><td>d10</td><td>Force et Charisme</td><td>Sagesse et Charisme</td><td>Le serment sacré</td></tr><tr><td><a href="#rodeur">Rôdeur</a></td><td>d10</td><td>Dextérité et Sagesse</td><td>Force et Dextérité</td><td>Le chasseur des terres sauvages</td></tr><tr><td><a href="#roublard">Roublard</a></td><td>d8</td><td>Dextérité</td><td>Dextérité et Intelligence</td><td>L'expert de l'ombre</td></tr>
+  </table></div>
+  <div class="links"><span>Référence</span>
+    <a href="https://www.aidedd.org/regles-24/classes/" target="_blank" rel="noopener">Classes de personnage (AideDD)</a>
+    <a href="https://www.dndbeyond.com/classes" target="_blank" rel="noopener">Liste des classes (D&amp;D Beyond)</a>
+    <a href="https://www.aidedd.org/dnd-creator/" target="_blank" rel="noopener">Créateur de personnage 2024 (AideDD)</a>
+  </div>
+</section>
+
+<section class="panel species" id="barbare">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Barbare"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<g transform="rotate(-28 60 60)">
+<rect x="57" y="18" width="6" height="88" rx="2" fill="#b8892e"/>
+<path d="M63 26 C88 18 98 44 88 62 C82 54 72 52 63 54 Z" fill="#f3e6c8"/>
+<path d="M57 26 C32 18 22 44 32 62 C38 54 48 52 57 54 Z" fill="#f3e6c8"/>
+<rect x="55" y="96" width="10" height="6" fill="#5a4330"/></g>
+<path d="M22 84 L34 70 M26 90 L40 74 M30 96 L46 78" stroke="#8e1b1b" stroke-width="3" stroke-linecap="round"/></svg><div class="species-title"><h2>Barbare</h2><div class="sub">La rage primitive</div><div class="badges"><span class="badge">d12</span><span class="badge alt">Force</span></div></div></div>
+<div class="lore"><p>Les barbares sont de puissants guerriers portés par les forces primitives du multivers, qui se manifestent sous la forme d'une Rage. Ce n'est pas seulement de la colère : c'est la férocité du prédateur, la fureur de la tempête, le tumulte de l'océan.</p><p>Certains incarnent leur Rage dans un esprit animal ou un ancêtre vénéré, d'autres y voient l'écho de la douleur du monde ou l'expression de leur moi profond. Souvent protecteurs et chefs de leur communauté, ils se jettent les premiers dans le danger pour que les autres n'aient pas à le faire.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d12</div><div class="stat"><b>Caractéristique principale</b>Force</div><div class="stat"><b>Jets de sauvegarde</b>Force et Constitution</div><div class="stat"><b>Compétences</b>2 parmi Athlétisme, Dressage, Intimidation, Nature, Perception, Survie</div><div class="stat"><b>Armes</b>Courantes et de guerre</div><div class="stat"><b>Armures</b>Légères, intermédiaires, boucliers</div><div class="stat"><b>Équipement</b>Hache à deux mains, 4 hachettes, sac d'explorateur et 15 po, ou 75 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Rages</th><th>Dégâts de rage</th><th>Bottes d'arme</th></tr>
+<tr><td class="lvlc">1</td><td>Rage, Défense sans armure, Bottes d'arme</td><td>2</td><td>+2</td><td>2</td></tr>
+<tr><td class="lvlc">2</td><td>Sens du danger, Témérité</td><td>2</td><td>+2</td><td>2</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe, Savoir primal</td><td>3</td><td>+2</td><td>2</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>3</td><td>+2</td><td>3</td></tr>
+<tr><td class="lvlc">5</td><td>Attaque supplémentaire, Déplacement rapide</td><td>3</td><td>+2</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>4</td><td>+2</td><td>3</td></tr>
+<tr><td class="lvlc">7</td><td>Instinct sauvage, Bond agressif</td><td>4</td><td>+2</td><td>3</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>4</td><td>+2</td><td>3</td></tr>
+<tr><td class="lvlc">9</td><td>Coup brutal</td><td>4</td><td>+3</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">10</td><td>Capacité de sous-classe</td><td>4</td><td>+3</td><td>4</td></tr>
+<tr><td class="lvlc">11</td><td>Rage implacable</td><td>4</td><td>+3</td><td>4</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>5</td><td>+3</td><td>4</td></tr>
+<tr><td class="lvlc">13</td><td>Coup brutal amélioré</td><td>5</td><td>+3</td><td>4</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>5</td><td>+3</td><td>4</td></tr>
+<tr><td class="lvlc">15</td><td>Rage persistante</td><td>5</td><td>+3</td><td>4</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>5</td><td>+4</td><td>4</td></tr>
+<tr><td class="lvlc">17</td><td>Coup brutal amélioré</td><td>6</td><td>+4</td><td>4</td></tr>
+<tr><td class="lvlc">18</td><td>Puissance indomptable</td><td>6</td><td>+4</td><td>4</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>6</td><td>+4</td><td>4</td></tr>
+<tr><td class="lvlc">20</td><td>Champion primitif</td><td>6</td><td>+4</td><td>4</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Rage</strong><span class="lvl">Niv. 1</span> Action bonus, sans armure lourde. Tant qu'elle dure : résistance aux dégâts contondants, perforants et tranchants ; bonus de dégâts sur les attaques utilisant la Force ; avantage aux tests et JS de Force ; pas de sorts ni de Concentration. Elle dure jusqu'à la fin de votre prochain tour et se prolonge si vous attaquez un ennemi, le forcez à un JS ou dépensez une action bonus (10 minutes au maximum). Une utilisation revient au repos court, toutes au repos long.</li>
+<li><strong>Défense sans armure</strong><span class="lvl">Niv. 1</span> CA de base = 10 + Dextérité + Constitution quand vous ne portez pas d'armure ; le bouclier reste utilisable.</li>
+<li><strong>Bottes d'arme</strong><span class="lvl">Niv. 1</span> Vous utilisez la propriété de botte (maîtrise d'arme) de deux types d'armes, modifiables à chaque repos long ; le nombre augmente avec le niveau.</li>
+<li><strong>Sens du danger</strong><span class="lvl">Niv. 2</span> Avantage aux JS de Dextérité tant que vous n'êtes pas Neutralisé.</li>
+<li><strong>Témérité</strong><span class="lvl">Niv. 2</span> Lors de votre première attaque du tour, vous gagnez l'avantage à vos attaques de Force jusqu'à votre prochain tour, mais les attaques contre vous ont aussi l'avantage.</li>
+<li><strong>Savoir primal</strong><span class="lvl">Niv. 3</span> Une compétence de barbare en plus. En Rage, vos tests d'Acrobaties, Discrétion, Intimidation, Perception et Survie peuvent utiliser la Force.</li>
+<li><strong>Déplacement rapide</strong><span class="lvl">Niv. 5</span> +3 m de vitesse sans armure lourde.</li>
+<li><strong>Instinct sauvage et Bond agressif</strong><span class="lvl">Niv. 7</span> Avantage à l'initiative ; en entrant en Rage, vous pouvez vous déplacer de la moitié de votre vitesse.</li>
+<li><strong>Coup brutal</strong><span class="lvl">Niv. 9</span> En renonçant à l'avantage de Témérité sur une attaque, vous infligez +1d10 dégâts et un effet : Coup appuyé (repousse de 4,50 m et vous suivez sans attaque d'opportunité) ou Coup au jarret (−4,50 m de vitesse). Au niveau 13, s'ajoutent Coup stupéfiant (désavantage au prochain JS, pas d'attaque d'opportunité) et Coup déchirant (+5 à la prochaine attaque d'un allié). Au niveau 17 : +2d10 et deux effets à la fois.</li>
+<li><strong>Rage implacable</strong><span class="lvl">Niv. 11</span> À 0 PV en Rage, JS de Constitution DD 10 (+5 à chaque usage) pour revenir à un nombre de PV égal à deux fois votre niveau.</li>
+<li><strong>Rage persistante</strong><span class="lvl">Niv. 15</span> Une fois par repos long, vous récupérez toutes vos Rages en lançant l'initiative ; la Rage dure 10 minutes sans entretien.</li>
+<li><strong>Puissance indomptable</strong><span class="lvl">Niv. 18</span> Si un test ou JS de Force est inférieur à votre valeur de Force, vous utilisez cette valeur.</li>
+<li><strong>Champion primitif</strong><span class="lvl">Niv. 20</span> Force et Constitution +4 (maximum 25).</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Voie de l'Arbre-Monde</h4><span class="badge green">SRD</span></div><p class="subdesc">Votre Rage vous relie à Yggdrasil, l'arbre cosmique qui unit les plans : vitalité partagée et voyages dimensionnels.</p>
+<ul><li><span class="lvl">3</span> <strong>Vitalité de l'arbre.</strong> En entrant en Rage, PV temporaires égaux à votre niveau ; à chaque tour, vous donnez à un allié à 3 m des PV temporaires (autant de d6 que votre bonus de Rage).</li><li><span class="lvl">6</span> <strong>Branches de l'arbre.</strong> Réaction : une créature à 9 m réussit un JS de Force ou est téléportée près de vous, vitesse réduite à 0.</li><li><span class="lvl">10</span> <strong>Racines frappantes.</strong> Allonge +3 m avec les armes Lourdes ou Polyvalentes à votre tour, et possibilité d'ajouter la botte Poussée ou Renversement.</li><li><span class="lvl">14</span> <strong>Voyage au gré de l'arbre.</strong> En Rage, vous vous téléportez sur de longues distances, et une fois par Rage vous pouvez emmener des alliés.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barbare/#arbre-monde" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Voie du Berserker</h4><span class="badge green">SRD</span></div><p class="subdesc">Une fureur débridée, canalisée dans la violence pure.</p>
+<ul><li><span class="lvl">3</span> <strong>Frénésie.</strong> Avec Témérité en Rage, la première cible touchée subit des dégâts supplémentaires (autant de d6 que votre bonus de Rage).</li><li><span class="lvl">6</span> <strong>Rage aveugle.</strong> Immunité aux états Charmé et Effrayé en Rage.</li><li><span class="lvl">10</span> <strong>Représailles.</strong> Réaction : attaque de mêlée contre une créature à 1,50 m qui vient de vous blesser.</li><li><span class="lvl">14</span> <strong>Présence intimidante.</strong> Action bonus : les créatures choisies dans 9 m réussissent un JS de Sagesse ou sont Effrayées 1 minute. Recharge au repos long ou en dépensant une Rage.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barbare/#berserker" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Voie du Cœur sauvage</h4><span class="badge green">SRD</span></div><p class="subdesc">Parenté avec les animaux : votre Rage emprunte la puissance des bêtes.</p>
+<ul><li><span class="lvl">3</span> <strong>Orateur animal.</strong> Rituels de <a class="spell" href="sorts-dnd-2024.html#perception-bestiale">perception bestiale</a> et <a class="spell" href="sorts-dnd-2024.html#communication-avec-les-animaux">communication avec les animaux</a>.</li><li><span class="lvl">3</span> <strong>Rage du prédateur.</strong> À chaque Rage, un aspect : Ours (résistance à presque tous les dégâts), Aigle (Désengagement et Foncer en action bonus) ou Loup (vos alliés ont l'avantage contre les ennemis à 1,50 m de vous).</li><li><span class="lvl">6</span> <strong>Aspect de faune.</strong> Au choix, modifiable au repos long : Chouette (vision dans le noir 18 m), Panthère (escalade) ou Saumon (nage).</li><li><span class="lvl">10</span> <strong>Orateur de la nature.</strong> Rituel de <a class="spell" href="sorts-dnd-2024.html#communion-avec-la-nature">communion avec la nature</a>.</li><li><span class="lvl">14</span> <strong>Puissance de la faune.</strong> Nouveau pouvoir de Rage : vol (faucon), gêne des ennemis proches (lion) ou renversement (bélier).</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barbare/#coeur-sauvage" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Voie du Zélateur</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">Une Rage en union avec un dieu ; la faveur divine vous porte au combat et vous ramène de la mort.</p>
+<ul><li><span class="lvl">3</span> <strong>Fureur divine.</strong> Une fois par tour en Rage, la première créature touchée subit 1d6 + la moitié de votre niveau en dégâts nécrotiques ou radiants.</li><li><span class="lvl">3</span> <strong>Guerrier des dieux.</strong> Réserve de d12 de soins utilisable en action bonus, qui grandit avec le niveau.</li><li><span class="lvl">6</span> <strong>Focalisation fanatique.</strong> En Rage, relance d'un JS raté avec un bonus.</li><li><span class="lvl">10</span> <strong>Présence zélée.</strong> Action bonus : vos alliés proches gagnent l'avantage aux attaques et aux JS jusqu'à votre prochain tour.</li><li><span class="lvl">14</span> <strong>Rage des dieux.</strong> Forme divine temporaire : vol, résistances, et possibilité d'empêcher un allié de tomber.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190875-barbarian" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+</div>
+<details><summary>Jouer un barbare</summary><div class="inner"><ul><li>La résistance de la Rage divise par deux la plupart des dégâts d'armes : vous êtes le rempart du groupe.</li><li>Témérité, puis Coup brutal : c'est la boucle principale de la classe au niveau 9 et au-delà.</li><li>Avec Savoir primal, la Force sert aussi hors combat (Discrétion, Perception…).</li><li>Espèces qui s'y prêtent : goliath, orc, nain, drakéide.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Maîtrise d'armes (Bottes d'arme) dès le niveau 1.</li><li>La Rage se prolonge aussi par action bonus et se récupère en partie au repos court.</li><li>Coup brutal remplace Critique brutal ; Savoir primal, Bond agressif et Rage persistante sont nouveaux.</li><li>Le Berserker ne cause plus d'épuisement ; le Totem devient le Cœur sauvage ; l'Arbre-Monde est nouveau.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="https://www.aidedd.org/regles-24/classes/barbare/" target="_blank" rel="noopener">Barbare 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190875-barbarian" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/barbarian.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="barde">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Barde"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<path d="M44 92 C28 74 30 44 44 26 C44 40 46 50 52 56" fill="none" stroke="#8e1b1b" stroke-width="6" stroke-linecap="round"/>
+<path d="M76 92 C92 74 90 44 76 26 C76 40 74 50 68 56" fill="none" stroke="#8e1b1b" stroke-width="6" stroke-linecap="round"/>
+<rect x="40" y="30" width="40" height="5" rx="2" fill="#5a4330"/>
+<path d="M50 35 L52 90 M57 35 L58 90 M63 35 L62 90 M70 35 L68 90" stroke="#b8892e" stroke-width="1.5"/>
+<path d="M40 90 Q60 100 80 90" fill="none" stroke="#5a4330" stroke-width="5" stroke-linecap="round"/>
+<path d="M88 24 q6 -6 10 0 M92 22 v14" stroke="#5a4330" stroke-width="2" fill="none"/><circle cx="90" cy="37" r="3" fill="#5a4330"/></svg><div class="species-title"><h2>Barde</h2><div class="sub">La magie du Verbe</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Charisme</span></div></div></div>
+<div class="lore"><p>Par la musique, la danse et la poésie, les bardes inspirent, soignent, découragent et trompent. Ils pensent que le multivers a été créé par la parole, et que des fragments de ce Verbe de la Création résonnent encore sur tous les plans.</p><p>Fascinés par à peu près tout, ils voyagent, collectent histoires et savoirs, et vivent de la reconnaissance de leur public. La profondeur de leur savoir et leur maîtrise de la magie les distinguent des simples artistes.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristique principale</b>Charisme</div><div class="stat"><b>Jets de sauvegarde</b>Dextérité et Charisme</div><div class="stat"><b>Compétences</b>3 au choix</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Légères</div><div class="stat"><b>Outils</b>3 instruments de musique</div><div class="stat"><b>Équipement</b>Armure de cuir, 2 dagues, instrument, sac d'artiste et 19 po, ou 90 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Dé bardique</th><th>Sorts mineurs</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Inspiration bardique, Sorts</td><td>d6</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">2</td><td>Expertise, Touche-à-tout</td><td>d6</td><td>2</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>d6</td><td>2</td><td>6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>d6</td><td>3</td><td>7</td></tr>
+<tr><td class="lvlc">5</td><td>Source d'inspiration</td><td>d8</td><td>3</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>d8</td><td>3</td><td>10</td></tr>
+<tr><td class="lvlc">7</td><td>Contre-charme</td><td>d8</td><td>3</td><td>11</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>d8</td><td>3</td><td>12</td></tr>
+<tr><td class="lvlc">9</td><td>Expertise</td><td>d8</td><td>3</td><td>14</td></tr>
+<tr><td class="lvlc">10</td><td>Secrets magiques</td><td>d10</td><td>4</td><td>15</td></tr>
+<tr><td class="lvlc">11</td><td>—</td><td>d10</td><td>4</td><td>16</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>d10</td><td>4</td><td>16</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>d10</td><td>4</td><td>17</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>d10</td><td>4</td><td>17</td></tr>
+<tr><td class="lvlc">15</td><td>—</td><td>d12</td><td>4</td><td>18</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>d12</td><td>4</td><td>18</td></tr>
+<tr><td class="lvlc">17</td><td>—</td><td>d12</td><td>4</td><td>19</td></tr>
+<tr><td class="lvlc">18</td><td>Inspiration supérieure</td><td>d12</td><td>4</td><td>20</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>d12</td><td>4</td><td>21</td></tr>
+<tr><td class="lvlc">20</td><td>Verbe de la création</td><td>d12</td><td>4</td><td>22</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Inspiration bardique</strong><span class="lvl">Niv. 1</span> Action bonus : une créature à 18 m reçoit votre dé. Dans l'heure, après un échec à un d20, elle peut l'ajouter au résultat. Utilisations égales à votre modificateur de Charisme, récupérées au repos long (au repos court dès le niveau 5).</li>
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Lanceur complet au Charisme, avec un instrument comme focaliseur. Vous changez un sort préparé à chaque niveau. Recommandés au niveau 1 : <a class="spell" href="sorts-dnd-2024.html#lumieres-dansantes">lumières dansantes</a>, <a class="spell" href="sorts-dnd-2024.html#moquerie-cruelle">moquerie cruelle</a>, <a class="spell" href="sorts-dnd-2024.html#charme-personne">charme-personne</a>, <a class="spell" href="sorts-dnd-2024.html#mot-de-guerison">mot de guérison</a>.</li>
+<li><strong>Expertise</strong><span class="lvl">Niv. 2</span> Expertise dans deux compétences, puis deux autres au niveau 9.</li>
+<li><strong>Touche-à-tout</strong><span class="lvl">Niv. 2</span> La moitié de votre bonus de maîtrise s'ajoute aux tests de compétences que vous ne maîtrisez pas.</li>
+<li><strong>Source d'inspiration</strong><span class="lvl">Niv. 5</span> L'Inspiration revient au repos court, et vous pouvez dépenser un emplacement de sort pour en récupérer une.</li>
+<li><strong>Contre-charme</strong><span class="lvl">Niv. 7</span> Réaction : vous ou une créature à 9 m relancez avec avantage un JS raté contre Charmé ou Effrayé.</li>
+<li><strong>Secrets magiques</strong><span class="lvl">Niv. 10</span> Vos sorts préparés peuvent venir des listes de barde, clerc, druide ou magicien.</li>
+<li><strong>Inspiration supérieure</strong><span class="lvl">Niv. 18</span> En lançant l'initiative, vous remontez à deux utilisations d'Inspiration.</li>
+<li><strong>Verbe de la création</strong><span class="lvl">Niv. 20</span> <a class="spell" href="sorts-dnd-2024.html#mot-de-pouvoir-guerisseur">mot de pouvoir guérisseur</a> et <a class="spell" href="sorts-dnd-2024.html#mot-de-pouvoir-mortel">mot de pouvoir mortel</a> sont toujours préparés et peuvent viser une seconde créature proche.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Collège de la Danse</h4><span class="badge green">SRD</span></div><p class="subdesc">Le Verbe s'exprime par le mouvement : agilité, vitesse et grâce au combat.</p>
+<ul><li><span class="lvl">3</span> <strong>Pirouettes éblouissantes.</strong> Sans armure ni bouclier : CA 10 + Dex + Cha, avantage en Représentation dansée, frappes à mains nues à la Dextérité avec votre dé bardique en dégâts, et une frappe gratuite à chaque dépense d'Inspiration.</li><li><span class="lvl">6</span> <strong>Déplacement exaltant.</strong> Réaction quand un ennemi termine son tour près de vous : vous et un allié vous déplacez sans attaque d'opportunité.</li><li><span class="lvl">6</span> <strong>Pirouettes coordonnées.</strong> À l'initiative, une Inspiration donne un bonus d'initiative à vous et vos alliés proches.</li><li><span class="lvl">14</span> <strong>Esquive cavalière.</strong> Votre esquive des effets de zone protège aussi les créatures à côté de vous.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barde/#danse" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Collège du Savoir</h4><span class="badge green">SRD</span></div><p class="subdesc">Érudits, collectionneurs de secrets et pourfendeurs de mensonges.</p>
+<ul><li><span class="lvl">3</span> <strong>Maîtrises supplémentaires.</strong> Trois compétences de votre choix.</li><li><span class="lvl">3</span> <strong>Mots cinglants.</strong> Réaction : vous soustrayez votre dé bardique aux dégâts, à une attaque ou à un test réussi d'une créature à 18 m.</li><li><span class="lvl">6</span> <strong>Découvertes magiques.</strong> Deux sorts toujours préparés, pris dans les listes de clerc, druide ou magicien.</li><li><span class="lvl">14</span> <strong>Compétence hors pair.</strong> Vous ajoutez votre propre dé bardique à une attaque ou un test raté ; il n'est pas dépensé si l'échec persiste.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barde/#savoir" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Collège de la Séduction</h4><span class="badge green">SRD</span></div><p class="subdesc">La magie envoûtante de la Féerie, entre beauté et terreur.</p>
+<ul><li><span class="lvl">3</span> <strong>Magie envoûtante.</strong> <a class="spell" href="sorts-dnd-2024.html#charme-personne">charme-personne</a>, <a class="spell" href="sorts-dnd-2024.html#image-miroir">image miroir</a> toujours préparés ; après un sort d'Enchantement ou d'Illusion, une créature peut être Charmée ou Effrayée.</li><li><span class="lvl">3</span> <strong>Mante d'inspiration.</strong> Action bonus : plusieurs alliés gagnent des PV temporaires et se repositionnent sans attaque d'opportunité.</li><li><span class="lvl">6</span> <strong>Mante de majesté.</strong> <a class="spell" href="sorts-dnd-2024.html#injonction">injonction</a> gratuit à chaque tour pendant 1 minute ; les créatures charmées ratent automatiquement leur JS.</li><li><span class="lvl">14</span> <strong>Majesté souveraine.</strong> Votre aura surnaturelle rend risqué le fait de vous attaquer.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barde/#seduction" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Collège de la Vaillance</h4><span class="badge green">SRD</span></div><p class="subdesc">Conteurs audacieux qui chantent les héros d'antan… et combattent à leurs côtés.</p>
+<ul><li><span class="lvl">3</span> <strong>Inspiration martiale.</strong> Le dé d'Inspiration peut aussi s'ajouter à la CA (réaction) ou aux dégâts.</li><li><span class="lvl">3</span> <strong>Formation martiale.</strong> Armes de guerre, armures intermédiaires, boucliers ; une arme peut servir de focaliseur.</li><li><span class="lvl">6</span> <strong>Attaque supplémentaire.</strong> Deux attaques, dont une peut être remplacée par un sort mineur.</li><li><span class="lvl">14</span> <strong>Magie de guerre.</strong> Après un sort, vous pouvez attaquer en action bonus.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/barde/#vaillance" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un barde</summary><div class="inner"><ul><li>Distribuez l'Inspiration avant les jets décisifs : elle peut transformer un échec en réussite.</li><li>Secrets magiques au niveau 10 ouvre les meilleurs sorts des autres listes.</li><li>Avec l'Expertise et Touche-à-tout, le barde est souvent le meilleur spécialiste de compétences du groupe.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Sorts préparés au lieu de sorts connus ; Secrets magiques se choisissent désormais librement à chaque niveau à partir du 10.</li><li>L'Inspiration s'ajoute après un échec, au lieu d'être lancée avant.</li><li>Chant reposant disparaît ; le Collège de la Danse est nouveau.</li><li>Capstone : Verbe de la création remplace Inspiration supérieure au niveau 20.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-barde">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/barde/" target="_blank" rel="noopener">Barde 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190876-bard" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/bard.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="clerc">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Clerc"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<g stroke="#d9b25f" stroke-width="3" stroke-linecap="round">
+<path d="M60 18 V32 M60 88 V102 M18 60 H32 M88 60 H102 M30 30 L40 40 M80 80 L90 90 M90 30 L80 40 M40 80 L30 90"/></g>
+<circle cx="60" cy="60" r="22" fill="#d9b25f"/>
+<circle cx="60" cy="60" r="15" fill="#f3e6c8"/>
+<path d="M60 48 V72 M52 56 H68" stroke="#8e1b1b" stroke-width="4" stroke-linecap="round"/></svg><div class="species-title"><h2>Clerc</h2><div class="sub">La puissance divine</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Sagesse</span></div></div></div>
+<div class="lore"><p>Les clercs puisent dans la magie divine des plans Extérieurs, là où résident les dieux, pour accomplir des miracles, soutenir leur peuple et combattre leurs ennemis. Leur pouvoir est un don d'une divinité, d'un panthéon ou d'une autre entité immortelle.</p><p>Ils fréquentent souvent les temples de la puissance qui les a bénis, mais tous les prêtres ne sont pas clercs : beaucoup servent par la prière seule, et rares sont ceux qui peuvent réellement manier la puissance des dieux.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristique principale</b>Sagesse</div><div class="stat"><b>Jets de sauvegarde</b>Sagesse et Charisme</div><div class="stat"><b>Compétences</b>2 parmi Histoire, Intuition, Médecine, Persuasion, Religion</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Légères, intermédiaires, boucliers</div><div class="stat"><b>Équipement</b>Chemise de mailles, bouclier, masse d'armes, symbole sacré, sac d'ecclésiastique et 7 po, ou 110 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Conduit divin</th><th>Sorts mineurs</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Sorts, Ordre divin</td><td>—</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">2</td><td>Conduit divin</td><td>2</td><td>3</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>2</td><td>3</td><td>6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>2</td><td>4</td><td>7</td></tr>
+<tr><td class="lvlc">5</td><td>Calcination de mort-vivant</td><td>2</td><td>4</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>3</td><td>4</td><td>10</td></tr>
+<tr><td class="lvlc">7</td><td>Frappes bénies</td><td>3</td><td>4</td><td>11</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td><td>12</td></tr>
+<tr><td class="lvlc">9</td><td>—</td><td>3</td><td>4</td><td>14</td></tr>
+<tr><td class="lvlc">10</td><td>Intervention divine</td><td>3</td><td>5</td><td>15</td></tr>
+<tr><td class="lvlc">11</td><td>—</td><td>3</td><td>5</td><td>16</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>3</td><td>5</td><td>16</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>3</td><td>5</td><td>17</td></tr>
+<tr><td class="lvlc">14</td><td>Frappes bénies améliorées</td><td>3</td><td>5</td><td>17</td></tr>
+<tr><td class="lvlc">15</td><td>—</td><td>3</td><td>5</td><td>18</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>3</td><td>5</td><td>18</td></tr>
+<tr class="sub-row"><td class="lvlc">17</td><td>Capacité de sous-classe</td><td>3</td><td>5</td><td>19</td></tr>
+<tr><td class="lvlc">18</td><td>—</td><td>4</td><td>5</td><td>20</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>4</td><td>5</td><td>21</td></tr>
+<tr><td class="lvlc">20</td><td>Intervention divine suprême</td><td>4</td><td>5</td><td>22</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Lanceur complet à la Sagesse, avec un symbole sacré. Liste de sorts préparés modifiable à chaque repos long. Recommandés : <a class="spell" href="sorts-dnd-2024.html#assistance">assistance</a>, <a class="spell" href="sorts-dnd-2024.html#flamme-sacree">flamme sacrée</a>, <a class="spell" href="sorts-dnd-2024.html#thaumaturgie">thaumaturgie</a>, <a class="spell" href="sorts-dnd-2024.html#benediction">bénédiction</a>, <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-tracant">rayon traçant</a>, <a class="spell" href="sorts-dnd-2024.html#bouclier-de-la-foi">bouclier de la foi</a>.</li>
+<li><strong>Ordre divin</strong><span class="lvl">Niv. 1</span> Protecteur (armes de guerre et armures lourdes) ou Thaumaturge (un sort mineur en plus et un bonus égal à la Sagesse aux tests d'Arcanes et de Religion).</li>
+<li><strong>Conduit divin</strong><span class="lvl">Niv. 2</span> Étincelle divine (1d8 + Sag de soins ou de dégâts nécrotiques ou radiants à 9 m ; 2d8 au niveau 7, 3d8 au 13, 4d8 au 18) et Renvoi des morts-vivants (les morts-vivants qui ratent un JS de Sagesse sont Effrayés et Neutralisés 1 minute). Une utilisation revient au repos court.</li>
+<li><strong>Calcination de mort-vivant</strong><span class="lvl">Niv. 5</span> Le Renvoi inflige aussi des dégâts radiants (autant de d8 que votre modificateur de Sagesse).</li>
+<li><strong>Frappes bénies</strong><span class="lvl">Niv. 7</span> Frappe divine (+1d8 nécrotique ou radiant une fois par tour avec une arme ; 2d8 au niveau 14) ou Incantation puissante (+Sagesse aux dégâts des sorts mineurs ; au 14, des PV temporaires en plus).</li>
+<li><strong>Intervention divine</strong><span class="lvl">Niv. 10</span> Action Magie : vous lancez n'importe quel sort de clerc de niveau 5 ou moins, sans emplacement ni composantes, une fois par repos long.</li>
+<li><strong>Intervention divine suprême</strong><span class="lvl">Niv. 20</span> Vous pouvez choisir souhait avec l'Intervention divine, mais il faut ensuite 2d4 repos longs pour la réutiliser.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Domaine de la Guerre</h4><span class="badge green">SRD</span></div><p class="subdesc">Dieux des combattants, de l'honneur ou de la destruction.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#rayon-tracant">rayon traçant</a>, <a class="spell" href="sorts-dnd-2024.html#arme-magique">arme magique</a>, <a class="spell" href="sorts-dnd-2024.html#bouclier-de-la-foi">bouclier de la foi</a>, <a class="spell" href="sorts-dnd-2024.html#arme-spirituelle">arme spirituelle</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#aura-du-croise">aura du croisé</a>, <a class="spell" href="sorts-dnd-2024.html#esprits-gardiens">esprits gardiens</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#bouclier-de-feu">bouclier de feu</a>, <a class="spell" href="sorts-dnd-2024.html#liberte-de-mouvement">liberté de mouvement</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#immobilisation-de-monstre">immobilisation de monstre</a>, <a class="spell" href="sorts-dnd-2024.html#frappe-du-vent-d-acier">frappe du vent d'acier</a></p>
+<ul><li><span class="lvl">3</span> <strong>Frappe guidée.</strong> Conduit divin : +10 à une attaque ratée, la vôtre ou celle d'un allié à 9 m (réaction).</li><li><span class="lvl">3</span> <strong>Prêtre de guerre.</strong> Attaque en action bonus, autant de fois que votre Sagesse, recharge au repos court.</li><li><span class="lvl">6</span> <strong>Bénédiction du dieu de la guerre.</strong> Bouclier de la foi ou arme spirituelle via Conduit divin, sans Concentration.</li><li><span class="lvl">17</span> <strong>Avatar de la bataille.</strong> Résistance aux dégâts contondants, perforants et tranchants.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/clerc/#guerre" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Domaine de la Lumière</h4><span class="badge green">SRD</span></div><p class="subdesc">Vérité, vigilance et feu purificateur contre les ténèbres.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#mains-brulantes">mains brûlantes</a>, <a class="spell" href="sorts-dnd-2024.html#lueurs-feeriques">lueurs féeriques</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-ardent">rayon ardent</a>, <a class="spell" href="sorts-dnd-2024.html#detection-de-l-invisibilite">détection de l'invisibilité</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#lumiere-du-jour">lumière du jour</a>, <a class="spell" href="sorts-dnd-2024.html#boule-de-feu">boule de feu</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#oeil-du-mage">œil du mage</a>, <a class="spell" href="sorts-dnd-2024.html#mur-de-feu">mur de feu</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#colonne-de-flamme">colonne de flamme</a>, <a class="spell" href="sorts-dnd-2024.html#scrutation">scrutation</a></p>
+<ul><li><span class="lvl">3</span> <strong>Radiance de l'aube.</strong> Conduit divin : dissipe les ténèbres magiques et inflige 2d10 + niveau en dégâts radiants autour de vous.</li><li><span class="lvl">3</span> <strong>Éclat protecteur.</strong> Réaction : désavantage à une attaque contre une créature proche.</li><li><span class="lvl">6</span> <strong>Éclat protecteur amélioré.</strong> Recharge au repos court et PV temporaires pour la cible protégée.</li><li><span class="lvl">17</span> <strong>Auréole.</strong> Une aura de lumière solaire affaiblit les JS des ennemis contre vos effets de feu et de lumière.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/clerc/#lumière" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Domaine de la Ruse</h4><span class="badge green">SRD</span></div><p class="subdesc">Dieux des farceurs, des voleurs et des rebelles.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#charme-personne">charme-personne</a>, <a class="spell" href="sorts-dnd-2024.html#deguisement">déguisement</a>, <a class="spell" href="sorts-dnd-2024.html#invisibilite">invisibilité</a>, <a class="spell" href="sorts-dnd-2024.html#passage-sans-trace">passage sans trace</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#motif-hypnotique">motif hypnotique</a>, <a class="spell" href="sorts-dnd-2024.html#antidetection">antidétection</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#confusion">confusion</a>, <a class="spell" href="sorts-dnd-2024.html#porte-dimensionnelle">porte dimensionnelle</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#domination-de-personne">domination de personne</a>, <a class="spell" href="sorts-dnd-2024.html#modification-de-memoire">modification de mémoire</a></p>
+<ul><li><span class="lvl">3</span> <strong>Faveur du filou.</strong> Avantage en Discrétion pour vous ou un allié.</li><li><span class="lvl">3</span> <strong>Invocation de réplique.</strong> Conduit divin : un double illusoire d'où vous pouvez lancer vos sorts et qui distrait les ennemis.</li><li><span class="lvl">6</span> <strong>Troc du filou.</strong> Vous échangez votre place avec votre réplique.</li><li><span class="lvl">17</span> <strong>Réplique améliorée.</strong> La réplique aide aussi vos alliés et soigne en disparaissant.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/clerc/#ruse" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Domaine de la Vie</h4><span class="badge green">SRD</span></div><p class="subdesc">Maîtres de la guérison, liés à l'énergie positive.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#aide">aide</a>, <a class="spell" href="sorts-dnd-2024.html#benediction">bénédiction</a>, <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#restauration-partielle">restauration partielle</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#mot-de-guerison-de-groupe">mot de guérison de groupe</a>, <a class="spell" href="sorts-dnd-2024.html#retour-a-la-vie">retour à la vie</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#aura-de-vie">aura de vie</a>, <a class="spell" href="sorts-dnd-2024.html#protection-contre-la-mort">protection contre la mort</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#restauration-supreme">restauration suprême</a>, <a class="spell" href="sorts-dnd-2024.html#soins-de-groupe">soins de groupe</a></p>
+<ul><li><span class="lvl">3</span> <strong>Disciple de la vie.</strong> Vos sorts de soins rendent 2 + le niveau de l'emplacement en PV supplémentaires.</li><li><span class="lvl">3</span> <strong>Survivance.</strong> Conduit divin : 5 × niveau de PV répartis entre les créatures En péril proches.</li><li><span class="lvl">6</span> <strong>Guérisseur béni.</strong> Soigner un autre vous soigne aussi.</li><li><span class="lvl">17</span> <strong>Guérison suprême.</strong> Les dés de soins donnent toujours leur valeur maximale.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/clerc/#vie" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un clerc</summary><div class="inner"><ul><li>Ordre divin Protecteur : un clerc en armure lourde est un excellent pilier de première ligne.</li><li>Étincelle divine est un soin à distance puissant qui ne coûte pas d'emplacement.</li><li>Changez vos sorts préparés à chaque repos long selon la mission du jour.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Tous les domaines donnent leurs capacités au niveau 3 (au lieu du niveau 1).</li><li>Ordre divin et Étincelle divine sont nouveaux ; Destruction des morts-vivants devient Calcination.</li><li>Intervention divine est automatique au niveau 10 (plus de jet de pourcentage).</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-clerc">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/clerc/" target="_blank" rel="noopener">Clerc 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190877-cleric" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/cleric.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="druide">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Druide"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<rect x="56" y="62" width="8" height="30" fill="#5a4330"/>
+<path d="M60 92 C52 96 44 98 36 98 M60 92 C68 96 76 98 84 98" stroke="#5a4330" stroke-width="4" fill="none" stroke-linecap="round"/>
+<circle cx="60" cy="44" r="20" fill="#3f6b3a"/><circle cx="42" cy="56" r="14" fill="#3f6b3a"/><circle cx="78" cy="56" r="14" fill="#3f6b3a"/>
+<circle cx="50" cy="36" r="3" fill="#d9b25f"/><circle cx="72" cy="46" r="3" fill="#d9b25f"/><circle cx="44" cy="58" r="2.5" fill="#d9b25f"/>
+<path d="M92 24 A12 12 0 1 0 98 44 A9 9 0 1 1 92 24 Z" fill="#b8892e"/></svg><div class="species-title"><h2>Druide</h2><div class="sub">Le prêtre de la nature</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Sagesse</span></div></div></div>
+<div class="lore"><p>Les druides appartiennent à des ordres anciens qui invoquent les forces de la nature. Ils puisent dans la magie des animaux, des plantes et des quatre éléments pour soigner, changer de forme et déchaîner les éléments.</p><p>Gardiens du fragile équilibre entre la vie sauvage et la civilisation, ils protègent souvent des sites sacrés. Quand une menace majeure surgit, ils deviennent des aventuriers actifs.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristique principale</b>Sagesse</div><div class="stat"><b>Jets de sauvegarde</b>Intelligence et Sagesse</div><div class="stat"><b>Compétences</b>2 parmi Arcanes, Dressage, Intuition, Médecine, Nature, Perception, Religion, Survie</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Légères, boucliers</div><div class="stat"><b>Outils</b>Kit d'herboriste</div><div class="stat"><b>Équipement</b>Armure de cuir, bouclier, serpe, bâton druidique, sac d'explorateur, kit d'herboriste et 9 po, ou 50 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Forme sauvage</th><th>Sorts mineurs</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Sorts, Druidique, Ordre primitif</td><td>—</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">2</td><td>Forme sauvage, Compagnon sauvage</td><td>2</td><td>2</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>2</td><td>2</td><td>6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>2</td><td>3</td><td>7</td></tr>
+<tr><td class="lvlc">5</td><td>Regain sauvage</td><td>2</td><td>3</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>3</td><td>3</td><td>10</td></tr>
+<tr><td class="lvlc">7</td><td>Fureur élémentaire</td><td>3</td><td>3</td><td>11</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>3</td><td>3</td><td>12</td></tr>
+<tr><td class="lvlc">9</td><td>—</td><td>3</td><td>3</td><td>14</td></tr>
+<tr class="sub-row"><td class="lvlc">10</td><td>Capacité de sous-classe</td><td>3</td><td>4</td><td>15</td></tr>
+<tr><td class="lvlc">11</td><td>—</td><td>3</td><td>4</td><td>16</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td><td>16</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>3</td><td>4</td><td>17</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>3</td><td>4</td><td>17</td></tr>
+<tr><td class="lvlc">15</td><td>Fureur élémentaire améliorée</td><td>3</td><td>4</td><td>18</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td><td>18</td></tr>
+<tr><td class="lvlc">17</td><td>—</td><td>4</td><td>4</td><td>19</td></tr>
+<tr><td class="lvlc">18</td><td>Incantation animale</td><td>4</td><td>4</td><td>20</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>4</td><td>4</td><td>21</td></tr>
+<tr><td class="lvlc">20</td><td>Archidruide</td><td>4</td><td>4</td><td>22</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Lanceur complet à la Sagesse, avec un focaliseur druidique. Recommandés : <a class="spell" href="sorts-dnd-2024.html#druidisme">druidisme</a>, <a class="spell" href="sorts-dnd-2024.html#flammes">flammes</a>, <a class="spell" href="sorts-dnd-2024.html#amitie-avec-les-animaux">amitié avec les animaux</a>, <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#lueurs-feeriques">lueurs féeriques</a>, <a class="spell" href="sorts-dnd-2024.html#vague-tonnante">vague tonnante</a>.</li>
+<li><strong>Druidique</strong><span class="lvl">Niv. 1</span> La langue secrète des druides, et <a class="spell" href="sorts-dnd-2024.html#communication-avec-les-animaux">communication avec les animaux</a> toujours préparé.</li>
+<li><strong>Ordre primitif</strong><span class="lvl">Niv. 1</span> Mage (un sort mineur en plus et un bonus égal à la Sagesse en Arcanes et Nature) ou Gardien (armes de guerre et armures intermédiaires).</li>
+<li><strong>Forme sauvage</strong><span class="lvl">Niv. 2</span> Action bonus : vous prenez une forme de Bête connue et gagnez des PV temporaires égaux à votre niveau. Vous gardez vos PV, votre Intelligence, Sagesse et Charisme, mais ne lancez pas de sorts. Formes connues : 4 (FP 1/4, sans vol) au niveau 2, 6 (FP 1/2) au 4, 8 (FP 1, vol autorisé) au 8. Une utilisation revient au repos court.</li>
+<li><strong>Compagnon sauvage</strong><span class="lvl">Niv. 2</span> Une utilisation de Forme sauvage ou un emplacement pour lancer <a class="spell" href="sorts-dnd-2024.html#appel-de-familier">appel de familier</a>, sous forme d'esprit féerique.</li>
+<li><strong>Regain sauvage</strong><span class="lvl">Niv. 5</span> Un emplacement de sort rend une utilisation de Forme sauvage, et une fois par repos long une Forme sauvage rend un emplacement de niveau 1.</li>
+<li><strong>Fureur élémentaire</strong><span class="lvl">Niv. 7</span> Incantation puissante (+Sagesse aux dégâts des sorts mineurs) ou Frappes primitives (+1d8 de froid, feu, foudre ou tonnerre une fois par tour). Améliorée au niveau 15.</li>
+<li><strong>Incantation animale</strong><span class="lvl">Niv. 18</span> Vous lancez des sorts sous Forme sauvage.</li>
+<li><strong>Archidruide</strong><span class="lvl">Niv. 20</span> Une Forme sauvage revient à l'initiative, vous convertissez vos Formes en emplacement de sort, et vous vieillissez dix fois moins vite.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Cercle des Astres</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">La magie des constellations, tracée sur une carte stellaire.</p>
+<ul><li><span class="lvl">3</span> <strong>Carte stellaire.</strong> Un focaliseur céleste qui donne des sorts de guidage et de rayon lumineux gratuits.</li><li><span class="lvl">3</span> <strong>Forme étoilée.</strong> En dépensant une Forme sauvage, vous devenez lumineux : Archer (attaque radiante à distance), Calice (soins bonus) ou Dragon (tests de réflexion et Concentration fiables).</li><li><span class="lvl">6</span> <strong>Présage cosmique.</strong> Chaque jour, un présage vous laisse ajouter ou retirer un dé à des jets proches.</li><li><span class="lvl">10</span> <strong>Constellations scintillantes.</strong> Formes étoilées renforcées, vol en Dragon, changement de constellation à chaque tour.</li><li><span class="lvl">14</span> <strong>Plein d'étoiles.</strong> En Forme étoilée, résistance aux dégâts contondants, perforants et tranchants.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190878-druid" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Cercle de la Lune</h4><span class="badge green">SRD</span></div><p class="subdesc">Maîtres de la métamorphose, qui se réunissent à la pleine lune.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-lune">rayon de lune</a>, <a class="spell" href="sorts-dnd-2024.html#poussiere-d-etoile">poussière d'étoile</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#invocation-d-animaux">invocation d'animaux</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#fontaine-de-lune">fontaine de lune</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#soins-de-groupe">soins de groupe</a></p>
+<ul><li><span class="lvl">3</span> <strong>Formes du cercle.</strong> FP maximal = niveau ÷ 3, CA 13 + Sagesse, PV temporaires triplés. Vos sorts de cercle se lancent sous Forme sauvage.</li><li><span class="lvl">6</span> <strong>Formes du cercle améliorées.</strong> Dégâts radiants au choix et bonus de Sagesse aux JS de Constitution.</li><li><span class="lvl">10</span> <strong>Foulée sélène.</strong> Téléportation de 9 m en action bonus et avantage à la prochaine attaque.</li><li><span class="lvl">14</span> <strong>Forme lunaire.</strong> Dégâts radiants supplémentaires et Foulée sélène partagée.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/druide/#lune" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Cercle des Mers</h4><span class="badge green">SRD</span></div><p class="subdesc">La fureur des océans et des tempêtes.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#nappe-de-brouillard">nappe de brouillard</a>, <a class="spell" href="sorts-dnd-2024.html#bourrasque">bourrasque</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>, <a class="spell" href="sorts-dnd-2024.html#vague-tonnante">vague tonnante</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#eclair">éclair</a>, <a class="spell" href="sorts-dnd-2024.html#respiration-aquatique">respiration aquatique</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#controle-de-l-eau">contrôle de l'eau</a>, <a class="spell" href="sorts-dnd-2024.html#tempete-de-grele">tempête de grêle</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#invocation-d-elementaire">invocation d'élémentaire</a>, <a class="spell" href="sorts-dnd-2024.html#immobilisation-de-monstre">immobilisation de monstre</a></p>
+<ul><li><span class="lvl">3</span> <strong>Courroux des mers.</strong> Une Forme sauvage crée pendant 10 minutes une aura d'embruns qui inflige des dégâts de froid et repousse les ennemis.</li><li><span class="lvl">6</span> <strong>Affinité aquatique.</strong> L'aura s'agrandit ; vous nagez à pleine vitesse.</li><li><span class="lvl">10</span> <strong>Enfant des tempêtes.</strong> Pendant le Courroux : vol et résistance au froid, à la foudre et au tonnerre.</li><li><span class="lvl">14</span> <strong>Offrande océanique.</strong> Vous partagez le Courroux des mers avec un allié.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/druide/#mers" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Cercle de la Terre</h4><span class="badge green">SRD</span></div><p class="subdesc">Sages gardiens des rites anciens, dont les sorts dépendent du paysage (aride, polaire, tempéré ou tropical).</p>
+<ul><li><span class="lvl">3</span> <strong>Sorts du cercle.</strong> Choix d'environnement à chaque repos long. Exemples au niveau 3 : aride (<a class="spell" href="sorts-dnd-2024.html#flou">flou</a>, <a class="spell" href="sorts-dnd-2024.html#mains-brulantes">mains brûlantes</a>, <a class="spell" href="sorts-dnd-2024.html#trait-de-feu">trait de feu</a>), polaire (<a class="spell" href="sorts-dnd-2024.html#nappe-de-brouillard">nappe de brouillard</a>, <a class="spell" href="sorts-dnd-2024.html#immobilisation-de-personne">immobilisation de personne</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>), tempéré (<a class="spell" href="sorts-dnd-2024.html#foulee-brumeuse">foulée brumeuse</a>, <a class="spell" href="sorts-dnd-2024.html#poigne-electrique">poigne électrique</a>, <a class="spell" href="sorts-dnd-2024.html#sommeil">sommeil</a>), tropical (<a class="spell" href="sorts-dnd-2024.html#aspersion-acide">aspersion d’acide</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-empoisonne">rayon empoisonné</a>, <a class="spell" href="sorts-dnd-2024.html#toile-d-araignee">toile d’araignée</a>).</li><li><span class="lvl">3</span> <strong>Aval de la terre.</strong> Une Forme sauvage fait éclore une sphère qui blesse les ennemis (dégâts nécrotiques) et soigne un allié.</li><li><span class="lvl">6</span> <strong>Ressourcement.</strong> Un sort de cercle gratuit, et récupération d'emplacements au repos court.</li><li><span class="lvl">10</span> <strong>Protégé de dame Nature.</strong> Immunité à l'état Empoisonné et résistance liée à l'environnement.</li><li><span class="lvl">14</span> <strong>Sanctuaire de dame Nature.</strong> Un bosquet spectral qui abrite vos alliés et leur donne votre résistance.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/druide/#terre" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un druide</summary><div class="inner"><ul><li>La Forme sauvage sert aussi hors combat : éclaireur en araignée ou en rat, monture en cheval.</li><li>Les PV temporaires de la Forme sauvage absorbent les coups sans toucher à vos PV réels.</li><li>Le Cercle de la Lune est la voie du druide de première ligne.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>La Forme sauvage fonctionne avec des formes connues et donne des PV temporaires au lieu de remplacer vos PV.</li><li>Compagnon sauvage, Ordre primitif et Fureur élémentaire sont nouveaux.</li><li>Nouveau Cercle des Mers ; Cercle des Astres repris de Tasha.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-druide">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/druide/" target="_blank" rel="noopener">Druide 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190878-druid" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/druid.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="ensorceleur">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Ensorceleur"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<circle cx="60" cy="62" r="28" fill="#5e0f0f"/>
+<path d="M60 62 m0 -18 a18 18 0 1 1 -16 26 a12 12 0 1 0 20 -14 a6 6 0 1 1 -6 8" fill="none" stroke="#d9b25f" stroke-width="3" stroke-linecap="round"/>
+<path d="M78 14 L68 36 L78 36 L66 56" fill="none" stroke="#f3e6c8" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="30" cy="30" r="2" fill="#d9b25f"/><circle cx="92" cy="86" r="2.5" fill="#d9b25f"/><circle cx="26" cy="88" r="1.5" fill="#d9b25f"/></svg><div class="species-title"><h2>Ensorceleur</h2><div class="sub">La magie innée</div><div class="badges"><span class="badge">d6</span><span class="badge alt">Charisme</span></div></div></div>
+<div class="lore"><p>Les ensorceleurs portent une magie gravée dans leur être : le souffle d'un dragon mourant, la bénédiction d'une dryade, un éclair tombé d'un ciel sans nuage ou l'exposition à la magie d'un autre plan. Beaucoup ignorent l'origine exacte de leur don.</p><p>Ils n'apprennent pas la magie : ils la canalisent et la façonnent. Leur pouvoir brut refuse de rester silencieux et ne demande qu'à s'exprimer.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d6</div><div class="stat"><b>Caractéristique principale</b>Charisme</div><div class="stat"><b>Jets de sauvegarde</b>Constitution et Charisme</div><div class="stat"><b>Compétences</b>2 parmi Arcanes, Intimidation, Intuition, Persuasion, Religion, Tromperie</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Aucune</div><div class="stat"><b>Équipement</b>Lance, 2 dagues, cristal arcanique, sac d'exploration souterraine et 28 po, ou 50 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Points de sorcellerie</th><th>Sorts mineurs</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Sorts, Sorcellerie innée</td><td>—</td><td>4</td><td>2</td></tr>
+<tr><td class="lvlc">2</td><td>Réserve arcanique, Métamagie</td><td>2</td><td>4</td><td>4</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>3</td><td>4</td><td>6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>4</td><td>5</td><td>7</td></tr>
+<tr><td class="lvlc">5</td><td>Restauration ensorcelée</td><td>5</td><td>5</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>6</td><td>5</td><td>10</td></tr>
+<tr><td class="lvlc">7</td><td>Sorcellerie incarnée</td><td>7</td><td>5</td><td>11</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>8</td><td>5</td><td>12</td></tr>
+<tr><td class="lvlc">9</td><td>—</td><td>9</td><td>5</td><td>14</td></tr>
+<tr><td class="lvlc">10</td><td>Métamagie</td><td>10</td><td>6</td><td>15</td></tr>
+<tr><td class="lvlc">11</td><td>—</td><td>11</td><td>6</td><td>16</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>12</td><td>6</td><td>16</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>13</td><td>6</td><td>17</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>14</td><td>6</td><td>17</td></tr>
+<tr><td class="lvlc">15</td><td>—</td><td>15</td><td>6</td><td>18</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>16</td><td>6</td><td>18</td></tr>
+<tr><td class="lvlc">17</td><td>Métamagie</td><td>17</td><td>6</td><td>19</td></tr>
+<tr class="sub-row"><td class="lvlc">18</td><td>Capacité de sous-classe</td><td>18</td><td>6</td><td>20</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>19</td><td>6</td><td>21</td></tr>
+<tr><td class="lvlc">20</td><td>Apothéose arcanique</td><td>20</td><td>6</td><td>22</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Lanceur complet au Charisme. Recommandés : <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, <a class="spell" href="sorts-dnd-2024.html#prestidigitation">prestidigitation</a>, <a class="spell" href="sorts-dnd-2024.html#poigne-electrique">poigne électrique</a>, <a class="spell" href="sorts-dnd-2024.html#eruption-ensorcelee">éruption ensorcelée</a>, <a class="spell" href="sorts-dnd-2024.html#mains-brulantes">mains brûlantes</a>, <a class="spell" href="sorts-dnd-2024.html#detection-de-la-magie">détection de la magie</a>.</li>
+<li><strong>Sorcellerie innée</strong><span class="lvl">Niv. 1</span> Action bonus, 1 minute : +1 au DD de vos sorts et avantage à vos attaques de sort. Deux fois par repos long.</li>
+<li><strong>Réserve arcanique</strong><span class="lvl">Niv. 2</span> Points de sorcellerie. Un emplacement se convertit en points (autant que son niveau) ; les points créent des emplacements jusqu'au niveau 5 (coûts : 2, 3, 5, 6, 7).</li>
+<li><strong>Métamagie</strong><span class="lvl">Niv. 2</span> Deux options, puis deux autres aux niveaux 10 et 17 : Sort accéléré (2), Sort ample (1), Sort chercheur (1), Sort étendu (1), Sort intensifié (2), Sort jumeau (1), Sort prévenant (1), Sort renforcé (1), Sort subtil (1), Sort transmuté (1).</li>
+<li><strong>Restauration ensorcelée</strong><span class="lvl">Niv. 5</span> Au repos court, vous récupérez des points (jusqu'à la moitié de votre niveau), une fois par repos long.</li>
+<li><strong>Sorcellerie incarnée</strong><span class="lvl">Niv. 7</span> Vous réactivez la Sorcellerie innée pour 2 points ; pendant qu'elle est active, deux options de Métamagie par sort.</li>
+<li><strong>Apothéose arcanique</strong><span class="lvl">Niv. 20</span> Pendant la Sorcellerie innée, une option de Métamagie gratuite à chaque tour.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Sorcellerie aberrante</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">Une magie psionique venue du Royaume Lointain.</p>
+<ul><li><span class="lvl">3</span> <strong>Sorts psioniques et Parole télépathique.</strong> Sorts d'esprit toujours préparés et lien télépathique.</li><li><span class="lvl">6</span> <strong>Sorcellerie psionique et Défenses psychiques.</strong> Sorts psioniques lancés avec des points, sans composantes ; résistance psychique.</li><li><span class="lvl">14</span> <strong>Révélation dans la chair.</strong> Transformations aberrantes : vol, nage, vision de l'invisible, corps malléable.</li><li><span class="lvl">18</span> <strong>Implosion distordante.</strong> Vous vous téléportez et créez une implosion qui attire et écrase vos ennemis.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190884-sorcerer" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Sorcellerie draconique</h4><span class="badge green">SRD</span></div><p class="subdesc">Le don d'un dragon, par la lignée, un trésor ou un lieu imprégné.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#modification-d-apparence">modification d'apparence</a>, <a class="spell" href="sorts-dnd-2024.html#orbe-chromatique">orbe chromatique</a>, <a class="spell" href="sorts-dnd-2024.html#injonction">injonction</a>, <a class="spell" href="sorts-dnd-2024.html#souffle-du-dragon">souffle du dragon</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#terreur">peur</a>, <a class="spell" href="sorts-dnd-2024.html#vol">vol</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#oeil-du-mage">œil du mage</a>, <a class="spell" href="sorts-dnd-2024.html#charme-monstre">charme-monstre</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#mythes-et-legendes">mythes et légendes</a>, <a class="spell" href="sorts-dnd-2024.html#convocation-de-dragon">convocation de dragon</a></p>
+<ul><li><span class="lvl">3</span> <strong>Résistance draconique.</strong> +3 PV puis +1 par niveau ; CA 10 + Dex + Cha sans armure.</li><li><span class="lvl">6</span> <strong>Affinité élémentaire.</strong> Résistance à un type draconique et +Charisme aux dégâts de ce type.</li><li><span class="lvl">14</span> <strong>Ailes draconiques.</strong> Vol de 18 m pendant 1 heure.</li><li><span class="lvl">18</span> <strong>Compagnon draconique.</strong> Convocation de dragon gratuite, possible sans Concentration.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/ensorceleur/#draconique" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Sorcellerie mécanique</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">La force cosmique de l'ordre, celle de Mechanus.</p>
+<ul><li><span class="lvl">3</span> <strong>Sorts mécaniques et Rétablir l'équilibre.</strong> Sorts d'ordre toujours préparés ; réaction pour annuler un avantage ou un désavantage.</li><li><span class="lvl">6</span> <strong>Bastion de la loi.</strong> Une réserve de protection qui réduit les dégâts subis par une créature.</li><li><span class="lvl">14</span> <strong>Transe de l'ordre.</strong> Vos d20 ne descendent plus sous 10, et les attaques contre vous perdent l'avantage.</li><li><span class="lvl">18</span> <strong>Cavalcade mécanique.</strong> Des esprits d'ordre soignent, réparent et dissipent la magie autour de vous.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190884-sorcerer" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Sorcellerie sauvage</h4><span class="badge green">SRD</span></div><p class="subdesc">Le chaos brut qui sous-tend la création.</p>
+<ul><li><span class="lvl">3</span> <strong>Bouffée de sorcellerie sauvage.</strong> Après un sort, un 20 sur 1d20 déclenche un effet aléatoire (table d100).</li><li><span class="lvl">3</span> <strong>Marée du chaos.</strong> Avantage à un d20 ; se recharge quand une bouffée se déclenche.</li><li><span class="lvl">6</span> <strong>Comme par hasard.</strong> Réaction, 1 point : ±1d4 au d20 d'une autre créature.</li><li><span class="lvl">14</span> <strong>Chaos contrôlé.</strong> Deux jets sur la table, vous choisissez.</li><li><span class="lvl">18</span> <strong>Bouffée domptée.</strong> Vous choisissez directement l'effet de la table.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/ensorceleur/#sauvage" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un ensorceleur</summary><div class="inner"><ul><li>Sorcellerie innée + Sort accéléré : un excellent tour de pic de puissance.</li><li>Sort subtil permet de lancer un sort en pleine cour royale sans être repéré.</li><li>Le Charisme sert aussi en société : l'ensorceleur fait un très bon porte-parole.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Sorcellerie innée, Sorcellerie incarnée et Apothéose arcanique sont nouvelles.</li><li>Plus de sorts préparés qu'avant, et quatre sous-classes au PHB (aberrante et mécanique reprises de Tasha).</li><li>Nouvelles options de Métamagie : Sort chercheur et Sort transmuté.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-ensorceleur">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/ensorceleur/" target="_blank" rel="noopener">Ensorceleur 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190884-sorcerer" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/sorcerer.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="guerrier">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Guerrier"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<g transform="rotate(35 60 60)"><rect x="57" y="10" width="6" height="70" fill="#5a4330"/><path d="M57 10 L60 2 L63 10 Z" fill="#5a4330"/>
+<rect x="46" y="78" width="28" height="5" fill="#2b1d12"/><rect x="57" y="83" width="6" height="16" fill="#8e1b1b"/><circle cx="60" cy="102" r="4" fill="#b8892e"/></g>
+<path d="M36 38 H84 V64 C84 82 72 94 60 100 C48 94 36 82 36 64 Z" fill="#8e1b1b" stroke="#b8892e" stroke-width="3"/>
+<path d="M60 40 V98 M38 58 H82" stroke="#d9b25f" stroke-width="3"/></svg><div class="species-title"><h2>Guerrier</h2><div class="sub">Le maître des armes</div><div class="badges"><span class="badge">d10</span><span class="badge alt">Force ou Dextérité</span></div></div></div>
+<div class="lore"><p>Chevaliers errants, champions royaux, soldats d'élite ou mercenaires endurcis, les guerriers partagent une maîtrise inégalée des armes et des armures. Ils connaissent la mort de près, pour l'avoir donnée comme pour l'avoir défiée.</p><p>Chacun se spécialise dans un style : tir à l'arc, combat à deux armes, arme lourde, ou même magie mise au service de l'épée.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d10</div><div class="stat"><b>Caractéristique principale</b>Force ou Dextérité</div><div class="stat"><b>Jets de sauvegarde</b>Force et Constitution</div><div class="stat"><b>Compétences</b>2 parmi Acrobaties, Athlétisme, Dressage, Histoire, Intimidation, Intuition, Perception, Persuasion, Survie</div><div class="stat"><b>Armes</b>Courantes et de guerre</div><div class="stat"><b>Armures</b>Toutes, boucliers</div><div class="stat"><b>Équipement</b>Trois paquetages au choix (lourd, léger à distance) ou 155 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Second souffle</th><th>Bottes d'arme</th></tr>
+<tr><td class="lvlc">1</td><td>Style de combat, Second souffle, Bottes d'arme</td><td>2</td><td>3</td></tr>
+<tr><td class="lvlc">2</td><td>Fougue (1), Sens tactique</td><td>2</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>2</td><td>3</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">5</td><td>Attaque supplémentaire, Décalage tactique</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">6</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td></tr>
+<tr class="sub-row"><td class="lvlc">7</td><td>Capacité de sous-classe</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">9</td><td>Inflexible (1), Botte tactique</td><td>3</td><td>4</td></tr>
+<tr class="sub-row"><td class="lvlc">10</td><td>Capacité de sous-classe</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">11</td><td>Double attaque supplémentaire</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">13</td><td>Attaques avisées, Inflexible (2)</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">14</td><td>Amélioration de caractéristique</td><td>4</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">15</td><td>Capacité de sous-classe</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>4</td><td>6</td></tr>
+<tr><td class="lvlc">17</td><td>Fougue (2), Inflexible (3)</td><td>4</td><td>6</td></tr>
+<tr class="sub-row"><td class="lvlc">18</td><td>Capacité de sous-classe</td><td>4</td><td>6</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>4</td><td>6</td></tr>
+<tr><td class="lvlc">20</td><td>Triple attaque supplémentaire</td><td>4</td><td>6</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Style de combat</strong><span class="lvl">Niv. 1</span> Un don de Style de combat, modifiable à chaque niveau.</li>
+<li><strong>Second souffle</strong><span class="lvl">Niv. 1</span> Action bonus : vous regagnez 1d10 + niveau PV. Deux utilisations au départ, une récupérée au repos court.</li>
+<li><strong>Bottes d'arme</strong><span class="lvl">Niv. 1</span> Maîtrise des propriétés de botte de trois types d'armes (jusqu'à six).</li>
+<li><strong>Fougue</strong><span class="lvl">Niv. 2</span> Une action supplémentaire à votre tour (sauf l'action Magie). Recharge au repos court ; deux utilisations au niveau 17.</li>
+<li><strong>Sens tactique</strong><span class="lvl">Niv. 2</span> Après un test de caractéristique raté, dépensez un Second souffle pour ajouter 1d10 ; il n'est pas perdu si le test échoue encore.</li>
+<li><strong>Décalage tactique</strong><span class="lvl">Niv. 5</span> Avec Second souffle, vous vous déplacez de la moitié de votre vitesse sans attaque d'opportunité.</li>
+<li><strong>Inflexible</strong><span class="lvl">Niv. 9</span> Relance d'un JS raté avec un bonus égal à votre niveau (1, puis 2 et 3 fois par repos long).</li>
+<li><strong>Botte tactique</strong><span class="lvl">Niv. 9</span> Vous remplacez une botte par Poussée, Sape ou Ralentissement.</li>
+<li><strong>Attaques supplémentaires</strong><span class="lvl">Niv. 5</span> Deux attaques au niveau 5, trois au 11, quatre au 20.</li>
+<li><strong>Attaques avisées</strong><span class="lvl">Niv. 13</span> Après une attaque ratée, avantage à la prochaine contre la même cible.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Champion</h4><span class="badge green">SRD</span></div><p class="subdesc">Excellence physique et quête de la victoire.</p>
+<ul><li><span class="lvl">3</span> <strong>Critique amélioré.</strong> Coup critique sur 19–20.</li><li><span class="lvl">3</span> <strong>Athlète accompli.</strong> Avantage à l'initiative et en Athlétisme ; après un critique, vous vous déplacez sans attaque d'opportunité.</li><li><span class="lvl">7</span> <strong>Style de combat supplémentaire.</strong> Un second don de Style de combat.</li><li><span class="lvl">10</span> <strong>Héros du champ d'honneur.</strong> En combat, l'Inspiration héroïque revient à chaque tour.</li><li><span class="lvl">15</span> <strong>Critique supérieur.</strong> Coup critique sur 18–20.</li><li><span class="lvl">18</span> <strong>Survivant.</strong> Avantage aux JS contre la mort, et régénération tant que vous êtes En péril.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/guerrier/#champion" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Chevalier occulte</h4><span class="badge green">SRD</span></div><p class="subdesc">La magie arcanique au service de l'épée.</p>
+<ul><li><span class="lvl">3</span> <strong>Sorts.</strong> Sorts de magicien à l'Intelligence (niveau de sort 4 au maximum). Recommandés : <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>, <a class="spell" href="sorts-dnd-2024.html#poigne-electrique">poigne électrique</a>, <a class="spell" href="sorts-dnd-2024.html#mains-brulantes">mains brûlantes</a>, <a class="spell" href="sorts-dnd-2024.html#saut">saut</a>, <a class="spell" href="sorts-dnd-2024.html#bouclier">bouclier</a>.</li><li><span class="lvl">3</span> <strong>Arme occulte.</strong> Lien avec deux armes, que vous rappelez en main en action bonus.</li><li><span class="lvl">7</span> <strong>Magie de guerre.</strong> Une attaque remplacée par un sort mineur.</li><li><span class="lvl">10</span> <strong>Fragilisation occulte.</strong> Vos coups imposent le désavantage au prochain JS contre vos sorts.</li><li><span class="lvl">15</span> <strong>Charge arcanique.</strong> Téléportation quand vous utilisez la Fougue.</li><li><span class="lvl">18</span> <strong>Magie de guerre améliorée.</strong> Deux attaques remplacées par un sort de niveau 1 ou 2.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/guerrier/#chevalier-occulte" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Maître de guerre</h4><span class="badge green">SRD</span></div><p class="subdesc">Tacticien érudit qui maîtrise des manœuvres transmises au fil des générations.</p>
+<ul><li><span class="lvl">3</span> <strong>Disciple martial.</strong> Un outil d'artisan et une compétence.</li><li><span class="lvl">3</span> <strong>Supériorité martiale.</strong> Trois manœuvres et quatre dés de supériorité (d8), récupérés au repos court. Manœuvres : Attaque menaçante, Attaque précise, Autorité naturelle, Balayage, Bélier, Chassé-croisé, Croc-en-jambe, Désarmement, Diversion, Embuscade, Évaluation tactique, Feinte, Fente, Instruction, Jeu de jambes défensif, Manœuvre tactique, Parade, Provocation, Regain, Riposte.</li><li><span class="lvl">7</span> <strong>Observation de l'ennemi.</strong> Vous apprenez les immunités, résistances et vulnérabilités d'une créature.</li><li><span class="lvl">10</span> <strong>Supériorité martiale améliorée.</strong> Dés de supériorité en d10 (d12 au niveau 18).</li><li><span class="lvl">15</span> <strong>Implacable.</strong> Une manœuvre par tour même sans dé restant.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/guerrier/#maitre-guerre" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Soldat psi</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">Un guerrier qui amplifie ses coups par la puissance psionique.</p>
+<ul><li><span class="lvl">3</span> <strong>Puissance psionique.</strong> Dés d'énergie psionique : champ protecteur, frappe psionique, mouvement télékinésique.</li><li><span class="lvl">7</span> <strong>Adepte télékinésique.</strong> Bond psionique (vol bref) et poussée télékinésique.</li><li><span class="lvl">10</span> <strong>Esprit gardé.</strong> Résistance psychique et fin des états Charmé ou Effrayé.</li><li><span class="lvl">15</span> <strong>Rempart de force.</strong> Abri partiel pour vous et vos alliés.</li><li><span class="lvl">18</span> <strong>Maître télékinésiste.</strong> Télékinésie et attaque en action bonus.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190879-fighter" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+</div>
+<details><summary>Jouer un guerrier</summary><div class="inner"><ul><li>Changez de Style de combat et de bottes selon l'équipement trouvé.</li><li>La Fougue est votre bouton panique ou votre pic de dégâts : elle revient à chaque repos court.</li><li>Le Maître de guerre est la sous-classe la plus tactique ; le Champion la plus simple à jouer.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Maîtrise d'armes ; Sens tactique et Décalage tactique sont nouveaux.</li><li>Inflexible ajoute votre niveau au jet relancé.</li><li>Les manœuvres du Maître de guerre sont révisées et le Soldat psi arrive au PHB.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="https://www.aidedd.org/regles-24/classes/guerrier/" target="_blank" rel="noopener">Guerrier 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190879-fighter" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/fighter.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="magicien">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Magicien"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<path d="M60 44 C48 38 32 38 20 42 V92 C32 88 48 88 60 94 Z" fill="#fbf3de" stroke="#5a4330" stroke-width="3"/>
+<path d="M60 44 C72 38 88 38 100 42 V92 C88 88 72 88 60 94 Z" fill="#fbf3de" stroke="#5a4330" stroke-width="3"/>
+<path d="M28 54 H52 M28 62 H52 M28 70 H48 M68 54 H92 M68 62 H92 M68 70 H88" stroke="#b8892e" stroke-width="1.5"/>
+<path d="M60 12 L64 24 L76 26 L66 33 L69 45 L60 38 L51 45 L54 33 L44 26 L56 24 Z" fill="#8e1b1b"/></svg><div class="species-title"><h2>Magicien</h2><div class="sub">Le savant des arcanes</div><div class="badges"><span class="badge">d6</span><span class="badge alt">Intelligence</span></div></div></div>
+<div class="lore"><p>Les magiciens se distinguent par leur étude approfondie des mécanismes de la magie : boules de feu, éclairs, illusions subtiles, transformations spectaculaires, portails vers d'autres mondes. Des noms illustres comme Bigby, Tasha, Mordenkainen ou Yolande ont laissé des sorts célèbres.</p><p>Sages, professeurs, conseillers ou tyrans, ils sont tous attirés par les secrets perdus des civilisations anciennes, qui les poussent hors de leurs bibliothèques vers les ruines.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d6</div><div class="stat"><b>Caractéristique principale</b>Intelligence</div><div class="stat"><b>Jets de sauvegarde</b>Intelligence et Sagesse</div><div class="stat"><b>Compétences</b>2 parmi Arcanes, Histoire, Intuition, Investigation, Médecine, Nature, Religion</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Aucune</div><div class="stat"><b>Équipement</b>2 dagues, bâton arcanique, robe, grimoire, sac d'érudit et 5 po, ou 55 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Sorts mineurs</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Sorts, Savoir rituel, Restauration magique</td><td>3</td><td>4</td></tr>
+<tr><td class="lvlc">2</td><td>Érudition</td><td>3</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>3</td><td>6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>4</td><td>7</td></tr>
+<tr><td class="lvlc">5</td><td>Mémorisation de sort</td><td>4</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>4</td><td>10</td></tr>
+<tr><td class="lvlc">7</td><td>—</td><td>4</td><td>11</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>4</td><td>12</td></tr>
+<tr><td class="lvlc">9</td><td>—</td><td>4</td><td>14</td></tr>
+<tr class="sub-row"><td class="lvlc">10</td><td>Capacité de sous-classe</td><td>5</td><td>15</td></tr>
+<tr><td class="lvlc">11</td><td>—</td><td>5</td><td>16</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>5</td><td>16</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>5</td><td>17</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>5</td><td>18</td></tr>
+<tr><td class="lvlc">15</td><td>—</td><td>5</td><td>19</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>5</td><td>21</td></tr>
+<tr><td class="lvlc">17</td><td>—</td><td>5</td><td>22</td></tr>
+<tr><td class="lvlc">18</td><td>Maîtrise des sorts</td><td>5</td><td>23</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>5</td><td>24</td></tr>
+<tr><td class="lvlc">20</td><td>Sorts de prédilection</td><td>5</td><td>25</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Sorts et grimoire</strong><span class="lvl">Niv. 1</span> Lanceur complet à l'Intelligence. Le grimoire contient 6 sorts de niveau 1, puis 2 de plus par niveau ; copier un sort trouvé coûte 2 heures et 50 po par niveau. Un sort mineur est changeable à chaque repos long. Recommandés : <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, <a class="spell" href="sorts-dnd-2024.html#main-du-mage">main de mage</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>, <a class="spell" href="sorts-dnd-2024.html#detection-de-la-magie">détection de la magie</a>, <a class="spell" href="sorts-dnd-2024.html#feuille-morte">feuille morte</a>, <a class="spell" href="sorts-dnd-2024.html#armure-du-mage">armure de mage</a>, <a class="spell" href="sorts-dnd-2024.html#projectile-magique">projectile magique</a>, <a class="spell" href="sorts-dnd-2024.html#sommeil">sommeil</a>, <a class="spell" href="sorts-dnd-2024.html#vague-tonnante">vague tonnante</a>.</li>
+<li><strong>Savoir rituel</strong><span class="lvl">Niv. 1</span> Vous lancez en rituel tout sort de votre grimoire qui le permet, sans le préparer.</li>
+<li><strong>Restauration magique</strong><span class="lvl">Niv. 1</span> Au repos court, vous récupérez des emplacements (niveaux cumulés jusqu'à la moitié de votre niveau, niveau 5 maximum), une fois par repos long.</li>
+<li><strong>Érudition</strong><span class="lvl">Niv. 2</span> Expertise dans une compétence savante.</li>
+<li><strong>Mémorisation de sort</strong><span class="lvl">Niv. 5</span> Au repos court, vous échangez un sort préparé contre un autre du grimoire.</li>
+<li><strong>Maîtrise des sorts</strong><span class="lvl">Niv. 18</span> Un sort de niveau 1 et un de niveau 2 lançables à volonté.</li>
+<li><strong>Sorts de prédilection</strong><span class="lvl">Niv. 20</span> Deux sorts de niveau 3 lançables gratuitement, une fois chacun par repos court.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Abjurateur</h4><span class="badge green">SRD</span></div><p class="subdesc">Protéger, bannir et contrer. Chaque sous-classe ajoute gratuitement des sorts de son école au grimoire.</p>
+<ul><li><span class="lvl">3</span> <strong>Égide arcanique.</strong> Un bouclier magique (2 × niveau + Int en PV) qui absorbe les dégâts et se recharge avec les sorts d'Abjuration.</li><li><span class="lvl">6</span> <strong>Égide projetée.</strong> Réaction : l'égide protège un allié.</li><li><span class="lvl">10</span> <strong>Briseur de sorts.</strong> <a class="spell" href="sorts-dnd-2024.html#contresort">contresort</a>, <a class="spell" href="sorts-dnd-2024.html#dissipation-de-la-magie">dissipation de la magie</a> toujours préparés ; la dissipation se lance en action bonus.</li><li><span class="lvl">14</span> <strong>Résistance aux sorts.</strong> Avantage aux JS contre les sorts et résistance à leurs dégâts.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/magicien/#abjurateur" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Devin</h4><span class="badge green">SRD</span></div><p class="subdesc">Percer le voile de l'espace, du temps et de la conscience.</p>
+<ul><li><span class="lvl">3</span> <strong>Présage.</strong> Chaque jour, deux d20 pré-tirés remplacent n'importe quel d20, le vôtre ou celui d'une autre créature.</li><li><span class="lvl">6</span> <strong>Divination experte.</strong> Un sort de Divination vous rend un emplacement de niveau inférieur.</li><li><span class="lvl">10</span> <strong>Troisième œil.</strong> Vision dans le noir, lecture de toutes les langues, ou détection de l'invisibilité.</li><li><span class="lvl">14</span> <strong>Présage renforcé.</strong> Trois dés de Présage au lieu de deux.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/magicien/#devin" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Évocateur</h4><span class="badge green">SRD</span></div><p class="subdesc">L'artillerie élémentaire : feu, froid, foudre, tonnerre, acide.</p>
+<ul><li><span class="lvl">3</span> <strong>Sort mineur appuyé.</strong> Vos sorts mineurs infligent la moitié des dégâts même quand ils ratent.</li><li><span class="lvl">6</span> <strong>Façonneur de sorts.</strong> Vos alliés échappent totalement à vos zones d'effet.</li><li><span class="lvl">10</span> <strong>Évocation améliorée.</strong> +Intelligence aux dégâts d'Évocation.</li><li><span class="lvl">14</span> <strong>Surcharge magique.</strong> Dégâts maximaux, au prix de dégâts nécrotiques croissants en cas de réutilisation.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/magicien/#evocateur" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Illusionniste</h4><span class="badge green">SRD</span></div><p class="subdesc">Tromper les sens et rendre l'impossible réel.</p>
+<ul><li><span class="lvl">3</span> <strong>Illusions améliorées.</strong> Illusions sans composante verbale et portée accrue ; <a class="spell" href="sorts-dnd-2024.html#illusion-mineure">illusion mineure</a> en action bonus avec son et image.</li><li><span class="lvl">6</span> <strong>Créatures fantasmagoriques.</strong> <a class="spell" href="sorts-dnd-2024.html#convocation-de-bete">convocation de bête</a>, <a class="spell" href="sorts-dnd-2024.html#convocation-de-fee">convocation de fée</a> toujours préparés, en version illusoire gratuite.</li><li><span class="lvl">10</span> <strong>Calque illusoire.</strong> Réaction : une attaque qui vous touchait vous rate.</li><li><span class="lvl">14</span> <strong>Réalité chimérique.</strong> Un objet de votre illusion devient réel pour un temps.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/magicien/#illusionniste" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un magicien</summary><div class="inner"><ul><li>Le grimoire est votre trésor : recopiez chaque parchemin trouvé.</li><li>Les rituels (détection de la magie, appel de familier…) ne consomment pas d'emplacement.</li><li>Armure de mage, puis bouclier : les deux sorts de survie classiques.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Écoles réduites à quatre au PHB ; les capacités de sous-classe arrivent au niveau 3.</li><li>Érudition et Mémorisation de sort sont nouvelles.</li><li>Le sort mineur est modifiable à chaque repos long.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-magicien">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/magicien/" target="_blank" rel="noopener">Magicien 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190886-wizard" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/wizard.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="moine">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Moine"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<path d="M60 22 C82 22 98 40 96 62 C94 84 76 98 56 96 C36 94 22 78 24 58 C26 42 36 30 50 25" fill="none" stroke="#2b1d12" stroke-width="10" stroke-linecap="round"/>
+<path d="M50 25 C44 28 40 32 38 36" fill="none" stroke="#2b1d12" stroke-width="5" stroke-linecap="round"/>
+<circle cx="60" cy="60" r="7" fill="#8e1b1b"/></svg><div class="species-title"><h2>Moine</h2><div class="sub">L'artiste martial</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Dextérité et Sagesse</span></div></div></div>
+<div class="lore"><p>Par un entraînement rigoureux et une discipline mentale, les moines puisent dans une réserve de puissance intérieure : souffle, énergie, force vitale. Elle se manifeste dans une vitesse, une force et des défenses surnaturelles.</p><p>Certains cultivent cette concentration dans le retrait ascétique, d'autres dans le tumulte de la vie. Tous voient l'aventure comme une épreuve pour faire de leur corps une arme vivante.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristiques principales</b>Dextérité et Sagesse</div><div class="stat"><b>Jets de sauvegarde</b>Force et Dextérité</div><div class="stat"><b>Compétences</b>2 parmi Acrobaties, Athlétisme, Discrétion, Histoire, Intuition, Religion</div><div class="stat"><b>Armes</b>Courantes et de guerre à propriété Légère</div><div class="stat"><b>Armures</b>Aucune</div><div class="stat"><b>Outils</b>Un outil d'artisan ou un instrument</div><div class="stat"><b>Équipement</b>Lance, 5 dagues, outil ou instrument, sac d'explorateur et 11 po, ou 50 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Arts martiaux</th><th>Points de Credo</th><th>Déplacement</th></tr>
+<tr><td class="lvlc">1</td><td>Arts martiaux, Défense sans armure</td><td>1d6</td><td>—</td><td>—</td></tr>
+<tr><td class="lvlc">2</td><td>Credo du moine, Déplacement sans armure, Métabolisme surnaturel</td><td>1d6</td><td>2</td><td>+3 m</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Déviation d'assaut, Sous-classe</td><td>1d6</td><td>3</td><td>+3 m</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique, Chute ralentie</td><td>1d6</td><td>4</td><td>+3 m</td></tr>
+<tr><td class="lvlc">5</td><td>Attaque supplémentaire, Frappe étourdissante</td><td>1d8</td><td>5</td><td>+3 m</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Frappes renforcées, capacité de sous-classe</td><td>1d8</td><td>6</td><td>+4,5 m</td></tr>
+<tr><td class="lvlc">7</td><td>Esquive totale</td><td>1d8</td><td>7</td><td>+4,5 m</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>1d8</td><td>8</td><td>+4,5 m</td></tr>
+<tr><td class="lvlc">9</td><td>Déplacement acrobatique</td><td>1d8</td><td>9</td><td>+4,5 m</td></tr>
+<tr><td class="lvlc">10</td><td>Credo accru, Autosubsistance</td><td>1d8</td><td>10</td><td>+6 m</td></tr>
+<tr class="sub-row"><td class="lvlc">11</td><td>Capacité de sous-classe</td><td>1d10</td><td>11</td><td>+6 m</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>1d10</td><td>12</td><td>+6 m</td></tr>
+<tr><td class="lvlc">13</td><td>Parade énergétique</td><td>1d10</td><td>13</td><td>+6 m</td></tr>
+<tr><td class="lvlc">14</td><td>Survivant discipliné</td><td>1d10</td><td>14</td><td>+7,5 m</td></tr>
+<tr><td class="lvlc">15</td><td>Credo parachevé</td><td>1d10</td><td>15</td><td>+7,5 m</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>1d10</td><td>16</td><td>+7,5 m</td></tr>
+<tr class="sub-row"><td class="lvlc">17</td><td>Capacité de sous-classe</td><td>1d12</td><td>17</td><td>+7,5 m</td></tr>
+<tr><td class="lvlc">18</td><td>Défense supérieure</td><td>1d12</td><td>18</td><td>+9 m</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>1d12</td><td>19</td><td>+9 m</td></tr>
+<tr><td class="lvlc">20</td><td>Esprit et corps</td><td>1d12</td><td>20</td><td>+9 m</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Arts martiaux</strong><span class="lvl">Niv. 1</span> Sans armure ni bouclier : frappe à mains nues en action bonus, dé d'arts martiaux pour les dégâts, et Dextérité à la place de la Force (y compris pour le DD de lutte et de bousculade).</li>
+<li><strong>Défense sans armure</strong><span class="lvl">Niv. 1</span> CA 10 + Dextérité + Sagesse.</li>
+<li><strong>Credo du moine</strong><span class="lvl">Niv. 2</span> Des points récupérés au repos court. Déluge de coups (1 point : deux frappes en action bonus), Patience défensive (Désengagement gratuit, Esquive en plus pour 1 point), Porté par le vent (Foncer gratuit, Désengagement et saut doublé pour 1 point).</li>
+<li><strong>Métabolisme surnaturel</strong><span class="lvl">Niv. 2</span> Une fois par repos long, à l'initiative : vous récupérez tous vos points de Credo et des PV.</li>
+<li><strong>Déviation d'assaut</strong><span class="lvl">Niv. 3</span> Réaction : vous réduisez les dégâts physiques d'une attaque de 1d10 + Dex + niveau ; à 0, vous pouvez renvoyer l'attaque pour 1 point.</li>
+<li><strong>Chute ralentie</strong><span class="lvl">Niv. 4</span> Réaction : −5 × niveau aux dégâts de chute.</li>
+<li><strong>Frappe étourdissante</strong><span class="lvl">Niv. 5</span> 1 point, une fois par tour : JS de Constitution ou la cible est Étourdie ; en cas de réussite, sa vitesse est réduite de moitié et elle subit une attaque avec avantage.</li>
+<li><strong>Frappes renforcées</strong><span class="lvl">Niv. 6</span> Vos frappes à mains nues peuvent infliger des dégâts de force.</li>
+<li><strong>Esquive totale</strong><span class="lvl">Niv. 7</span> Aucun dégât sur un JS de Dextérité réussi, la moitié sur un échec.</li>
+<li><strong>Déplacement acrobatique</strong><span class="lvl">Niv. 9</span> Vous courez sur les murs et à la surface des liquides.</li>
+<li><strong>Credo accru et Autosubsistance</strong><span class="lvl">Niv. 10</span> Trois frappes au Déluge, PV temporaires avec Patience, un allié emporté avec Porté par le vent ; vous vous libérez des états Charmé, Effrayé ou Empoisonné.</li>
+<li><strong>Parade énergétique</strong><span class="lvl">Niv. 13</span> Déviation d'assaut contre tous les types de dégâts.</li>
+<li><strong>Survivant discipliné</strong><span class="lvl">Niv. 14</span> Maîtrise de tous les JS, et relance pour 1 point.</li>
+<li><strong>Credo parachevé</strong><span class="lvl">Niv. 15</span> À l'initiative, vous remontez à 4 points de Credo au minimum.</li>
+<li><strong>Défense supérieure</strong><span class="lvl">Niv. 18</span> 3 points : résistance à tout sauf la force pendant 1 minute.</li>
+<li><strong>Esprit et corps</strong><span class="lvl">Niv. 20</span> Dextérité et Sagesse +4 (maximum 25).</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Credo des Éléments</h4><span class="badge green">SRD</span></div><p class="subdesc">La puissance des plans Élémentaires dans chaque coup.</p>
+<ul><li><span class="lvl">3</span> <strong>Lien élémentaire.</strong> 1 point : allonge +3 m, dégâts élémentaires et attraction ou répulsion de la cible.</li><li><span class="lvl">3</span> <strong>Manipulation des éléments.</strong> Sort <a class="spell" href="sorts-dnd-2024.html#elementalisme">élémentalisme</a>.</li><li><span class="lvl">6</span> <strong>Décharge élémentaire.</strong> 2 points : une sphère de 6 m d'énergie élémentaire à 36 m.</li><li><span class="lvl">11</span> <strong>Excursion élémentaire.</strong> Déplacement élémentaire renforcé (vol, nage) pendant le Lien.</li><li><span class="lvl">17</span> <strong>Incarnation élémentaire.</strong> Vous incarnez les éléments : résistances et coups dévastateurs.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/moine/#element" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Credo de la Miséricorde</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">Guérir ou nuire par le toucher, masque sur le visage.</p>
+<ul><li><span class="lvl">3</span> <strong>Mains de guérison et de nuisance.</strong> Vos points de Credo soignent un allié ou ajoutent des dégâts nécrotiques et empoisonnent.</li><li><span class="lvl">6</span> <strong>Toucher du médecin.</strong> Vos soins retirent des états et vos coups empoisonnent.</li><li><span class="lvl">11</span> <strong>Déluge de guérison et de nuisance.</strong> Chaque frappe du Déluge peut soigner ou nuire gratuitement.</li><li><span class="lvl">17</span> <strong>Main de miséricorde ultime.</strong> Vous ramenez un mort à la vie.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190880-monk" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Credo de l'Ombre</h4><span class="badge green">SRD</span></div><p class="subdesc">Discrétion et ruse, avec la puissance de la Gisombre.</p>
+<ul><li><span class="lvl">3</span> <strong>Artiste des ombres.</strong> <a class="spell" href="sorts-dnd-2024.html#tenebres">ténèbres</a> pour 1 point (vous y voyez), vision dans le noir, <a class="spell" href="sorts-dnd-2024.html#illusion-mineure">illusion mineure</a>.</li><li><span class="lvl">6</span> <strong>Foulée d'ombre.</strong> Téléportation de 18 m d'ombre en ombre et avantage à l'attaque suivante.</li><li><span class="lvl">11</span> <strong>Foulée d'ombre améliorée.</strong> Téléportation plus libre, suivie d'une frappe.</li><li><span class="lvl">17</span> <strong>Linceul d'ombre.</strong> Invisibilité et passage à travers les créatures et les objets.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/moine/#ombre" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Credo de la Paume</h4><span class="badge green">SRD</span></div><p class="subdesc">Maîtres du combat à mains nues.</p>
+<ul><li><span class="lvl">3</span> <strong>Technique de la Paume.</strong> Les frappes du Déluge empêchent les attaques d'opportunité, repoussent de 4,50 m ou renversent.</li><li><span class="lvl">6</span> <strong>Plénitude physique.</strong> Soin en action bonus (dé + Sagesse).</li><li><span class="lvl">11</span> <strong>Foulée preste.</strong> Porté par le vent en plus d'une autre action bonus.</li><li><span class="lvl">17</span> <strong>Paume vibratoire.</strong> 4 points : des vibrations mortelles (10d12 dégâts de force) que vous déclenchez quand vous le voulez.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/moine/#paume" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un moine</summary><div class="inner"><ul><li>Métabolisme surnaturel recharge vos points au début d'un combat important.</li><li>Déviation d'assaut réduit énormément les dégâts de flèches et d'armes.</li><li>La mobilité est votre force : frappez les lanceurs de sorts ennemis à l'arrière.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Le Ki devient le Credo ; Patience défensive et Porté par le vent ont une version gratuite.</li><li>Déviation d'assaut remplace Parade de projectiles et fonctionne au corps à corps.</li><li>Frappe étourdissante a un effet même en cas de réussite ; dé d'arts martiaux plus élevé dès le début.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="https://www.aidedd.org/regles-24/classes/moine/" target="_blank" rel="noopener">Moine 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190880-monk" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/monk.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="occultiste">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Occultiste"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<path d="M40 70 C34 86 26 92 18 98 M52 74 C50 88 46 96 40 104 M68 74 C70 88 74 96 80 104 M80 70 C86 86 94 92 102 98" stroke="#3f6b3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M18 56 Q60 18 102 56 Q60 92 18 56 Z" fill="#f3e6c8"/>
+<circle cx="60" cy="56" r="17" fill="#8e1b1b"/>
+<ellipse cx="60" cy="56" rx="4" ry="14" fill="#1c130d"/>
+<path d="M60 14 L63 22 L71 22 L65 27 L67 35 L60 30 L53 35 L55 27 L49 22 L57 22 Z" fill="#d9b25f"/></svg><div class="species-title"><h2>Occultiste</h2><div class="sub">Le pacte interdit</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Charisme</span></div></div></div>
+<div class="lore"><p>Les occultistes cherchent le savoir caché dans la trame du multivers. Grimoires interdits, invocations, lieux de pouvoir : tôt ou tard, chacun conclut un pacte avec un puissant protecteur (ange, archifée, démon, diable, guenaude ou entité du Royaume Lointain).</p><p>Certains vénèrent leur protecteur, d'autres le servent à contrecœur, d'autres encore cherchent à le trahir tout en exploitant ses dons. Leur soif de pouvoir et de connaissance les pousse naturellement vers l'aventure.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristique principale</b>Charisme</div><div class="stat"><b>Jets de sauvegarde</b>Sagesse et Charisme</div><div class="stat"><b>Compétences</b>2 parmi Arcanes, Histoire, Intimidation, Investigation, Nature, Religion, Tromperie</div><div class="stat"><b>Armes</b>Courantes</div><div class="stat"><b>Armures</b>Légères</div><div class="stat"><b>Équipement</b>Armure de cuir, serpe, 2 dagues, orbe arcanique, livre occulte, sac d'érudit et 15 po, ou 100 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Manifestations</th><th>Emplacements</th><th>Niveau d'emplacement</th></tr>
+<tr><td class="lvlc">1</td><td>Manifestations occultes, Magie de pacte</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td class="lvlc">2</td><td>Rouerie magique</td><td>3</td><td>2</td><td>1</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>3</td><td>2</td><td>2</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>3</td><td>2</td><td>2</td></tr>
+<tr><td class="lvlc">5</td><td>—</td><td>5</td><td>2</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">6</td><td>Capacité de sous-classe</td><td>5</td><td>2</td><td>3</td></tr>
+<tr><td class="lvlc">7</td><td>—</td><td>6</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>6</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">9</td><td>Communication avec le protecteur</td><td>7</td><td>2</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">10</td><td>Capacité de sous-classe</td><td>7</td><td>2</td><td>5</td></tr>
+<tr><td class="lvlc">11</td><td>Arcanum mystique (niv. 6)</td><td>7</td><td>3</td><td>5</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>8</td><td>3</td><td>5</td></tr>
+<tr><td class="lvlc">13</td><td>Arcanum mystique (niv. 7)</td><td>8</td><td>3</td><td>5</td></tr>
+<tr class="sub-row"><td class="lvlc">14</td><td>Capacité de sous-classe</td><td>8</td><td>3</td><td>5</td></tr>
+<tr><td class="lvlc">15</td><td>Arcanum mystique (niv. 8)</td><td>9</td><td>3</td><td>5</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>9</td><td>3</td><td>5</td></tr>
+<tr><td class="lvlc">17</td><td>Arcanum mystique (niv. 9)</td><td>9</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">18</td><td>—</td><td>10</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>10</td><td>4</td><td>5</td></tr>
+<tr><td class="lvlc">20</td><td>Maître de l'occulte</td><td>10</td><td>4</td><td>5</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Manifestations occultes</strong><span class="lvl">Niv. 1</span> Des fragments de savoir interdit, choisis parmi une longue liste. Les pactes (de la lame, de la chaîne, du grimoire) en font désormais partie et sont disponibles dès le niveau 1. Vous pouvez en changer une à chaque niveau.</li>
+<li><strong>Magie de pacte</strong><span class="lvl">Niv. 1</span> Peu d'emplacements, mais tous au niveau le plus haut, et récupérés au repos court. Recommandés : <a class="spell" href="sorts-dnd-2024.html#decharge-occulte">décharge occulte</a>, <a class="spell" href="sorts-dnd-2024.html#prestidigitation">prestidigitation</a>, <a class="spell" href="sorts-dnd-2024.html#charme-personne">charme-personne</a>, <a class="spell" href="sorts-dnd-2024.html#malefice">maléfice</a>.</li>
+<li><strong>Rouerie magique</strong><span class="lvl">Niv. 2</span> Un rite d'une minute rend la moitié de vos emplacements, une fois par repos long.</li>
+<li><strong>Communication avec le protecteur</strong><span class="lvl">Niv. 9</span> <a class="spell" href="sorts-dnd-2024.html#contact-avec-les-plans">contact avec les plans</a> gratuit avec votre protecteur, JS réussi d'office.</li>
+<li><strong>Arcanum mystique</strong><span class="lvl">Niv. 11</span> Un sort de niveau 6, puis 7, 8 et 9, lançable une fois par repos long sans emplacement.</li>
+<li><strong>Maître de l'occulte</strong><span class="lvl">Niv. 20</span> Rouerie magique rend tous vos emplacements.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Protecteur Archifée</h4><span class="badge green">SRD</span></div><p class="subdesc">Un pacte avec la Féerie : le Prince du Gel, la Reine de l'Air et des Ténèbres, Titania…</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#apaisement-des-emotions">apaisement des émotions</a>, <a class="spell" href="sorts-dnd-2024.html#lueurs-feeriques">lueurs féeriques</a>, <a class="spell" href="sorts-dnd-2024.html#foulee-brumeuse">foulée brumeuse</a>, <a class="spell" href="sorts-dnd-2024.html#force-fantasmagorique">force fantasmagorique</a>, <a class="spell" href="sorts-dnd-2024.html#sommeil">sommeil</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#clignotement">clignotement</a>, <a class="spell" href="sorts-dnd-2024.html#croissance-vegetale">croissance végétale</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#domination-de-bete">domination de bête</a>, <a class="spell" href="sorts-dnd-2024.html#invisibilite-supreme">invisibilité suprême</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#domination-de-personne">domination de personne</a>, <a class="spell" href="sorts-dnd-2024.html#apparence-trompeuse">apparence trompeuse</a></p>
+<ul><li><span class="lvl">3</span> <strong>Foulée des fées.</strong> Foulée brumeuse gratuite plusieurs fois par jour, avec un effet bonus (PV temporaires ou provocation).</li><li><span class="lvl">6</span> <strong>Échappatoire brumeuse.</strong> Foulée en réaction aux dégâts, avec de nouveaux effets (invisibilité, dégâts psychiques).</li><li><span class="lvl">10</span> <strong>Charmantes défenses.</strong> Immunité à l'état Charmé ; vous renvoyez la moitié des dégâts en dégâts psychiques.</li><li><span class="lvl">14</span> <strong>Magie envoûtante.</strong> Vos sorts d'enchantement et d'illusion déclenchent une Foulée gratuite.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/occultiste/#archifee" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Protecteur Céleste</h4><span class="badge green">SRD</span></div><p class="subdesc">Un pacte avec les plans Supérieurs : empyréen, couatl, sphinx, licorne…</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#aide">aide</a>, <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-tracant">rayon traçant</a>, <a class="spell" href="sorts-dnd-2024.html#restauration-partielle">restauration partielle</a>, <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, <a class="spell" href="sorts-dnd-2024.html#flamme-sacree">flamme sacrée</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#lumiere-du-jour">lumière du jour</a>, <a class="spell" href="sorts-dnd-2024.html#retour-a-la-vie">retour à la vie</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#gardien-de-la-foi">gardien de la foi</a>, <a class="spell" href="sorts-dnd-2024.html#mur-de-feu">mur de feu</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#restauration-supreme">restauration suprême</a>, <a class="spell" href="sorts-dnd-2024.html#convocation-de-celeste">convocation de céleste</a></p>
+<ul><li><span class="lvl">3</span> <strong>Lumière guérisseuse.</strong> Une réserve de d6 de soins utilisables à distance en action bonus.</li><li><span class="lvl">6</span> <strong>Âme radiante.</strong> Résistance radiante et +Charisme aux dégâts de feu et radiants.</li><li><span class="lvl">10</span> <strong>Résilience céleste.</strong> PV temporaires pour vous et jusqu'à cinq alliés à chaque repos.</li><li><span class="lvl">14</span> <strong>Vengeance aveuglante.</strong> Vous vous relevez d'un JS contre la mort dans une explosion de lumière.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/occultiste/#celeste" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Protecteur Fiélon</h4><span class="badge green">SRD</span></div><p class="subdesc">Un pacte avec les plans Inférieurs : Démogorgon, Orcus, Asmodée…</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#mains-brulantes">mains brûlantes</a>, <a class="spell" href="sorts-dnd-2024.html#injonction">injonction</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-ardent">rayon ardent</a>, <a class="spell" href="sorts-dnd-2024.html#suggestion">suggestion</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#boule-de-feu">boule de feu</a>, <a class="spell" href="sorts-dnd-2024.html#nuage-nauseabond">nuage nauséabond</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#bouclier-de-feu">bouclier de feu</a>, <a class="spell" href="sorts-dnd-2024.html#mur-de-feu">mur de feu</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#quete">quête</a>, <a class="spell" href="sorts-dnd-2024.html#fleau-d-insectes">fléau d'insectes</a></p>
+<ul><li><span class="lvl">3</span> <strong>Bénédiction du Ténébreux.</strong> PV temporaires quand un ennemi proche tombe à 0 PV.</li><li><span class="lvl">6</span> <strong>Chance du Ténébreux.</strong> +1d10 à un test ou un JS.</li><li><span class="lvl">10</span> <strong>Résistance fiélonne.</strong> Une résistance au choix à chaque repos.</li><li><span class="lvl">14</span> <strong>Traversée des enfers.</strong> Vous projetez la cible en Enfer : 8d10 dégâts psychiques.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/occultiste/#fielon" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Protecteur Grand Ancien</h4><span class="badge green">SRD</span></div><p class="subdesc">Un être indicible : Tharizdun, Hadar, le Grand Cthulhu…</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#detection-des-pensees">détection des pensées</a>, <a class="spell" href="sorts-dnd-2024.html#murmures-dissonants">murmures dissonants</a>, <a class="spell" href="sorts-dnd-2024.html#force-fantasmagorique">force fantasmagorique</a>, <a class="spell" href="sorts-dnd-2024.html#fou-rire">fou rire de Tasha</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#clairvoyance">clairvoyance</a>, <a class="spell" href="sorts-dnd-2024.html#voracite-de-hadar">voracité de Hadar</a> · <span class="lv">7</span> <a class="spell" href="sorts-dnd-2024.html#confusion">confusion</a>, <a class="spell" href="sorts-dnd-2024.html#convocation-d-aberration">convocation d'aberration</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#modification-de-memoire">modification de mémoire</a>, <a class="spell" href="sorts-dnd-2024.html#telekinesie">télékinésie</a></p>
+<ul><li><span class="lvl">3</span> <strong>Esprit éveillé et Sorts psychiques.</strong> Télépathie à longue distance ; dégâts convertibles en psychique ; enchantements et illusions sans composantes.</li><li><span class="lvl">6</span> <strong>Combattant clairvoyant.</strong> La cible de votre lien est désavantagée contre vous, et vous avez l'avantage contre elle.</li><li><span class="lvl">10</span> <strong>Maléfice occulte et Bouclier mental.</strong> <a class="spell" href="sorts-dnd-2024.html#malefice">maléfice</a> renforcé ; esprit protégé et renvoi des dégâts psychiques.</li><li><span class="lvl">14</span> <strong>Asservissement.</strong> Votre aberration invoquée devient un serviteur plus durable et plus dangereux.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/occultiste/#grand-ancien" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un occultiste</summary><div class="inner"><ul><li>Les emplacements reviennent au repos court : proposez-en souvent au groupe.</li><li>Décharge occulte + manifestations dédiées = dégâts à distance fiables à chaque tour.</li><li>Les pactes sont désormais des manifestations : on peut en cumuler plusieurs.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Les pactes deviennent des manifestations disponibles dès le niveau 1 ; plus de manifestations au total.</li><li>Sorts préparés ; Rouerie magique est nouvelle.</li><li>Le Céleste entre au PHB.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-occultiste">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/occultiste/" target="_blank" rel="noopener">Occultiste 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190885-warlock" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/warlock.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="paladin">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Paladin"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<path d="M30 26 H90 V60 C90 82 76 96 60 104 C44 96 30 82 30 60 Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="3"/>
+<path d="M60 34 V92 M42 52 H78" stroke="#8e1b1b" stroke-width="8" stroke-linecap="round"/>
+<circle cx="60" cy="52" r="6" fill="#d9b25f"/></svg><div class="species-title"><h2>Paladin</h2><div class="sub">Le serment sacré</div><div class="badges"><span class="badge">d10</span><span class="badge alt">Force et Charisme</span></div></div></div>
+<div class="lore"><p>Les paladins sont unis par un serment contre les forces de l'annihilation et de la corruption. Prêté devant un autel, dans une clairière sacrée ou au milieu des morts, ce serment transforme un combattant dévoué en champion béni.</p><p>Leur maîtrise des armes compte, mais leurs pouvoirs divins comptent plus encore : soigner, châtier et protéger. Rares sont ceux qui reçoivent cet appel, et leur vie est par nature une vie d'aventure.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d10</div><div class="stat"><b>Caractéristiques principales</b>Force et Charisme</div><div class="stat"><b>Jets de sauvegarde</b>Sagesse et Charisme</div><div class="stat"><b>Compétences</b>2 parmi Athlétisme, Intimidation, Intuition, Médecine, Persuasion, Religion</div><div class="stat"><b>Armes</b>Courantes et de guerre</div><div class="stat"><b>Armures</b>Toutes, boucliers</div><div class="stat"><b>Équipement</b>Cotte de mailles, bouclier, épée longue, 6 javelines, symbole sacré, sac d'ecclésiastique et 9 po, ou 150 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Conduit divin</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Imposition des mains, Sorts, Bottes d'arme</td><td>—</td><td>2</td></tr>
+<tr><td class="lvlc">2</td><td>Style de combat, Châtiment de paladin</td><td>—</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Conduit divin, Sous-classe</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>2</td><td>5</td></tr>
+<tr><td class="lvlc">5</td><td>Attaque supplémentaire, Fidèle destrier</td><td>2</td><td>6</td></tr>
+<tr><td class="lvlc">6</td><td>Aura de protection</td><td>2</td><td>6</td></tr>
+<tr class="sub-row"><td class="lvlc">7</td><td>Capacité de sous-classe</td><td>2</td><td>7</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>2</td><td>7</td></tr>
+<tr><td class="lvlc">9</td><td>Abjuration d'ennemis</td><td>2</td><td>9</td></tr>
+<tr><td class="lvlc">10</td><td>Aura de courage</td><td>2</td><td>9</td></tr>
+<tr><td class="lvlc">11</td><td>Frappes radiantes</td><td>3</td><td>10</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>3</td><td>10</td></tr>
+<tr><td class="lvlc">13</td><td>—</td><td>3</td><td>11</td></tr>
+<tr><td class="lvlc">14</td><td>Toucher réparateur</td><td>3</td><td>11</td></tr>
+<tr class="sub-row"><td class="lvlc">15</td><td>Capacité de sous-classe</td><td>3</td><td>12</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>3</td><td>12</td></tr>
+<tr><td class="lvlc">17</td><td>—</td><td>3</td><td>14</td></tr>
+<tr><td class="lvlc">18</td><td>Aura étendue</td><td>3</td><td>14</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>3</td><td>15</td></tr>
+<tr class="sub-row"><td class="lvlc">20</td><td>Capacité de sous-classe</td><td>3</td><td>15</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Imposition des mains</strong><span class="lvl">Niv. 1</span> Réserve de 5 × niveau PV, en action bonus ; 5 points retirent l'état Empoisonné.</li>
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Demi-lanceur au Charisme (sorts jusqu'au niveau 5). Recommandés : <a class="spell" href="sorts-dnd-2024.html#heroisme">héroïsme</a>, <a class="spell" href="sorts-dnd-2024.html#chatiment-de-fournaise">châtiment de fournaise</a>.</li>
+<li><strong>Style de combat</strong><span class="lvl">Niv. 2</span> Un don de Style de combat, ou Combattant béni (deux sorts mineurs de clerc, par exemple <a class="spell" href="sorts-dnd-2024.html#assistance">assistance</a>, <a class="spell" href="sorts-dnd-2024.html#flamme-sacree">flamme sacrée</a>).</li>
+<li><strong>Châtiment de paladin</strong><span class="lvl">Niv. 2</span> <a class="spell" href="sorts-dnd-2024.html#chatiment-divin">châtiment divin</a> toujours préparé, et une fois gratuit par repos long. Le châtiment est désormais un sort, lancé en action bonus après un coup.</li>
+<li><strong>Conduit divin</strong><span class="lvl">Niv. 3</span> Perception divine : vous détectez célestes, fiélons et morts-vivants à 18 m pendant 10 minutes.</li>
+<li><strong>Fidèle destrier</strong><span class="lvl">Niv. 5</span> <a class="spell" href="sorts-dnd-2024.html#appel-de-destrier">appel de destrier</a> toujours préparé, une fois gratuit par repos long.</li>
+<li><strong>Aura de protection</strong><span class="lvl">Niv. 6</span> Vous et vos alliés à 3 m ajoutez votre Charisme aux JS (9 m au niveau 18).</li>
+<li><strong>Abjuration d'ennemis</strong><span class="lvl">Niv. 9</span> Conduit divin : des ennemis Effrayés qui ne peuvent faire qu'une chose par tour.</li>
+<li><strong>Aura de courage</strong><span class="lvl">Niv. 10</span> Immunité à l'état Effrayé dans l'aura.</li>
+<li><strong>Frappes radiantes</strong><span class="lvl">Niv. 11</span> +1d8 radiant à chaque coup en mêlée.</li>
+<li><strong>Toucher réparateur</strong><span class="lvl">Niv. 14</span> Imposition des mains retire aussi les états Aveuglé, Assourdi, Charmé, Effrayé, Étourdi et Paralysé.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Serment des Anciens</h4><span class="badge green">SRD</span></div><p class="subdesc">Préserver la vie, la lumière, la joie et la beauté du monde.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#frappe-piegeuse">frappe piégeuse</a>, <a class="spell" href="sorts-dnd-2024.html#communication-avec-les-animaux">communication avec les animaux</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#foulee-brumeuse">foulée brumeuse</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-lune">rayon de lune</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#croissance-vegetale">croissance végétale</a>, <a class="spell" href="sorts-dnd-2024.html#protection-contre-l-energie">protection contre l'énergie</a> · <span class="lv">13</span> <a class="spell" href="sorts-dnd-2024.html#tempete-de-grele">tempête de grêle</a>, <a class="spell" href="sorts-dnd-2024.html#peau-de-pierre">peau de pierre</a> · <span class="lv">17</span> <a class="spell" href="sorts-dnd-2024.html#communion-avec-la-nature">communion avec la nature</a>, <a class="spell" href="sorts-dnd-2024.html#passage-par-les-arbres">passage par les arbres</a></p>
+<ul><li><span class="lvl">3</span> <strong>Courroux de la nature.</strong> Conduit divin : des lianes spectrales entravent les ennemis proches.</li><li><span class="lvl">7</span> <strong>Aura de garde.</strong> Résistance aux dégâts nécrotiques, psychiques et radiants dans l'aura.</li><li><span class="lvl">15</span> <strong>Sentinelle impérissable.</strong> Vous vous relevez quand vous tombez à 0 PV, et vous vieillissez lentement.</li><li><span class="lvl">20</span> <strong>Champion des Anciens.</strong> Forme primordiale : régénération et sorts accélérés.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/paladin/#anciens" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Serment de Dévotion</h4><span class="badge green">SRD</span></div><p class="subdesc">L'archétype du chevalier en armure étincelante : justice et ordre.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#protection-contre-le-mal-et-le-bien">protection contre le mal et le bien</a>, <a class="spell" href="sorts-dnd-2024.html#bouclier-de-la-foi">bouclier de la foi</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#aide">aide</a>, <a class="spell" href="sorts-dnd-2024.html#zone-de-verite">zone de vérité</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#lueur-d-espoir">lueur d'espoir</a>, <a class="spell" href="sorts-dnd-2024.html#dissipation-de-la-magie">dissipation de la magie</a> · <span class="lv">13</span> <a class="spell" href="sorts-dnd-2024.html#liberte-de-mouvement">liberté de mouvement</a>, <a class="spell" href="sorts-dnd-2024.html#gardien-de-la-foi">gardien de la foi</a> · <span class="lv">17</span> <a class="spell" href="sorts-dnd-2024.html#communion">communion</a>, <a class="spell" href="sorts-dnd-2024.html#colonne-de-flamme">colonne de flamme</a></p>
+<ul><li><span class="lvl">3</span> <strong>Arme sacrée.</strong> Conduit divin : +Charisme à l'attaque, dégâts radiants et lumière pendant 10 minutes.</li><li><span class="lvl">7</span> <strong>Aura de dévotion.</strong> Immunité à l'état Charmé dans l'aura.</li><li><span class="lvl">15</span> <strong>Châtiment de protection.</strong> Après un châtiment divin, vous et vos alliés dans l'aura avez un abri partiel.</li><li><span class="lvl">20</span> <strong>Nimbe sacré.</strong> Aura de lumière solaire qui brûle les ennemis.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/paladin/#devotion" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Serment de Gloire</h4><span class="badge green">SRD</span></div><p class="subdesc">Atteindre la gloire par l'héroïsme et inspirer les autres.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#rayon-tracant">rayon traçant</a>, <a class="spell" href="sorts-dnd-2024.html#heroisme">héroïsme</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#amelioration-de-caracteristique">amélioration de caractéristique</a>, <a class="spell" href="sorts-dnd-2024.html#arme-magique">arme magique</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#hate">hâte</a>, <a class="spell" href="sorts-dnd-2024.html#protection-contre-l-energie">protection contre l'énergie</a> · <span class="lv">13</span> <a class="spell" href="sorts-dnd-2024.html#compulsion">compulsion</a>, <a class="spell" href="sorts-dnd-2024.html#liberte-de-mouvement">liberté de mouvement</a> · <span class="lv">17</span> <a class="spell" href="sorts-dnd-2024.html#mythes-et-legendes">mythes et légendes</a>, <a class="spell" href="sorts-dnd-2024.html#presence-royale-de-yolande">présence royale de Yolande</a></p>
+<ul><li><span class="lvl">3</span> <strong>Châtiment d'exaltation.</strong> Après un châtiment divin, PV temporaires répartis entre vos alliés.</li><li><span class="lvl">3</span> <strong>Athlète d'exception.</strong> Avantage en Athlétisme et Acrobaties, sauts allongés pendant 1 heure.</li><li><span class="lvl">7</span> <strong>Aura d'entrain.</strong> +3 m de vitesse pour vous et vos alliés.</li><li><span class="lvl">15</span> <strong>Défense glorieuse.</strong> Réaction : +Charisme à la CA d'un allié, puis riposte.</li><li><span class="lvl">20</span> <strong>Légende vivante.</strong> Vous devenez une légende : vos attaques et JS ratés peuvent devenir des réussites.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/paladin/#gloire" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Serment de Vengeance</h4><span class="badge green">SRD</span></div><p class="subdesc">Punir ceux qui ont commis le pire, sans pitié.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#imprecation">imprécation</a>, <a class="spell" href="sorts-dnd-2024.html#marque-du-chasseur">marque du chasseur</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#immobilisation-de-personne">immobilisation de personne</a>, <a class="spell" href="sorts-dnd-2024.html#foulee-brumeuse">foulée brumeuse</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#hate">hâte</a>, <a class="spell" href="sorts-dnd-2024.html#protection-contre-l-energie">protection contre l'énergie</a> · <span class="lv">13</span> <a class="spell" href="sorts-dnd-2024.html#bannissement">bannissement</a>, <a class="spell" href="sorts-dnd-2024.html#porte-dimensionnelle">porte dimensionnelle</a> · <span class="lv">17</span> <a class="spell" href="sorts-dnd-2024.html#immobilisation-de-monstre">immobilisation de monstre</a>, <a class="spell" href="sorts-dnd-2024.html#scrutation">scrutation</a></p>
+<ul><li><span class="lvl">3</span> <strong>Vœu d'hostilité.</strong> Conduit divin : avantage aux attaques contre une cible pendant 1 minute, transférable si elle tombe.</li><li><span class="lvl">7</span> <strong>Vengeur implacable.</strong> Vos attaques d'opportunité immobilisent la cible, et vous la suivez.</li><li><span class="lvl">15</span> <strong>Esprit de la vengeance.</strong> Riposte quand la cible de votre vœu attaque.</li><li><span class="lvl">20</span> <strong>Ange vengeur.</strong> Ailes et aura de terreur.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/paladin/#vengeance" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un paladin</summary><div class="inner"><ul><li>Le châtiment divin est désormais un sort : un seul par tour, en action bonus après avoir touché.</li><li>Placez-vous au centre du groupe pour que l'Aura de protection couvre tout le monde.</li><li>Imposition des mains est une réserve de soins d'urgence, précieuse entre deux combats.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Châtiment divin devient un sort (toujours préparé) ; Frappes radiantes remplace Châtiment divin amélioré.</li><li>Maîtrise d'armes, Fidèle destrier et Abjuration d'ennemis sont nouveaux.</li><li>Le Serment de Gloire entre au PHB.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-paladin">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/paladin/" target="_blank" rel="noopener">Paladin 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190881-paladin" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/paladin.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="rodeur">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Rôdeur"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+<path d="M38 18 C80 36 80 84 38 102" fill="none" stroke="#5a4330" stroke-width="6" stroke-linecap="round"/>
+<path d="M38 18 L38 102" stroke="#2b1d12" stroke-width="1.5"/>
+<path d="M30 60 H98" stroke="#2b1d12" stroke-width="3"/>
+<path d="M98 60 L88 54 L90 60 L88 66 Z" fill="#8e1b1b"/>
+<path d="M30 60 L24 54 M30 60 L24 66 M36 60 L30 54 M36 60 L30 66" stroke="#3f6b3a" stroke-width="3" stroke-linecap="round"/></svg><div class="species-title"><h2>Rôdeur</h2><div class="sub">Le chasseur des terres sauvages</div><div class="badges"><span class="badge">d10</span><span class="badge alt">Dextérité et Sagesse</span></div></div></div>
+<div class="lore"><p>Loin des villes, au cœur des forêts ou des plaines, les rôdeurs veillent sur la nature. Ils traquent leurs proies comme des prédateurs et se fondent dans les broussailles et les ruines.</p><p>Leur lien avec la nature leur donne accès à une magie primitive, affûtée pour protéger le monde des monstres et des tyrans.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d10</div><div class="stat"><b>Caractéristiques principales</b>Dextérité et Sagesse</div><div class="stat"><b>Jets de sauvegarde</b>Force et Dextérité</div><div class="stat"><b>Compétences</b>3 parmi Athlétisme, Discrétion, Dressage, Intuition, Investigation, Nature, Perception, Survie</div><div class="stat"><b>Armes</b>Courantes et de guerre</div><div class="stat"><b>Armures</b>Légères, intermédiaires, boucliers</div><div class="stat"><b>Équipement</b>Cuir clouté, cimeterre, épée courte, arc long, 20 flèches, carquois, gui druidique, sac d'explorateur et 7 po, ou 150 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Ennemi juré</th><th>Sorts préparés</th></tr>
+<tr><td class="lvlc">1</td><td>Sorts, Ennemi juré, Bottes d'arme</td><td>2</td><td>2</td></tr>
+<tr><td class="lvlc">2</td><td>Fin explorateur, Style de combat</td><td>2</td><td>3</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe</td><td>2</td><td>4</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>2</td><td>5</td></tr>
+<tr><td class="lvlc">5</td><td>Attaque supplémentaire</td><td>3</td><td>6</td></tr>
+<tr><td class="lvlc">6</td><td>Arpenteur</td><td>3</td><td>6</td></tr>
+<tr class="sub-row"><td class="lvlc">7</td><td>Capacité de sous-classe</td><td>3</td><td>7</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>3</td><td>7</td></tr>
+<tr><td class="lvlc">9</td><td>Expertise</td><td>4</td><td>9</td></tr>
+<tr><td class="lvlc">10</td><td>Infatigable</td><td>4</td><td>9</td></tr>
+<tr class="sub-row"><td class="lvlc">11</td><td>Capacité de sous-classe</td><td>4</td><td>10</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>4</td><td>10</td></tr>
+<tr><td class="lvlc">13</td><td>Chasseur implacable</td><td>5</td><td>11</td></tr>
+<tr><td class="lvlc">14</td><td>Voile de la nature</td><td>5</td><td>11</td></tr>
+<tr class="sub-row"><td class="lvlc">15</td><td>Capacité de sous-classe</td><td>5</td><td>12</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>5</td><td>12</td></tr>
+<tr><td class="lvlc">17</td><td>Chasseur précis</td><td>6</td><td>14</td></tr>
+<tr><td class="lvlc">18</td><td>Sens sauvages</td><td>6</td><td>14</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>6</td><td>15</td></tr>
+<tr><td class="lvlc">20</td><td>Tueur implacable</td><td>6</td><td>15</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Sorts</strong><span class="lvl">Niv. 1</span> Demi-lanceur à la Sagesse. Recommandés : <a class="spell" href="sorts-dnd-2024.html#soins">soins</a>, <a class="spell" href="sorts-dnd-2024.html#frappe-piegeuse">frappe piégeuse</a>.</li>
+<li><strong>Ennemi juré</strong><span class="lvl">Niv. 1</span> <a class="spell" href="sorts-dnd-2024.html#marque-du-chasseur">marque du chasseur</a> toujours préparé, lançable gratuitement 2 fois par repos long (6 fois au niveau 17).</li>
+<li><strong>Fin explorateur</strong><span class="lvl">Niv. 2</span> Expertise dans une compétence et deux langues.</li>
+<li><strong>Style de combat</strong><span class="lvl">Niv. 2</span> Un don de Style de combat, ou Combattant druidique (deux sorts mineurs de druide, par exemple <a class="spell" href="sorts-dnd-2024.html#assistance">assistance</a>, <a class="spell" href="sorts-dnd-2024.html#poussiere-d-etoile">poussière d’étoile</a>).</li>
+<li><strong>Arpenteur</strong><span class="lvl">Niv. 6</span> +3 m de vitesse, escalade et nage.</li>
+<li><strong>Expertise</strong><span class="lvl">Niv. 9</span> Expertise dans deux compétences.</li>
+<li><strong>Infatigable</strong><span class="lvl">Niv. 10</span> PV temporaires à volonté (1d8 + Sag, plusieurs fois par jour) et −1 niveau d'épuisement au repos court.</li>
+<li><strong>Chasseur implacable</strong><span class="lvl">Niv. 13</span> Les dégâts ne brisent plus la Concentration sur la marque du chasseur.</li>
+<li><strong>Voile de la nature</strong><span class="lvl">Niv. 14</span> Action bonus : Invisible jusqu'à la fin de votre prochain tour.</li>
+<li><strong>Chasseur précis</strong><span class="lvl">Niv. 17</span> Avantage contre la cible de votre marque.</li>
+<li><strong>Sens sauvages</strong><span class="lvl">Niv. 18</span> Vision aveugle à 9 m.</li>
+<li><strong>Tueur implacable</strong><span class="lvl">Niv. 20</span> La marque du chasseur inflige des d10 au lieu de d6.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Belluaire</h4><span class="badge green">SRD</span></div><p class="subdesc">Un lien mystique avec une bête primitive.</p>
+<ul><li><span class="lvl">3</span> <strong>Compagnon primitif.</strong> Une bête des terres, des mers ou des cieux, qui agit à votre tour sur votre ordre (action bonus ou en remplaçant une attaque).</li><li><span class="lvl">7</span> <strong>Coordination facilitée.</strong> La bête agit aussi en action bonus et inflige des dégâts de force.</li><li><span class="lvl">11</span> <strong>Fureur bestiale.</strong> Votre bête attaque deux fois et profite de votre marque.</li><li><span class="lvl">15</span> <strong>Partage des sorts.</strong> Vos sorts sur vous-même affectent aussi votre bête.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/rodeur/#belluaire" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Chasseur</h4><span class="badge green">SRD</span></div><p class="subdesc">Protecteur polyvalent, qui adapte ses tactiques à chaque proie.</p>
+<ul><li><span class="lvl">3</span> <strong>Savoir du chasseur.</strong> Vous connaissez les immunités, résistances et vulnérabilités de la cible marquée.</li><li><span class="lvl">3</span> <strong>Proie du chasseur.</strong> Goût du sang (+1d8 contre une cible blessée) ou Briseur de hordes (une attaque supplémentaire contre une créature adjacente), interchangeables au repos.</li><li><span class="lvl">7</span> <strong>Tactiques défensives.</strong> Cauchemar de la horde (attaques d'opportunité contre vous désavantagées) ou Défense contre les attaques multiples.</li><li><span class="lvl">11</span> <strong>Proie du chasseur supérieure.</strong> Les dégâts de la marque touchent une seconde créature.</li><li><span class="lvl">15</span> <strong>Défense de chasseur supérieure.</strong> Réaction : résistance au type de dégâts qui vient de vous toucher.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/rodeur/#chasseur" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Traqueur des ténèbres</h4><span class="badge green">SRD</span></div><p class="subdesc">Chasseur des profondeurs, armé de la magie de la Gisombre.</p>
+<p class="spells"><b>Sorts toujours préparés</b> <span class="lv">3</span> <a class="spell" href="sorts-dnd-2024.html#deguisement">déguisement</a> · <span class="lv">5</span> <a class="spell" href="sorts-dnd-2024.html#corde-enchantee">corde enchantée</a> · <span class="lv">9</span> <a class="spell" href="sorts-dnd-2024.html#terreur">peur</a> · <span class="lv">13</span> <a class="spell" href="sorts-dnd-2024.html#invisibilite-supreme">invisibilité suprême</a> · <span class="lv">17</span> <a class="spell" href="sorts-dnd-2024.html#apparence-trompeuse">apparence trompeuse</a></p>
+<ul><li><span class="lvl">3</span> <strong>Embuscade effrayante.</strong> +3 m au premier tour, Frappe effroyable (+2d6 psychiques) et +Sagesse à l'initiative.</li><li><span class="lvl">3</span> <strong>Vision ombreuse.</strong> Vision dans le noir et invisibilité face aux créatures qui voient dans le noir.</li><li><span class="lvl">7</span> <strong>Mental d'acier.</strong> Maîtrise des JS de Sagesse.</li><li><span class="lvl">11</span> <strong>Rafale du traqueur.</strong> Votre Frappe effroyable gagne des effets supplémentaires.</li><li><span class="lvl">15</span> <strong>Esquive des ombres.</strong> Réaction : désavantage à une attaque contre vous, puis téléportation.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/rodeur/#traqueur-tenebres" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Vagabond féerique</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">La joie et la fureur des fées dans le regard.</p>
+<ul><li><span class="lvl">3</span> <strong>Frappes redoutables et Charme d'Outremonde.</strong> Dégâts psychiques bonus ; charisme surnaturel et compétence sociale.</li><li><span class="lvl">7</span> <strong>Tours ensorcelants.</strong> Vous renvoyez les charmes et les effrois résistés vers d'autres créatures.</li><li><span class="lvl">11</span> <strong>Renforts féeriques.</strong> Invocation de fée gratuite, sans Concentration.</li><li><span class="lvl">15</span> <strong>Vagabond brumeux.</strong> Foulées brumeuses gratuites, en emmenant un allié.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190882-ranger" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+</div>
+<details><summary>Jouer un rôdeur</summary><div class="inner"><ul><li>La marque du chasseur gratuite plusieurs fois par jour libère vos emplacements pour d'autres sorts.</li><li>Le Traqueur des ténèbres est redoutable au premier tour de combat.</li><li>Pensez à la Concentration : marque du chasseur et frappe piégeuse ne se cumulent pas.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Ennemi juré et Explorateur-né deviennent la marque du chasseur gratuite et Fin explorateur.</li><li>Sorts préparés, maîtrise d'armes, Voile de la nature et Tueur implacable révisés.</li><li>Le compagnon du Belluaire utilise des profils de bête primitive ; le Vagabond féerique entre au PHB.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="sorts-dnd-2024.html#classe-rodeur">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/rodeur/" target="_blank" rel="noopener">Rôdeur 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190882-ranger" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/ranger.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section><section class="panel species" id="roublard">
+<a class="top" href="#apercu">↑ haut</a>
+<div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Roublard"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="#ring"/>
+<g transform="rotate(-40 60 60)"><path d="M57 14 L63 14 L64 68 L56 68 Z" fill="#f3e6c8"/><path d="M60 8 L64 16 L56 16 Z" fill="#f3e6c8"/>
+<rect x="48" y="68" width="24" height="5" fill="#b8892e"/><rect x="57" y="73" width="6" height="18" fill="#5a4330"/><circle cx="60" cy="94" r="4" fill="#b8892e"/></g>
+<path d="M22 54 C30 44 48 46 60 52 C72 46 90 44 98 54 C94 66 78 70 68 64 C64 62 56 62 52 64 C42 70 26 66 22 54 Z" fill="#8e1b1b"/>
+<ellipse cx="42" cy="56" rx="7" ry="4" fill="#1c130d"/><ellipse cx="78" cy="56" rx="7" ry="4" fill="#1c130d"/></svg><div class="species-title"><h2>Roublard</h2><div class="sub">L'expert de l'ombre</div><div class="badges"><span class="badge">d8</span><span class="badge alt">Dextérité</span></div></div></div>
+<div class="lore"><p>Les roublards comptent sur leur ruse, leur discrétion et les faiblesses de leurs ennemis. Ils trouvent une solution à presque tout : crocheter une serrure, désamorcer un piège, faire parler un témoin, frapper au bon endroit.</p><p>Criminels repentis ou non, espions, justiciers de l'ombre, ils préfèrent un coup précis à une pluie de coups, et personne n'égale leur finesse.</p></div>
+<div class="stats"><div class="stat"><b>Dé de vie</b>d8</div><div class="stat"><b>Caractéristique principale</b>Dextérité</div><div class="stat"><b>Jets de sauvegarde</b>Dextérité et Intelligence</div><div class="stat"><b>Compétences</b>4 parmi Acrobaties, Athlétisme, Discrétion, Escamotage, Intimidation, Intuition, Investigation, Perception, Persuasion, Tromperie</div><div class="stat"><b>Armes</b>Courantes et de guerre à propriété Finesse ou Légère</div><div class="stat"><b>Armures</b>Légères</div><div class="stat"><b>Outils</b>Outils de voleur</div><div class="stat"><b>Équipement</b>Armure de cuir, 2 dagues, épée courte, arc court, 20 flèches, carquois, outils de voleur, sac de cambrioleur et 8 po, ou 100 po</div></div>
+<h3>Progression (niveaux 1 à 20)</h3><div class="table-wrap"><table class="prog"><tr><th>Niv.</th><th>Capacités</th><th>Attaque sournoise</th></tr>
+<tr><td class="lvlc">1</td><td>Expertise, Attaque sournoise, Argot des voleurs, Bottes d'arme</td><td>1d6</td></tr>
+<tr><td class="lvlc">2</td><td>Ruse</td><td>1d6</td></tr>
+<tr class="sub-row"><td class="lvlc">3</td><td>Sous-classe, Visée appliquée</td><td>2d6</td></tr>
+<tr><td class="lvlc">4</td><td>Amélioration de caractéristique</td><td>2d6</td></tr>
+<tr><td class="lvlc">5</td><td>Frappe malicieuse, Esquive instinctive</td><td>3d6</td></tr>
+<tr><td class="lvlc">6</td><td>Expertise</td><td>3d6</td></tr>
+<tr><td class="lvlc">7</td><td>Esquive totale, Savoir-faire</td><td>4d6</td></tr>
+<tr><td class="lvlc">8</td><td>Amélioration de caractéristique</td><td>4d6</td></tr>
+<tr class="sub-row"><td class="lvlc">9</td><td>Capacité de sous-classe</td><td>5d6</td></tr>
+<tr><td class="lvlc">10</td><td>Amélioration de caractéristique</td><td>5d6</td></tr>
+<tr><td class="lvlc">11</td><td>Frappe malicieuse améliorée</td><td>6d6</td></tr>
+<tr><td class="lvlc">12</td><td>Amélioration de caractéristique</td><td>6d6</td></tr>
+<tr class="sub-row"><td class="lvlc">13</td><td>Capacité de sous-classe</td><td>7d6</td></tr>
+<tr><td class="lvlc">14</td><td>Coups vicieux</td><td>7d6</td></tr>
+<tr><td class="lvlc">15</td><td>Esprit fuyant</td><td>8d6</td></tr>
+<tr><td class="lvlc">16</td><td>Amélioration de caractéristique</td><td>8d6</td></tr>
+<tr class="sub-row"><td class="lvlc">17</td><td>Capacité de sous-classe</td><td>9d6</td></tr>
+<tr><td class="lvlc">18</td><td>Insaisissable</td><td>9d6</td></tr>
+<tr><td class="lvlc">19</td><td>Faveur épique</td><td>10d6</td></tr>
+<tr><td class="lvlc">20</td><td>Coup de chance</td><td>10d6</td></tr>
+</table></div><p class="note">Amélioration de caractéristique : +2/+1 aux caractéristiques ou un don au choix. Faveur épique : un don épique au niveau 19.</p>
+<h3>Capacités de classe</h3><ul class="traits">
+<li><strong>Expertise</strong><span class="lvl">Niv. 1</span> Deux compétences au niveau 1, deux autres au niveau 6.</li>
+<li><strong>Attaque sournoise</strong><span class="lvl">Niv. 1</span> Une fois par tour, avec une arme de finesse ou à distance : dégâts supplémentaires si vous avez l'avantage ou si un allié est à côté de la cible (et que vous n'avez pas le désavantage).</li>
+<li><strong>Argot des voleurs et Bottes d'arme</strong><span class="lvl">Niv. 1</span> Une langue secrète et une autre langue ; la botte de deux types d'armes.</li>
+<li><strong>Ruse</strong><span class="lvl">Niv. 2</span> Foncer, Se désengager ou Se cacher en action bonus.</li>
+<li><strong>Visée appliquée</strong><span class="lvl">Niv. 3</span> Action bonus, sans bouger : avantage à votre prochaine attaque.</li>
+<li><strong>Frappe malicieuse</strong><span class="lvl">Niv. 5</span> Vous sacrifiez des dés d'Attaque sournoise pour un effet : Poison (1d6, kit d'empoisonneur), Croc-en-jambe (1d6) ou Repli (1d6). Au niveau 11, deux effets à la fois. Au niveau 14, Coups vicieux ajoute Hébéter (2d6), Aveugler (3d6) et Assommer (6d6).</li>
+<li><strong>Esquive instinctive</strong><span class="lvl">Niv. 5</span> Réaction : moitié des dégâts d'une attaque.</li>
+<li><strong>Esquive totale et Savoir-faire</strong><span class="lvl">Niv. 7</span> Aucun dégât sur un JS de Dextérité réussi ; tout d20 de 9 ou moins compte comme 10 sur vos compétences maîtrisées.</li>
+<li><strong>Esprit fuyant</strong><span class="lvl">Niv. 15</span> Maîtrise des JS de Sagesse et de Charisme.</li>
+<li><strong>Insaisissable</strong><span class="lvl">Niv. 18</span> Aucune attaque n'a l'avantage contre vous.</li>
+<li><strong>Coup de chance</strong><span class="lvl">Niv. 20</span> Un d20 raté devient 20, une fois par repos court.</li>
+</ul>
+<h3>Sous-classes (niveau 3)</h3><div class="subgrid">
+<div class="subclass"><div class="subhead"><h4>Âme acérée</h4><span class="badge alt">Hors SRD</span></div><p class="subdesc">Des lames psioniques forgées par l'esprit.</p>
+<ul><li><span class="lvl">3</span> <strong>Pouvoir psionique et Lames psychiques.</strong> Dés d'énergie psionique (aide aux tests, télépathie) et lames psychiques invisibles, dont une seconde en action bonus.</li><li><span class="lvl">9</span> <strong>Lames d'âme.</strong> Tirs guidés par l'esprit et téléportation en lançant une lame.</li><li><span class="lvl">13</span> <strong>Voile psychique.</strong> Invisibilité prolongée.</li><li><span class="lvl">17</span> <strong>Déchirer l'esprit.</strong> Votre attaque sournoise psychique étourdit la cible.</li></ul>
+<a class="sublink" href="https://www.dndbeyond.com/classes/2190883-rogue" target="_blank" rel="noopener">Détails (D&amp;D Beyond) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Arnaqueur arcanique</h4><span class="badge green">SRD</span></div><p class="subdesc">Furtivité et agilité renforcées par la magie.</p>
+<ul><li><span class="lvl">3</span> <strong>Sorts.</strong> Sorts de magicien à l'Intelligence : <a class="spell" href="sorts-dnd-2024.html#main-du-mage">main de mage</a> et deux sorts mineurs (recommandés : <a class="spell" href="sorts-dnd-2024.html#piqure-mentale">piqûre mentale</a>, <a class="spell" href="sorts-dnd-2024.html#illusion-mineure">illusion mineure</a>).</li><li><span class="lvl">3</span> <strong>Passe-passe à distance.</strong> Main de mage invisible en action bonus, capable d'Escamotage.</li><li><span class="lvl">9</span> <strong>Embuscade magique.</strong> Si vous êtes Invisible, la cible de votre sort est désavantagée à ses JS.</li><li><span class="lvl">13</span> <strong>Omniprésence.</strong> Vos Frappes malicieuses peuvent aussi viser une créature près de votre main spectrale.</li><li><span class="lvl">17</span> <strong>Voleur de sorts.</strong> Réaction : vous annulez un sort qui vous vise et vous le volez.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/roublard/#arnaqueur-arcanique" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Assassin</h4><span class="badge green">SRD</span></div><p class="subdesc">Embuscade, poison et déguisement.</p>
+<ul><li><span class="lvl">3</span> <strong>Assassinat.</strong> Avantage à l'initiative ; au premier round, avantage contre ceux qui n'ont pas encore agi et dégâts bonus égaux à votre niveau.</li><li><span class="lvl">3</span> <strong>Outils d'assassin.</strong> Kit de déguisement et kit d'empoisonneur.</li><li><span class="lvl">9</span> <strong>Expertise en infiltration.</strong> Imitation de voix et d'écriture ; Visée appliquée sans vous immobiliser.</li><li><span class="lvl">13</span> <strong>Armes envenimées.</strong> Votre option Poison inflige des dégâts supplémentaires.</li><li><span class="lvl">17</span> <strong>Coup meurtrier.</strong> Au premier round, des dégâts doublés si la cible rate son JS.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/roublard/#assassin" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+<div class="subclass"><div class="subhead"><h4>Voleur</h4><span class="badge green">SRD</span></div><p class="subdesc">Cambrioleur, chasseur de trésors, aventurier par excellence.</p>
+<ul><li><span class="lvl">3</span> <strong>Mains lestes.</strong> Escamotage ou utilisation d'un objet en action bonus.</li><li><span class="lvl">3</span> <strong>Monte-en-l'air.</strong> Vitesse d'escalade, et saut calculé avec la Dextérité.</li><li><span class="lvl">9</span> <strong>Furtivité suprême.</strong> Vous restez Invisible après une attaque si vous finissez derrière un abri.</li><li><span class="lvl">13</span> <strong>Utilisation d'objets magiques.</strong> Charges épargnées, quatre objets liés, n'importe quel parchemin.</li><li><span class="lvl">17</span> <strong>Réflexes de voleur.</strong> Deux tours au premier round.</li></ul>
+<a class="sublink" href="https://www.aidedd.org/regles-24/classes/roublard/#voleur" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
+</div>
+<details><summary>Jouer un roublard</summary><div class="inner"><ul><li>Positionnez-vous à côté d'un allié au contact de la cible pour garantir l'Attaque sournoise.</li><li>Ruse + Se cacher à chaque tour : le combo classique à distance.</li><li>Les Frappes malicieuses transforment vos dégâts en contrôle quand il le faut.</li></ul></div></details>
+<details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Frappe malicieuse et Coups vicieux sont nouveaux ; Visée appliquée devient une capacité de base.</li><li>Maîtrise d'armes ; Esprit fuyant ajoute le Charisme.</li><li>L'Âme acérée entre au PHB ; l'Assassin est révisé.</li></ul></div></details>
+<div class="links"><span>Sources</span><a href="https://www.aidedd.org/regles-24/classes/roublard/" target="_blank" rel="noopener">Roublard 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190883-rogue" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/rogue.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
+</section>
+
+<section class="panel" id="autres">
+  <h2>Autres classes aux règles 2024</h2>
+  <div class="other-grid">
+    <div class="other"><a href="https://www.dndbeyond.com/classes/2656866-artificer" target="_blank" rel="noopener">Artificier</a><br>Publié dans <em>Eberron: Forge of the Artificer</em>. Inventeur magique qui insuffle des pouvoirs aux objets. Dé de vie d8, Intelligence, JS de Constitution et d'Intelligence.</div>
+  </div>
+  <p class="note">D&amp;D Beyond référence aussi des classes d'éditeurs tiers (Blood Hunter, Gunslinger…), non couvertes ici.</p>
+</section>
+
+<section class="panel" id="sources">
+  <h2>Sources et références</h2>
+  <h3>Règles en français</h3>
+  <ul>
+    <li><a href="https://www.aidedd.org/regles-24/classes/" target="_blank" rel="noopener">AideDD — Classes de personnage 2024</a> : une page par classe, avec les tables complètes et les sous-classes du SRD. Les sous-classes hors SRD y sont indiquées « Voir le Manuel des Joueurs ».</li>
+    <li><a href="https://www.aidedd.org/spell/fr/" target="_blank" rel="noopener">AideDD — Sorts 2024</a> : chaque sort cité dans cette page renvoie à sa fiche.</li>
+    <li><a href="https://www.aidedd.org/invocation/fr/" target="_blank" rel="noopener">AideDD — Manifestations occultes 2024</a>.</li>
+    <li><a href="https://www.aidedd.org/feat/fr/" target="_blank" rel="noopener">AideDD — Dons 2024</a>, dont les styles de combat et les faveurs épiques.</li>
+    <li><a href="https://www.aidedd.org/regles-24/equipement/armes/#botte" target="_blank" rel="noopener">AideDD — Bottes d'arme</a>.</li>
+  </ul>
+  <h3>Sources officielles (anglais)</h3>
+  <ul>
+    <li><a href="https://www.dndbeyond.com/classes" target="_blank" rel="noopener">D&amp;D Beyond — Liste des classes</a>, avec une fiche par classe.</li>
+    <li><a href="https://www.dndbeyond.com/sources/dnd/br-2024" target="_blank" rel="noopener">D&amp;D Beyond — Basic Rules 2024</a> : les 12 classes, une sous-classe chacune, gratuitement.</li>
+    <li><a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">SRD 5.2</a> (Creative Commons).</li>
+    <li><a href="https://marketplace.dndbeyond.com/category/3709000" target="_blank" rel="noopener">Player's Handbook 2024</a> : les 48 sous-classes complètes.</li>
+  </ul>
+  <p class="note">Les textes de ce grimoire sont des résumés rédigés à partir des règles officielles, pas des extraits du livre. Les médaillons sont des créations originales ; les illustrations officielles sont accessibles via les liens « Illustration officielle ».</p>
+</section>
+</main>
+<footer>Dungeons &amp; Dragons est une marque de Wizards of the Coast. Page de référence non officielle.</footer>
+</body>
+</html>
