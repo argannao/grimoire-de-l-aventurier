@@ -136,6 +136,9 @@ table.prog tr.sub-row td{font-style:italic}
 /* finitions */
 #sources a,.links a{overflow-wrap:anywhere}
 @media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+.scrollbox{background:#fbf3de;border:2px solid var(--gold);border-left:6px solid var(--blood);border-radius:3px;padding:14px 18px;margin:22px 0 18px;box-shadow:0 4px 12px var(--shadow)}
+.scrollbox h4{margin:0 0 8px;font-family:'Cinzel',serif;color:var(--blood);font-size:18px}
+.scrollbox table td,.scrollbox table th{text-align:center}
 </style>
 </head>
 <body>
@@ -580,13 +583,28 @@ table.prog tr.sub-row td{font-style:italic}
 <h3>Capacités de classe</h3><ul class="traits">
 <li><strong>Sorts et grimoire</strong><span class="lvl">Niv. 1</span> Lanceur complet à l'Intelligence. Le grimoire contient 6 sorts de niveau 1, puis 2 de plus par niveau ; copier un sort trouvé coûte 2 heures et 50 po par niveau. Un sort mineur est changeable à chaque repos long. Recommandés : <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, <a class="spell" href="sorts-dnd-2024.html#main-du-mage">main de mage</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>, <a class="spell" href="sorts-dnd-2024.html#detection-de-la-magie">détection de la magie</a>, <a class="spell" href="sorts-dnd-2024.html#feuille-morte">feuille morte</a>, <a class="spell" href="sorts-dnd-2024.html#armure-du-mage">armure de mage</a>, <a class="spell" href="sorts-dnd-2024.html#projectile-magique">projectile magique</a>, <a class="spell" href="sorts-dnd-2024.html#sommeil">sommeil</a>, <a class="spell" href="sorts-dnd-2024.html#vague-tonnante">vague tonnante</a>.</li>
 <li><strong>Savoir rituel</strong><span class="lvl">Niv. 1</span> Vous lancez en rituel tout sort de votre grimoire qui le permet, sans le préparer.</li>
-<li><strong>Apprendre sur parchemin</strong><span class="lvl">Niv. 1</span> Un parchemin de sort de Magicien (niveau 1 ou plus, d'un niveau que vous pouvez préparer) peut être <strong>recopié dans votre grimoire au lieu d'être lancé</strong> : test d'Intelligence (Arcanes) DD 10 + niveau du sort, puis 2 heures et 50 po par niveau. Que le test réussisse ou non, le parchemin est détruit ; et une fois lancé, il tombe en poussière, donc on ne peut plus le recopier après. Les sorts mineurs ne s'apprennent pas ainsi. Parchemins en vente au <a href="magasin-dnd-2024.html#cat-m-parchemins">magasin</a> : niveau 1 50 po, niveau 2 200 po, niveau 3 300 po… Exemple : un parchemin de niveau 3 = 300 po + 150 po de copie, DD 13.</li>
+<li><strong>Apprendre sur parchemin</strong><span class="lvl">Niv. 1</span> Voir l'encadré « Apprendre de nouveaux sorts avec des parchemins » juste en dessous : un parchemin de sort de Magicien peut être recopié dans le grimoire au lieu d'être lancé.</li>
 <li><strong>Restauration magique</strong><span class="lvl">Niv. 1</span> Au repos court, vous récupérez des emplacements (niveaux cumulés jusqu'à la moitié de votre niveau, niveau 5 maximum), une fois par repos long.</li>
 <li><strong>Érudition</strong><span class="lvl">Niv. 2</span> Expertise dans une compétence savante.</li>
 <li><strong>Mémorisation de sort</strong><span class="lvl">Niv. 5</span> Au repos court, vous échangez un sort préparé contre un autre du grimoire.</li>
 <li><strong>Maîtrise des sorts</strong><span class="lvl">Niv. 18</span> Un sort de niveau 1 et un de niveau 2 lançables à volonté.</li>
 <li><strong>Sorts de prédilection</strong><span class="lvl">Niv. 20</span> Deux sorts de niveau 3 lançables gratuitement, une fois chacun par repos court.</li>
 </ul>
+<div class="scrollbox"><h4>📜 Apprendre de nouveaux sorts avec des parchemins</h4>
+<p>En plus des sorts gagnés à chaque niveau, un magicien peut enrichir son grimoire avec des <strong>parchemins de sort</strong> trouvés en aventure ou <a href="magasin-dnd-2024.html#cat-m-parchemins">achetés au magasin</a>. Au lieu de lancer le parchemin, il le <strong>recopie dans son grimoire</strong>.</p>
+<ul>
+<li><strong>Conditions</strong> : un sort de la liste du Magicien, de niveau 1 ou plus, et d’un niveau que vous pouvez déjà préparer. Les sorts mineurs ne s’apprennent pas ainsi.</li>
+<li><strong>Test</strong> : Intelligence (Arcanes), DD 10 + niveau du sort. <strong>Réussi ou raté, le parchemin est détruit.</strong></li>
+<li><strong>Coût de la copie</strong> : 2 heures et 50 po par niveau du sort, en plus du prix du parchemin.</li>
+<li><strong>Attention</strong> : un parchemin <em>lancé</em> tombe en poussière ; il faut donc choisir entre le lancer et l’apprendre.</li>
+</ul>
+<table><tr><th>Niveau du sort</th><th>Parchemin (magasin)</th><th>Copie</th><th>Total</th><th>DD Arcanes</th></tr>
+<tr><td>1</td><td>50 po</td><td>50 po</td><td>100 po</td><td>11</td></tr>
+<tr><td>2</td><td>200 po</td><td>100 po</td><td>300 po</td><td>12</td></tr>
+<tr><td>3</td><td>300 po</td><td>150 po</td><td>450 po</td><td>13</td></tr>
+<tr><td>4</td><td>2 000 po</td><td>200 po</td><td>2 200 po</td><td>14</td></tr>
+<tr><td>5</td><td>3 000 po</td><td>250 po</td><td>3 250 po</td><td>15</td></tr></table>
+<p class="note">Règles : SRD 5.2.1, aptitude « Étoffer et remplacer son grimoire » du Magicien et objet « Parchemin de sort ». Les prix des parchemins sont ceux du <a href="magasin-dnd-2024.html#cat-m-parchemins">magasin</a> (double du coût de fabrication) ; le MJ reste libre de les ajuster.</p></div>
 <h3>Sous-classes (niveau 3)</h3><div class="subgrid">
 <div class="subclass"><div class="subhead"><h4>Abjurateur</h4><span class="badge green">SRD</span></div><p class="subdesc">Protéger, bannir et contrer. Chaque sous-classe ajoute gratuitement des sorts de son école au grimoire.</p>
 <ul><li><span class="lvl">3</span> <strong>Égide arcanique.</strong> Un bouclier magique (2 × niveau + Int en PV) qui absorbe les dégâts et se recharge avec les sorts d'Abjuration.</li><li><span class="lvl">6</span> <strong>Égide projetée.</strong> Réaction : l'égide protège un allié.</li><li><span class="lvl">10</span> <strong>Briseur de sorts.</strong> <a class="spell" href="sorts-dnd-2024.html#contresort">contresort</a>, <a class="spell" href="sorts-dnd-2024.html#dissipation-de-la-magie">dissipation de la magie</a> toujours préparés ; la dissipation se lance en action bonus.</li><li><span class="lvl">14</span> <strong>Résistance aux sorts.</strong> Avantage aux JS contre les sorts et résistance à leurs dégâts.</li></ul>
