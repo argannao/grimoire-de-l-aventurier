@@ -580,6 +580,7 @@ table.prog tr.sub-row td{font-style:italic}
 <h3>Capacités de classe</h3><ul class="traits">
 <li><strong>Sorts et grimoire</strong><span class="lvl">Niv. 1</span> Lanceur complet à l'Intelligence. Le grimoire contient 6 sorts de niveau 1, puis 2 de plus par niveau ; copier un sort trouvé coûte 2 heures et 50 po par niveau. Un sort mineur est changeable à chaque repos long. Recommandés : <a class="spell" href="sorts-dnd-2024.html#lumiere">lumière</a>, <a class="spell" href="sorts-dnd-2024.html#main-du-mage">main de mage</a>, <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a>, <a class="spell" href="sorts-dnd-2024.html#detection-de-la-magie">détection de la magie</a>, <a class="spell" href="sorts-dnd-2024.html#feuille-morte">feuille morte</a>, <a class="spell" href="sorts-dnd-2024.html#armure-du-mage">armure de mage</a>, <a class="spell" href="sorts-dnd-2024.html#projectile-magique">projectile magique</a>, <a class="spell" href="sorts-dnd-2024.html#sommeil">sommeil</a>, <a class="spell" href="sorts-dnd-2024.html#vague-tonnante">vague tonnante</a>.</li>
 <li><strong>Savoir rituel</strong><span class="lvl">Niv. 1</span> Vous lancez en rituel tout sort de votre grimoire qui le permet, sans le préparer.</li>
+<li><strong>Apprendre sur parchemin</strong><span class="lvl">Niv. 1</span> Un parchemin de sort de Magicien (niveau 1 ou plus, d'un niveau que vous pouvez préparer) peut être <strong>recopié dans votre grimoire au lieu d'être lancé</strong> : test d'Intelligence (Arcanes) DD 10 + niveau du sort, puis 2 heures et 50 po par niveau. Que le test réussisse ou non, le parchemin est détruit ; et une fois lancé, il tombe en poussière, donc on ne peut plus le recopier après. Les sorts mineurs ne s'apprennent pas ainsi. Parchemins en vente au <a href="magasin-dnd-2024.html#cat-m-parchemins">magasin</a> : niveau 1 50 po, niveau 2 200 po, niveau 3 300 po… Exemple : un parchemin de niveau 3 = 300 po + 150 po de copie, DD 13.</li>
 <li><strong>Restauration magique</strong><span class="lvl">Niv. 1</span> Au repos court, vous récupérez des emplacements (niveaux cumulés jusqu'à la moitié de votre niveau, niveau 5 maximum), une fois par repos long.</li>
 <li><strong>Érudition</strong><span class="lvl">Niv. 2</span> Expertise dans une compétence savante.</li>
 <li><strong>Mémorisation de sort</strong><span class="lvl">Niv. 5</span> Au repos court, vous échangez un sort préparé contre un autre du grimoire.</li>
@@ -600,7 +601,7 @@ table.prog tr.sub-row td{font-style:italic}
 <ul><li><span class="lvl">3</span> <strong>Illusions améliorées.</strong> Illusions sans composante verbale et portée accrue ; <a class="spell" href="sorts-dnd-2024.html#illusion-mineure">illusion mineure</a> en action bonus avec son et image.</li><li><span class="lvl">6</span> <strong>Créatures fantasmagoriques.</strong> <a class="spell" href="sorts-dnd-2024.html#convocation-de-bete">convocation de bête</a>, <a class="spell" href="sorts-dnd-2024.html#convocation-de-fee">convocation de fée</a> toujours préparés, en version illusoire gratuite.</li><li><span class="lvl">10</span> <strong>Calque illusoire.</strong> Réaction : une attaque qui vous touchait vous rate.</li><li><span class="lvl">14</span> <strong>Réalité chimérique.</strong> Un objet de votre illusion devient réel pour un temps.</li></ul>
 <a class="sublink" href="https://www.aidedd.org/regles-24/classes/magicien/#illusionniste" target="_blank" rel="noopener">Détails (AideDD) ↗</a></div>
 </div>
-<details><summary>Jouer un magicien</summary><div class="inner"><ul><li>Le grimoire est votre trésor : recopiez chaque parchemin trouvé.</li><li>Les rituels (détection de la magie, appel de familier…) ne consomment pas d'emplacement.</li><li>Armure de mage, puis bouclier : les deux sorts de survie classiques.</li></ul></div></details>
+<details><summary>Jouer un magicien</summary><div class="inner"><ul><li>Le grimoire est votre trésor : recopiez chaque parchemin de Magicien trouvé ou acheté plutôt que de le lancer (test d’Arcanes DD 10 + niveau, le parchemin est détruit dans tous les cas).</li><li>Les rituels (détection de la magie, appel de familier…) ne consomment pas d'emplacement.</li><li>Armure de mage, puis bouclier : les deux sorts de survie classiques.</li></ul></div></details>
 <details><summary>Ce qui change depuis 2014</summary><div class="inner"><ul><li>Écoles réduites à quatre au PHB ; les capacités de sous-classe arrivent au niveau 3.</li><li>Érudition et Mémorisation de sort sont nouvelles.</li><li>Le sort mineur est modifiable à chaque repos long.</li></ul></div></details>
 <div class="links"><span>Sources</span><a href="historiques-dnd-2024.html#classe-magicien">Historiques conseillés</a><a href="magasin-dnd-2024.html#classe-magicien">Équipement au magasin</a><a href="compagnons-dnd-2024.html#guide">Compagnons et animaux</a><a href="sorts-dnd-2024.html#classe-magicien">Tous les sorts de la classe</a><a href="https://www.aidedd.org/regles-24/classes/magicien/" target="_blank" rel="noopener">Magicien 2024 (AideDD, FR)</a><a href="https://www.dndbeyond.com/classes/2190886-wizard" target="_blank" rel="noopener">Fiche officielle (D&amp;D Beyond)</a><a href="https://www.aidedd.org/assets/regles/2024/wizard.jpg" target="_blank" rel="noopener">Illustration officielle ↗</a></div>
 </section><section class="panel species" id="moine">
@@ -954,10 +955,11 @@ table.prog tr.sub-row td{font-style:italic}
   function place(){
     var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
     document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
     document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
       el.style.top = '';
       if (getComputedStyle(el).position === 'sticky'){
-        var extra = el.classList.contains('filters') ? 6 : 8;
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
         el.style.top = (h + extra) + 'px';
         if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
       } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
@@ -965,6 +967,18 @@ table.prog tr.sub-row td{font-style:italic}
     var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
     document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
   }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
   window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
   if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
 })();

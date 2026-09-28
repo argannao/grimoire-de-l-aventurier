@@ -754,10 +754,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function place(){
     var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
     document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
     document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
       el.style.top = '';
       if (getComputedStyle(el).position === 'sticky'){
-        var extra = el.classList.contains('filters') ? 6 : 8;
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
         el.style.top = (h + extra) + 'px';
         if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
       } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
@@ -765,6 +766,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
     var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
     document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
   }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
   window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
   if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
 })();
