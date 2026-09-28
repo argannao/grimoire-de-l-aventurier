@@ -142,6 +142,12 @@ footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
 .schools{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
 .school-card{display:flex;gap:10px;align-items:center;background:var(--parch-dark);border:1px solid var(--gold);padding:8px 10px;border-radius:2px;font-size:15px}
 .school-card b{font-family:'Cinzel',serif;color:var(--blood)}
+a.school-card{text-decoration:none;color:var(--ink);cursor:pointer;transition:background .15s,transform .15s}
+a.school-card:hover{background:#fff7e3;transform:translateY(-2px)}
+a.school-card .go{font-family:'Cinzel',serif;font-size:11.5px;color:var(--blood);letter-spacing:.5px}
+a.badge.school{text-decoration:none}a.badge.school:hover{background:var(--blood)}
+.school-active{display:none;margin:0 0 14px;padding:8px 14px;background:var(--parch-dark);border:1px solid var(--gold);border-left:5px solid var(--blood);font-size:15.5px}
+.school-active.on{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:14.5px}
 .legend div{display:flex;gap:6px;align-items:center}
 .legend svg{flex:none}
@@ -189,6 +195,7 @@ footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
 </section>
 
 
+<div class="school-active" id="sact"></div>
 <div id="list"></div>
 
 <section class="panel" id="sources">
@@ -415,7 +422,7 @@ const COMP = {"appel-de-familier": [["Compagnons : les familiers", "compagnons-d
 function card(sp){
   const tags = [];
   tags.push(`<span class="badge">${LVL(sp.lvl)}</span>`);
-  tags.push(`<span class="badge school">${SCHOOLS[sp.school].fr}</span>`);
+  tags.push(`<a class="badge school" href="#ecole-${sp.school}" title="Voir tous les sorts de cette école">${SCHOOLS[sp.school].fr}</a>`);
   if (sp.conc) tags.push(`<span class="badge tag">Concentration</span>`);
   if (sp.rit) tags.push(`<span class="badge tag">Rituel</span>`);
   tags.push(sp.srd ? `<span class="badge green">SRD 5.2.1</span>` : `<span class="badge alt">Hors SRD · résumé</span>`);
@@ -462,10 +469,15 @@ function render(){
   }
   $('#list').innerHTML = html || '<p class="panel">Aucun sort ne correspond à ces filtres.</p>';
   $('#count').textContent = n + (n>1?' sorts':' sort');
+  const sk = $('#fs').value, sa = $('#sact');
+  sa.classList.toggle('on', !!sk);
+  sa.innerHTML = sk ? `${spellSVG({id:'ecole-'+sk, fr:SCHOOLS[sk].fr, text:'', school:sk, lvl:0},40)}<span><b>${SCHOOLS[sk].fr}</b> — ${SCHOOL_TXT[sk]} (${n} sort${n>1?'s':''} affiché${n>1?'s':''})</span><button type="button" class="chip" id="sclear">Toutes les écoles</button>` : '';
+  if (sk) $('#sclear').onclick = ()=>{ $('#fs').value=''; if (location.hash.startsWith('#ecole-')) history.replaceState(null,'',location.pathname); render(); };
 }
 
 function applyHash(){
   const h = decodeURIComponent(location.hash.slice(1));
+  if (h.startsWith('ecole-') && SCHOOLS[h.slice(6)]){ $('#fs').value = h.slice(6); render(); $('#sact').scrollIntoView(); return; }
   if (h.startsWith('classe-')){
     const key = Object.keys(CLASS_FR).find(k=>CLASS_FR[k][1]===h.slice(7));
     if (key){ $('#fc').value = key; render(); $('#list').scrollIntoView(); }
@@ -482,7 +494,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const demo = (school, motifName, id) => spellSVG({id, fr:id, text:'', school, lvl:3}, 54).replace(/<g transform="translate\(24 24\)[^]*?<\/g><\/g>|<g transform="translate\(24 24\)[^]*?<\/g>/, '');
   $('#schools').innerHTML = Object.entries(SCHOOLS).map(([k,v])=>{
     const cnt = DATA.filter(s=>s.school===k).length;
-    return `<div class="school-card">${spellSVG({id:'ecole-'+k, fr:v.fr, text:'', school:k, lvl:0},48)}<div><b>${v.fr}</b> (${cnt})<br>${SCHOOL_TXT[k]}</div></div>`;
+    return `<a class="school-card" href="#ecole-${k}" title="Afficher les sorts de ${v.fr}">${spellSVG({id:'ecole-'+k, fr:v.fr, text:'', school:k, lvl:0},48)}<div><b>${v.fr}</b> (${cnt})<br>${SCHOOL_TXT[k]}<br><span class="go">Voir les sorts →</span></div></a>`;
   }).join('');
   const LEG = [["feu","Feu"],["froid","Froid"],["foudre","Foudre"],["tonnerre","Tonnerre"],["acide","Acide"],["poison","Poison"],["necro","Nécrotique"],["radiant","Radiant"],["force","Force"],["psy","Psychique"],["soin","Soins"],["convocation","Invocation"],["teleport","Téléportation"],["oeil","Divination"],["illusion","Illusion"],["charme","Charme"],["peur","Peur"],["bouclier","Protection"],["metamorphose","Transformation"],["chaines","Entrave"],["vie","Vie et mort"],["aile","Déplacement"],["sablier","Temps"],["parole","Communication"]];
   $('#legend').innerHTML = LEG.map(([k,l])=>`<div><svg viewBox="0 0 100 100" width="30" height="30">${M[k](DMG_COL[k]||'#8e1b1b')}</svg>${l}</div>`).join('');
@@ -490,6 +502,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   $('#reset').addEventListener('click', ()=>{ for (const id of ['q','fl','fs','fc','fsrc']) $('#'+id).value=''; $('#fconc').checked=false; $('#frit').checked=false; render(); });
   render(); applyHash();
   window.addEventListener('hashchange', applyHash);
+  document.addEventListener('click', e=>{ const a = e.target.closest('a[href^="#ecole-"]'); if (!a) return; e.preventDefault(); history.pushState(null,'',a.getAttribute('href')); applyHash(); });
 });
 const SCHOOL_TXT = {"abjuration": "Protéger, bloquer, bannir et dissiper la magie.", "conjuration": "Faire apparaître créatures et objets, ou transporter à distance.", "divination": "Révéler l’information cachée : présent, passé, avenir.", "enchantment": "Influencer l’esprit et les émotions des créatures.", "evocation": "Manipuler l’énergie brute : feu, foudre, lumière, soins.", "illusion": "Tromper les sens et l’esprit des créatures.", "necromancy": "Manipuler la vie, la mort et la non-vie.", "transmutation": "Modifier les propriétés d’une créature, d’un objet ou du monde."};
 
