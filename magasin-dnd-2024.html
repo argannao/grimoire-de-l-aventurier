@@ -278,6 +278,7 @@ details.desc p{margin:6px 0}
   <div class="acts" style="margin-top:8px"><button class="btn buy" id="deal">Conclure le marché</button><button class="btn" id="clear">Vider</button></div>
   <div class="msg" id="msg"></div>
   <h3>Mon sac</h3><ul class="cartlist" id="inv"></ul>
+  <div class="acts" style="margin-top:6px"><button class="btn" id="emptybag" type="button">Vider le sac</button><span class="mini" id="bagmsg"></span></div>
   <h3>Équipement de départ</h3>
   <div class="kit"><select id="kitc" aria-label="Classe"></select><div id="kit"></div></div>
   <h3>Journal</h3><ul class="log" id="log"></ul>
@@ -964,6 +965,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
   $('#resale').addEventListener('input', e=>{ S.resale=+e.target.value; save(); renderCounter(); });
   $('#resale').addEventListener('change', render);
   $('#deal').addEventListener('click', deal);
+  let bagArm = null;
+  $('#emptybag').addEventListener('click', ()=>{
+    if (!Object.keys(S.inv).length){ $('#bagmsg').textContent = ' Le sac est déjà vide.'; return; }
+    if (!bagArm){ $('#emptybag').textContent = 'Confirmer : tout jeter ?'; $('#emptybag').classList.add('buy');
+      bagArm = setTimeout(()=>{ bagArm=null; $('#emptybag').textContent='Vider le sac'; $('#emptybag').classList.remove('buy'); }, 4000); return; }
+    clearTimeout(bagArm); bagArm = null;
+    const n = Object.values(S.inv).reduce((a,b)=>a+b,0);
+    for (const id of Object.keys(S.inv)) delete S.sell[id];
+    S.inv = {}; S.log.push(`Sac vidé (${n} objet${n>1?'s':''} retiré${n>1?'s':''}, sans vente)`);
+    save(); renderCounter(); render();
+    $('#emptybag').textContent='Vider le sac'; $('#emptybag').classList.remove('buy');
+    msg('Sac vidé. La bourse n’a pas changé.', true);
+  });
   $('#clear').addEventListener('click', ()=>{ S.buy={}; S.sell={}; save(); renderCounter(); msg('Panier vidé.', true); });
   $('#resetall').addEventListener('click', ()=>{ S = JSON.parse(JSON.stringify(DEF)); save(); renderCounter(); render(); msg('Nouvelle partie : 50 po en bourse, sac vide.', true); });
   $('#fab').addEventListener('click', ()=>$('#counter').classList.toggle('open'));
