@@ -135,6 +135,8 @@ main.bmain{max-width:1360px}
 .m-head h3{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(20px,3vw,26px);color:var(--blood);margin:0}
 .m-head .en{font-style:italic;color:var(--ink-soft);font-size:15px}
 .m-head .tl{font-style:italic;font-size:15.5px}
+.m-head .addtop{margin-left:auto;align-self:center;flex:none;white-space:nowrap}
+.m-head .addtop + .fpb{margin-left:12px}
 .fpb{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:54px;height:54px;border-radius:50%;background:var(--leather);color:var(--gold-light);font-family:'Cinzel',serif;margin-left:auto;flex:none;border:2px solid var(--gold)}
 .fpb b{font-size:17px;line-height:1}.fpb small{font-size:9.5px;letter-spacing:1px;text-align:center}
 .core{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin:8px 0}
@@ -190,7 +192,7 @@ table.abil td.l{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-soft);
  .fab-close{display:inline-block}
  .filters{position:relative;top:0}
 }
-@media (max-width:600px){.m-head{flex-wrap:wrap}.m-head .fpb{margin-left:0}}
+@media (max-width:600px){.m-head{flex-wrap:wrap}.m-head .fpb{margin-left:0}.m-head .addtop{order:5;margin-left:0}}
 
 
 /* finitions */
@@ -773,11 +775,11 @@ function card(m){
   if (m.swarm) badges.push(`<span class="badge alt">Nuée</span>`);
   return `<article class="mon" id="${m.id}">
     <div class="m-head">${monsterSVG(m, 110)}<div><h3>${esc(m.name)}</h3>${m.en?`<div class="en">${esc(m.en)}</div>`:''}<div class="tl">${esc(m.typeline)}</div><div class="badges">${badges.join('')}</div></div>
-      <div class="fpb" title="Facteur de puissance" style="border-color:${TIER_COL[tier(m.fpv)]}"><small>FP</small><b>${esc(m.fp)}</b></div></div>
+      <button class="btn red addtop" data-add="${m.id}">+ Ajouter à la rencontre</button><div class="fpb" title="Facteur de puissance" style="border-color:${TIER_COL[tier(m.fpv)]}"><small>FP</small><b>${esc(m.fp)}</b></div></div>
     <div class="core"><div><b>CA</b>${esc(m.ca)}</div><div><b>Points de vie</b>${esc(m.pv)}</div><div><b>Initiative</b>${esc(m.init)}</div><div><b>Vitesse</b>${esc(m.vitesse)}</div><div><b>PX</b>${nf(m.xpn)}${m.xplair?` (${nf(m.xplair)} antre)`:''}</div></div>
     <div class="body">${abil}${extra}${secs}</div>
     ${rel.join('')}
-    <div class="acts"><button class="btn red" data-add="${m.id}">+ Ajouter à la rencontre</button><span class="links" style="margin:0;border:0;padding:0"><span>Sources</span>${ext.join('')}</span></div>
+    <div class="acts"><span class="links" style="margin:0;border:0;padding:0"><span>Sources</span>${ext.join('')}</span></div>
   </article>`;
 }
 
