@@ -104,6 +104,12 @@ const MODULES = [
   { titre:"Magasin", accroche:"Le comptoir de l'aventurier", categorie:"Équipement",
     description:"536 objets courants et magiques illustrés, prix d'achat et de revente, bourse, panier et équipement de départ par classe.",
     fichier:"magasin-dnd-2024.html", icone:"objet", statut:"disponible" },
+  { titre:"Bestiaire", accroche:"Monstres et animaux", categorie:"Créatures",
+    description:"330 créatures illustrées avec leur profil complet, tri par puissance (FP), filtres et calculateur de rencontre.",
+    fichier:"bestiaire-dnd-2024.html", icone:"monstre", statut:"disponible" },
+  { titre:"Compagnons", accroche:"Familiers, montures et bêtes", categorie:"Créatures",
+    description:"Familiers, montures, compagnon du rôdeur, formes sauvages du druide et sorts d'invocation, classe par classe.",
+    fichier:"compagnons-dnd-2024.html", icone:"patte", statut:"disponible" },
   // Exemple de module à venir (supprimez-le ou changez statut en "disponible") :
   { titre:"Historiques", accroche:"D'où vient votre héros", categorie:"Création de personnage",
     description:"Les historiques 2024, leurs caractéristiques et leurs dons d'origine.",
@@ -139,6 +145,9 @@ const ICONES = {
   objet: `<circle cx="60" cy="60" r="56" fill="#43310c"/>${RING}
     <path d="M40 46H80L86 60H34Z" fill="#d9b25f"/><rect x="36" y="60" width="48" height="30" rx="3" fill="#b8892e" stroke="#f3e6c8" stroke-width="2"/>
     <rect x="55" y="66" width="10" height="12" rx="2" fill="#f3e6c8"/><path d="M50 40L54 30L58 40M66 38L70 26L74 38" stroke="#fff4d6" stroke-width="2" fill="none"/>`,
+  patte: `<circle cx="60" cy="60" r="56" fill="#3f5a2a"/>${RING}
+    <ellipse cx="60" cy="72" rx="18" ry="15" fill="#f3e6c8"/><ellipse cx="38" cy="50" rx="7" ry="10" fill="#f3e6c8" transform="rotate(-20 38 50)"/>
+    <ellipse cx="52" cy="38" rx="7" ry="10" fill="#f3e6c8"/><ellipse cx="68" cy="38" rx="7" ry="10" fill="#f3e6c8"/><ellipse cx="82" cy="50" rx="7" ry="10" fill="#f3e6c8" transform="rotate(20 82 50)"/>`,
   etoile: `<circle cx="60" cy="60" r="56" fill="#2b1d12"/>${RING}
     <path d="M60 20L67 50L96 60L67 70L60 100L53 70L24 60L53 50Z" fill="#d9b25f"/>`,
 };

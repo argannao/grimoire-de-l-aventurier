@@ -150,7 +150,7 @@ footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
 </style>
 </head>
 <body>
-<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a class="on" href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a></div>
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a class="on" href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a></div>
 <header>
   <div class="sigil"><span>D</span></div>
   <h1>Le Grimoire des Sorts</h1>
@@ -407,6 +407,7 @@ function formatText(sp){
   }).join('');
 }
 
+const COMP = {"appel-de-familier": [["Compagnons : les familiers", "compagnons-dnd-2024.html#familiers"]], "appel-de-destrier": [["Compagnons : la monture d’outre-monde", "compagnons-dnd-2024.html#montures"]], "animation-des-morts": [["Bestiaire : squelette", "bestiaire-dnd-2024.html#squelette"], ["Bestiaire : zombi", "bestiaire-dnd-2024.html#zombi"]], "metamorphose": [["Bestiaire : les bêtes", "bestiaire-dnd-2024.html#type-bete"]], "metamorphose-supreme": [["Bestiaire", "bestiaire-dnd-2024.html"]], "communication-avec-les-animaux": [["Bestiaire : les animaux", "bestiaire-dnd-2024.html#type-bete"]], "amitie-avec-les-animaux": [["Bestiaire : les animaux", "bestiaire-dnd-2024.html#type-bete"]], "messager-animal": [["Bestiaire : les animaux", "bestiaire-dnd-2024.html#type-bete"]], "convocation-de-bete": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-d-animaux": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-fee": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-mort-vivant": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "chien-de-garde": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "insecte-geant": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-d-elementaires-mineurs": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-d-etres-sylvestres": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-d-aberration": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-d-elementaire": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-creature-artificielle": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "animation-des-objets": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-celeste": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-dragon": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-d-elementaire": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "allie-planaire": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "convocation-de-fielon": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "creation-de-mort-vivant": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-de-fee": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "invocation-de-celeste": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]], "serviteur-invisible": [["Compagnons : les invocations", "compagnons-dnd-2024.html#invocations"]]};
 function card(sp){
   const tags = [];
   tags.push(`<span class="badge">${LVL(sp.lvl)}</span>`);
@@ -433,6 +434,7 @@ function card(sp){
     <div class="sp-text">${formatText(sp)}${sp.srd?'':'<p class="summary-note">Résumé rédigé pour ce grimoire : ce sort ne fait pas partie du SRD, son texte complet se trouve dans le Manuel des Joueurs 2024.</p>'}</div>
     <div class="rel"><span class="lab">Classes</span>${cls}</div>
     ${via ? `<div class="rel"><span class="lab">Accordé aussi par</span>${via}</div>` : ''}
+    ${COMP[sp.id] ? `<div class="rel"><span class="lab">Créatures</span>${COMP[sp.id].map(([l,h])=>`<a class="chip sp" href="${h}">${esc(l)}</a>`).join('')}</div>` : ''}
     <div class="links"><span>Sources</span>${ext.join('')}</div>
   </article>`;
 }
