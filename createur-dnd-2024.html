@@ -139,6 +139,24 @@ input[type=checkbox]{width:auto}
 .abil input[type=number]{text-align:center;font-size:17px;padding:3px}
 .abil small{display:block;font-size:13px;color:var(--ink-soft)}
 .abil label{font-size:12px;display:flex;gap:3px;justify-content:center;align-items:center;margin-top:3px}
+.defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:6px}
+.tagpick{position:relative;border:1px solid var(--gold);border-radius:3px;padding:8px 10px;background:#fffaf0}
+.tagpick.res{border-left:5px solid #3f6b3a}.tagpick.vul{border-left:5px solid #8e1b1b}.tagpick.imm{border-left:5px solid #2f5d8a}
+.tp-head{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:6px}
+.tp-head b{font-family:'Cinzel',serif;font-size:14px}.tp-head small{font-size:12.5px;color:var(--ink-soft);font-style:italic}
+.tp-chips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tchip{display:inline-flex;align-items:center;gap:4px;font-size:14px;padding:2px 4px 2px 9px;border-radius:12px;color:#fff}
+.res .tchip{background:#3f6b3a}.vul .tchip{background:#8e1b1b}.imm .tchip{background:#2f5d8a}.imm .tchip.cond{background:#5a4a7a}
+.tchip button{border:0;background:rgba(255,255,255,.25);color:#fff;width:18px;height:18px;border-radius:50%;cursor:pointer;line-height:1;padding:0;font-size:12px}
+.tp-add{width:28px;height:28px;border-radius:50%;border:2px dashed var(--gold);background:#fff7e3;font-size:18px;font-weight:700;color:var(--blood);cursor:pointer;line-height:1}
+.tp-add:hover{background:var(--gold);color:#fff}
+.tp-menu{position:absolute;z-index:30;left:8px;right:8px;top:100%;margin-top:4px;background:var(--parch);border:2px solid var(--gold);border-radius:4px;box-shadow:0 10px 24px rgba(0,0,0,.35);padding:8px;max-height:320px;overflow:auto}
+.tp-menu h5{margin:6px 0 4px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;color:var(--ink-soft);text-transform:uppercase}
+.tp-menu .opts{display:flex;flex-wrap:wrap;gap:4px}
+.tp-menu .opts button{font-family:'Crimson Text',serif;font-size:14.5px;border:1px solid var(--gold);background:#fffaf0;padding:2px 9px;border-radius:12px;cursor:pointer}
+.tp-menu .opts button:hover{background:var(--gold);color:#fff}
+.tp-menu .opts button.grp{font-weight:600}
+.tp-menu .custom{display:flex;gap:4px;margin-top:8px}
 .hint{font-size:14px;color:var(--ink-soft);font-style:italic;margin:4px 0}
 .btn{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.5px;cursor:pointer;border:1px solid var(--gold);background:#fff7e3;color:var(--ink);padding:6px 11px;border-radius:2px;text-decoration:none;display:inline-block}
 .btn:hover{background:var(--gold);color:var(--leather)}
@@ -245,7 +263,11 @@ table.ab td{padding:2px;border-bottom:1px dotted #b8892e66;background:transparen
       <label>Dés de vie<input type="number" id="f-hd" min="1" max="60"></label><label>PV imposés (facultatif)<input type="number" id="f-hpover" min="1"></label></div>
     <p class="hint" id="hpcalc"></p>
     <div class="row"><label>Vitesse<input id="f-speed" placeholder="9 m, vol 18 m"></label><label>FP déclaré<select id="f-crdecl"></select></label></div>
-    <div class="row"><label>Résistances<input id="f-resist" placeholder="feu, froid"></label><label>Vulnérabilités<input id="f-vuln"></label><label>Immunités<input id="f-immun" placeholder="poison ; Empoisonné"></label></div>
+    <div class="defs">
+      <div class="tagpick res" data-field="resist"><div class="tp-head"><b>🛡 Résistances</b><small>dégâts divisés par deux</small></div><div class="tp-chips"></div></div>
+      <div class="tagpick vul" data-field="vuln"><div class="tp-head"><b>⚠ Vulnérabilités</b><small>dégâts doublés</small></div><div class="tp-chips"></div></div>
+      <div class="tagpick imm" data-field="immun" data-cond="1"><div class="tp-head"><b>✦ Immunités</b><small>aucun dégât · états impossibles</small></div><div class="tp-chips"></div></div>
+    </div>
   </div></details>
   <details class="sec" open><summary>Caractéristiques</summary><div class="sb">
     <div class="abil" id="abil"></div>
@@ -905,7 +927,8 @@ function toMonster(){
 
 // ---------------------------------------------------------------- rendu de l'éditeur
 function fillForm(){
-  for (const k of ['name','tags','align','acnote','speed','skills','resist','vuln','immun','senses','langs','gear','legIntro']) $('#f-'+k).value = S[k]??'';
+  for (const k of ['name','tags','align','acnote','speed','skills','senses','langs','gear','legIntro']) $('#f-'+k).value = S[k]??'';
+  renderPicks();
   $('#f-size').value = S.size; $('#f-type').value = S.type; $('#f-ac').value = S.ac; $('#f-hd').value = S.hd; $('#f-hpover').value = S.hpover;
   $('#f-crdecl').value = S.crdecl; $('#f-legUses').value = S.legUses;
   for (const a of AB){ $('#a-'+a).value = S.abil[a]; $('#s-'+a).checked = !!S.saves[a]; }
@@ -913,6 +936,47 @@ function fillForm(){
   $('#mythbox').hidden = !S.mythic.on;
   renderEntries();
 }
+// ---------------------------------------------------------------- résistances, vulnérabilités, immunités (sélecteurs)
+const DMG_ALL = ['acide','contondants','feu','force','foudre','froid','nécrotiques','perforants','poison','psychiques','radiants','tonnerre','tranchants'];
+const CONDS = ['À terre','Agrippé','Assourdi','Aveuglé','Charmé','Effrayé','Empoisonné','Entravé','Épuisement','Étourdi','Inconscient','Invisible','Neutralisé','Paralysé','Pétrifié'];
+function splitDef(str){
+  const [d, c] = String(str||'').split(';');
+  const L = x => (x||'').split(/,| et /).map(t=>t.trim()).filter(Boolean);
+  let dm = L(d), cd = L(c);
+  // une partie « états » sans point-virgule
+  if (!c){ const isC = t => CONDS.some(k=>k.toLowerCase()===t.toLowerCase()); cd = dm.filter(isC); dm = dm.filter(t=>!isC(t)); }
+  return {dm, cd};
+}
+function joinDef(dm, cd){ return dm.join(', ') + (cd.length ? (dm.length ? ' ; ' : '') + cd.join(', ') : ''); }
+function renderPicks(){
+  document.querySelectorAll('.tagpick').forEach(box=>{
+    const f = box.dataset.field, {dm, cd} = splitDef(S[f]);
+    box.querySelector('.tp-chips').innerHTML =
+      dm.map(t=>`<span class="tchip">${esc(t)}<button type="button" data-rmdef="${f}|d|${esc(t)}" aria-label="Retirer ${esc(t)}">×</button></span>`).join('') +
+      cd.map(t=>`<span class="tchip cond">${esc(t)}<button type="button" data-rmdef="${f}|c|${esc(t)}" aria-label="Retirer ${esc(t)}">×</button></span>`).join('') +
+      `<button type="button" class="tp-add" data-openpick="${f}" title="Ajouter">+</button>` + (dm.length||cd.length ? '' : '<span class="hint" style="margin:0 0 0 4px">aucune</span>');
+  });
+}
+function openPick(f){
+  closePick();
+  const box = document.querySelector(`.tagpick[data-field="${f}"]`), {dm, cd} = splitDef(S[f]);
+  const others = ['resist','vuln','immun'].filter(x=>x!==f).flatMap(x=>splitDef(S[x]).dm.map(t=>t.toLowerCase()));
+  const freeD = DMG_ALL.filter(t=>!dm.includes(t));
+  const menu = document.createElement('div'); menu.className = 'tp-menu';
+  const phys = ['contondants','perforants','tranchants'].filter(t=>!dm.includes(t));
+  menu.innerHTML = `<h5>Types de dégâts</h5><div class="opts">${phys.length>1 ? `<button type="button" class="grp" data-pickdef="${f}|d|${phys.join(',')}">Physiques (${phys.join(', ')})</button>` : ''}${freeD.map(t=>`<button type="button" data-pickdef="${f}|d|${t}"${others.includes(t)?' title="Déjà utilisé ailleurs (résistance, vulnérabilité ou immunité)"':''}>${t}${others.includes(t)?' ⚠':''}</button>`).join('') || '<span class="hint">Tous les types sont déjà ajoutés.</span>'}</div>
+    ${box.dataset.cond ? `<h5>États</h5><div class="opts">${CONDS.filter(t=>!cd.includes(t)).map(t=>`<button type="button" data-pickdef="${f}|c|${t}">${t}</button>`).join('')}</div>` : ''}
+    <div class="custom"><input placeholder="Autre (ex. dégâts d’une arme non magique)" aria-label="Autre valeur"><button type="button" class="btn small" data-pickcustom="${f}">Ajouter</button></div>`;
+  box.appendChild(menu);
+}
+function closePick(){ document.querySelectorAll('.tp-menu').forEach(m=>m.remove()); }
+function editDef(f, part, vals, add){
+  const {dm, cd} = splitDef(S[f]); const L = part==='c' ? cd : dm;
+  for (const v of vals){ const i = L.indexOf(v); if (add && i<0) L.push(v); if (!add && i>=0) L.splice(i,1); }
+  const order = part==='c' ? CONDS : DMG_ALL; L.sort((a,b)=>(order.indexOf(a)<0?99:order.indexOf(a))-(order.indexOf(b)<0?99:order.indexOf(b)));
+  S[f] = joinDef(dm, cd); renderPicks(); refresh();
+}
+
 function entryHTML(k, e, i){
   const p = parseEntry(e);
   const kindLab = e.kind==='atk' ? 'Attaque (calculée)' : e.kind==='js' ? 'Jet de sauvegarde (calculé)' : 'Texte libre';
@@ -1186,7 +1250,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (['p-level','p-diff','p-inc'].includes(t.id)) renderParty();
   });
   document.addEventListener('click', e=>{
-    const b = e.target.closest('button'); if (!b) return;
+    const b = e.target.closest('button');
+    if (!e.target.closest('.tp-menu') && !(b && b.dataset.openpick)) closePick();
+    if (!b) return;
+    if (b.dataset.openpick){ const open = b.closest('.tagpick').querySelector('.tp-menu'); if (open) closePick(); else openPick(b.dataset.openpick); return; }
+    if (b.dataset.pickdef){ const [f, part, v] = b.dataset.pickdef.split('|'); editDef(f, part, v.split(','), true); openPick(f); return; }
+    if (b.dataset.pickcustom){ const f = b.dataset.pickcustom, inp = b.parentElement.querySelector('input'); const v = inp.value.trim(); if (v){ editDef(f, 'd', [v], true); } closePick(); return; }
+    if (b.dataset.rmdef){ const [f, part, v] = b.dataset.rmdef.split('|'); editDef(f, part, [v], false); return; }
     const ent = b.closest('.entry');
     if (ent){ const L = listOf(ent.dataset.k), i = +ent.dataset.i;
       if (b.hasAttribute('data-del')){ L.splice(i,1); renderEntries(); refresh(); }
@@ -1233,6 +1303,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } catch(err){ msg('Fichier illisible : ce n’est pas un export de l’atelier.'); }
     e.target.value = '';
   });
+  document.addEventListener('keydown', e=>{ if (e.key==='Escape') closePick(); if (e.key==='Enter' && e.target.closest('.tp-menu .custom')){ e.preventDefault(); e.target.closest('.custom').querySelector('button').click(); } });
   $('#b-q').addEventListener('keydown', e=>{ if (e.key==='Enter'){ e.preventDefault(); $('#bsearch').click(); } });
   const updMods = ()=>{ for (const a of AB) $('#am-'+a).textContent = sgn(mod(S.abil[a])) + (S.saves[a] ? ' · JS ' + sgn(mod(S.abil[a]) + PB()) : ''); };
   const _r = refresh; refresh = function(){ _r(); updMods(); $('#hpcalc').textContent = 'Points de vie : ' + hpCalc().txt + ' · bonus de maîtrise +' + PB(); };
