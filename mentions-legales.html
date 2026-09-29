@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentions légales · Grimoire de l’aventurier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+main.lmain{max-width:900px}
+.panel{scroll-margin-top:70px}
+.panel p,.panel li{line-height:1.5}
+.panel dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:10px 0}
+.panel dt{font-family:'Cinzel',serif;font-size:14px;color:var(--blood);letter-spacing:.5px}
+.panel dd{margin:0}
+.panel code{font-size:14px;background:var(--parch-dark);padding:1px 5px;border-radius:2px}
+.panel table{width:100%}
+.btn{font-family:'Cinzel',serif;font-size:13.5px;letter-spacing:.5px;border:1px solid var(--blood-dark);background:var(--blood);color:#fff;padding:7px 13px;border-radius:2px;cursor:pointer}
+.btn:hover{background:var(--blood-dark)}
+#clearmsg{font-style:italic;color:var(--ink-soft);margin-left:8px}
+@media (max-width:600px){.panel dl{grid-template-columns:1fr}.panel dt{margin-top:6px}}
+
+
+/* finitions */
+#sources a,.links a{overflow-wrap:anywhere}
+footer.sitefoot{padding:26px 16px 34px;margin-top:10px;border-top:1px solid rgba(184,137,46,.25);font-size:12.5px;color:#a38f6a;text-align:center}
+footer.sitefoot .fl{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px}
+footer.sitefoot a{color:#c9b48a;text-decoration:none}footer.sitefoot a:hover{color:var(--gold-light);text-decoration:underline}
+footer.sitefoot .gh{display:inline-flex;align-items:center;gap:7px;color:#c9b48a}
+footer.sitefoot .gh svg{width:20px;height:20px;fill:currentColor}
+footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
+@media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a href="createur-dnd-2024.html">Atelier</a></div>
+<header>
+  <div class="sigil"><span>⚖</span></div>
+  <h1>Informations légales</h1>
+  <p>Mentions légales · licence · marques · confidentialité · crédits</p>
+</header>
+<nav><ul><li><a href="#mentions">Mentions légales</a></li><li><a href="#licence">Licence</a></li><li><a href="#marques">Marques</a></li><li><a href="#confidentialite">Confidentialité</a></li><li><a href="#credits">Crédits</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<main class="lmain">
+
+<section class="panel" id="mentions">
+  <h2>Mentions légales</h2>
+  <p>Conformément à l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN) :</p>
+  <dl>
+    <dt>Site</dt><dd>Grimoire de l’aventurier, référence en français pour les règles de D&amp;D 2024 (5E).</dd>
+    <dt>Éditeur</dt><dd>Argan, particulier. Site personnel, non professionnel, gratuit et sans publicité.</dd>
+    <dt>Directeur de la publication</dt><dd>Argan</dd>
+    <dt>Contact</dt><dd>Par le <a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">suivi des problèmes du dépôt GitHub</a> (voir <a href="#contact">Contact</a>).</dd>
+    <dt>Hébergeur</dt><dd>GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. <a href="https://github.com" target="_blank" rel="noopener">github.com</a></dd>
+    <dt>Code source</dt><dd><a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">github.com/argannao/grimoire-de-l-aventurier</a></dd>
+  </dl>
+</section>
+
+<section class="panel" id="licence">
+  <h2>Licence du contenu de règles</h2>
+  <p>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible à l’adresse <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">https://www.dndbeyond.com/srd</a>. Le SRD 5.2.1 est régi par la Licence Creative Commons Attribution 4.0 International, disponible à l’adresse <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">https://creativecommons.org/licenses/by/4.0/legalcode</a>.</p>
+  <p>Les textes de règles (espèces, classes, historiques, sorts, équipement, créatures) reprennent la traduction française officielle du SRD 5.2.1. Ils ont parfois été réorganisés, abrégés ou mis en forme (tableaux, filtres, liens entre pages). Ces modifications ne sont pas le fait de Wizards of the Coast.</p>
+  <p>Le reste du site (code, mise en page, illustrations générées, outils comme l’atelier de créatures, l’assistant de facteur de puissance ou le magasin, textes d’explication) est une création originale de l’éditeur. Il reste consultable sur le <a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">dépôt GitHub</a>.</p>
+</section>
+
+<section class="panel" id="marques">
+  <h2>Marques et affiliation</h2>
+  <p>Dungeons &amp; Dragons, D&amp;D et Wizards of the Coast sont des marques de Wizards of the Coast LLC (groupe Hasbro). Ce site est une <strong>référence de fan, non officielle</strong>. Il n’est ni affilié à Wizards of the Coast, ni approuvé, ni soutenu par elle. Les mentions « D&amp;D 2024 » et « compatible 5E » indiquent seulement la version des règles concernée.</p>
+  <p>Le <em>Manuel des monstres</em>, le <em>Manuel des joueurs</em> et le <em>Guide du Maître</em> sont cités comme ouvrages de référence. Aucun contenu hors SRD n’est reproduit. Les liens vers AideDD et D&amp;D Beyond mènent vers des sites tiers indépendants.</p>
+</section>
+
+<section class="panel" id="confidentialite">
+  <h2>Confidentialité et données</h2>
+  <p><strong>Le site ne collecte aucune donnée personnelle.</strong> Il n’y a ni compte, ni formulaire, ni cookie, ni mesure d’audience, ni publicité.</p>
+  <h3>Stockage local de votre navigateur</h3>
+  <p>Pour garder votre travail d’une visite à l’autre, certaines pages enregistrent des informations <strong>uniquement dans votre navigateur</strong> (<code>localStorage</code>). Rien n’est envoyé ailleurs, et l’éditeur n’y a pas accès.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Clé</th><th>Page</th><th>Contenu</th></tr>
+    <tr><td><code>grimoire-magasin</code></td><td>Magasin</td><td>Votre sac et votre bourse</td></tr>
+    <tr><td><code>grimoire-rencontre</code></td><td>Bestiaire</td><td>Le groupe et les créatures de la rencontre</td></tr>
+    <tr><td><code>grimoire-homebrew</code></td><td>Atelier de créatures</td><td>Vos créatures enregistrées</td></tr>
+    <tr><td><code>grimoire-atelier-brouillon</code></td><td>Atelier de créatures</td><td>La créature en cours d’édition</td></tr>
+    <tr><td><code>grimoire-fiche</code></td><td>Fiches PDF</td><td>Les fiches envoyées depuis le bestiaire</td></tr>
+  </table></div>
+  <p>Vous pouvez tout effacer en vidant les données du site dans votre navigateur, ou avec ce bouton (il ne touche que ce site) :</p>
+  <p><button type="button" class="btn" id="clear">Effacer mes données locales</button><span id="clearmsg"></span></p>
+  <h3>Services tiers</h3>
+  <ul>
+    <li><strong>GitHub Pages</strong> (hébergement) : comme tout hébergeur, GitHub peut enregistrer des journaux techniques, dont votre adresse IP, pour la sécurité du service. Voir la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">déclaration de confidentialité de GitHub</a>.</li>
+    <li><strong>Google Fonts</strong> (polices Cinzel, Crimson Text, JetBrains Mono) : votre navigateur télécharge les polices depuis les serveurs de Google, qui reçoivent votre adresse IP. Voir la <a href="https://developers.google.com/fonts/faq/privacy?hl=fr" target="_blank" rel="noopener">FAQ confidentialité de Google Fonts</a>.</li>
+    <li><strong>Liens externes</strong> (AideDD, D&amp;D Beyond, dndbeyond.com/srd…) : ces sites appliquent leurs propres règles une fois que vous les ouvrez.</li>
+  </ul>
+</section>
+
+<section class="panel" id="credits">
+  <h2>Crédits</h2>
+  <ul>
+    <li><strong>Règles</strong> : SRD 5.2.1, Wizards of the Coast LLC, licence CC BY 4.0 (voir <a href="#licence">Licence</a>).</li>
+    <li><strong>Noms anglais des créatures</strong> : rapprochés à partir des données 2024 du projet <a href="https://github.com/5e-bits/5e-database" target="_blank" rel="noopener">5e-bits/5e-database</a> (licence MIT).</li>
+    <li><strong>Polices</strong> : Cinzel, Cinzel Decorative, Crimson Text et JetBrains Mono, via Google Fonts (SIL Open Font License).</li>
+    <li><strong>Illustrations</strong> : emblèmes, objets et créatures dessinés par le code du site (SVG).</li>
+    <li><strong>Conception et développement</strong> : Argan.</li>
+  </ul>
+</section>
+
+<section class="panel" id="contact">
+  <h2>Contact</h2>
+  <p>Une erreur de règle, une coquille, un lien cassé ou une idée ? Ouvrez un ticket sur le <a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">suivi des problèmes GitHub</a> (un compte GitHub gratuit est nécessaire).</p>
+  <p>Pour signaler un contenu qui porterait atteinte à vos droits, utilisez le même canal : il sera retiré rapidement si la demande est fondée.</p>
+  <p style="font-size:14px;color:var(--ink-soft)">Dernière mise à jour de cette page : septembre 2026.</p>
+</section>
+</main>
+<footer class="sitefoot"><div class="fl"><a class="gh" href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener" title="Code source sur GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>© 2026 Grimoire de l’aventurier</span></a><a href="mentions-legales.html#mentions">Mentions légales</a><a href="mentions-legales.html#licence">Licence</a><a href="mentions-legales.html#marques">Marques</a><a href="mentions-legales.html#confidentialite">Confidentialité</a><a href="mentions-legales.html#credits">Crédits</a><a href="mentions-legales.html#contact">Contact</a><a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">Signaler un problème</a><a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">Code source</a></div><div class="fs">Référence de fan non officielle, compatible 5E · Dungeons &amp; Dragons est une marque de Wizards of the Coast LLC, non affiliée à ce site · Contient du matériel du SRD 5.2.1 sous licence CC BY 4.0</div></footer>
+<script>
+document.getElementById('clear').addEventListener('click', function(){
+  var b = this, m = document.getElementById('clearmsg');
+  if (!b.dataset.sure){ b.dataset.sure = '1'; b.textContent = 'Confirmer : tout effacer ?'; setTimeout(function(){ delete b.dataset.sure; b.textContent = 'Effacer mes données locales'; }, 4000); return; }
+  var n = 0; try { Object.keys(localStorage).forEach(function(k){ if (k.indexOf('grimoire-') === 0){ localStorage.removeItem(k); n++; } }); } catch(e){}
+  delete b.dataset.sure; b.textContent = 'Effacer mes données locales';
+  m.textContent = n ? n + ' élément(s) effacé(s).' : 'Aucune donnée enregistrée.';
+});
+</script>
+<script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
+(function(){
+  function place(){
+    var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
+    document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
+      el.style.top = '';
+      if (getComputedStyle(el).position === 'sticky'){
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
+        el.style.top = (h + extra) + 'px';
+        if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
+      } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
+    });
+    var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
+    document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
+  }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
+  window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
+  if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+</body>
+</html>
