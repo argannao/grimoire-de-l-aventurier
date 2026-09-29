@@ -211,6 +211,13 @@ main.fmain{max-width:1100px}
 .blk.leg h2{color:var(--forest);border-bottom-color:var(--forest)}
 .blk.myth{border:1.5px solid var(--blood);background:var(--blood-soft);padding:2px 8px 4px;margin:8px 0}
 .blk.myth h2{border-bottom-color:var(--blood)}
+.refs-title h2{margin-top:2px}
+.refs-grid{display:grid;gap:5mm;margin-top:4mm}
+.refs-grid.n1{grid-template-columns:1fr}.refs-grid.n2{grid-template-columns:1fr 1fr}.refs-grid.n3,.refs-grid.n4{grid-template-columns:1fr 1fr}
+.refs-grid figure{margin:0;break-inside:avoid;border:1.5px solid var(--rule-strong);background:#fffaf0;padding:2mm;text-align:center}
+.refs-grid img{max-width:100%;max-height:115mm;object-fit:contain;display:block;margin:0 auto}
+.refs-grid.n1 img{max-height:230mm}
+.refs-grid figcaption{font-style:italic;color:var(--ink-soft);font-size:9.5pt;margin-top:1mm}
 .notes{margin-top:8px;border:1.5px dashed var(--rule-strong);padding:3px 8px;min-height:32mm;break-inside:avoid;
   background-image:repeating-linear-gradient(transparent 0 7mm,var(--rule) 7mm calc(7mm + 1px));background-position:0 6mm}
 .notes .label{background:var(--sheet);display:inline-block;padding-right:6px}
@@ -269,6 +276,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <div class="opts">
     <label><input type="checkbox" id="o-art" checked> Illustration</label>
     <label><input type="checkbox" id="o-notes"> Cadre « Notes du MJ »</label>
+    <label><input type="checkbox" id="o-refs" checked> Images de référence (page suivante)</label>
     <label><input type="checkbox" id="o-fit" checked> Tenir sur une page (réduit si besoin)</label>
     <label>Capacités sur <select id="o-cols"><option value="2" selected>2 colonnes</option><option value="1">1 colonne</option></select></label>
   </div>
@@ -721,7 +729,7 @@ function pickCreature(m, R){
 }
 
 const SIZE_K = {TP:.64, P:.76, M:.9, G:1, TG:1.04, Gig:1.08};
-function monsterSVG(m, size){
+function monsterSVG_proc(m, size){
   const h = mhash(m.id), R = mrng(h), gid = 'mg'+h.toString(36);
   const bg = TYPE_BG[m.type] || ["#6b5a3a","#2b1d12"];
   const fp = m.fpv||0, ring = fp>=17?'#ffb23d':fp>=11?'#c07cff':fp>=5?'#4fa3ff':fp>=1?'#5fd06a':'#d9b25f';
@@ -740,6 +748,18 @@ function monsterSVG(m, size){
   s += `<g transform="translate(60 ${62+ (1-k)*22}) scale(${(k*flip).toFixed(3)} ${k.toFixed(3)}) translate(-50 -55)" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,.55))">${pickCreature(m, R)}</g>`;
   s += `</g><circle cx="60" cy="60" r="57" fill="none" stroke="${ring}" stroke-width="3"/><circle cx="60" cy="60" r="52" fill="none" stroke="#d9b25f" stroke-width=".8" stroke-dasharray="${1+h%3} ${3+h%4}"/></svg>`;
   return s;
+}
+
+// Token importé (créations de l’atelier) ou, à défaut pour une création maison, simple monogramme sobre
+function monsterSVG(m, size){
+  const nm = String(m.name||'').replace(/[<>&"]/g,'');
+  if (m.token && /^data:image\/(png|jpe?g|webp|gif);base64,/.test(m.token))
+    return `<img class="mon-art mon-tok" src="${m.token}" width="${size}" height="${size}" alt="Token : ${nm}" style="width:${size}px;height:${size}px;border-radius:50%;object-fit:cover;box-sizing:border-box;border:${Math.max(1,Math.round(size/40))}px solid #b8892e;background:#e6d2a6">`;
+  if (m.homebrew){
+    const ch = (nm.replace(/^(la |le |les |l’|l')/i,'').trim()[0]||'?').toUpperCase();
+    return `<svg class="mon-art mon-mono" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="${nm} (sans token)"><circle cx="60" cy="60" r="56" fill="#efe0bd" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="47" fill="none" stroke="#b8892e" stroke-opacity=".45" stroke-width="1"/><text x="60" y="61" text-anchor="middle" dominant-baseline="central" font-family="Cinzel,serif" font-weight="700" font-size="50" fill="#8e1b1b">${ch}</text></svg>`;
+  }
+  return monsterSVG_proc(m, size);
 }
 
 
@@ -835,7 +855,19 @@ function fitPages(on){
 }
 addEventListener('beforeprint', ()=>{ fitPages($('#o-fit').checked); document.querySelectorAll('.sheet[data-zoom]').forEach(el=>el.style.zoom = el.dataset.zoom); });
 addEventListener('afterprint', ()=>document.querySelectorAll('.sheet').forEach(el=>el.style.zoom = ''));
-function opts(){ return {art:$('#o-art').checked, notes:$('#o-notes').checked, cols:$('#o-cols').value}; }
+function opts(){ return {art:$('#o-art').checked, notes:$('#o-notes').checked, cols:$('#o-cols').value, refs:$('#o-refs').checked}; }
+// images de référence de l'atelier (IndexedDB « grimoire »)
+function idbGet(k){ return new Promise(ok=>{ try { const r = indexedDB.open('grimoire', 1);
+  r.onupgradeneeded = ()=>r.result.createObjectStore('images');
+  r.onsuccess = ()=>{ try { const q = r.result.transaction('images').objectStore('images').get(k); q.onsuccess = ()=>ok(q.result||null); q.onerror = ()=>ok(null); } catch(e){ ok(null); } };
+  r.onerror = ()=>ok(null); } catch(e){ ok(null); } }); }
+function refsHTML(m){
+  const R = m.refs||[]; if (!R.length) return '';
+  return `<section class="sheet refsheet"><div class="refs-title"><span class="label">Images de référence</span><h2>${esc(m.name)}</h2></div>
+    <div class="refs-grid n${Math.min(R.length,4)}">${R.map(r=>`<figure><img data-idb="${esc(r.id)}" alt=""><figcaption>${esc(r.name||'')}</figcaption></figure>`).join('')}</div>
+    <div class="foot"><span><b>Grimoire de l’aventurier</b> · Images de référence · ${esc(m.name)}</span><span></span></div></section>`;
+}
+async function fillRefs(){ for (const im of document.querySelectorAll('img[data-idb]')){ const v = await idbGet(im.dataset.idb); if (v) im.src = v; else im.closest('figure').remove(); } }
 function renderPick(){
   $('#pick').innerHTML = LIST.length ? LIST.map(r=>`<li><label><input type="checkbox" data-id="${esc(r.id)}"${SEL.has(r.id)?' checked':''}>${monsterSVG(r.monster, 30)}<span><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}${r.from==='file'?' · fichier importé':r.from==='best'?' · bestiaire':' · atelier'}</small></span>${r.from==='best'?`<button type="button" class="rm" data-rm="${esc(r.id)}" title="Retirer de la liste">✕</button>`:''}</label></li>`).join('')
     : '<li class="hint" style="grid-column:1/-1">Aucune créature enregistrée dans l’atelier sur ce navigateur. Créez-en une dans l’<a href="createur-dnd-2024.html">atelier</a>, ou importez un fichier exporté.</li>';
@@ -843,8 +875,9 @@ function renderPick(){
 }
 function renderSheets(){
   const o = opts(), R = LIST.filter(r=>SEL.has(r.id));
-  $('#sheets').innerHTML = R.length ? R.map(r=>sheetHTML(r.monster, r.date, o)).join('') : '<div class="empty">Cochez au moins une créature pour afficher sa fiche.</div>';
+  $('#sheets').innerHTML = R.length ? R.map(r=>sheetHTML(r.monster, r.date, o) + (o.refs ? refsHTML(r.monster) : '')).join('') : '<div class="empty">Cochez au moins une créature pour afficher sa fiche.</div>';
   $('#print').disabled = !R.length;
+  if (o.refs) fillRefs();
 }
 function all(){ renderPick(); renderSheets(); }
 

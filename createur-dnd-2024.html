@@ -215,6 +215,37 @@ input[type=checkbox]{width:auto}
 .entry .mini .m{font-size:12.5px;background:#f1e2bf;border-radius:10px;padding:1px 8px;color:var(--ink)}
 .entry .mini .m.warn{background:#f3dcd4;color:var(--blood)}
 .empty-list{font-style:italic;color:var(--ink-soft);border:1px dashed #c9ad73;padding:10px;text-align:center;border-radius:4px;margin:0 0 8px}
+.imgs [hidden]{display:none!important}
+.imgs{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start}
+.tokbox{position:relative;width:220px;height:220px;margin:0 auto;border-radius:50%;border:2px dashed var(--gold);background:repeating-conic-gradient(#f3e6c8 0 25%,#ecdcb6 0 50%) 0 0/20px 20px;transition:border-color .15s,box-shadow .15s}
+.tokbox.has{border:4px solid var(--gold);box-shadow:0 6px 16px rgba(40,20,5,.3)}
+.tokbox.over,.refcol.over{border-color:var(--blood);box-shadow:0 0 0 4px #8e1b1b33}
+.tokbox canvas{width:100%;height:100%;border-radius:50%;display:block;cursor:grab;touch-action:none}
+.tokbox canvas:active{cursor:grabbing}
+.tokempty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none;color:var(--ink-soft);text-align:center}
+.tokempty b{font-size:40px;color:var(--gold);line-height:1}.tokempty span{font-family:'Cinzel',serif;font-size:14px;color:var(--blood)}.tokempty small{font-size:12.5px;font-style:italic}
+.tok-tools{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px}
+.tok-tools label{display:flex;gap:6px;align-items:center;font-family:'Cinzel',serif;font-size:12px}
+.tok-tools input[type=range]{width:120px;padding:0;accent-color:var(--blood)}
+.refcol{border:2px dashed #d9c49a;border-radius:6px;padding:10px;min-height:200px;transition:border-color .15s,box-shadow .15s}
+.refhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.refhead b{font-family:'Cinzel',serif;color:var(--blood)}
+.ref-empty{font-style:italic;color:var(--ink-soft);text-align:center;padding:30px 10px;margin:0}
+.refgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.refgrid figure{margin:0;background:#fffaf0;border:1px solid #d9c49a;border-radius:4px;overflow:hidden;box-shadow:0 2px 6px rgba(60,35,10,.1)}
+.refgrid .ph{aspect-ratio:1;background:#ecdcb6;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.refgrid img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block}
+.refgrid figure.missing .ph::after{content:'image introuvable';font-size:12px;font-style:italic;color:var(--ink-soft)}
+.refgrid figcaption{display:flex;gap:2px;padding:3px}
+.refgrid figcaption input{font-size:13px;padding:2px 4px;border-color:transparent;background:transparent}
+.refgrid figcaption input:focus{border-color:var(--gold);background:#fff}
+.refgrid figcaption button{border:0;background:none;color:var(--blood);cursor:pointer}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(15,10,5,.88);display:flex;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.lightbox figure{margin:0;text-align:center}.lightbox img{max-width:92vw;max-height:84vh;border:3px solid var(--gold);box-shadow:0 10px 40px #000}
+.lightbox figcaption{color:var(--gold-light);font-family:'Cinzel',serif;margin-top:8px}
+.lightbox button{position:absolute;top:14px;right:18px;border:1px solid var(--gold);background:var(--leather);color:var(--gold-light);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px}
+.mon-tok{flex:none}
+@media (max-width:760px){.imgs{grid-template-columns:1fr}}
 .helper{background:var(--parch-dark);border:1px dashed var(--gold);padding:8px 10px;margin:8px 0;border-radius:2px}
 .helper summary{cursor:pointer;font-family:'Cinzel',serif;font-size:13.5px;color:var(--blood)}
 /* analyse */
@@ -309,6 +340,22 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <details class="sec" open><summary>Identité</summary><div class="sb">
     <div class="row"><label>Nom<input id="f-name"></label><label>Taille<select id="f-size"></select></label><label>Type<select id="f-type"></select></label></div>
     <div class="row"><label>Mots-clés (facultatif)<input id="f-tags" placeholder="ex. Démon, Métamorphe"></label><label>Alignement<input id="f-align"></label></div>
+  </div></details>
+  <details class="sec" open><summary>Token et images de référence</summary><div class="sb imgs">
+    <div class="tokcol">
+      <div class="tokbox" id="tok-box"><canvas id="tok-cv" width="440" height="440" title="Glisser pour déplacer · molette pour zoomer"></canvas>
+        <div class="tokempty" id="tok-hint"><b>＋</b><span>Importer un token</span><small>ou déposer une image ici</small></div></div>
+      <div class="tok-tools" id="tok-tools" hidden><label>Zoom<input type="range" id="tok-z" min="1" max="4" step="0.01" value="1"></label><button type="button" class="btn small" id="tok-center">Recentrer</button></div>
+      <div class="acts" style="justify-content:center"><button type="button" class="btn red" id="tok-pick">🖼 Importer le token</button><button type="button" class="btn" id="tok-rm" hidden>Retirer</button></div>
+      <input type="file" id="tok-file" accept="image/*" hidden>
+      <p class="hint" style="text-align:center">Image recadrée en rond (320 px) : glissez pour la placer, zoom à la molette ou au curseur. Elle apparaît dans le bestiaire, la rencontre et la fiche PDF.</p>
+    </div>
+    <div class="refcol" id="ref-zone">
+      <div class="refhead"><b>Images de référence</b><button type="button" class="btn" id="ref-pick">＋ Ajouter des images</button><input type="file" id="ref-file" accept="image/*" multiple hidden></div>
+      <p class="ref-empty" id="ref-empty">Illustrations, croquis, inspirations… Déposez des images ici ou utilisez « Ajouter des images ». Cliquez sur une image pour l’agrandir.</p>
+      <div class="refgrid" id="ref-grid"></div>
+      <p class="hint">Gardées dans ce navigateur (et incluses dans « Exporter »). Elles peuvent être jointes à la fiche PDF.</p>
+    </div>
   </div></details>
   <details class="sec" open><summary>Défenses et déplacement</summary><div class="sb">
     <div class="row"><label>Classe d’armure<input type="number" id="f-ac" min="5" max="30"></label><label>Précision CA (facultatif)<input id="f-acnote" placeholder="armure naturelle"></label>
@@ -824,7 +871,7 @@ function pickCreature(m, R){
 }
 
 const SIZE_K = {TP:.64, P:.76, M:.9, G:1, TG:1.04, Gig:1.08};
-function monsterSVG(m, size){
+function monsterSVG_proc(m, size){
   const h = mhash(m.id), R = mrng(h), gid = 'mg'+h.toString(36);
   const bg = TYPE_BG[m.type] || ["#6b5a3a","#2b1d12"];
   const fp = m.fpv||0, ring = fp>=17?'#ffb23d':fp>=11?'#c07cff':fp>=5?'#4fa3ff':fp>=1?'#5fd06a':'#d9b25f';
@@ -843,6 +890,18 @@ function monsterSVG(m, size){
   s += `<g transform="translate(60 ${62+ (1-k)*22}) scale(${(k*flip).toFixed(3)} ${k.toFixed(3)}) translate(-50 -55)" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,.55))">${pickCreature(m, R)}</g>`;
   s += `</g><circle cx="60" cy="60" r="57" fill="none" stroke="${ring}" stroke-width="3"/><circle cx="60" cy="60" r="52" fill="none" stroke="#d9b25f" stroke-width=".8" stroke-dasharray="${1+h%3} ${3+h%4}"/></svg>`;
   return s;
+}
+
+// Token importé (créations de l’atelier) ou, à défaut pour une création maison, simple monogramme sobre
+function monsterSVG(m, size){
+  const nm = String(m.name||'').replace(/[<>&"]/g,'');
+  if (m.token && /^data:image\/(png|jpe?g|webp|gif);base64,/.test(m.token))
+    return `<img class="mon-art mon-tok" src="${m.token}" width="${size}" height="${size}" alt="Token : ${nm}" style="width:${size}px;height:${size}px;border-radius:50%;object-fit:cover;box-sizing:border-box;border:${Math.max(1,Math.round(size/40))}px solid #b8892e;background:#e6d2a6">`;
+  if (m.homebrew){
+    const ch = (nm.replace(/^(la |le |les |l’|l')/i,'').trim()[0]||'?').toUpperCase();
+    return `<svg class="mon-art mon-mono" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="${nm} (sans token)"><circle cx="60" cy="60" r="56" fill="#efe0bd" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="47" fill="none" stroke="#b8892e" stroke-opacity=".45" stroke-width="1"/><text x="60" y="61" text-anchor="middle" dominant-baseline="central" font-family="Cinzel,serif" font-weight="700" font-size="50" fill="#8e1b1b">${ch}</text></svg>`;
+  }
+  return monsterSVG_proc(m, size);
 }
 
 const $ = s=>document.querySelector(s), $$ = s=>[...document.querySelectorAll(s)];
@@ -865,7 +924,7 @@ function blank(){
   return {id:'hb-'+Date.now().toString(36), name:'Nouvelle créature', size:'M', type:'Monstruosité', tags:'', align:'non alignée',
     ac:13, acnote:'', hd:4, hpover:'', speed:'9 m', abil:{For:12,Dex:12,Con:12,Int:6,Sag:10,Cha:6}, saves:{},
     skills:'', resist:'', vuln:'', immun:'', senses:'Perception passive 10', langs:'aucune', gear:'', crdecl:'auto', src:null,
-    legUses:3, legIntro:'', mythic:{on:false, name:'Renaissance mythique', hp:'', trigger:'', xp:2},
+    legUses:3, legIntro:'', token:'', tokCrop:null, refs:[], mythic:{on:false, name:'Renaissance mythique', hp:'', trigger:'', xp:2},
     traits:[], actions:[{kind:'atk', n:'Morsure', melee:true, ab:'For', reach:'1,50 m', dice:'1d8', dtype:'perforants', extra:'', uses:1}],
     bonus:[], reactions:[], legend:[], mythic_actions:[]};
 }
@@ -988,7 +1047,7 @@ function toMonster(){
   return {id:S.id, name:S.name||'Sans nom', en:'', type:S.type, sizes:[S.size], swarm:false, group:null, animal:false, tags: S.tags? [S.tags] : [],
     typeline:`${S.type}${S.tags? ' ('+S.tags+')':''} de taille ${S.size}, ${S.align}`, align:S.align,
     ca: String(S.ac) + (S.acnote? ' ('+S.acnote+')':''), pv:h.txt, vitesse:S.speed, init:`${sgn(dm)} (${10+dm})`, stats, extra,
-    sections, fp:cr, fpv:crVal(cr), xp:`${nf(xpn)} PX ; BM +${pb}${S.mythic.on?' ; mythique':''}`, xpn, homebrew:true, src:S.src};
+    sections, fp:cr, fpv:crVal(cr), xp:`${nf(xpn)} PX ; BM +${pb}${S.mythic.on?' ; mythique':''}`, xpn, homebrew:true, src:S.src, token:S.token||'', refs:(S.refs||[]).map(r=>({id:r.id, name:r.name||''}))};
 }
 
 // ---------------------------------------------------------------- rendu de l'éditeur
@@ -1000,7 +1059,7 @@ function fillForm(){
   for (const a of AB){ $('#a-'+a).value = S.abil[a]; $('#s-'+a).checked = !!S.saves[a]; }
   $('#m-on').checked = S.mythic.on; $('#m-name').value = S.mythic.name; $('#m-hp').value = S.mythic.hp; $('#m-trigger').value = S.mythic.trigger; $('#m-xp').value = S.mythic.xp;
   $('#mythbox').hidden = !S.mythic.on;
-  renderEntries();
+  renderEntries(); loadTokSource(); renderRefs();
 }
 // ---------------------------------------------------------------- résistances, vulnérabilités, immunités (sélecteurs)
 const DMG_ALL = ['acide','contondants','feu','force','foudre','froid','nécrotiques','perforants','poison','psychiques','radiants','tonnerre','tranchants'];
@@ -1268,6 +1327,116 @@ function searchEntries(q){
   return IDX.filter(x=>words.every(w=>x.key.includes(w))).slice(0, 40);
 }
 
+// ---------------------------------------------------------------- token et images de référence
+// Le token (petit, recadré) vit dans la créature ; les images de référence (plus lourdes) dans IndexedDB.
+const IDB = { db:null,
+  open(){ return this.db ? Promise.resolve(this.db) : new Promise((ok, ko)=>{ try { const r = indexedDB.open('grimoire', 1);
+    r.onupgradeneeded = ()=>r.result.createObjectStore('images'); r.onsuccess = ()=>{ this.db = r.result; ok(this.db); }; r.onerror = ()=>ko(r.error); } catch(e){ ko(e); } }); },
+  async tx(mode, fn){ const db = await this.open(); return new Promise((ok, ko)=>{ const t = db.transaction('images', mode), st = t.objectStore('images'); const r = fn(st); t.oncomplete = ()=>ok(r && r.result); t.onerror = ()=>ko(t.error); }); },
+  get(k){ return this.tx('readonly', st=>st.get(k)); }, put(k, v){ return this.tx('readwrite', st=>st.put(v, k)); },
+  del(k){ return this.tx('readwrite', st=>st.delete(k)); }, keys(){ return this.tx('readonly', st=>st.getAllKeys()); } };
+function fileToImg(file){ return new Promise((ok, ko)=>{ const u = URL.createObjectURL(file), im = new Image(); im.onload = ()=>{ ok(im); setTimeout(()=>URL.revokeObjectURL(u), 1000); }; im.onerror = ()=>ko(new Error('image')); im.src = u; }); }
+function srcToImg(src){ return new Promise((ok, ko)=>{ const im = new Image(); im.onload = ()=>ok(im); im.onerror = ko; im.src = src; }); }
+function canvasURL(c, q){ let u = c.toDataURL('image/webp', q); if (!u.startsWith('data:image/webp')) u = c.toDataURL('image/jpeg', q); return u; }
+function shrink(im, max, q){ const r = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight)); const c = document.createElement('canvas');
+  c.width = Math.round(im.naturalWidth*r); c.height = Math.round(im.naturalHeight*r); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); return canvasURL(c, q); }
+
+let TOK = null;   // {img, z, x, y} : image source du recadrage en cours
+const TOKOUT = 320;
+function tokDraw(cv, size){
+  const g = cv.getContext('2d'); g.clearRect(0, 0, size, size); if (!TOK) return;
+  const im = TOK.img, base = size / Math.min(im.naturalWidth, im.naturalHeight), sc = base * TOK.z;
+  const w = im.naturalWidth*sc, h = im.naturalHeight*sc;
+  g.save(); g.beginPath(); g.arc(size/2, size/2, size/2, 0, Math.PI*2); g.clip();
+  g.fillStyle = '#e6d2a6'; g.fillRect(0, 0, size, size);
+  g.drawImage(im, size/2 - w/2 + TOK.x*size, size/2 - h/2 + TOK.y*size, w, h); g.restore();
+}
+function tokClamp(){ if (!TOK) return; const im = TOK.img, r = Math.min(im.naturalWidth, im.naturalHeight);
+  const mx = Math.max(0, (im.naturalWidth/r*TOK.z - 1)/2), my = Math.max(0, (im.naturalHeight/r*TOK.z - 1)/2);
+  TOK.x = Math.max(-mx, Math.min(mx, TOK.x)); TOK.y = Math.max(-my, Math.min(my, TOK.y)); }
+let tokTimer = null;
+function tokCommit(now){
+  clearTimeout(tokTimer);
+  const go = ()=>{ if (!TOK) return; const c = document.createElement('canvas'); c.width = c.height = TOKOUT; tokDraw(c, TOKOUT);
+    S.token = canvasURL(c, .86); S.tokCrop = {z:TOK.z, x:TOK.x, y:TOK.y}; refresh(); renderTokUI(false); };
+  if (now) go(); else tokTimer = setTimeout(go, 180);
+}
+function renderTokUI(redraw=true){
+  const has = !!S.token, cv = $('#tok-cv');
+  $('#tok-box').classList.toggle('has', has);
+  $('#tok-tools').hidden = !TOK; $('#tok-rm').hidden = !has; $('#tok-hint').hidden = has;
+  if (TOK){ tokDraw(cv, cv.width); $('#tok-z').value = TOK.z; }
+  else { const g = cv.getContext('2d'); g.clearRect(0,0,cv.width,cv.height); if (has && redraw) srcToImg(S.token).then(im=>{ if (!TOK){ g.save(); g.beginPath(); g.arc(cv.width/2,cv.height/2,cv.width/2,0,Math.PI*2); g.clip(); g.drawImage(im,0,0,cv.width,cv.height); g.restore(); } }).catch(()=>{}); }
+}
+async function loadTokSource(){
+  TOK = null;
+  try { const src = await IDB.get('tok-' + S.id); if (src && S.token){ const im = await srcToImg(src); const c = S.tokCrop || {z:1,x:0,y:0}; TOK = {img:im, z:c.z, x:c.x, y:c.y}; } } catch(e){}
+  renderTokUI();
+}
+async function setToken(file){
+  if (!file || !/^image\//.test(file.type)){ msg('Choisissez une image (PNG, JPG, WebP…).'); return; }
+  try { const im0 = await fileToImg(file); const src = shrink(im0, 1024, .9); const im = await srcToImg(src);
+    TOK = {img:im, z:1, x:0, y:0}; try { await IDB.put('tok-' + S.id, src); } catch(e){}
+    tokCommit(true); msg('Token importé : faites glisser l’image et réglez le zoom pour le cadrer.');
+  } catch(e){ msg('Impossible de lire cette image.'); }
+}
+// images de référence
+async function addRefs(files){
+  let n = 0;
+  for (const f of files){ if (!/^image\//.test(f.type)) continue;
+    try { const im = await fileToImg(f); const id = 'ref-' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+      await IDB.put(id, shrink(im, 1600, .85)); S.refs.push({id, name:f.name.replace(/\.[^.]+$/,'')}); n++; }
+    catch(e){ msg('Stockage des images indisponible dans ce navigateur.'); break; } }
+  if (n){ save('draft'); renderRefs(); msg(`${n} image(s) de référence ajoutée(s).`); }
+}
+async function renderRefs(){
+  const box = $('#ref-grid'); if (!S.refs) S.refs = [];
+  box.innerHTML = S.refs.length ? S.refs.map((r,i)=>`<figure data-ref="${i}"><div class="ph"><img alt=""></div><figcaption><input value="${esc(r.name||'')}" data-refname="${i}" placeholder="Légende"><button type="button" data-refrm="${i}" title="Retirer">✕</button></figcaption></figure>`).join('') : '';
+  $('#ref-empty').hidden = S.refs.length > 0;
+  for (const [i, r] of S.refs.entries()){ try { const src = await IDB.get(r.id); const im = box.querySelector(`figure[data-ref="${i}"] img`); if (im){ if (src) im.src = src; else im.closest('figure').classList.add('missing'); } } catch(e){} }
+}
+async function openLightbox(i){
+  const r = S.refs[i]; if (!r) return; const src = await IDB.get(r.id).catch(()=>null); if (!src) return;
+  const lb = document.createElement('div'); lb.className = 'lightbox'; lb.innerHTML = `<figure><img src="${src}" alt=""><figcaption>${esc(r.name||'')}</figcaption></figure><button type="button" aria-label="Fermer">✕</button>`;
+  lb.addEventListener('click', ()=>lb.remove()); document.body.appendChild(lb);
+}
+async function gcImages(){
+  try { const keep = new Set(); const add = st=>{ if (!st) return; keep.add('tok-' + st.id); (st.refs||[]).forEach(r=>keep.add(r.id)); };
+    loadAll().forEach(r=>add(r.state)); add(S);
+    for (const k of await IDB.keys()) if (!keep.has(k)) await IDB.del(k); } catch(e){}
+}
+async function withImages(recs){
+  const images = {};
+  for (const r of recs){ const st = r.state || {}; for (const k of ['tok-' + st.id, ...(st.refs||[]).map(x=>x.id)]){ try { const v = await IDB.get(k); if (v) images[k] = v; } catch(e){} } }
+  return images;
+}
+function initImages(){
+  const cv = $('#tok-cv'); let drag = null;
+  cv.addEventListener('pointerdown', e=>{ if (!TOK) return; drag = {x:e.clientX, y:e.clientY, ox:TOK.x, oy:TOK.y}; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e=>{ if (!drag) return; TOK.x = drag.ox + (e.clientX-drag.x)/cv.clientWidth; TOK.y = drag.oy + (e.clientY-drag.y)/cv.clientHeight; tokClamp(); tokDraw(cv, cv.width); });
+  const end = ()=>{ if (drag){ drag = null; tokCommit(); } }; cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+  cv.addEventListener('wheel', e=>{ if (!TOK) return; e.preventDefault(); TOK.z = Math.max(1, Math.min(4, TOK.z * (e.deltaY<0 ? 1.08 : 1/1.08))); tokClamp(); tokDraw(cv, cv.width); $('#tok-z').value = TOK.z; tokCommit(); }, {passive:false});
+  $('#tok-z').addEventListener('input', e=>{ if (!TOK) return; TOK.z = +e.target.value; tokClamp(); tokDraw(cv, cv.width); tokCommit(); });
+  $('#tok-center').addEventListener('click', ()=>{ if (!TOK) return; TOK.x = TOK.y = 0; TOK.z = 1; tokDraw(cv, cv.width); tokCommit(true); });
+  $('#tok-pick').addEventListener('click', ()=>$('#tok-file').click());
+  cv.addEventListener('click', ()=>{ if (!TOK && !S.token) $('#tok-file').click(); });
+  $('#tok-file').addEventListener('change', e=>{ setToken(e.target.files[0]); e.target.value = ''; });
+  $('#tok-rm').addEventListener('click', ()=>{ S.token = ''; S.tokCrop = null; TOK = null; IDB.del('tok-' + S.id).catch(()=>{}); refresh(); renderTokUI(); msg('Token retiré.'); });
+  $('#ref-pick').addEventListener('click', ()=>$('#ref-file').click());
+  $('#ref-file').addEventListener('change', e=>{ addRefs([...e.target.files]); e.target.value = ''; });
+  for (const [zone, fn] of [[$('#tok-box'), fs=>setToken(fs[0])], [$('#ref-zone'), fs=>addRefs(fs)]]){
+    zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', ()=>zone.classList.remove('over'));
+    zone.addEventListener('drop', e=>{ e.preventDefault(); zone.classList.remove('over'); const fs = [...(e.dataTransfer.files||[])]; if (fs.length) fn(fs); });
+  }
+  $('#ref-grid').addEventListener('click', e=>{
+    const rm = e.target.closest('[data-refrm]'); if (rm){ S.refs.splice(+rm.dataset.refrm, 1); save('draft'); renderRefs(); return; }
+    const f = e.target.closest('figure[data-ref]'); if (f && e.target.tagName==='IMG') openLightbox(+f.dataset.ref);
+  });
+  $('#ref-grid').addEventListener('input', e=>{ const t = e.target; if (t.dataset.refname){ S.refs[+t.dataset.refname].name = t.value; save('draft'); } });
+  document.addEventListener('keydown', e=>{ if (e.key==='Escape') document.querySelectorAll('.lightbox').forEach(x=>x.remove()); });
+}
+
 // ---------------------------------------------------------------- sauvegarde
 function loadAll(){ try { return JSON.parse(localStorage.getItem('grimoire-homebrew')||'[]'); } catch(e){ return []; } }
 function storeAll(L){ try { localStorage.setItem('grimoire-homebrew', JSON.stringify(L)); return true; } catch(e){ return false; } }
@@ -1276,7 +1445,7 @@ function save(kind){
   const L = loadAll(), m = toMonster(), i = L.findIndex(x=>x.id===S.id);
   const rec = {id:S.id, state:JSON.parse(JSON.stringify(S)), monster:m, date:new Date().toISOString()};
   if (i>=0) L[i] = rec; else L.push(rec);
-  msg(storeAll(L) ? `« ${m.name} » enregistrée dans Mes créatures (visible aussi dans le bestiaire).` : 'Stockage indisponible dans ce navigateur : utilisez « Exporter ».');
+  msg(storeAll(L) ? `« ${m.name} » enregistrée dans Mes créatures (visible aussi dans le bestiaire).` : 'Enregistrement impossible (stockage indisponible ou plein) : utilisez « Exporter ».');
   renderSaved();
 }
 function renderSaved(){
@@ -1324,7 +1493,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const rec = h.startsWith('edit-') ? loadAll().find(r=>r.id===h.slice(5)) : null;
   if (rec) S = Object.assign(blank(), rec.state);
   else { try { const d = localStorage.getItem('grimoire-atelier-brouillon'); if (d) S = Object.assign(blank(), JSON.parse(d)); } catch(e){} }
-  fillForm(); refresh(); renderSaved(); renderParty();
+  initImages(); fillForm(); refresh(); renderSaved(); renderParty();
 
   // champs simples
   document.addEventListener('input', e=>{
@@ -1381,8 +1550,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
       else L.push({kind:'text', n:'Nouvelle capacité', t:'', uses:0});
       renderEntries(); refresh(); return; }
     if (b.dataset.load){ const r = loadAll().find(x=>x.id===b.dataset.load); if (r){ S = Object.assign(blank(), r.state); fillForm(); refresh(); msg(`« ${r.monster.name} » ouverte.`); scrollTo({top:$('#editor').offsetTop-80}); } return; }
-    if (b.dataset.dup){ const r = loadAll().find(x=>x.id===b.dataset.dup); if (r){ S = Object.assign(blank(), JSON.parse(JSON.stringify(r.state))); S.id = 'hb-'+Date.now().toString(36); S.name += ' (copie)'; fillForm(); refresh(); msg('Copie créée : pensez à l’enregistrer.'); } return; }
-    if (b.dataset.rm){ const L = loadAll().filter(x=>x.id!==b.dataset.rm); storeAll(L); renderSaved(); msg('Créature supprimée de Mes créatures.'); return; }
+    if (b.dataset.dup){ const r = loadAll().find(x=>x.id===b.dataset.dup); if (r){ S = Object.assign(blank(), JSON.parse(JSON.stringify(r.state))); const oldId = S.id; S.id = 'hb-'+Date.now().toString(36); S.name += ' (copie)'; IDB.get('tok-'+oldId).then(v=>v && IDB.put('tok-'+S.id, v)).catch(()=>{}); fillForm(); refresh(); msg('Copie créée : pensez à l’enregistrer.'); } return; }
+    if (b.dataset.rm){ const L = loadAll().filter(x=>x.id!==b.dataset.rm); storeAll(L); renderSaved(); gcImages(); msg('Créature supprimée de Mes créatures.'); return; }
     if (b.dataset.borrow){ const x = IDX[+b.dataset.borrow]; const k = $('#b-target').value; const txt = $('#b-gen').checked ? genericize(x.t, x.m) : x.t;
       listOf(k).push({kind:'text', n:x.n, t:txt, uses: (k==='actions' && parseEntry({kind:'text',t:txt}).dmg>0) ? 1 : 0});
       renderEntries(); refresh(); msg(`« ${x.n} » (${x.m.name}) ajouté à : ${$('#b-target').selectedOptions[0].textContent}.`); return; }
@@ -1401,14 +1570,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
         E.list = E.list||{}; E.list[S.id] = (E.list[S.id]||0) + (+$('#p-count').value||1); try { localStorage.setItem('grimoire-rencontre', JSON.stringify(E)); } catch(e){}
         msg('Ajoutée à la rencontre du bestiaire.'); renderParty(); break; }
       case 'topdf': save('rec'); location.href = 'fiche-creature-dnd-2024.html#' + encodeURIComponent(S.id); break;
-      case 'export': download((S.name||'creature').replace(/[^\w\-]+/g,'_') + '.json', {format:'grimoire-creature', version:1, creatures:[{id:S.id, state:S, monster:toMonster()}]}); break;
-      case 'exportall': download('mes-creatures.json', {format:'grimoire-creature', version:1, creatures:loadAll()}); break;
+      case 'export': { const recs = [{id:S.id, state:S, monster:toMonster()}]; withImages(recs).then(images=>download((S.name||'creature').replace(/[^\w\-]+/g,'_') + '.json', {format:'grimoire-creature', version:2, creatures:recs, images})); break; }
+      case 'exportall': { const recs = loadAll(); withImages(recs).then(images=>download('mes-creatures.json', {format:'grimoire-creature', version:2, creatures:recs, images})); break; }
       case 'import': $('#file').click(); break;
     }
   });
   $('#file').addEventListener('change', async e=>{
     const f = e.target.files[0]; if (!f) return;
     try { const o = JSON.parse(await f.text()); const C = o.creatures || []; const L = loadAll();
+      for (const [k, v] of Object.entries(o.images||{})) if (/^(tok|ref)-/.test(k) && /^data:image\//.test(v)) await IDB.put(k, v).catch(()=>{});
       for (const c of C){ if (!c.state) continue; const i = L.findIndex(x=>x.id===c.id); if (i>=0) L[i]=c; else L.push(c); }
       storeAll(L); renderSaved(); if (C[0] && C[0].state){ S = Object.assign(blank(), C[0].state); fillForm(); refresh(); }
       msg(`${C.length} créature(s) importée(s).`);
