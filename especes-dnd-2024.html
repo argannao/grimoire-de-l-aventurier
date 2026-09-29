@@ -8,6 +8,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* espèces des suppléments */
+.supp-sep{display:flex;align-items:center;gap:14px;max-width:1000px;margin:46px auto 26px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase}
+.supp-sep::before,.supp-sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent)}
+.supp-index{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px}
+.supp-index > div{background:var(--parch-dark);border:1px solid var(--gold);padding:8px 12px;border-radius:2px;font-size:16px;line-height:1.5}
+.supp-index b{font-family:'Cinzel',serif;color:var(--blood)}
+.supp-book{max-width:1000px;margin:34px auto 14px;text-align:center;color:var(--parch)}
+.supp-book h3{font-family:'Cinzel',serif;color:var(--gold-light);font-size:22px;margin:0 0 4px;letter-spacing:1px}
+.supp-book p{margin:0;color:#cdb991;font-style:italic}
+.species.supp::before{background:linear-gradient(#6a3f8a,#3f2455)}
+.supp-note h3{margin-top:0}
+.supp-foot{max-width:1000px;margin:10px auto 30px;color:#cdb991}
+/* fin suppléments */
+
 :root{
   --ink:#2b1d12; --ink-soft:#5a4330;
   --parch:#f3e6c8; --parch-dark:#e6d2a6;
@@ -862,39 +876,258 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </section>
 
 <!-- ===================== AUTRES ESPÈCES ===================== -->
+<div class="supp-sep" role="separator"><span>Espèces des suppléments</span></div>
 <section class="panel" id="autres">
   <h2>Autres espèces aux règles 2024</h2>
-  <p>Depuis le PHB, Wizards of the Coast a publié de nouvelles espèces compatibles avec les règles 2024 dans ses suppléments de campagne. Chaque nom renvoie à sa fiche sur D&amp;D Beyond.</p>
-
-  <h3>Eberron: Forge of the Artificer</h3>
-  <div class="other-grid">
-    <div class="other"><a href="https://www.dndbeyond.com/species/2048551-changeling" target="_blank" rel="noopener">Changelin</a><br>Métamorphe capable de changer d'apparence et de se fondre dans n'importe quelle société.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2048552-kalashtar" target="_blank" rel="noopener">Kalashtar</a><br>Humains unis à des esprits quori renégats venus du plan des rêves ; dons télépathiques.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2048553-khoravar" target="_blank" rel="noopener">Khoravar</a><br>Descendants d'humains et d'elfes, avec leurs propres communautés en Khorvaire.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2048554-shifter" target="_blank" rel="noopener">Shifter</a><br>Héritiers d'une lycanthropie partielle, capables de révéler un aspect bestial.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2048555-warforged" target="_blank" rel="noopener">Forgelier</a><br>Êtres artificiels conçus comme armes pour la Dernière Guerre, en quête d'un nouveau but.</div>
-  </div>
-
-  <h3>Lorwyn: First Light</h3>
-  <div class="other-grid">
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043668-boggart" target="_blank" rel="noopener">Boggart</a><br>Petits gobelinoïdes trapus du monde de Lorwyn-Shadowmoor.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043669-faerie" target="_blank" rel="noopener">Faerie</a><br>Petites créatures ailées à la magie innée, amatrices de farces.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043670-flamekin" target="_blank" rel="noopener">Flamekin</a><br>Êtres de flamme profondément liés au monde naturel.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043671-kithkin" target="_blank" rel="noopener">Kithkin</a><br>Petit peuple uni par un lien empathique qui leur fait ressentir les émotions des leurs.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043672-lorwyn-changeling" target="_blank" rel="noopener">Changelin de Lorwyn</a><br>Métamorphes charismatiques qui imitent grossièrement créatures et plantes.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043673-lorwyn-shadowmoor-elf" target="_blank" rel="noopener">Elfe de Lorwyn-Shadowmoor</a><br>Elfes obsédés par la beauté, selon des critères parfois arbitraires.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2043674-rimekin" target="_blank" rel="noopener">Rimekin</a><br>Anciens flamekin devenus froids, qui privilégient la logique à l'émotion.</div>
-  </div>
-
-  <h3>Ravenloft: The Horrors Within</h3>
-  <div class="other-grid">
-    <div class="other"><a href="https://www.dndbeyond.com/species/2038805-dhampir" target="_blank" rel="noopener">Dhampir</a><br>Vivants dotés de pouvoirs vampiriques et d'une faim macabre.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2161358-hexblood" target="_blank" rel="noopener">Sang-maudit</a><br>Individus imprégnés de magie féerique ou de sorcellerie mystérieuse.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2161359-lupin" target="_blank" rel="noopener">Lupin</a><br>Rescapés d'une rencontre avec des loups-garous dont la malédiction n'a pas pris entièrement.</div>
-    <div class="other"><a href="https://www.dndbeyond.com/species/2161360-reborn" target="_blank" rel="noopener">Réincarné</a><br>Personnes mortes qui, inexplicablement, vivent encore.</div>
-  </div>
-  <p class="note">D&amp;D Beyond référence aussi de nombreuses espèces d'éditeurs tiers et d'anciens ouvrages (marquées « Legacy »), non couvertes ici.</p>
+  <p>Depuis le <em>Manuel des joueurs</em> 2024, Wizards of the Coast a publié de nouvelles espèces compatibles dans ses suppléments de campagne. Ces fiches sont <strong>hors SRD</strong> : elles résument les traits avec nos propres mots, pour s’y retrouver. Pour le texte exact des règles, suivez le lien vers la fiche officielle.</p>
+  <div class="supp-index"><div><b>Eberron : Forge of the Artificer</b> <small>(2025)</small><br><a href="#changelin">Changelin</a> · <a href="#kalashtar">Kalashtar</a> · <a href="#khoravar">Khoravar</a> · <a href="#shifter">Shifter</a> · <a href="#forgelier">Forgelier</a></div><div><b>Lorwyn : First Light</b> <small>(novembre 2025)</small><br><a href="#changelin-lorwyn">Changelin de Lorwyn</a> · <a href="#rimekin">Rimekin</a></div><div><b>Ravenloft : The Horrors Within</b> <small>(juin 2026)</small><br><a href="#dhampir">Dhampir</a> · <a href="#sang-maudit">Sang-maudit</a> · <a href="#lupin">Lupin</a> · <a href="#reincarne">Réincarné</a></div></div>
 </section>
+<div class="supp-book"><h3>Eberron : Forge of the Artificer</h3><p>Cinq espèces d’Eberron mises à jour pour les règles 2024.</p></div>
+<section class="panel species supp" id="changelin">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème changelin"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 22 C38 22 30 40 30 58 C30 80 44 96 60 98 Z" fill="#e9dcc2"/><path d="M60 22 C82 22 90 40 90 58 C90 80 76 96 60 98 Z" fill="#5a4a7a"/>
+  <ellipse cx="46" cy="54" rx="6" ry="3.5" fill="#2b1d12"/><ellipse cx="74" cy="54" rx="6" ry="3.5" fill="#e9dcc2"/>
+  <path d="M46 78 Q53 82 60 80 M60 80 Q67 78 74 82" stroke="#8e1b1b" stroke-width="2.5" fill="none"/><path d="M60 20 L60 100" stroke="#b8892e" stroke-width="2"/></svg>
+    <div class="species-title">
+      <h2>Changelin</h2>
+      <div class="sub">Changeling · mille visages</div>
+      <div class="badges"><span class="badge">Eberron : Forge of the Artificer</span><span class="badge alt">2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Fée</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div></div>
+  <ul class="traits"><li><strong>Instincts de changelin.</strong> Maîtrise de deux compétences au choix parmi Intimidation, Intuition, Persuasion, Représentation et Tromperie.</li><li><strong>Métamorphe.</strong> Vous changez d’apparence et de voix pour prendre les traits d’une personne que vous avez vue, à condition qu’elle ait la même disposition de membres que vous. Tant que vous êtes transformé, vous avez l’avantage aux tests de Charisme. La transformation dure jusqu’à ce que vous repreniez votre apparence.</li></ul>
+  <details>
+    <summary>Jouer un changelin</summary>
+    <div class="inner"><ul><li>Espion, escroc, diplomate : le changelin excelle dans tout ce qui passe par le Charisme. Barde, occultiste et roublard en tirent le meilleur parti.</li><li>Pistes de roleplay : plusieurs identités entretenues en parallèle, un « vrai » visage que peu de gens connaissent, ou la peur d’être démasqué.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2048551-changeling" target="_blank" rel="noopener">Fiche officielle Changelin (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="kalashtar">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème kalashtar"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <circle cx="60" cy="62" r="26" fill="#2f5d8a"/><circle cx="60" cy="62" r="26" fill="none" stroke="#d9b25f" stroke-width="2"/>
+  <path d="M60 40 C70 50 70 74 60 84 C50 74 50 50 60 40 Z" fill="#9fc3e6"/><circle cx="60" cy="62" r="5" fill="#fbf3de"/>
+  <path d="M28 40 Q36 30 44 36 M92 40 Q84 30 76 36 M22 64 L30 62 M98 64 L90 62" stroke="#d9b25f" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+    <div class="species-title">
+      <h2>Kalashtar</h2>
+      <div class="sub">Kalashtar · l’esprit lié</div>
+      <div class="badges"><span class="badge">Eberron : Forge of the Artificer</span><span class="badge alt">2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Aberration</div><div class="stat"><b>Taille</b>M</div><div class="stat"><b>Vitesse</b>9 m</div></div>
+  <ul class="traits"><li><strong>Double esprit.</strong> Avantage aux jets de sauvegarde de Sagesse et de Charisme.</li><li><strong>Discipline mentale.</strong> Résistance aux dégâts psychiques.</li><li><strong>Lien mental.</strong> Vous communiquez par télépathie à une portée de 3 m par niveau de personnage. Vous pouvez permettre à plusieurs créatures de vous répondre par télépathie pendant 1 heure, même si elles ne vous voient pas.</li><li><strong>Coupé des rêves.</strong> Le sort <a class="spell" href="sorts-dnd-2024.html#songe">songe</a> n’a pas d’effet sur vous. À la fin d’un repos long, vous gagnez la maîtrise d’une compétence au choix, jusqu’à la fin de votre repos long suivant.</li></ul>
+  <details>
+    <summary>Jouer un kalashtar</summary>
+    <div class="inner"><ul><li>Très solide mentalement (avantage aux JS de Sagesse et de Charisme, résistance psychique) : un excellent choix pour les lanceurs de sorts en première ligne, le moine ou le paladin.</li><li>La compétence changeante après chaque repos long permet de combler un manque du groupe au jour le jour.</li><li>Pistes de roleplay : l’esprit quori renégat qui partage votre âme, ses souvenirs et ses ennemis venus du plan des rêves.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2048552-kalashtar" target="_blank" rel="noopener">Fiche officielle Kalashtar (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="khoravar">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème khoravar"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 24 C40 40 38 70 60 96 C82 70 80 40 60 24 Z" fill="#3f6b3a"/><path d="M60 30 L60 92" stroke="#d9b25f" stroke-width="2"/>
+  <path d="M60 50 L46 42 M60 62 L44 56 M60 74 L48 70 M60 50 L74 42 M60 62 L76 56 M60 74 L72 70" stroke="#d9b25f" stroke-width="1.5"/>
+  <circle cx="60" cy="60" r="36" fill="none" stroke="#8e1b1b" stroke-width="2" stroke-dasharray="4 5"/></svg>
+    <div class="species-title">
+      <h2>Khoravar</h2>
+      <div class="sub">Khoravar · entre deux peuples</div>
+      <div class="badges"><span class="badge">Eberron : Forge of the Artificer</span><span class="badge alt">2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Humanoïde</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div><div class="stat"><b>Vision dans le noir</b>18 m</div></div>
+  <ul class="traits"><li><strong>Ascendance féerique.</strong> Avantage aux jets de sauvegarde pour éviter l’état Charmé ou y mettre fin.</li><li><strong>Don féerique.</strong> Vous connaissez le sort mineur <a class="spell" href="sorts-dnd-2024.html#amis">amis</a>. À la fin d’un repos long, vous pouvez le remplacer par un autre sort mineur de la liste du clerc, du druide ou du magicien.</li><li><strong>Résistance à la léthargie.</strong> Quand vous ratez un jet de sauvegarde pour éviter l’état Inconscient ou y mettre fin, vous pouvez le transformer en réussite. Vous pourrez recommencer après avoir terminé 1d4 repos longs.</li><li><strong>Polyvalence.</strong> Maîtrise d’une compétence ou d’un outil au choix, que vous pouvez échanger contre une autre à la fin d’un repos long.</li></ul>
+  <details>
+    <summary>Jouer un khoravar</summary>
+    <div class="inner"><ul><li>Le « demi-elfe » d’Eberron version 2024 : polyvalent, il s’adapte à tous les rôles grâce à sa compétence et à son sort mineur échangeables.</li><li>Pistes de roleplay : les communautés khoravar de Khorvaire, la recherche d’une place entre humains et elfes, les liens avec la maison Lyrandar ou Medani.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2048553-khoravar" target="_blank" rel="noopener">Fiche officielle Khoravar (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="shifter">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème shifter"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M32 34 L50 90 M48 30 L62 92 M64 30 L74 92" stroke="#8e1b1b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M32 34 L50 90 M48 30 L62 92 M64 30 L74 92" stroke="#e9c9a0" stroke-width="2" stroke-linecap="round" transform="translate(2,-1)"/>
+  <circle cx="86" cy="40" r="10" fill="#d9b25f"/><circle cx="90" cy="37" r="9" fill="url(#medal)"/></svg>
+    <div class="species-title">
+      <h2>Shifter</h2>
+      <div class="sub">Shifter · la bête intérieure</div>
+      <div class="badges"><span class="badge">Eberron : Forge of the Artificer</span><span class="badge alt">2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Humanoïde</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div><div class="stat"><b>Vision dans le noir</b>18 m</div></div>
+  <ul class="traits"><li><strong>Instincts bestiaux.</strong> Maîtrise d’une compétence au choix : Acrobaties, Athlétisme, Intimidation ou Survie.</li><li><strong>Mutation.</strong> Par une action bonus, vous révélez votre aspect bestial pendant 1 minute et gagnez des points de vie temporaires égaux à deux fois votre bonus de maîtrise. Utilisable autant de fois que votre bonus de maîtrise, puis repos long. Vous choisissez un aspect :<ul><li><em>Peau de bête</em> : 1d6 PV temporaires de plus et +1 à la CA pendant la mutation.</li><li><em>Longue-dent</em> : par une action bonus, attaque de crocs qui inflige 1d6 + Force dégâts perforants.</li><li><em>Foulée rapide</em> : +3 m de vitesse ; par une réaction, vous vous déplacez de 3 m quand une créature termine son tour à 1,50 m ou moins de vous.</li><li><em>Traqueur sauvage</em> : avantage aux tests de Sagesse, et aucune créature à 9 m ou moins ne peut obtenir l’avantage à ses jets d’attaque contre vous.</li></ul></li></ul>
+  <details>
+    <summary>Jouer un shifter</summary>
+    <div class="inner"><ul><li>Longue-dent pour le combattant ou le barbare au corps à corps, Peau de bête pour tenir la ligne, Foulée rapide pour le roublard, Traqueur sauvage pour le rôdeur.</li><li>Pistes de roleplay : un lointain ancêtre lycanthrope, la méfiance des villes, le lien avec les druides des Eldeen Reaches.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2048554-shifter" target="_blank" rel="noopener">Fiche officielle Shifter (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="forgelier">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème forgelier"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M38 34 L82 34 L88 58 L76 92 L44 92 L32 58 Z" fill="#6f7c80" stroke="#2b1d12" stroke-width="2"/>
+  <path d="M44 40 L76 40 L80 56 L40 56 Z" fill="#4c575b"/><rect x="46" y="50" width="10" height="4" fill="#9fe3ff"/><rect x="64" y="50" width="10" height="4" fill="#9fe3ff"/>
+  <path d="M50 70 L70 70 M48 78 L72 78 M60 56 L60 92" stroke="#2b1d12" stroke-width="2"/><circle cx="60" cy="84" r="5" fill="#d9b25f"/></svg>
+    <div class="species-title">
+      <h2>Forgelier</h2>
+      <div class="sub">Warforged · né pour la guerre</div>
+      <div class="badges"><span class="badge">Eberron : Forge of the Artificer</span><span class="badge alt">2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Artificiel</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div></div>
+  <ul class="traits"><li><strong>Résilience artificielle.</strong> Résistance aux dégâts de poison, et avantage aux jets de sauvegarde pour éviter l’état Empoisonné ou y mettre fin.</li><li><strong>Protection intégrée.</strong> +1 à la CA. Une armure que vous portez ne peut pas vous être retirée contre votre gré.</li><li><strong>Repos de sentinelle.</strong> Vous n’avez pas besoin de dormir et la magie ne peut pas vous endormir. Vous terminez un repos long en 6 heures d’inactivité, en restant conscient.</li><li><strong>Conception spécialisée.</strong> Maîtrise d’une compétence et d’un outil au choix.</li><li><strong>Infatigable.</strong> La déshydratation, la malnutrition et l’asphyxie ne vous infligent pas de niveaux d’Épuisement.</li></ul>
+  <details>
+    <summary>Jouer un forgelier</summary>
+    <div class="inner"><ul><li>+1 à la CA permanent, résistance au poison, pas de sommeil : un très bon choix défensif pour toute classe en armure.</li><li>Pistes de roleplay : un soldat de la Dernière Guerre qui se cherche un nouveau but, la question de l’âme, un ancien matricule.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2048555-warforged" target="_blank" rel="noopener">Fiche officielle Forgelier (D&amp;D Beyond)</a></div>
+</section>
+<div class="supp-book"><h3>Lorwyn : First Light</h3><p>Supplément numérique (D&amp;D Beyond). Il crée deux espèces ; les autres peuples de Lorwyn-Shadowmoor utilisent des règles existantes (voir l’encadré).</p></div>
+<section class="panel species supp" id="changelin-lorwyn">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème changelin de lorwyn"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M40 90 C30 70 36 44 60 30 C84 44 90 70 80 90 Z" fill="#8fb8a8"/>
+  <path d="M60 30 C54 50 66 62 58 90 M44 50 Q52 56 50 70 M76 50 Q68 58 72 72" stroke="#3f6b3a" stroke-width="2.5" fill="none"/>
+  <circle cx="52" cy="54" r="4" fill="#fbf3de"/><circle cx="68" cy="54" r="4" fill="#fbf3de"/><path d="M26 30 l4 4 M94 30 l-4 4 M60 16 l0 6" stroke="#d9b25f" stroke-width="2.5"/></svg>
+    <div class="species-title">
+      <h2>Changelin de Lorwyn</h2>
+      <div class="sub">Lorwyn Changeling · l’imitateur joyeux</div>
+      <div class="badges"><span class="badge">Lorwyn : First Light</span><span class="badge alt">novembre 2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Fée</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div><div class="stat"><b>Vision dans le noir</b>36 m</div></div>
+  <ul class="traits"><li><strong>Transformation.</strong> Vous pouvez modifier votre apparence en imitant, de façon approximative, des créatures ou des plantes.</li><li><strong>Imitateur ravi.</strong> Maîtrise de la compétence Représentation.</li><li><strong>Mouvement imprévisible.</strong> Quand vous jouez l’initiative, vous pouvez utiliser votre réaction pour effectuer l’action Foncer (sauf si vous êtes surpris). Vous vous placez donc avant même votre premier tour.</li></ul>
+  <details>
+    <summary>Jouer un changelin de lorwyn</summary>
+    <div class="inner"><ul><li>Mouvement imprévisible donne un excellent départ de combat : idéal pour un roublard, un moine ou un lanceur de sorts qui veut se mettre à l’abri.</li><li>Différent du changelin d’Eberron : celui de Lorwyn est une créature féerique à la forme mouvante, curieuse et joueuse.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2043672-lorwyn-changeling" target="_blank" rel="noopener">Fiche officielle Changelin de Lorwyn (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="rimekin">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème rimekin"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 98 C36 92 34 66 48 52 C46 64 54 68 56 60 C52 44 62 32 60 20 C78 34 88 54 80 72 C76 64 72 64 72 72 C74 84 70 94 60 98 Z" fill="#8ec9ee"/>
+  <path d="M60 94 C50 90 48 76 56 68 C58 76 64 76 64 70 C70 78 70 90 60 94 Z" fill="#e8f6ff"/>
+  <path d="M30 40 L38 48 M34 40 L34 48 M30 44 L38 44 M86 76 L94 84 M90 76 L90 84 M86 80 L94 80" stroke="#e8f6ff" stroke-width="1.8"/></svg>
+    <div class="species-title">
+      <h2>Rimekin</h2>
+      <div class="sub">Rimekin · la flamme froide</div>
+      <div class="badges"><span class="badge">Lorwyn : First Light</span><span class="badge alt">novembre 2025</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Humanoïde</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div><div class="stat"><b>Vision dans le noir</b>Oui</div></div>
+  <ul class="traits"><li><strong>Résistance au froid.</strong> Résistance aux dégâts de froid.</li><li><strong>Magie de la flamme froide.</strong> Votre corps porte des flammes bleues glacées. Vous connaissez le sort mineur <a class="spell" href="sorts-dnd-2024.html#rayon-de-givre">rayon de givre</a> ; au niveau 3, vous obtenez <a class="spell" href="sorts-dnd-2024.html#couteau-de-glace">couteau de glace</a> et au niveau 5 <a class="spell" href="sorts-dnd-2024.html#lame-de-feu">lame de feu</a>, qui inflige chez vous des dégâts de froid.</li></ul>
+  <details>
+    <summary>Jouer un rimekin</summary>
+    <div class="inner"><ul><li>D’anciens flamekin devenus froids : un bon choix pour un magicien ou un ensorceleur spécialisé dans le froid, ou pour un personnage rationnel et détaché.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2043674-rimekin" target="_blank" rel="noopener">Fiche officielle Rimekin (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel supp-note">
+  <h3>Les autres peuples de Lorwyn-Shadowmoor</h3>
+  <p><em>Lorwyn : First Light</em> ne crée pas de nouvelles règles pour ces peuples ; il conseille de reprendre une espèce existante et d’en changer l’apparence et l’histoire :</p>
+  <ul>
+    <li><strong>Boggart</strong> : règles du gobelin.</li>
+    <li><strong>Faerie</strong> : règles de la fée (<em>fairy</em>).</li>
+    <li><strong>Flamekin</strong> : règles du genasi (du feu).</li>
+    <li><strong>Kithkin</strong> : règles du <a href="#halfelin">halfelin</a>.</li>
+    <li><strong>Elfe de Lorwyn-Shadowmoor</strong> : règles de l’<a href="#elfe">elfe</a>.</li>
+  </ul>
+</section>
+<div class="supp-book"><h3>Ravenloft : The Horrors Within</h3><p>Trois espèces du <em>Van Richten’s Guide</em> mises à jour, plus une nouvelle, le lupin.</p></div>
+<section class="panel species supp" id="dhampir">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème dhampir"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 30 C44 30 34 42 34 56 C34 76 48 90 60 94 C72 90 86 76 86 56 C86 42 76 30 60 30 Z" fill="#2b1d12"/>
+  <path d="M46 66 L52 80 L56 66 M64 66 L68 80 L74 66" fill="#fbf3de"/><circle cx="48" cy="52" r="4" fill="#c21d1d"/><circle cx="72" cy="52" r="4" fill="#c21d1d"/>
+  <path d="M52 84 Q52 92 50 96" stroke="#c21d1d" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    <div class="species-title">
+      <h2>Dhampir</h2>
+      <div class="sub">Dhampir · la soif des morts</div>
+      <div class="badges"><span class="badge">Ravenloft : The Horrors Within</span><span class="badge alt">juin 2026</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Vitesse</b>10,50 m, escalade 10,50 m</div></div>
+  <ul class="traits"><li><strong>Pattes d’araignée.</strong> Vitesse d’escalade égale à votre vitesse. Au niveau 3, vous vous déplacez sur les surfaces verticales et au plafond sans utiliser vos mains.</li><li><strong>Trace de non-mort.</strong> Résistance aux dégâts nécrotiques.</li><li><strong>Morsure vampirique.</strong> Votre morsure est une frappe à mains nues qui inflige 1d4 + Constitution dégâts perforants. Quand elle touche, vous pouvez soit regagner autant de points de vie que les dégâts infligés, soit gagner un bonus égal à ces dégâts à votre prochain test de caractéristique ou jet d’attaque dans la minute.</li></ul>
+  <details>
+    <summary>Jouer un dhampir</summary>
+    <div class="inner"><ul><li>Mobilité exceptionnelle (10,50 m, escalade, plafonds) : parfait pour un roublard ou un moine.</li><li>Pistes de roleplay : une faim qu’on cache, une origine vampirique mystérieuse, la frontière entre vivant et mort.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2038805-dhampir" target="_blank" rel="noopener">Fiche officielle Dhampir (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="sang-maudit">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème sang-maudit"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 22 L68 50 L96 50 L73 66 L82 94 L60 77 L38 94 L47 66 L24 50 L52 50 Z" fill="none" stroke="#6a3f8a" stroke-width="3"/>
+  <circle cx="60" cy="60" r="12" fill="#6a3f8a"/><ellipse cx="60" cy="60" rx="7" ry="4" fill="#d9f0a0"/><circle cx="60" cy="60" r="2.5" fill="#2b1d12"/>
+  <path d="M34 30 C40 36 36 42 42 46 M86 30 C80 36 84 42 78 46" stroke="#3f6b3a" stroke-width="2.5" fill="none"/></svg>
+    <div class="species-title">
+      <h2>Sang-maudit</h2>
+      <div class="sub">Hexblood · la marque des guenaudes</div>
+      <div class="badges"><span class="badge">Ravenloft : The Horrors Within</span><span class="badge alt">juin 2026</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Fée</div><div class="stat"><b>Vision dans le noir</b>Oui</div></div>
+  <ul class="traits"><li><strong>Jeton sinistre.</strong> Par une action bonus, vous créez un jeton magique (une mèche de cheveux, un ongle…). Grâce à lui, vous pouvez envoyer un message télépathique de 25 mots à son porteur s’il est à 16 km ou moins, ou voir et entendre ce qui se passe autour du jeton à la même distance.</li><li><strong>Magie maléfique.</strong> <a class="spell" href="sorts-dnd-2024.html#deguisement">Déguisement</a> et <a class="spell" href="sorts-dnd-2024.html#malefice">maléfice</a> sont toujours préparés. Vous pouvez lancer chacun une fois sans emplacement de sort, puis repos long. Caractéristique d’incantation : Intelligence, Sagesse ou Charisme (au choix).</li></ul>
+  <details>
+    <summary>Jouer un sang-maudit</summary>
+    <div class="inner"><ul><li>Maléfice gratuit : un vrai plus pour l’occultiste, et le jeton sinistre ouvre des possibilités d’espionnage.</li><li>Pistes de roleplay : un pacte passé avec une guenaude, une transformation lente, une famille qui vous craint.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2161358-hexblood" target="_blank" rel="noopener">Fiche officielle Sang-maudit (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="lupin">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème lupin"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <circle cx="80" cy="38" r="14" fill="#f3ead2"/><circle cx="85" cy="35" r="3" fill="#d8ccad"/>
+  <path d="M26 92 L34 60 L42 50 L44 36 L52 48 L62 50 L70 62 L66 70 L74 76 L62 78 L56 92 Z" fill="#5a4330"/>
+  <circle cx="52" cy="56" r="2.5" fill="#d9b25f"/><path d="M62 50 Q70 44 76 50" stroke="#2b1d12" stroke-width="2" fill="none"/></svg>
+    <div class="species-title">
+      <h2>Lupin</h2>
+      <div class="sub">Lupin · la malédiction inachevée</div>
+      <div class="badges"><span class="badge">Ravenloft : The Horrors Within</span><span class="badge alt">juin 2026</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Humanoïde</div><div class="stat"><b>Taille</b>M ou P</div><div class="stat"><b>Vitesse</b>9 m</div><div class="stat"><b>Vision dans le noir</b>Oui</div></div>
+  <ul class="traits"><li><strong>Bond féroce.</strong> Vos frappes à mains nues infligent des dégâts tranchants. Une fois par tour, une frappe à mains nues peut à la fois infliger ses dégâts et bousculer la cible.</li><li><strong>Hurlement.</strong> Par une action bonus, chaque créature de votre choix à 4,50 m ou moins fait un jet de sauvegarde de Sagesse (DD 8 + Constitution + bonus de maîtrise). En cas d’échec, elle a le désavantage à ses jets d’attaque et de sauvegarde jusqu’au début de votre prochain tour. Utilisable quelques fois par repos long (voir la fiche officielle).</li><li><strong>Instincts de loup-garou.</strong> Maîtrise d’une compétence au choix : Discrétion, Perception ou Survie.</li></ul>
+  <details>
+    <summary>Jouer un lupin</summary>
+    <div class="inner"><ul><li>Nouvelle espèce : excellente pour le moine ou le combattant à mains nues ; le Hurlement affaiblit tout un groupe d’ennemis.</li><li>Pistes de roleplay : la rencontre avec un loup-garou dont la malédiction n’a pas entièrement pris, et la crainte qu’elle finisse le travail.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2161359-lupin" target="_blank" rel="noopener">Fiche officielle Lupin (D&amp;D Beyond)</a></div>
+</section>
+<section class="panel species supp" id="reincarne">
+  <a class="top" href="#autres">↑ autres espèces</a>
+  <div class="species-head">
+    <svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème réincarné"><circle cx="60" cy="60" r="56" fill="url(#medal)"/><use href="#ring"/>
+  <path d="M60 26 C42 26 34 40 34 54 C34 66 40 72 44 74 L44 86 L76 86 L76 74 C80 72 86 66 86 54 C86 40 78 26 60 26 Z" fill="#e9dcc2"/>
+  <ellipse cx="49" cy="56" rx="7" ry="8" fill="#2b1d12"/><ellipse cx="71" cy="56" rx="7" ry="8" fill="#2b1d12"/><circle cx="49" cy="56" r="2.5" fill="#9fe3ff"/><circle cx="71" cy="56" r="2.5" fill="#9fe3ff"/>
+  <path d="M52 78 L52 86 M60 78 L60 86 M68 78 L68 86" stroke="#2b1d12" stroke-width="2"/><path d="M40 34 L54 48 L50 30" stroke="#8e1b1b" stroke-width="2" fill="none"/></svg>
+    <div class="species-title">
+      <h2>Réincarné</h2>
+      <div class="sub">Reborn · revenu de la mort</div>
+      <div class="badges"><span class="badge">Ravenloft : The Horrors Within</span><span class="badge alt">juin 2026</span><span class="badge alt">Hors SRD</span></div>
+    </div>
+  </div>
+  <div class="stats"><div class="stat"><b>Type</b>Mort-vivant</div></div>
+  <ul class="traits"><li><strong>Endurance étrange.</strong> Résistance aux dégâts de froid, nécrotiques ou de poison (au choix).</li><li><strong>Mort évitée.</strong> Avantage aux jets de sauvegarde contre la mort.</li><li><strong>Éternel.</strong> La déshydratation, la malnutrition et l’asphyxie ne vous infligent pas d’Épuisement. Vous n’avez pas besoin de dormir, la magie ne peut pas vous endormir, et un repos long vous prend 4 heures.</li><li><strong>Savoir d’une vie passée.</strong> Maîtrise d’une compétence au choix. Quand vous ratez un test de caractéristique, vous pouvez lancer 1d6 et l’ajouter au résultat. Utilisable autant de fois que votre bonus de maîtrise, puis repos long.</li></ul>
+  <details>
+    <summary>Jouer un réincarné</summary>
+    <div class="inner"><ul><li>Très résistant et polyvalent : le d6 des vies passées sauve des tests importants.</li><li>Pistes de roleplay : des souvenirs qui ne sont pas les vôtres, une mort dont vous ignorez les circonstances, un corps recousu par un savant fou.</li></ul></div>
+  </details>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/species/2161360-reborn" target="_blank" rel="noopener">Fiche officielle Réincarné (D&amp;D Beyond)</a></div>
+</section>
+<p class="note supp-foot">D&amp;D Beyond référence aussi de nombreuses espèces d’éditeurs tiers et d’anciens ouvrages (marquées « Legacy »), non couvertes ici.</p>
 
 <!-- ===================== SOURCES ===================== -->
 <section class="panel" id="sources">
