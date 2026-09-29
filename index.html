@@ -54,6 +54,7 @@ a.card:hover,a.card:focus-visible{transform:translateY(-4px);box-shadow:0 16px 3
 .badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:2px;color:var(--parch)}
 .badge.ok{background:#2f5d33}
 .badge.soon{background:var(--ink-soft)}
+.badge.proto{background:#6a3f8a}
 .go{font-family:'Cinzel',serif;font-size:13px;color:var(--blood)}
 .card.disabled{opacity:.62;filter:saturate(.6)}
 .card.disabled .go{color:var(--ink-soft)}
@@ -93,7 +94,7 @@ footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
      fichier     : nom du fichier HTML (dans le même dossier que ce menu)
      categorie   : regroupe les cartes sous un même titre de section
      icone       : une des clés de ICONES plus bas (ou "etoile" par défaut)
-     statut      : "disponible" ou "bientot" (carte grisée, non cliquable)
+     statut      : "disponible", "bientot" ou "prototype" (carte grisée, non cliquable)
    ===================================================================== */
 const MODULES = [
   { titre:"Espèces", accroche:"Les peuples du multivers", categorie:"Création de personnage",
@@ -114,12 +115,19 @@ const MODULES = [
   { titre:"Compagnons", accroche:"Familiers, montures et bêtes", categorie:"Créatures",
     description:"Familiers, montures, compagnon du rôdeur, formes sauvages du druide et sorts d'invocation, classe par classe.",
     fichier:"compagnons-dnd-2024.html", icone:"patte", statut:"disponible" },
-  { titre:"Atelier de créatures", accroche:"Vos monstres maison", categorie:"Créatures",
-    description:"Créez une créature de A à Z ou à partir d'un monstre existant, empruntez des capacités, et laissez l'assistant ajuster son FP à votre groupe.",
-    fichier:"createur-dnd-2024.html", icone:"atelier", statut:"disponible" },
   { titre:"Historiques", accroche:"D'où vient votre héros", categorie:"Création de personnage",
     description:"Les 16 historiques 2024 illustrés : caractéristiques, dons d'origine, équipement relié au magasin, idées de personnage et langues.",
     fichier:"historiques-dnd-2024.html", icone:"parchemin", statut:"disponible" },
+  // ---- Ateliers : outils de création (présents et à venir)
+  { titre:"Atelier de créatures", accroche:"Vos monstres maison", categorie:"Ateliers",
+    description:"Créez une créature de A à Z ou à partir d'un monstre existant, empruntez des capacités, et laissez l'assistant ajuster son FP à votre groupe.",
+    fichier:"createur-dnd-2024.html", icone:"atelier", statut:"disponible" },
+  { titre:"Atelier de PNJ", accroche:"Des personnages vivants", categorie:"Ateliers",
+    description:"Créer des personnages non joueurs : identité, personnalité, motivations, profil de jeu adapté à leur rôle, et fiche prête à l'emploi pour vos parties.",
+    fichier:"atelier-pnj-dnd-2024.html", icone:"pnj", statut:"prototype" },
+  { titre:"Atelier de PJ", accroche:"Votre héros pas à pas", categorie:"Ateliers",
+    description:"Construire un personnage joueur étape par étape : espèce, classe, historique, caractéristiques, équipement et sorts, avec une fiche de personnage complète.",
+    fichier:"atelier-pj-dnd-2024.html", icone:"pj", statut:"prototype" },
 ];
 
 /* Emblèmes disponibles (SVG 120×120). Ajoutez-en si besoin. */
@@ -158,6 +166,14 @@ const ICONES = {
     <path d="M26 78H94L88 88H32Z" fill="#8a96a3"/><path d="M34 66H86V78H34Z" fill="#5d6670"/><path d="M40 66Q40 58 50 58H70Q80 58 80 66Z" fill="#8a96a3"/>
     <g transform="rotate(-35 60 40)"><rect x="56" y="14" width="8" height="46" rx="3" fill="#b8892e"/><rect x="44" y="10" width="32" height="14" rx="3" fill="#d7dde3"/></g>
     <path d="M88 30l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z" fill="#d9b25f"/>`,
+  pnj: `<circle cx="60" cy="60" r="56" fill="#2f4f5a"/>${RING}
+    <circle cx="52" cy="46" r="14" fill="#f3e6c8"/><path d="M26 94Q26 66 52 64Q78 66 78 94Z" fill="#f3e6c8"/>
+    <path d="M40 42Q52 26 64 42Q58 36 52 36Q46 36 40 42Z" fill="#8a6a44"/>
+    <path d="M70 22H100Q104 22 104 26V42Q104 46 100 46H84L76 54V46H70Q66 46 66 42V26Q66 22 70 22Z" fill="#d9b25f"/>
+    <circle cx="76" cy="34" r="2.5" fill="#2f4f5a"/><circle cx="85" cy="34" r="2.5" fill="#2f4f5a"/><circle cx="94" cy="34" r="2.5" fill="#2f4f5a"/>`,
+  pj: `<circle cx="60" cy="60" r="56" fill="#3a2e5a"/>${RING}
+    <path d="M60 18L90 28V56Q90 82 60 98Q30 82 30 56V28Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="3"/>
+    <path d="M60 36L65 50L80 50L68 59L72 74L60 65L48 74L52 59L40 50L55 50Z" fill="#8e1b1b"/>`,
   etoile: `<circle cx="60" cy="60" r="56" fill="#2b1d12"/>${RING}
     <path d="M60 20L67 50L96 60L67 70L60 100L53 70L24 60L53 50Z" fill="#d9b25f"/>`,
 };
@@ -170,11 +186,12 @@ function renderMenu(){
   const cats = [...new Set(MODULES.map(m => m.categorie || "Modules"))];
   document.getElementById('modules').innerHTML = cats.map(cat => {
     const cards = MODULES.filter(m => (m.categorie || "Modules") === cat).map(m => {
-      const ok = m.statut !== "bientot";
+      const ok = m.statut !== "bientot" && m.statut !== "prototype";
       const inner = `
         <div class="card-top">${emblem(m.icone)}<div><h2>${m.titre}</h2><div class="tagline">${m.accroche || ""}</div></div></div>
         <p>${m.description || ""}</p>
         <div class="meta">${ok ? '<span class="badge ok">Disponible</span><span class="go">Ouvrir ›</span>'
+                                : m.statut === "prototype" ? '<span class="badge proto">Prototype</span><span class="go">Conception en cours</span>'
                                 : '<span class="badge soon">Bientôt</span><span class="go">En préparation</span>'}</div>`;
       return ok ? `<a class="card" href="${m.fichier}">${inner}</a>`
                 : `<div class="card disabled" aria-disabled="true">${inner}</div>`;
