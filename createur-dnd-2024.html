@@ -415,11 +415,12 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
     <div class="row" style="margin-top:6px"><label>FP cible<select id="t-cr"></select></label></div>
     <div class="acts" style="margin-top:0"><button type="button" class="btn red" id="t-go">Ajuster à ce FP</button></div>
     <h3>Adapter à mon groupe</h3>
-    <div class="row"><label>Personnages<input type="number" id="p-size" value="4" min="1" max="10"></label><label>Niveau<select id="p-level"></select></label></div>
+    <div id="partybox"></div>
     <div class="row"><label>Difficulté<select id="p-diff"><option value="0">Faible</option><option value="1" selected>Modérée</option><option value="2">Élevée</option></select></label><label>Exemplaires<input type="number" id="p-count" value="1" min="1" max="20"></label></div>
     <label style="display:flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="p-inc"> Tenir compte des créatures déjà dans la rencontre du bestiaire</label>
     <p class="hint" id="p-res"></p>
-    <div class="acts"><button type="button" class="btn red" id="p-go">Viser ce FP</button><button type="button" class="btn" id="toenc">Ajouter à la rencontre</button></div>
+    <div class="acts"><button type="button" class="btn red" id="p-go">Viser (PX)</button><button type="button" class="btn red" id="p-go2">Viser (groupe)</button><button type="button" class="btn" id="toenc">Ajouter à la rencontre</button></div>
+    <div id="p-sim"></div>
     <p class="msg" id="msg"></p>
   </section>
   <section><div id="preview"></div></section>
@@ -903,6 +904,246 @@ function monsterSVG(m, size){
   }
   return monsterSVG_proc(m, size);
 }
+
+/* Grimoire : composition du groupe et analyse de combat (partagé par le bestiaire et l'atelier).
+   Groupe stocké dans localStorage « grimoire-groupe » : {mode:'moyen'|'perso', size, level, pcs:[{name, cls, lvl, ac, hp, atk, dpr}]} */
+window.PARTY = (function(){
+  const REF = [{"cr": "0", "ac": 12, "hp": 4, "atk": 2, "dc": 10, "dpr": [0, 1], "xp": 10, "pb": 2}, {"cr": "1/8", "ac": 12, "hp": 8, "atk": 4, "dc": 10, "dpr": [2, 3], "xp": 25, "pb": 2}, {"cr": "1/4", "ac": 12, "hp": 14, "atk": 4, "dc": 11, "dpr": [4, 5], "xp": 50, "pb": 2}, {"cr": "1/2", "ac": 12, "hp": 20, "atk": 4, "dc": 11, "dpr": [6, 8], "xp": 100, "pb": 2}, {"cr": "1", "ac": 13, "hp": 30, "atk": 5, "dc": 11, "dpr": [9, 14], "xp": 200, "pb": 2}, {"cr": "2", "ac": 14, "hp": 45, "atk": 5, "dc": 12, "dpr": [15, 20], "xp": 450, "pb": 2}, {"cr": "3", "ac": 14, "hp": 63, "atk": 5, "dc": 12, "dpr": [21, 26], "xp": 700, "pb": 2}, {"cr": "4", "ac": 15, "hp": 80, "atk": 6, "dc": 13, "dpr": [27, 32], "xp": 1100, "pb": 2}, {"cr": "5", "ac": 15, "hp": 102, "atk": 7, "dc": 14, "dpr": [33, 38], "xp": 1800, "pb": 3}, {"cr": "6", "ac": 16, "hp": 119, "atk": 7, "dc": 15, "dpr": [39, 44], "xp": 2300, "pb": 3}, {"cr": "7", "ac": 16, "hp": 128, "atk": 7, "dc": 15, "dpr": [45, 50], "xp": 2900, "pb": 3}, {"cr": "8", "ac": 16, "hp": 140, "atk": 8, "dc": 16, "dpr": [51, 56], "xp": 3900, "pb": 3}, {"cr": "9", "ac": 17, "hp": 159, "atk": 9, "dc": 16, "dpr": [57, 62], "xp": 5000, "pb": 4}, {"cr": "10", "ac": 17, "hp": 179, "atk": 10, "dc": 17, "dpr": [63, 68], "xp": 5900, "pb": 4}, {"cr": "11", "ac": 17, "hp": 188, "atk": 10, "dc": 17, "dpr": [69, 74], "xp": 7200, "pb": 4}, {"cr": "12", "ac": 17, "hp": 188, "atk": 10, "dc": 18, "dpr": [75, 80], "xp": 8400, "pb": 4}, {"cr": "13", "ac": 18, "hp": 191, "atk": 11, "dc": 18, "dpr": [81, 86], "xp": 10000, "pb": 5}, {"cr": "14", "ac": 18, "hp": 199, "atk": 11, "dc": 18, "dpr": [87, 92], "xp": 11500, "pb": 5}, {"cr": "15", "ac": 18, "hp": 208, "atk": 12, "dc": 18, "dpr": [93, 98], "xp": 13000, "pb": 5}, {"cr": "16", "ac": 19, "hp": 225, "atk": 12, "dc": 20, "dpr": [99, 104], "xp": 15000, "pb": 5}, {"cr": "17", "ac": 19, "hp": 249, "atk": 13, "dc": 21, "dpr": [105, 110], "xp": 18000, "pb": 6}, {"cr": "18", "ac": 19, "hp": 277, "atk": 14, "dc": 21, "dpr": [111, 116], "xp": 20000, "pb": 6}, {"cr": "19", "ac": 20, "hp": 305, "atk": 14, "dc": 21, "dpr": [117, 122], "xp": 22000, "pb": 6}, {"cr": "20", "ac": 20, "hp": 328, "atk": 14, "dc": 21, "dpr": [123, 140], "xp": 25000, "pb": 6}, {"cr": "21", "ac": 21, "hp": 360, "atk": 15, "dc": 22, "dpr": [141, 158], "xp": 33000, "pb": 7}, {"cr": "22", "ac": 22, "hp": 417, "atk": 16, "dc": 23, "dpr": [159, 176], "xp": 41000, "pb": 7}, {"cr": "23", "ac": 22, "hp": 478, "atk": 17, "dc": 24, "dpr": [177, 194], "xp": 50000, "pb": 7}, {"cr": "24", "ac": 22, "hp": 526, "atk": 17, "dc": 24, "dpr": [195, 212], "xp": 62000, "pb": 7}, {"cr": "25", "ac": 22, "hp": 555, "atk": 17, "dc": 24, "dpr": [213, 230], "xp": 75000, "pb": 8}, {"cr": "26", "ac": 23, "hp": 584, "atk": 18, "dc": 25, "dpr": [231, 248], "xp": 90000, "pb": 8}, {"cr": "27", "ac": 24, "hp": 613, "atk": 18, "dc": 26, "dpr": [249, 266], "xp": 105000, "pb": 8}, {"cr": "28", "ac": 24, "hp": 642, "atk": 18, "dc": 26, "dpr": [267, 284], "xp": 120000, "pb": 8}, {"cr": "29", "ac": 24, "hp": 671, "atk": 19, "dc": 26, "dpr": [285, 302], "xp": 135000, "pb": 9}, {"cr": "30", "ac": 25, "hp": 700, "atk": 19, "dc": 27, "dpr": [303, 320], "xp": 155000, "pb": 9}];
+  const AB = ['For','Dex','Con','Int','Sag','Cha'];
+  const ABF = {For:'Force',Dex:'Dextérité',Con:'Constitution',Int:'Intelligence',Sag:'Sagesse',Cha:'Charisme'};
+  // repères par classe (règles 2024) : dé de vie, Con typique, CA typique, rôle, dégâts physiques, soins, JS maîtrisés
+  const CLS = {
+    barbare:    {n:'Barbare',     hd:12, con:3, ac:[15,16,17], role:'frappeur', phys:1, heal:0,   tank:1.4, saves:['For','Con']},
+    barde:      {n:'Barde',       hd:8,  con:2, ac:[14,15,16], role:'soutien',  phys:0, heal:1,   saves:['Dex','Cha']},
+    clerc:      {n:'Clerc',       hd:8,  con:2, ac:[18,18,19], role:'soutien',  phys:0, heal:1.5, saves:['Sag','Cha']},
+    druide:     {n:'Druide',      hd:8,  con:2, ac:[16,16,17], role:'lanceur',  phys:0, heal:1,   saves:['Int','Sag']},
+    ensorceleur:{n:'Ensorceleur', hd:6,  con:2, ac:[13,13,14], role:'artilleur',phys:0, heal:0,   saves:['Con','Cha']},
+    guerrier:   {n:'Guerrier',    hd:10, con:3, ac:[18,19,20], role:'frappeur', phys:1, heal:.3,  saves:['For','Con']},
+    magicien:   {n:'Magicien',    hd:6,  con:2, ac:[13,13,14], role:'artilleur',phys:0, heal:0,   saves:['Int','Sag']},
+    moine:      {n:'Moine',       hd:8,  con:2, ac:[15,16,17], role:'frappeur', phys:1, heal:0,   saves:['For','Dex']},
+    occultiste: {n:'Occultiste',  hd:8,  con:2, ac:[14,15,15], role:'frappeur', phys:0, heal:0,   saves:['Sag','Cha']},
+    paladin:    {n:'Paladin',     hd:10, con:2, ac:[18,19,20], role:'frappeur', phys:1, heal:1,   saves:['Sag','Cha']},
+    rodeur:     {n:'Rôdeur',      hd:10, con:2, ac:[16,16,17], role:'frappeur', phys:1, heal:.3,  saves:['For','Dex']},
+    roublard:   {n:'Roublard',    hd:8,  con:2, ac:[15,16,17], role:'frappeur', phys:1, heal:0,   saves:['Dex','Int']}
+  };
+  // dégâts par round d'un « frappeur » typique si tout touche (niveaux 1 à 20)
+  const DPR = [0,9,10,12,13,20,21,22,24,25,27,32,33,34,36,38,39,44,45,47,50];
+  const ROLE_F = {frappeur:1, soutien:.6, lanceur:.75, artilleur:.8};
+  const BUDGET = {1:[50,75,100],2:[100,150,200],3:[150,225,400],4:[250,375,500],5:[500,750,1100],6:[600,1000,1400],7:[750,1300,1700],8:[1000,1700,2100],9:[1300,2000,2600],10:[1600,2300,3100],11:[1900,2900,4100],12:[2200,3700,4700],13:[2600,4200,5400],14:[2900,4900,6200],15:[3300,5400,7800],16:[3800,6100,9800],17:[4500,7200,11700],18:[5000,8700,14200],19:[5500,10700,17200],20:[6400,13200,22000]};
+  const pb = l=>2 + Math.floor((l-1)/4);
+  const cl = (v,a,b)=>Math.max(a, Math.min(b, v));
+  const esc = s=>String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const nf = n=>Math.round(n).toLocaleString('fr-FR');
+
+  function pc(cls, lvl, ov){
+    const c = CLS[cls] || CLS.guerrier, L = cl(+lvl||1, 1, 20), P = pb(L);
+    const auto = {
+      hp: Math.round(c.hd + (L-1)*(c.hd/2+1) + L*c.con),
+      ac: c.ac[L>=11?2:L>=5?1:0],
+      atk: P + (L<4?3:L<8?4:5),
+      dpr: Math.round(DPR[L] * ROLE_F[c.role])
+    };
+    const o = ov || {}, v = k => (o[k]===''||o[k]==null||isNaN(+o[k])) ? auto[k] : +o[k];
+    const saves = {}; for (const a of AB) saves[a] = c.saves.includes(a) ? P + 2 : (a==='Con' ? c.con - 1 : 0.5);
+    return {name:o.name||c.n, cls, cn:c.n, lvl:L, auto, hp:v('hp'), ac:v('ac'), atk:v('atk'), dpr:v('dpr'), saves, role:c.role,
+      phys:!!c.phys, heal:c.heal*(4 + 3*L), tank:c.tank||1, aoe:c.role==='artilleur'};
+  }
+  // personnage « moyen » : moyenne de toutes les classes au niveau donné
+  function avgPC(lvl, name){
+    const all = Object.keys(CLS).map(k=>pc(k, lvl)), n = all.length, m = f=>all.reduce((s,x)=>s+f(x),0)/n;
+    const saves = {}; for (const a of AB) saves[a] = m(x=>x.saves[a]);
+    return {name, cls:'moyen', cn:'Personnage moyen', lvl:+lvl, auto:{}, hp:Math.round(m(x=>x.hp*x.tank)), ac:Math.round(m(x=>x.ac)*10)/10, atk:all[0].atk,
+      dpr:Math.round(m(x=>x.dpr)), saves, role:'moyen', phys:.5, heal:m(x=>x.heal), tank:1, aoe:.25};
+  }
+  function load(){
+    let p = null; try { p = JSON.parse(localStorage.getItem('grimoire-groupe')||'null'); } catch(e){}
+    if (!p){ let E = {}; try { E = JSON.parse(localStorage.getItem('grimoire-rencontre')||'{}'); } catch(e){}
+      p = {mode:'moyen', size:E.party||4, level:E.level||3, pcs:[]}; }
+    p.size = cl(+p.size||4, 1, 10); p.level = cl(+p.level||3, 1, 20); p.pcs = Array.isArray(p.pcs) ? p.pcs : [];
+    if (p.mode==='perso' && !p.pcs.length) p.mode = 'moyen';
+    return p;
+  }
+  function save(p){ try { localStorage.setItem('grimoire-groupe', JSON.stringify(p)); } catch(e){} }
+  function members(p){
+    p = p || load();
+    if (p.mode==='perso') return p.pcs.map(x=>pc(x.cls, x.lvl, x));
+    return Array.from({length:p.size}, (_, i)=>avgPC(p.level, 'PJ ' + (i+1)));
+  }
+  function budget(M){ const b = [0,0,0]; for (const x of M){ const B = BUDGET[cl(Math.round(x.lvl),1,20)]; b[0]+=B[0]; b[1]+=B[1]; b[2]+=B[2]; } return b; }
+  function summary(p){
+    p = p || load(); const M = members(p);
+    if (p.mode!=='perso') return `${p.size} PJ de niveau ${p.level} (groupe moyen)`;
+    const lv = M.map(x=>x.lvl), same = lv.every(l=>l===lv[0]);
+    return `${M.length} PJ, niveau ${same ? lv[0] : Math.min(...lv) + ' à ' + Math.max(...lv)} : ${M.map(x=>x.cn).join(', ')}`;
+  }
+
+  // ---------- profil offensif / défensif d'une créature
+  const DPHYS = ['contondants','perforants','tranchants'];
+  function crIndex(fpv){ let i = 0; REF.forEach((r,j)=>{ const v = r.cr.includes('/') ? 1/ +r.cr.split('/')[1] : +r.cr; if (v <= fpv + 1e-9) i = j; }); return i; }
+  function monProfile(m, est){
+    const text = (m.sections||[]).map(s=>s[1].map(e=>e[1]).join(' ')).join(' ');
+    const R = REF[crIndex(m.fpv||0)];
+    const atkM = [...text.matchAll(/(?:Corps à corps|À distance|Corps à corps ou à distance) : ([+−-])(\d+)/g)].map(x=>(x[1]==='+'?1:-1)*+x[2]);
+    const dcM = [...text.matchAll(/JS (Force|Dextérité|Constitution|Intelligence|Sagesse|Charisme) : DD (\d+)/g)];
+    const saveCount = {}; for (const x of dcM){ const a = AB.find(k=>ABF[k]===x[1]); saveCount[a] = (saveCount[a]||0) + 1; }
+    const ex = Object.fromEntries((m.extra||[]).map(([k,v])=>[k, String(v).toLowerCase()]));
+    const res = (ex['Résistances']||'').split(';')[0], imm = (ex['Immunités']||'').split(';')[0];
+    const physF = DPHYS.every(t=>imm.includes(t)) ? 0 : DPHYS.every(t=>res.includes(t) || imm.includes(t)) ? .5 : DPHYS.some(t=>res.includes(t)) ? .8 : 1;
+    const elem = ['acide','feu','foudre','froid','nécrotiques','poison','psychiques','radiants','tonnerre','force'];
+    const nEl = elem.filter(t=>res.includes(t) || imm.includes(t)).length;
+    const magF = nEl >= 4 ? .75 : nEl >= 2 ? .88 : 1;
+    const hp = parseInt(String(m.pv||'').replace(/\s/g,'')) || R.hp;
+    const ac = parseInt(m.ca) || R.ac;
+    const dpr = est ? est.dpr : (R.dpr[0] + R.dpr[1]) / 2;
+    const atk = est && est.atk != null ? est.atk : atkM.length ? Math.max(...atkM) : R.atk;
+    const dc = est && est.dc != null ? est.dc : dcM.length ? Math.max(...dcM.map(x=>+x[2])) : R.dc;
+    const nAtk = atkM.length, nDc = dcM.length;
+    const fSave = nAtk + nDc ? nDc / (nAtk + nDc) : 0;
+    const mainSave = Object.entries(saveCount).sort((a,b)=>b[1]-a[1])[0];
+    return {name:m.name, hp, ac, dpr, atk, dc, fSave, save: mainSave ? mainSave[0] : 'Dex', physF, magF, xp:m.xpn||R.xp,
+      legend:(m.sections||[]).some(s=>/gendaire/i.test(s[0]))};
+  }
+  const hit = (atk, ac)=>cl((21 + atk - ac)/20, .05, .95);
+  const fail = (dc, bonus)=>cl((dc - 1 - bonus)/20, .05, .95);
+
+  // ---------- analyse : foes = [{m, q, est?}]
+  function analyze(foes, M){
+    M = M || members();
+    const F = foes.filter(f=>f.q>0).map(f=>Object.assign(monProfile(f.m, f.est), {q:f.q}));
+    if (!F.length || !M.length) return null;
+    const nF = F.reduce((s,f)=>s+f.q, 0), foeHP = F.reduce((s,f)=>s+f.hp*f.q, 0);
+    const wAC = F.reduce((s,f)=>s+f.ac*f.hp*f.q, 0) / foeHP;
+    const wPhys = F.reduce((s,f)=>s+f.physF*f.hp*f.q, 0) / foeHP, wMag = F.reduce((s,f)=>s+f.magF*f.hp*f.q, 0) / foeHP;
+    // puissance du groupe
+    let pDPR = 0; const perPC = [];
+    for (const x of M){
+      const typeF = x.phys===1 ? wPhys : x.phys===0 ? wMag : (wPhys + wMag)/2;
+      const aoe = 1 + (x.aoe===true ? .3 : (x.aoe||0) * .3) * (Math.min(nF, 4) - 1);
+      const d = x.dpr * hit(x.atk, wAC) * typeF * aoe; pDPR += d; perPC.push({x, d, typeF});
+    }
+    const pHP = M.reduce((s,x)=>s + x.hp*(x.tank||1), 0), heal = M.reduce((s,x)=>s + x.heal, 0);
+    const pAC = M.reduce((s,x)=>s+x.ac, 0) / M.length;
+    // puissance des adversaires
+    let fDPR = 0; const saveNotes = {};
+    for (const f of F){
+      const avgSave = M.reduce((s,x)=>s + x.saves[f.save], 0) / M.length;
+      const pr = (1 - f.fSave) * hit(f.atk, pAC) + f.fSave * (fail(f.dc, avgSave) + (1 - fail(f.dc, avgSave)) * .5 * .5);
+      fDPR += f.dpr * f.q * pr;
+      if (f.fSave >= .3){ const prof = M.filter(x=>x.saves[f.save] >= pb(x.lvl) + 1).length; saveNotes[f.save] = {prof, n:M.length}; }
+    }
+    const roundsWin = foeHP / Math.max(1, pDPR);
+    const attrition = nF === 1 ? 1 : .55 + .45 / nF;
+    const taken = fDPR * roundsWin * attrition;
+    const loss = taken / (pHP + heal);
+    const roundsLose = (pHP + heal) / Math.max(1, fDPR);
+    // PJ le plus fragile face à la plus grosse créature
+    const big = F.slice().sort((a,b)=>b.dpr-a.dpr)[0];
+    const frail = M.slice().sort((a,b)=>a.hp-b.hp)[0];
+    const frailRounds = frail.hp / Math.max(1, big.dpr * hit(big.atk, frail.ac));
+    let verdict, cls;
+    if (loss < .15){ verdict = 'Facile'; cls = 'v1'; } else if (loss < .35){ verdict = 'Modérée'; cls = 'v2'; } else if (loss < .55){ verdict = 'Difficile'; cls = 'v3'; }
+    else if (loss < .8){ verdict = 'Très dangereuse'; cls = 'v4'; } else { verdict = 'Mortelle'; cls = 'v5'; }
+    const notes = [];
+    if (!M.some(x=>x.heal >= 4 + 3*x.lvl*.9) && M[0].cls!=='moyen') notes.push('Aucun vrai soigneur (clerc, druide, barde, paladin) : chaque point de vie perdu compte double.');
+    if (nF >= 2*M.length) notes.push(`Économie d’actions : ${nF} adversaires pour ${M.length} PJ. Les monstres agissent beaucoup plus souvent, le combat est plus dangereux que ne le suggèrent les PX.`);
+    if (nF === 1 && !F[0].legend && M.length >= 4) notes.push('Adversaire seul sans actions légendaires : le groupe agit bien plus souvent que lui. Le combat risque d’être plus facile que prévu (pensez à des sbires ou à des actions légendaires).');
+    const physHit = perPC.filter(p=>p.x.phys===1 && p.typeF < .9);
+    if (physHit.length) notes.push(`Résistance aux dégâts physiques : ${physHit.map(p=>esc(p.x.name)).join(', ')} ${physHit.length>1?'font':'fait'} moins de dégâts (armes magiques ou sorts conseillés).`);
+    for (const [a, s] of Object.entries(saveNotes)) if (M[0].cls!=='moyen' && s.prof <= s.n/4) notes.push(`Les adversaires ciblent surtout la ${ABF[a]} : ${s.prof ? 'seul ' + s.prof + ' PJ sur ' + s.n + ' maîtrise' : 'aucun PJ ne maîtrise'} ce jet de sauvegarde.`);
+    if (frailRounds < 1.2) notes.push(`${esc(frail.name)} (${frail.hp} PV) peut tomber en un seul round s’il est ciblé par ${esc(big.name)}.`);
+    const noAoe = !M.some(x=>x.aoe===true) && M[0].cls!=='moyen';
+    if (noAoe && nF >= 5) notes.push('Beaucoup d’adversaires et aucun lanceur de sorts de zone (magicien, ensorceleur) : le combat sera long.');
+    return {M, F, nF, foeHP, pDPR, fDPR, pHP, heal, pAC, wAC, roundsWin, roundsLose, loss, verdict, cls, notes, frail, frailRounds};
+  }
+  function reportHTML(r){
+    if (!r) return '';
+    const pct = Math.round(r.loss*100);
+    return `<div class="pa-rep">
+      <div class="pa-verdict ${r.cls}"><small>Simulation</small><b>${r.verdict}</b><span>~${pct >= 100 ? '100 % et plus' : pct + ' %'} des PV du groupe perdus</span></div>
+      <div class="pa-bar"><i style="width:${Math.min(100, pct)}%"></i></div>
+      <div class="pa-grid">
+        <span>Dégâts du groupe / round</span><b>${nf(r.pDPR)}</b>
+        <span>Dégâts des adversaires / round</span><b>${nf(r.fDPR)}</b>
+        <span>Durée estimée</span><b>${r.roundsWin < 1.05 ? '1 round' : Math.round(r.roundsWin*10)/10 + ' rounds'}</b>
+        <span>PV du groupe (+ soins)</span><b>${nf(r.pHP)}${r.heal>=1?' + '+nf(r.heal):''}</b>
+      </div>
+      ${r.notes.length ? `<ul class="pa-notes">${r.notes.map(n=>`<li>${n}</li>`).join('')}</ul>` : ''}
+      <p class="pa-hint">Estimation : chances de toucher selon la CA et les jets de sauvegarde, dégâts moyens par classe et niveau, résistances des adversaires. Les sorts de contrôle, le terrain et la tactique peuvent tout changer.</p>
+    </div>`;
+  }
+
+  // ---------- éditeur du groupe
+  function mount(box, onChange){
+    let p = load();
+    const clsOpts = sel => Object.entries(CLS).map(([k,c])=>`<option value="${k}"${k===sel?' selected':''}>${c.n}</option>`).join('');
+    const lvlOpts = sel => Array.from({length:20}, (_,i)=>`<option${i+1===+sel?' selected':''}>${i+1}</option>`).join('');
+    function draw(){
+      const M = members(p);
+      box.innerHTML = `<div class="pa-ed">
+        <div class="pa-seg"><button type="button" data-pm="moyen" class="${p.mode!=='perso'?'on':''}">Groupe moyen</button><button type="button" data-pm="perso" class="${p.mode==='perso'?'on':''}">Personnalisé</button></div>
+        ${p.mode!=='perso' ? `<div class="pa-moy"><label>Personnages <input type="number" data-pf="size" min="1" max="10" value="${p.size}"></label><label>Niveau <select data-pf="level">${lvlOpts(p.level)}</select></label></div>
+          <p class="pa-hint">Chaque PJ est un aventurier moyen (moyenne des 12 classes) : ${M[0].hp} PV, CA ${M[0].ac}, +${M[0].atk} pour toucher, ~${M[0].dpr} dégâts par round.</p>`
+        : `<div class="pa-list">${p.pcs.map((x,i)=>{ const c = pc(x.cls, x.lvl, x);
+            return `<div class="pa-pc" data-i="${i}">
+              <div class="pa-r1"><input data-f="name" value="${esc(x.name||'')}" placeholder="${esc(CLS[x.cls]?.n||'PJ')}"><select data-f="cls">${clsOpts(x.cls)}</select><select data-f="lvl" title="Niveau">${lvlOpts(x.lvl)}</select><button type="button" data-rm title="Retirer">✕</button></div>
+              <div class="pa-r2"><label>CA<input type="number" data-f="ac" value="${x.ac??''}" placeholder="${c.auto.ac}"></label><label>PV<input type="number" data-f="hp" value="${x.hp??''}" placeholder="${c.auto.hp}"></label><label title="Bonus d’attaque ou DD − 8">Att.<input type="number" data-f="atk" value="${x.atk??''}" placeholder="${c.auto.atk}"></label><label title="Dégâts moyens par round si tout touche">Dégâts<input type="number" data-f="dpr" value="${x.dpr??''}" placeholder="${c.auto.dpr}"></label></div></div>`; }).join('')}</div>
+          <div class="pa-acts"><button type="button" data-add>＋ Ajouter un PJ</button></div>
+          <p class="pa-hint">Les cases vides utilisent les valeurs typiques de la classe et du niveau (en gris). Remplissez-les avec les vraies fiches pour plus de précision.</p>`}
+        <div class="pa-sum">${esc(summary(p))} · budget modéré <b>${nf(budget(M)[1])} PX</b></div>
+      </div>`;
+    }
+    function changed(redraw){ save(p); if (redraw) draw(); else box.querySelector('.pa-sum').innerHTML = `${esc(summary(p))} · budget modéré <b>${nf(budget(members(p))[1])} PX</b>`; onChange && onChange(); }
+    box.addEventListener('click', e=>{
+      const b = e.target.closest('button'); if (!b || !box.contains(b)) return;
+      if (b.dataset.pm){ p.mode = b.dataset.pm;
+        if (p.mode==='perso' && !p.pcs.length){ const mix = ['guerrier','clerc','roublard','magicien','paladin','rodeur','barde','druide','barbare','ensorceleur'];
+          p.pcs = Array.from({length:p.size}, (_,i)=>({cls:mix[i%mix.length], lvl:p.level, name:''})); }
+        changed(true); return; }
+      if (b.hasAttribute('data-add')){ const last = p.pcs[p.pcs.length-1]; p.pcs.push({cls:'guerrier', lvl:last?last.lvl:p.level, name:''}); changed(true); return; }
+      if (b.hasAttribute('data-rm')){ p.pcs.splice(+b.closest('.pa-pc').dataset.i, 1); if (!p.pcs.length) p.mode = 'moyen'; changed(true); return; }
+    });
+    box.addEventListener('input', e=>{
+      const t = e.target;
+      if (t.dataset.pf){ p[t.dataset.pf] = cl(+t.value||1, 1, t.dataset.pf==='size'?10:20); changed(t.tagName==='SELECT'); return; }
+      const row = t.closest('.pa-pc'); if (!row || !t.dataset.f) return;
+      const x = p.pcs[+row.dataset.i], f = t.dataset.f;
+      if (f==='cls' || f==='lvl'){ x[f] = f==='lvl' ? +t.value : t.value; changed(true); return; }
+      x[f] = f==='name' ? t.value : (t.value==='' ? '' : +t.value); changed(false);
+    });
+    draw();
+    return {reload(){ p = load(); draw(); }};
+  }
+  const css = `.pa-ed{font-size:14.5px}
+.pa-seg{display:flex;border:1px solid var(--gold);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.pa-seg button{flex:1;border:0;background:#fffaf0;padding:5px 8px;font-family:'Cinzel',serif;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.pa-seg button+button{border-left:1px solid var(--gold)}.pa-seg button.on{background:var(--blood);color:#fff}
+.pa-moy{display:flex;gap:10px;flex-wrap:wrap}.pa-moy label{display:flex;gap:6px;align-items:center;font-size:14.5px}
+.pa-moy input,.pa-moy select{width:64px}
+.pa-list{display:flex;flex-direction:column;gap:6px}
+.pa-pc{border:1px solid #d9c49a;border-left:4px solid var(--gold);background:#fffaf0;border-radius:3px;padding:5px 6px}
+.pa-r1{display:flex;gap:4px;align-items:center}.pa-r1 input{flex:1;min-width:60px}.pa-r1 select{width:auto;max-width:120px}
+.pa-r1 button{border:0;background:none;color:var(--blood);cursor:pointer;font-size:14px}
+.pa-r2{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:4px}
+.pa-r2 label{display:flex;flex-direction:column;font-size:11px;font-family:'Cinzel',serif;color:var(--ink-soft);gap:1px}
+.pa-ed input,.pa-ed select{font-family:'Crimson Text',serif;font-size:14.5px;padding:2px 5px;border:1px solid var(--gold);background:#fff;border-radius:2px;box-sizing:border-box;width:100%}
+.pa-ed input::placeholder{color:#a9977a}
+.pa-acts{margin-top:6px}.pa-acts button{font-family:'Cinzel',serif;font-size:12px;border:1px dashed var(--gold);background:none;padding:4px 10px;cursor:pointer;border-radius:3px}
+.pa-acts button:hover{background:var(--gold);color:#fff;border-style:solid}
+.pa-hint{font-size:13px;color:var(--ink-soft);font-style:italic;margin:6px 0}
+.pa-sum{font-size:13.5px;background:var(--parch-dark);border:1px solid var(--gold);padding:4px 8px;border-radius:2px;margin-top:6px}
+.pa-rep{margin-top:10px;border-top:1px dashed var(--gold);padding-top:8px}
+.pa-verdict{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.pa-verdict small{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);width:100%}
+.pa-verdict b{font-family:'Cinzel',serif;font-size:17px}.pa-verdict span{font-size:14px;color:var(--ink-soft)}
+.pa-verdict.v1 b{color:#3f6b3a}.pa-verdict.v2 b{color:#8a6a1e}.pa-verdict.v3 b{color:#b86a00}.pa-verdict.v4 b,.pa-verdict.v5 b{color:#8e1b1b}
+.pa-bar{height:9px;background:#e6d2a6;border:1px solid var(--gold);border-radius:5px;overflow:hidden;margin:5px 0}
+.pa-bar i{display:block;height:100%;background:linear-gradient(90deg,#3f6b3a,#b8892e 45%,#8e1b1b)}
+.pa-grid{display:grid;grid-template-columns:1fr auto;gap:1px 10px;font-size:14px}.pa-grid b{text-align:right}
+.pa-notes{margin:6px 0 0;padding-left:18px;font-size:13.5px}.pa-notes li{margin:2px 0}`;
+  function injectCSS(){ if (document.getElementById('pa-css')) return; const s = document.createElement('style'); s.id = 'pa-css'; s.textContent = css; document.head.appendChild(s); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', injectCSS); else injectCSS();
+  return {CLS, load, save, members, budget, summary, pc, analyze, reportHTML, mount, monProfile, BUDGET};
+})();
 
 const $ = s=>document.querySelector(s), $$ = s=>[...document.querySelectorAll(s)];
 function esc(t){ return String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -1467,16 +1708,38 @@ function encounterXP(){
   let xp = 0, n = 0; for (const [id,q] of Object.entries(E.list||{})) if (byId[id] && id!==S.id){ xp += byId[id].xpn*q; n += q; }
   return {xp, n};
 }
+function encounterFoes(){
+  let E = {list:{}}; try { E = JSON.parse(localStorage.getItem('grimoire-rencontre')||'{"list":{}}'); } catch(e){}
+  const byId = Object.fromEntries(DATA.map(m=>[m.id, m])); for (const r of loadAll()) byId[r.id] = r.monster;
+  return Object.entries(E.list||{}).filter(([id])=>byId[id] && id!==S.id).map(([id,q])=>({m:byId[id], q}));
+}
+function myEst(){
+  const e = EST || estimate(); let atk = null, dc = null;
+  for (const k of ['actions','bonus','legend','mythic']) for (const x of listOf(k)){ const p = parseEntry(x); if (p.atk!=null) atk = Math.max(atk??-99, p.atk); if (p.dc!=null) dc = Math.max(dc??0, p.dc); }
+  return {e, est:{dpr:e.dpr, atk, dc}};
+}
 function renderParty(){
-  const p = +$('#p-size').value || 4, l = +$('#p-level').value || 1, d = +$('#p-diff').value, n = Math.max(1, +$('#p-count').value || 1);
+  const d = +$('#p-diff').value, n = Math.max(1, +$('#p-count').value || 1);
+  const PM = PARTY.members(), B = PARTY.budget(PM);
   const inc = $('#p-inc').checked ? encounterXP() : {xp:0, n:0};
-  const budget = BUDGET[l][d] * p;
+  const others = $('#p-inc').checked ? encounterFoes() : [];
+  const budget = B[d];
   const mythX = S.mythic.on ? (+S.mythic.xp || 1) : 1;
   let best = -1; REF.forEach((r,i)=>{ if (inc.xp + n * r.xp * mythX <= budget) best = i; });
+  // selon la composition : FP le plus élevé dont la simulation reste dans la difficulté visée
+  const maxLoss = [.2, .4, .6][d], base = toMonster();
+  let bestG = -1;
+  REF.forEach((r,i)=>{ const m = Object.assign({}, base, {pv:String(Math.round(r.hp * (S.mythic.on ? 1.5 : 1))), ca:String(r.ac), fpv:crVal(r.cr), xpn:r.xp});
+    const sim = PARTY.analyze([{m, q:n, est:{dpr:(r.dpr[0]+r.dpr[1])/2, atk:r.atk, dc:r.dc}}, ...others], PM); if (sim && sim.loss <= maxLoss) bestG = i; });
   const lab = ['faible','modérée','élevée'][d];
-  $('#p-res').innerHTML = best<0 ? `<span class="ko">Même au FP 0, le budget (${nf(budget)} PX) est dépassé${inc.n? ' par les autres créatures de la rencontre':''}.</span>`
-    : `Budget ${lab} : <b>${nf(budget)} PX</b>${inc.n? ` (dont ${nf(inc.xp)} déjà pris par ${inc.n} autre(s) créature(s))`:''}. FP conseillé pour ${n} exemplaire${n>1?'s':''} : <b>FP ${REF[best].cr}</b> (${nf(REF[best].xp*mythX)} PX chacune${mythX>1?', mythique':''}).`;
-  $('#p-go').disabled = best<0; $('#p-go').dataset.idx = best;
+  $('#p-res').innerHTML = (best<0 ? `<span class="ko">Même au FP 0, le budget (${nf(budget)} PX) est dépassé${inc.n? ' par les autres créatures de la rencontre':''}.</span>`
+    : `Budget ${lab} : <b>${nf(budget)} PX</b>${inc.n? ` (dont ${nf(inc.xp)} déjà pris par ${inc.n} autre(s) créature(s))`:''}. FP conseillé pour ${n} exemplaire${n>1?'s':''} : <b>FP ${REF[best].cr}</b> selon les PX`)
+    + (bestG>=0 ? `, <b>FP ${REF[bestG].cr}</b> selon la composition du groupe.` : '. Selon la composition du groupe, même le FP 0 dépasse cette difficulté.');
+  $('#p-go').disabled = best<0; $('#p-go').dataset.idx = best; $('#p-go').textContent = best<0 ? 'Viser (PX)' : `Viser FP ${REF[best].cr} (PX)`;
+  $('#p-go2').disabled = bestG<0; $('#p-go2').dataset.idx = bestG; $('#p-go2').textContent = bestG<0 ? 'Viser (groupe)' : `Viser FP ${REF[bestG].cr} (groupe)`;
+  // simulation de la créature actuelle
+  const {e, est} = myEst(), me = Object.assign({}, base, {pv:String(e.hp + e.mythHp)});
+  $('#p-sim').innerHTML = PARTY.reportHTML(PARTY.analyze([{m:me, q:n, est}, ...others], PM));
 }
 
 // ---------------------------------------------------------------- initialisation
@@ -1485,7 +1748,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   $('#f-type').innerHTML = TYPES.map(t=>`<option>${t}</option>`).join('');
   $('#f-crdecl').innerHTML = '<option value="auto">Automatique (FP estimé)</option>' + REF.map(r=>`<option value="${r.cr}">FP ${r.cr} (${nf(r.xp)} PX)</option>`).join('');
   $('#t-cr').innerHTML = REF.map((r,i)=>`<option value="${i}">FP ${r.cr}</option>`).join('');
-  $('#p-level').innerHTML = Object.keys(BUDGET).map(l=>`<option>${l}</option>`).join(''); $('#p-level').value = 3;
+  PARTY.mount($('#partybox'), ()=>renderParty());
   $('#base').innerHTML = '<option value="">— Choisir une créature —</option>' + [...DATA].sort((a,b)=>a.fpv-b.fpv||a.name.localeCompare(b.name,'fr')).map(m=>`<option value="${m.id}">FP ${m.fp} · ${esc(m.name)}</option>`).join('');
   $('#abil').innerHTML = AB.map(a=>`<div><b>${a}</b><input type="number" id="a-${a}" min="1" max="30"><small id="am-${a}"></small><label><input type="checkbox" id="s-${a}"> JS maîtrisé</label></div>`).join('');
   // brouillon ou édition demandée
@@ -1508,7 +1771,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const ent = t.closest('.entry'); if (ent){ const pv = ent.querySelector('.prev'); if (pv) pv.innerHTML = `<b><i>${esc(x.n)}.</i></b> ${esc(entryText(x))}`; }
       if (t.classList.contains('grow')) grow(t);
     }
-    if (['p-size','p-level','p-diff','p-count','p-inc'].includes(t.id)) renderParty();
+    if (['p-diff','p-count','p-inc'].includes(t.id)) renderParty();
   });
   document.addEventListener('change', e=>{
     const t = e.target;
@@ -1517,7 +1780,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (t.matches && t.matches('select[data-lim]')){ const ent = t.closest('.entry'), L = listOf(ent.dataset.k), x = L[+ent.dataset.i]; setLimit(x, t.value); if (ent.dataset.k==='actions' && x.kind!=='text'){ x.uses = t.value ? LIMIT_USES[t.value] : Math.max(1, +x.uses||0); } renderEntries(); refresh(); return; }
     if (t.dataset && (t.dataset.f==='dsize' || t.dataset.f==='melee' || t.dataset.f==='ab' || t.dataset.f==='save' || t.dataset.f==='dcab' || t.dataset.f==='dtype')) renderEntries();
     if (t.id==='f-crdecl' || t.id==='f-size' || t.id==='f-type'){ renderEntries(); }
-    if (['p-level','p-diff','p-inc'].includes(t.id)) renderParty();
+    if (['p-diff','p-inc'].includes(t.id)) renderParty();
   });
   document.addEventListener('click', e=>{
     const b = e.target.closest('button');
@@ -1564,7 +1827,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         $('#b-res').innerHTML = R.length ? R.map(x=>`<div class="r"><b>${esc(x.n)}</b> <small>— ${esc(x.m.name)} (FP ${esc(x.m.fp)}, ${esc(x.h)})</small><div class="t">${esc(x.t.slice(0,240))}${x.t.length>240?'…':''}</div><button class="btn small red" data-borrow="${IDX.indexOf(x)}">Ajouter à ma créature</button></div>`).join('') : '<div class="r">Aucun résultat.</div>'; break; }
       case 'adjust-decl': { const i = S.crdecl==='auto' ? estimate().fin : crIdx(S.crdecl); adjustTo(i); break; }
       case 't-go': adjustTo(+$('#t-cr').value); break;
-      case 'p-go': adjustTo(+b.dataset.idx); renderParty(); break;
+      case 'p-go': case 'p-go2': adjustTo(+b.dataset.idx); renderParty(); break;
       case 'save': save('rec'); break;
       case 'toenc': { save('rec'); let E = {party:4, level:3, list:{}}; try { E = Object.assign(E, JSON.parse(localStorage.getItem('grimoire-rencontre')||'{}')); } catch(e){}
         E.list = E.list||{}; E.list[S.id] = (E.list[S.id]||0) + (+$('#p-count').value||1); try { localStorage.setItem('grimoire-rencontre', JSON.stringify(E)); } catch(e){}
@@ -1588,7 +1851,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('keydown', e=>{ if (e.key==='Escape') closePick(); if (e.key==='Enter' && e.target.closest('.tp-menu .custom')){ e.preventDefault(); e.target.closest('.custom').querySelector('button').click(); } });
   $('#b-q').addEventListener('keydown', e=>{ if (e.key==='Enter'){ e.preventDefault(); $('#bsearch').click(); } });
   const updMods = ()=>{ for (const a of AB) $('#am-'+a).textContent = sgn(mod(S.abil[a])) + (S.saves[a] ? ' · JS ' + sgn(mod(S.abil[a]) + PB()) : ''); };
-  const _r = refresh; refresh = function(){ _r(); updMods(); $('#hpcalc').textContent = 'Points de vie : ' + hpCalc().txt + ' · bonus de maîtrise +' + PB(); };
+  const _r = refresh; refresh = function(){ _r(); updMods(); renderParty(); $('#hpcalc').textContent = 'Points de vie : ' + hpCalc().txt + ' · bonus de maîtrise +' + PB(); };
   refresh();
 });
 
