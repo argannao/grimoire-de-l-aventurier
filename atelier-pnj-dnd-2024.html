@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier de PNJ (prototype) · D&amp;D 2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+main.nmain{max-width:1380px}
+.proto{max-width:1100px;margin:0 auto 18px;background:#efe3f5;border:1px solid #6a3f8a;border-left:6px solid #6a3f8a;border-radius:3px;padding:10px 16px;font-size:16px}
+.proto b{font-family:'Cinzel',serif;color:#6a3f8a}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:22px;align-items:start}
+.box{background:var(--parch);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 20px var(--shadow);padding:14px 16px;margin-bottom:14px}
+.box h2{font-family:'Cinzel',serif;color:var(--blood);font-size:19px;margin:0 0 10px;border-bottom:2px solid var(--gold);padding-bottom:4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gen{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.5px;cursor:pointer;border:1px solid var(--gold);background:#fff7e3;color:var(--ink);padding:7px 12px;border-radius:2px;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--gold);color:var(--leather)}
+.btn.red{background:var(--blood);color:var(--parch);border-color:var(--blood-dark)}.btn.red:hover{background:var(--blood-dark)}
+.btn.big{font-size:15px;padding:10px 18px}
+.btn.small{font-size:11.5px;padding:3px 8px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 14px;margin-bottom:10px}
+.fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.fld > span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;align-items:center}
+.fld .ic{display:flex;gap:2px}
+.fld .ic button{border:1px solid transparent;background:none;cursor:pointer;font-size:14px;padding:0 3px;border-radius:3px;line-height:1.3;opacity:.75}
+.fld .ic button:hover{border-color:var(--gold);opacity:1;background:#fffaf0}
+.fld .ic button.lock.on{opacity:1;background:var(--gold);color:#fff}
+input,select,textarea{font-family:'Crimson Text',serif;font-size:15.5px;padding:5px 7px;border:1px solid var(--gold);background:#fffaf0;color:var(--ink);border-radius:2px;box-sizing:border-box;width:100%}
+textarea{min-height:60px;resize:vertical;line-height:1.35}
+.fld.locked input,.fld.locked select,.fld.locked textarea{background:#f1e2bf;border-style:dashed}
+.hint{font-size:14px;color:var(--ink-soft);font-style:italic;margin:4px 0}
+.att{display:flex;border:1px solid var(--gold);border-radius:4px;overflow:hidden;width:max-content}
+.att button{border:0;background:#fffaf0;padding:5px 12px;font-family:'Crimson Text',serif;font-size:15px;cursor:pointer}
+.att button+button{border-left:1px solid var(--gold)}
+.att button.on[data-a="Amical"]{background:#3f6b3a;color:#fff}.att button.on[data-a="Indifférent"]{background:#8a6a1e;color:#fff}.att button.on[data-a="Hostile"]{background:#8e1b1b;color:#fff}
+.tok{display:flex;gap:12px;align-items:center}
+.tok .ph{width:84px;height:84px;border-radius:50%;border:2px dashed var(--gold);display:flex;align-items:center;justify-content:center;background:#efe0bd;overflow:hidden;flex:none;cursor:pointer;font-family:'Cinzel',serif;font-size:34px;color:var(--blood)}
+.tok .ph img{width:100%;height:100%;object-fit:cover}
+.statmini{background:#fffaf0;border:1px solid #d9c49a;border-left:4px solid var(--blood);padding:8px 10px;border-radius:3px;font-size:15px;margin-top:6px}
+.statmini b{font-family:'Cinzel',serif;color:var(--blood)}
+.side{position:sticky;top:60px}
+/* fiche */
+.npc{background:#fbf4e2;border:2px solid var(--ink);box-shadow:0 12px 26px rgba(0,0,0,.4);padding:16px 18px;color:var(--ink)}
+.npc .hd{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.npc .av{width:86px;height:86px;border-radius:50%;border:3px solid var(--gold);background:#efe0bd;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:'Cinzel',serif;font-size:38px;color:var(--blood)}
+.npc .av img{width:100%;height:100%;object-fit:cover}
+.npc h3{font-family:'Cinzel',serif;font-weight:900;font-size:26px;margin:0;color:var(--blood);line-height:1.05}
+.npc .sub{font-style:italic;color:var(--ink-soft);margin-top:3px}
+.npc .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.npc .tag{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;border:1px solid var(--gold);background:#fffaf0;padding:1px 6px;border-radius:2px}
+.npc .tag.att-Amical{background:#3f6b3a;color:#fff;border-color:#3f6b3a}.npc .tag.att-Indifférent{background:#8a6a1e;color:#fff;border-color:#8a6a1e}.npc .tag.att-Hostile{background:#8e1b1b;color:#fff;border-color:#8e1b1b}
+.npc h4{font-family:'Cinzel',serif;text-transform:uppercase;letter-spacing:.08em;font-size:12.5px;color:var(--blood);border-bottom:1.5px solid var(--ink);margin:12px 0 5px;padding-bottom:1px}
+.npc dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:15.5px}
+.npc dt{font-family:'Cinzel',serif;font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+.npc dd{margin:0}
+.npc .combat{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.npc .combat div{border:1.5px solid var(--ink);background:#fffaf0;padding:3px 6px;font-size:14px}
+.npc .combat b{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft)}
+.npc .notes{white-space:pre-wrap;font-size:15px}
+.npc .foot{margin-top:10px;border-top:1px solid var(--ink);padding-top:3px;font-size:11px;color:var(--ink-soft);display:flex;justify-content:space-between}
+.saved{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.saved li{display:flex;align-items:center;gap:8px;background:#fffaf0;border:1px solid #d9c49a;border-radius:3px;padding:5px 8px}
+.saved .mini{width:34px;height:34px;border-radius:50%;background:#efe0bd;border:2px solid var(--gold);overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:var(--blood);flex:none}
+.saved .mini img{width:100%;height:100%;object-fit:cover}
+.saved li > div{flex:1;min-width:0}.saved small{display:block;color:var(--ink-soft)}
+.saved .acts{display:flex;gap:4px}
+.msg{font-style:italic;color:var(--forest);min-height:1.2em}
+@media (max-width:1000px){.work{grid-template-columns:1fr}.side{position:static}}
+@media print{
+  body > *:not(main), main > *:not(.work), .work > div:first-child, .side > *:not(#card), #sources{display:none!important}
+  html,body{background:#fff!important;background-image:none!important} main{padding:0!important;margin:0!important;max-width:none!important}
+  .work{display:block}.side{position:static}.npc{box-shadow:none;max-width:130mm;margin:0 auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+
+/* finitions */
+#sources a,.links a{overflow-wrap:anywhere}
+footer.sitefoot{padding:26px 16px 34px;margin-top:10px;border-top:1px solid rgba(184,137,46,.25);font-size:12.5px;color:#a38f6a;text-align:center}
+footer.sitefoot .fl{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px}
+footer.sitefoot a{color:#c9b48a;text-decoration:none}footer.sitefoot a:hover{color:var(--gold-light);text-decoration:underline}
+footer.sitefoot .gh{display:inline-flex;align-items:center;gap:7px;color:#c9b48a}
+footer.sitefoot .gh svg{width:20px;height:20px;fill:currentColor}
+footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
+@media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a class="on" href="createur-dnd-2024.html">Atelier</a></div>
+<header>
+  <div class="sigil"><span>☺</span></div>
+  <h1>L’Atelier de PNJ</h1>
+  <p>Des personnages non joueurs vivants, en quelques clics · prototype</p>
+</header>
+<nav><ul><li><a href="#gen">Générer</a></li><li><a href="#ident">Identité</a></li><li><a href="#perso">Personnalité</a></li><li><a href="#jeu">Profil de jeu</a></li><li><a href="#mes">Mes PNJ</a></li><li><a href="createur-dnd-2024.html">Atelier de créatures</a></li></ul></nav>
+<main class="nmain">
+<div class="proto"><b>Prototype.</b> Cet atelier est en cours de conception : il fonctionne déjà (génération, édition, sauvegarde, impression), mais son contenu et sa présentation vont évoluer. Vos PNJ sont gardés dans ce navigateur ; exportez-les pour les conserver.</div>
+<div class="work">
+<div>
+  <section class="box" id="gen"><h2>Générer un PNJ</h2>
+    <div class="gen"><button type="button" class="btn red big" id="rollall">🎲 PNJ aléatoire</button>
+      <label class="fld" style="min-width:200px"><span>Type de métier</span><select id="g-cat"></select></label>
+      <button type="button" class="btn" id="new">Fiche vierge</button></div>
+    <p class="hint">Chaque champ a son propre dé 🎲. Le cadenas 🔒 garde un champ quand vous relancez le PNJ entier.</p>
+  </section>
+  <section class="box" id="ident"><h2>Identité</h2>
+    <div class="tok" style="margin-bottom:10px"><div class="ph" id="tokph" title="Importer un portrait"></div><div><button type="button" class="btn" id="tokpick">🖼 Importer un portrait</button> <button type="button" class="btn small" id="tokrm">Retirer</button><input type="file" id="tokfile" accept="image/*" hidden><p class="hint">L’image est recadrée en carré au centre.</p></div></div>
+    <div class="row"><label class="fld" data-k="nom"><span>Nom<span class="ic"><button type="button" data-roll="nom" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-nom"></label><label class="fld" data-k="espece"><span>Espèce<span class="ic"><button type="button" data-roll="espece" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><select id="f-espece"></select></label></div>
+    <div class="row"><label class="fld" data-k="genre"><span>Genre<span class="ic"><button type="button" data-roll="genre" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><select id="f-genre"></select></label><label class="fld" data-k="age"><span>Âge<span class="ic"><button type="button" data-roll="age" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><select id="f-age"></select></label><label class="fld" data-k="metier"><span>Métier<span class="ic"><button type="button" data-roll="metier" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-metier" list="metiers" placeholder="Choisir ou écrire…"></label></div>
+    <div class="row"><label class="fld" data-k="lieu"><span>Lieu ou faction<span class="ic"><button type="button" data-roll="lieu" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-lieu"></label></div>
+    <datalist id="metiers"></datalist>
+    <div class="row"><label class="fld" data-k="apparence"><span>Apparence<span class="ic"><button type="button" data-roll="apparence" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><textarea id="f-apparence" rows="2"></textarea></label><label class="fld" data-k="manie"><span>Voix et manies<span class="ic"><button type="button" data-roll="manie" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-manie"></label></div>
+  </section>
+  <section class="box" id="perso"><h2>Personnalité et histoire</h2>
+    <div class="row"><label class="fld" data-k="trait"><span>Trait de caractère<span class="ic"><button type="button" data-roll="trait" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-trait"></label><label class="fld" data-k="ideal"><span>Idéal<span class="ic"><button type="button" data-roll="ideal" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-ideal"></label></div>
+    <div class="row"><label class="fld" data-k="lien"><span>Lien<span class="ic"><button type="button" data-roll="lien" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-lien"></label><label class="fld" data-k="defaut"><span>Défaut<span class="ic"><button type="button" data-roll="defaut" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><input id="f-defaut"></label></div>
+    <div class="row"><label class="fld" data-k="motivation"><span>Motivation<span class="ic"><button type="button" data-roll="motivation" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><textarea id="f-motivation" rows="2"></textarea></label><label class="fld" data-k="secret"><span>Secret<span class="ic"><button type="button" data-roll="secret" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><textarea id="f-secret" rows="2"></textarea></label></div>
+    <div class="row"><label class="fld" data-k="accroche"><span>Accroche de quête<span class="ic"><button type="button" data-roll="accroche" title="Tirer au hasard">🎲</button><button type="button" class="lock" title="Garder ce champ lors des tirages">🔒</button></span></span><textarea id="f-accroche" rows="2"></textarea></label></div>
+    <div class="fld"><span>Attitude envers les héros</span><div class="att"><button type="button" data-a="Amical">Amical</button><button type="button" data-a="Indifférent">Indifférent</button><button type="button" data-a="Hostile">Hostile</button></div></div>
+    <p class="hint">L’attitude de départ guide les interactions sociales (règles 2024 : action Influence).</p>
+  </section>
+  <section class="box" id="jeu"><h2>Profil de jeu</h2>
+    <label class="fld"><span>Bloc de statistiques</span><select id="f-stat"></select></label>
+    <div id="statbox"></div>
+    <p class="hint">Le métier propose un profil adapté (profils de PNJ du SRD). Pour un PNJ unique, personnalisez-le dans l’atelier de créatures : nom et portrait sont repris.</p>
+    <label class="fld" style="margin-top:8px"><span>Notes du MJ</span><textarea id="f-notes" rows="3" placeholder="Relations, ce que le PNJ sait, ce qu’il a déjà dit aux héros…"></textarea></label>
+  </section>
+  <section class="box" id="mes"><h2>Mes PNJ</h2>
+    <div class="gen"><button type="button" class="btn red" id="save">Enregistrer</button><button type="button" class="btn" id="print">🖨 Imprimer la fiche</button><button type="button" class="btn" id="export">Exporter</button><button type="button" class="btn" id="exportall">Exporter tous</button><button type="button" class="btn" id="import">Importer</button><input type="file" id="file" accept=".json" hidden></div>
+    <p class="msg" id="msg"></p>
+    <ul class="saved" id="saved"></ul>
+  </section>
+</div>
+<aside class="side"><div id="card"></div></aside>
+</div>
+<section class="panel intro" id="sources" style="margin-top:30px">
+  <h2>Sources et licence</h2>
+  <ul><li>Profils de jeu : PNJ humanoïdes du SRD 5.2.1 (Wizards of the Coast), licence CC BY 4.0, voir le <a href="bestiaire-dnd-2024.html">bestiaire</a>.</li>
+  <li>Tables de personnalité, de métiers et générateur de noms : contenu original du Grimoire.</li></ul>
+</section>
+</main>
+<footer class="sitefoot"><div class="fl"><a class="gh" href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener" title="Code source sur GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>© 2026 Grimoire de l’aventurier</span></a><a href="mentions-legales.html#mentions">Mentions légales</a><a href="mentions-legales.html#licence">Licence</a><a href="mentions-legales.html#marques">Marques</a><a href="mentions-legales.html#confidentialite">Confidentialité</a><a href="mentions-legales.html#credits">Crédits</a><a href="mentions-legales.html#contact">Contact</a><a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">Signaler un problème</a><a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">Code source</a></div><div class="fs">Référence de fan non officielle, compatible 5E · Dungeons &amp; Dragons est une marque de Wizards of the Coast LLC, non affiliée à ce site · Contient du matériel du SRD 5.2.1 sous licence CC BY 4.0</div></footer>
+<script>
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T = {"metiers": [["Aubergiste", "Commerce", "roturier"], ["Marchande ambulante", "Commerce", "roturier"], ["Forgeron", "Artisanat", "gros-bras"], ["Tanneur", "Artisanat", "roturier"], ["Herboriste", "Artisanat", "druide"], ["Alchimiste", "Magie", "mage"], ["Prêteur sur gages", "Commerce", "roturier"], ["Receleur", "Pègre", "espion"], ["Pickpocket", "Pègre", "espion"], ["Chef de gang", "Pègre", "chef-gros-bras"], ["Bandit de grand chemin", "Pègre", "bandit"], ["Contrebandier", "Pègre", "pirate"], ["Garde de la ville", "Autorité", "garde"], ["Capitaine de la garde", "Autorité", "capitaine-de-la-garde"], ["Bourgmestre", "Autorité", "noble"], ["Juge", "Autorité", "noble"], ["Noble désargenté", "Noblesse", "noble"], ["Héritière ambitieuse", "Noblesse", "noble"], ["Chevalier errant", "Noblesse", "chevalier"], ["Acolyte du temple", "Religion", "acolyte"], ["Grande prêtresse", "Religion", "pretre"], ["Pèlerin", "Religion", "roturier"], ["Sectateur", "Religion", "sectateur"], ["Prophète fanatique", "Religion", "fanatique-de-secte"], ["Mage de la tour", "Magie", "mage"], ["Archimage reclus", "Magie", "archimage"], ["Érudit", "Magie", "roturier"], ["Barde itinérant", "Voyage", "roturier"], ["Éclaireuse", "Voyage", "eclaireur"], ["Guide de montagne", "Voyage", "eclaireur"], ["Capitaine de navire", "Voyage", "capitaine-pirate"], ["Matelot", "Voyage", "pirate"], ["Mercenaire", "Guerre", "gros-bras"], ["Vétéran de guerre", "Guerre", "veteran"], ["Fantassin", "Guerre", "fantassin"], ["Gladiatrice", "Guerre", "gladiateur"], ["Berserker des steppes", "Guerre", "berserker"], ["Espionne de la couronne", "Autorité", "espion"], ["Assassin à gages", "Pègre", "assassin"], ["Fermier", "Campagne", "roturier"], ["Meunière", "Campagne", "roturier"], ["Chasseur", "Campagne", "eclaireur"], ["Druide du bosquet", "Campagne", "druide"], ["Mendiant", "Rue", "roturier"], ["Serviteur d’un vampire", "Pègre", "familier-de-vampire"]], "apparence": ["une cicatrice qui barre la joue", "des tatouages qui courent jusqu’aux doigts", "des vêtements trop beaux pour son rang", "un œil de verre", "des cheveux tressés de perles", "des mains tachées d’encre", "une démarche claudicante", "une carrure imposante", "une silhouette frêle et nerveuse", "un sourire où manquent deux dents", "des bijoux qui cliquettent", "un manteau rapiécé cent fois", "des lunettes rondes", "une odeur d’épices", "des yeux vairons", "une barbe (ou une chevelure) soigneusement huilée", "des ongles rongés", "un chapeau à large bord", "une voix plus grave que sa taille", "des cernes profonds"], "manie": ["parle en chuchotant", "termine chaque phrase par une question", "tapote la table en réfléchissant", "cite des proverbes inventés", "rit trop fort", "évite les regards", "compte tout à voix basse", "mâchonne une herbe", "se gratte l’oreille quand il ment", "parle de lui à la troisième personne", "répète le dernier mot de son interlocuteur", "collectionne des bouts de ficelle", "appelle tout le monde « l’ami »", "soupire bruyamment", "hoche la tête avant même qu’on ait fini", "se méfie des chats", "fredonne une vieille chanson", "corrige la grammaire des autres"], "trait": ["généreux jusqu’à l’imprudence", "méfiant envers les étrangers", "bavard et curieux", "calme en toutes circonstances", "colérique mais loyal", "flatteur", "pragmatique", "superstitieux", "rêveur", "susceptible", "drôle et moqueur", "timide", "autoritaire", "prudent", "courageux jusqu’à la témérité", "cynique", "optimiste", "perfectionniste"], "ideal": ["la famille avant tout", "la loi protège les faibles", "la liberté vaut tous les risques", "le savoir doit être partagé", "la richesse ouvre toutes les portes", "la tradition garde le monde en ordre", "chacun mérite une seconde chance", "la force fait le droit", "les dieux voient tout", "la beauté doit être préservée", "le pouvoir doit servir la communauté", "rien n’est gratuit"], "lien": ["une sœur disparue depuis des années", "la taverne héritée de sa mère", "une dette envers la guilde des voleurs", "un amour de jeunesse", "son ancien régiment", "le temple qui l’a recueilli", "un apprenti qu’il protège", "une lettre jamais envoyée", "sa terre natale en ruines", "un mentor assassiné", "un chien fidèle", "une promesse faite à un mourant"], "defaut": ["ne sait pas garder un secret", "joue et perd trop souvent", "ment par habitude", "a peur du noir", "boit plus que de raison", "envie la réussite des autres", "ne pardonne jamais", "fait confiance à n’importe qui", "méprise les pauvres", "se croit plus malin que tout le monde", "fuit ses responsabilités", "ne supporte pas d’avoir tort"], "motivation": ["rembourser une dette avant la fin du mois", "retrouver un proche disparu", "gagner l’estime de ses pairs", "protéger son quartier", "venger un affront", "quitter la ville pour de bon", "découvrir la vérité sur ses origines", "faire fortune rapidement", "racheter une faute passée", "obtenir une promotion", "garder son commerce à flot", "percer un mystère ancien"], "secret": ["travaille en cachette pour un rival", "a été témoin d’un meurtre", "est l’enfant illégitime d’un noble", "cache un objet magique volé", "est recherché dans une autre ville", "sert un culte sans le savoir", "a trahi un ami autrefois", "n’est pas celui qu’il prétend être", "doit sa réussite à un pacte", "connaît un passage secret sous la ville", "espionne pour une puissance étrangère", "n’a aucun secret, et c’est ce qui le rend suspect"], "accroche": ["demande aux héros d’escorter une cargaison jusqu’au prochain village", "a besoin qu’on retrouve un objet perdu dans les égouts", "offre une récompense pour des informations sur un voleur", "supplie qu’on sauve son apprenti enlevé", "propose un marché trop beau pour être honnête", "cherche des témoins pour un procès", "veut qu’on livre discrètement une lettre", "a entendu des bruits étranges sous sa maison", "engage des gardes du corps pour une soirée mondaine", "cherche un remède rare pour un proche malade", "veut racheter un objet que possède un des héros", "prétend connaître l’emplacement d’un trésor"]}, SYL = {"humain": [["al", "ber", "cor", "dan", "el", "fer", "gal", "hen", "is", "jor", "ka", "lu", "mar", "no", "per", "ro", "sel", "tor", "val", "wil"], ["a", "e", "i", "o", "an", "in", "on", "ric", "dric", "mund", "ard", "ette", "ine", "elle", "bert", "wen"], ["Duval", "Carrin", "Morel", "Brisebois", "Lanterne", "Faucon", "Merlot", "Vaunier", "Castel", "Rochefort", "Lemarch", "Soubise"]], "elfe": [["ae", "ael", "cae", "el", "fae", "gal", "il", "lae", "lor", "mae", "nae", "sil", "tha", "vae", "yl"], ["rion", "wyn", "riel", "thas", "lindë", "nor", "ssa", "vel", "drith", "ëa", "ndil", "lith"], ["Feuillargent", "Chantelune", "Brumeciel", "Aubeclaire", "Sylvanis", "Roséeval"]], "nain": [["bal", "bor", "dur", "gim", "grom", "har", "kaz", "mor", "thor", "ulf", "brun", "dag"], ["in", "ak", "ar", "rik", "dain", "grim", "hild", "na", "ra", "un"], ["Barbe-de-Fer", "Forgeroc", "Marteaudor", "Piochefonde", "Durbouclier", "Brasdepierre"]], "halfelin": [["bil", "cam", "dap", "fen", "lil", "mer", "pip", "ros", "sam", "tob", "wil", "nel"], ["bo", "ie", "py", "lo", "ry", "wick", "sy", "do", "kin"], ["Boisjoyeux", "Terrier", "Tournebroche", "Piedléger", "Rondeval", "Mielcoteau"]], "gnome": [["bim", "fiz", "gim", "nok", "orl", "pip", "quin", "tib", "wiz", "zan", "fen"], ["ble", "dle", "wick", "nock", "bo", "zel", "ix", "ra"], ["Engrenage", "Tourneboulon", "Rouequiroule", "Fildecuivre", "Mèchevive"]], "orc": [["gar", "grom", "kar", "mog", "ruk", "shar", "thok", "urg", "vol", "zug", "bra"], ["ash", "ak", "gra", "nar", "osh", "uk", "ra", "dush"], ["Crocdepierre", "Brisecrâne", "Sangvif", "Ventfroid", "Hurleciel"]], "tieffelin": [["ak", "bel", "cal", "dam", "ez", "kar", "mal", "nem", "ori", "sar", "zeph"], ["ai", "eth", "ia", "ius", "os", "ra", "th", "yx"], ["Espoir", "Chant", "Tourment", "Cendre", "Vertu", "Minuit"]], "drakeide": [["ar", "bal", "dor", "gher", "kri", "med", "nal", "rho", "sor", "tor", "vyr"], ["ash", "ax", "ian", "inn", "ora", "oth", "uun"], ["Kimbatuul", "Myastan", "Clethtinthiallor", "Daardendrian", "Yarjerit"]], "goliath": [["au", "ga", "ka", "ma", "na", "pa", "tha", "vau", "ke", "lo"], ["kan", "nal", "thal", "ri", "gath", "vak"], ["Ronde-Pierre", "Ciel-Haut", "Sans-Peur", "Pas-de-Loup", "Voix-Grave"]], "aasimar": [["ari", "cel", "el", "ila", "lum", "ori", "sera", "thal", "ure"], ["el", "iel", "a", "on", "ia", "ys"], ["Aubeclair", "Lumière", "Solandis", "Clairefoi"]]}, STAT = [{"id": "assassin", "name": "Assassin", "fp": "8", "ca": "16", "pv": "97 (15d8 + 30)", "vit": "9 m", "act": ["Épée courte", "Arbalète légère"]}, {"id": "bandit", "name": "Bandit", "fp": "1/8", "ca": "12", "pv": "11 (2d8 + 2)", "vit": "9 m", "act": ["Cimeterre", "Arbalète légère"]}, {"id": "chef-de-bande", "name": "Chef de bande", "fp": "2", "ca": "15", "pv": "52 (8d8 + 16)", "vit": "9 m", "act": ["Cimeterre", "Pistolet"]}, {"id": "berserker", "name": "Berserker", "fp": "2", "ca": "13", "pv": "67 (9d8 + 27)", "vit": "9 m", "act": ["Hache à deux mains"]}, {"id": "chevalier", "name": "Chevalier", "fp": "3", "ca": "18", "pv": "52 (8d8 + 16)", "vit": "9 m", "act": ["Épée à deux mains", "Arbalète lourde"]}, {"id": "druide", "name": "Druide", "fp": "2", "ca": "13", "pv": "44 (8d8 + 8)", "vit": "9 m", "act": ["Bâton-lierre", "Éclat verdoyant", "Incantation"]}, {"id": "eclaireur", "name": "Éclaireur", "fp": "1/2", "ca": "13", "pv": "16 (3d8 + 3)", "vit": "9 m", "act": ["Épée courte", "Arc long"]}, {"id": "espion", "name": "Espion", "fp": "1", "ca": "12", "pv": "27 (6d8)", "vit": "9 m, escalade 9 m", "act": ["Épée courte", "Arbalète de poing"]}, {"id": "garde", "name": "Garde", "fp": "1/8", "ca": "16", "pv": "11 (2d8 + 2)", "vit": "9 m", "act": ["Lance"]}, {"id": "capitaine-de-la-garde", "name": "Capitaine de la garde", "fp": "4", "ca": "18", "pv": "75 (10d8 + 30)", "vit": "9 m", "act": ["Épée longue", "Javeline"]}, {"id": "gladiateur", "name": "Gladiateur", "fp": "5", "ca": "16", "pv": "112 (15d8 + 45)", "vit": "9 m", "act": ["Lance", "Coup de bouclier"]}, {"id": "gros-bras", "name": "Gros-bras", "fp": "1/2", "ca": "12", "pv": "32 (5d8 + 10)", "vit": "9 m", "act": ["Masse d’armes", "Arbalète lourde"]}, {"id": "chef-gros-bras", "name": "Chef gros-bras", "fp": "4", "ca": "16", "pv": "82 (11d8 + 33)", "vit": "9 m", "act": ["Marteau de guerre", "Arbalète lourde"]}, {"id": "mage", "name": "Mage", "fp": "6", "ca": "15", "pv": "81 (18d8)", "vit": "9 m", "act": ["Jaillissement arcanique", "Incantation"]}, {"id": "archimage", "name": "Archimage", "fp": "12", "ca": "17", "pv": "170 (31d8 + 31)", "vit": "9 m", "act": ["Jaillissement arcanique", "Incantation"]}, {"id": "noble", "name": "Noble", "fp": "1/8", "ca": "15", "pv": "9 (2d8)", "vit": "9 m", "act": ["Rapière"]}, {"id": "pirate", "name": "Pirate", "fp": "1", "ca": "14", "pv": "33 (6d8 + 6)", "vit": "9 m", "act": ["Dague", "Panache envoûtant"]}, {"id": "capitaine-pirate", "name": "Capitaine pirate", "fp": "6", "ca": "17", "pv": "84 (13d8 + 26)", "vit": "9 m", "act": ["Rapière", "Pistolet"]}, {"id": "acolyte", "name": "Acolyte", "fp": "1/4", "ca": "13", "pv": "11 (2d8 + 2)", "vit": "9 m", "act": ["Masse d’armes", "Flamme radiante", "Incantation"]}, {"id": "pretre", "name": "Prêtre", "fp": "2", "ca": "13", "pv": "38 (7d8 + 7)", "vit": "9 m", "act": ["Masse d’armes", "Flamme radiante", "Incantation"]}, {"id": "roturier", "name": "Roturier", "fp": "0", "ca": "10", "pv": "4 (1d8)", "vit": "9 m", "act": ["Gourdin"]}, {"id": "sectateur", "name": "Sectateur", "fp": "1/8", "ca": "12", "pv": "9 (2d8)", "vit": "9 m", "act": ["Serpe rituelle"]}, {"id": "fanatique-de-secte", "name": "Fanatique de secte", "fp": "2", "ca": "13", "pv": "44 (8d8 + 8)", "vit": "9 m", "act": ["Lame de pacte", "Incantation"]}, {"id": "fantassin", "name": "Fantassin", "fp": "1/8", "ca": "13", "pv": "9 (2d8)", "vit": "9 m", "act": ["Lance"]}, {"id": "veteran", "name": "Vétéran", "fp": "3", "ca": "17", "pv": "65 (10d8 + 20)", "vit": "9 m", "act": ["Épée à deux mains", "Arbalète lourde"]}, {"id": "familier-de-vampire", "name": "Familier de vampire", "fp": "3", "ca": "15", "pv": "65 (10d8 + 20)", "vit": "9 m, escalade 9 m", "act": ["Dague des ombres"]}], SPECIES = [["humain", "Humain"], ["elfe", "Elfe"], ["nain", "Nain"], ["halfelin", "Halfelin"], ["gnome", "Gnome"], ["orc", "Orc"], ["tieffelin", "Tieffelin"], ["drakeide", "Drakéide"], ["goliath", "Goliath"], ["aasimar", "Aasimar"]];
+const pick = a=>a[Math.floor(Math.random()*a.length)];
+const cap = s=>s ? s[0].toUpperCase() + s.slice(1) : s;
+const AGES = ['Jeune','Adulte','Âgé','Vénérable'];
+let P = blank(), LOCK = new Set();
+function blank(){ return {id:'pnj-'+Date.now().toString(36), nom:'', espece:'humain', genre:'', age:'Adulte', metier:'', lieu:'', apparence:'', manie:'', trait:'', ideal:'', lien:'', defaut:'',
+  motivation:'', secret:'', accroche:'', attitude:'Indifférent', stat:'', notes:'', token:''}; }
+function genName(sp){
+  const S = SYL[sp] || SYL.humain;
+  let n = cap(pick(S[0]) + pick(S[1])); if (Math.random() < .35) n = cap(pick(S[0]) + pick(S[0]).replace(/^./,'') + pick(S[1]));
+  return n + ' ' + pick(S[2]);
+}
+const GEN = {
+  nom: ()=>genName(P.espece), espece: ()=>pick(SPECIES)[0], genre: ()=>pick(['Femme','Homme','Non précisé']), age: ()=>pick(AGES),
+  metier: ()=>{ const cat = $('#g-cat').value; return pick(T.metiers.filter(m=>!cat || m[1]===cat))[0]; },
+  lieu: ()=>pick(['Le quartier du port','La Guilde des marchands','Le Temple de l’Aube','Les bas-fonds','Le village de Brumeval','La cour du duc','La caravane des Sables','La Tour d’Ivoire','Le marché couvert','Un hameau isolé']),
+  apparence: ()=>cap(pick(T.apparence)) + (Math.random()<.5 ? ', ' + pick(T.apparence) : '') + '.',
+  manie: ()=>cap(pick(T.manie)) + '.', trait: ()=>cap(pick(T.trait)) + '.', ideal: ()=>cap(pick(T.ideal)) + '.', lien: ()=>cap(pick(T.lien)) + '.', defaut: ()=>cap(pick(T.defaut)) + '.',
+  motivation: ()=>cap(pick(T.motivation)) + '.', secret: ()=>cap(pick(T.secret)) + '.', accroche: ()=>cap(pick(T.accroche)) + '.'
+};
+function roll(k){ P[k] = GEN[k](); if (k==='metier'){ const m = T.metiers.find(x=>x[0]===P.metier); if (m && !LOCK.has('stat')) P.stat = m[2]; } }
+function rollAll(){
+  const order = ['espece','genre','age','metier','nom','lieu','apparence','manie','trait','ideal','lien','defaut','motivation','secret','accroche'];
+  for (const k of order) if (!LOCK.has(k)) roll(k);
+  if (!LOCK.has('attitude')) P.attitude = pick(['Amical','Indifférent','Indifférent','Hostile']);
+  fill(); save('draft'); msg('Nouveau PNJ généré. Cliquez sur 🔒 pour garder un champ lors du prochain tirage.');
+}
+function fill(){
+  for (const k of Object.keys(GEN)) { const el = $('#f-'+k); if (el) el.value = P[k]||''; }
+  $('#f-notes').value = P.notes||''; $('#f-stat').value = P.stat||'';
+  document.querySelectorAll('.att button').forEach(b=>b.classList.toggle('on', b.dataset.a===P.attitude));
+  document.querySelectorAll('.fld[data-k]').forEach(f=>{ const k = f.dataset.k; f.classList.toggle('locked', LOCK.has(k)); const l = f.querySelector('.lock'); if (l) l.classList.toggle('on', LOCK.has(k)); });
+  renderTok(); renderStat(); renderCard();
+}
+function initial(){ return (P.nom||'?').trim()[0]?.toUpperCase() || '?'; }
+function renderTok(){ $('#tokph').innerHTML = P.token ? `<img src="${P.token}" alt="">` : esc(initial()); }
+function renderStat(){
+  const s = STAT.find(x=>x.id===P.stat);
+  $('#statbox').innerHTML = s ? `<div class="statmini"><b>${esc(s.name)}</b> · FP ${esc(s.fp)} · CA ${esc(s.ca)} · PV ${esc(s.pv)} · ${esc(s.vit)}<br>Actions : ${s.act.map(esc).join(', ')}
+    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><a class="btn small" href="bestiaire-dnd-2024.html#${s.id}" target="_blank">Voir dans le bestiaire</a><button type="button" class="btn small red" id="toatelier">Personnaliser dans l’atelier de créatures</button></div></div>`
+    : '<p class="hint">Non combattant : utilisez « Roturier » si un combat éclate.</p>';
+}
+function renderCard(){
+  const s = STAT.find(x=>x.id===P.stat), sp = (SPECIES.find(x=>x[0]===P.espece)||[,''])[1];
+  const who = [sp, P.genre && P.genre!=='Non précisé' ? P.genre.toLowerCase() : '', P.age ? P.age.toLowerCase() : ''].filter(Boolean).join(', ');
+  const row = (k,l)=>P[k] ? `<dt>${l}</dt><dd>${esc(P[k])}</dd>` : '';
+  $('#card').innerHTML = `<div class="npc">
+    <div class="hd"><div class="av">${P.token ? `<img src="${P.token}" alt="">` : esc(initial())}</div>
+      <div><h3>${esc(P.nom||'PNJ sans nom')}</h3><div class="sub">${esc(P.metier||'Sans métier')}${who ? ' · ' + esc(who) : ''}</div>
+      <div class="tags">${P.lieu?`<span class="tag">${esc(P.lieu)}</span>`:''}<span class="tag att-${esc(P.attitude)}">${esc(P.attitude)}</span>${s?`<span class="tag">FP ${esc(s.fp)}</span>`:''}</div></div></div>
+    ${P.apparence||P.manie ? `<h4>À la rencontre</h4><dl>${row('apparence','Apparence')}${row('manie','Voix, manies')}</dl>` : ''}
+    ${P.trait||P.ideal||P.lien||P.defaut ? `<h4>Personnalité</h4><dl>${row('trait','Trait')}${row('ideal','Idéal')}${row('lien','Lien')}${row('defaut','Défaut')}</dl>` : ''}
+    ${P.motivation||P.secret||P.accroche ? `<h4>Pour le MJ</h4><dl>${row('motivation','Motivation')}${row('secret','Secret')}${row('accroche','Accroche')}</dl>` : ''}
+    ${s ? `<h4>Profil de jeu : ${esc(s.name)}</h4><div class="combat"><div><b>CA</b>${esc(s.ca)}</div><div><b>PV</b>${esc(s.pv.split(' (')[0])}</div><div><b>FP</b>${esc(s.fp)}</div><div><b>Vitesse</b>${esc(s.vit)}</div></div><div style="font-size:14px;margin-top:4px">Actions : ${s.act.map(esc).join(', ')}</div>` : ''}
+    ${P.notes ? `<h4>Notes</h4><div class="notes">${esc(P.notes)}</div>` : ''}
+    <div class="foot"><span>Grimoire de l’aventurier · PNJ</span><span>${s ? 'Profil : SRD 5.2.1 (CC BY 4.0)' : ''}</span></div></div>`;
+}
+// ---------- stockage
+const loadAll = ()=>{ try { return JSON.parse(localStorage.getItem('grimoire-pnj')||'[]'); } catch(e){ return []; } };
+const storeAll = L=>{ try { localStorage.setItem('grimoire-pnj', JSON.stringify(L)); return true; } catch(e){ return false; } };
+function save(kind){
+  if (kind==='draft'){ try { localStorage.setItem('grimoire-pnj-brouillon', JSON.stringify(P)); } catch(e){} return; }
+  const L = loadAll(), i = L.findIndex(x=>x.id===P.id), rec = Object.assign({}, P, {date:new Date().toISOString()});
+  if (i>=0) L[i] = rec; else L.push(rec);
+  msg(storeAll(L) ? `« ${P.nom||'PNJ'} » enregistré dans Mes PNJ.` : 'Enregistrement impossible (stockage plein ?) : utilisez « Exporter ».'); renderSaved();
+}
+function renderSaved(){
+  const L = loadAll();
+  $('#saved').innerHTML = L.length ? L.map(r=>`<li><span class="mini">${r.token?`<img src="${r.token}" alt="">`:esc((r.nom||'?')[0]||'?')}</span><div><b>${esc(r.nom||'PNJ sans nom')}</b><small>${esc(r.metier||'')}${r.lieu?' · '+esc(r.lieu):''}</small></div>
+    <div class="acts"><button class="btn small" data-load="${r.id}">Ouvrir</button><button class="btn small" data-dup="${r.id}">Dupliquer</button><button class="btn small" data-rm="${r.id}">✕</button></div></li>`).join('') : '<li class="hint">Aucun PNJ enregistré.</li>';
+}
+function download(name, obj){ const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 1)], {type:'application/json'})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+function msg(t){ $('#msg').textContent = t; }
+function tokenFrom(file){
+  const u = URL.createObjectURL(file), im = new Image();
+  im.onload = ()=>{ const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), s = Math.min(im.naturalWidth, im.naturalHeight);
+    g.drawImage(im, (im.naturalWidth-s)/2, (im.naturalHeight-s)/2, s, s, 0, 0, 256, 256);
+    let d = c.toDataURL('image/webp', .86); if (!d.startsWith('data:image/webp')) d = c.toDataURL('image/jpeg', .86);
+    P.token = d; URL.revokeObjectURL(u); fill(); save('draft'); msg('Portrait importé (recadré au centre).'); };
+  im.onerror = ()=>msg('Image illisible.'); im.src = u;
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  $('#f-espece').innerHTML = SPECIES.map(([k,l])=>`<option value="${k}">${l}</option>`).join('');
+  $('#f-genre').innerHTML = ['','Femme','Homme','Non précisé'].map(v=>`<option value="${v}">${v||'—'}</option>`).join('');
+  $('#f-age').innerHTML = AGES.map(v=>`<option>${v}</option>`).join('');
+  $('#f-stat').innerHTML = '<option value="">Aucun (non combattant)</option>' + STAT.map(s=>`<option value="${s.id}">${esc(s.name)} (FP ${esc(s.fp)})</option>`).join('');
+  $('#g-cat').innerHTML = '<option value="">Tous les métiers</option>' + [...new Set(T.metiers.map(m=>m[1]))].map(c=>`<option>${c}</option>`).join('');
+  $('#metiers').innerHTML = T.metiers.map(m=>`<option value="${esc(m[0])}">`).join('');
+  try { const d = localStorage.getItem('grimoire-pnj-brouillon'); if (d) P = Object.assign(blank(), JSON.parse(d)); } catch(e){}
+  const h = decodeURIComponent(location.hash.slice(1)); if (h){ const r = loadAll().find(x=>x.id===h); if (r) P = Object.assign(blank(), r); }
+  if (!P.nom) rollAll(); else fill(); renderSaved();
+  document.addEventListener('input', e=>{ const t = e.target;
+    if (t.id && t.id.startsWith('f-')){ const k = t.id.slice(2); P[k] = t.value;
+      if (k==='metier'){ const m = T.metiers.find(x=>x[0]===P.metier); if (m && !LOCK.has('stat')){ P.stat = m[2]; $('#f-stat').value = P.stat; renderStat(); } }
+      if (k==='stat') renderStat(); if (k==='nom' && !P.token) renderTok(); renderCard(); save('draft'); } });
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.roll){ const k = b.dataset.roll; roll(k); fill(); save('draft'); return; }
+    if (b.classList.contains('lock')){ const k = b.closest('.fld').dataset.k; LOCK.has(k) ? LOCK.delete(k) : LOCK.add(k); fill(); return; }
+    if (b.dataset.a){ P.attitude = b.dataset.a; fill(); save('draft'); return; }
+    if (b.dataset.load){ const r = loadAll().find(x=>x.id===b.dataset.load); if (r){ P = Object.assign(blank(), r); LOCK.clear(); fill(); msg(`« ${r.nom} » ouvert.`); scrollTo({top:0}); } return; }
+    if (b.dataset.dup){ const r = loadAll().find(x=>x.id===b.dataset.dup); if (r){ P = Object.assign(blank(), r, {id:'pnj-'+Date.now().toString(36), nom:(r.nom||'')+' (copie)'}); fill(); msg('Copie créée : pensez à l’enregistrer.'); } return; }
+    if (b.dataset.rm){ if (!b.dataset.sure){ b.dataset.sure = 1; b.textContent = 'Supprimer ?'; setTimeout(()=>{ if (b.isConnected){ delete b.dataset.sure; b.textContent = '✕'; } }, 2500); return; }
+      storeAll(loadAll().filter(x=>x.id!==b.dataset.rm)); renderSaved(); msg('PNJ supprimé.'); return; }
+    switch (b.id){
+      case 'rollall': rollAll(); break;
+      case 'new': P = blank(); LOCK.clear(); fill(); save('draft'); msg('Fiche vierge.'); break;
+      case 'save': save('rec'); break;
+      case 'print': window.print(); break;
+      case 'export': download((P.nom||'pnj').replace(/[^\w\-]+/g,'_') + '.json', {format:'grimoire-pnj', version:1, pnj:[P]}); break;
+      case 'exportall': download('mes-pnj.json', {format:'grimoire-pnj', version:1, pnj:loadAll()}); break;
+      case 'import': $('#file').click(); break;
+      case 'tokpick': $('#tokfile').click(); break;
+      case 'tokrm': P.token = ''; fill(); save('draft'); break;
+      case 'toatelier': { save('rec'); try { localStorage.setItem('grimoire-pnj-vers-atelier', JSON.stringify({base:P.stat, name:P.nom, token:P.token})); } catch(e){}
+        location.href = 'createur-dnd-2024.html#pnj'; break; }
+    }
+  });
+  $('#tokph').addEventListener('click', ()=>$('#tokfile').click());
+  $('#tokfile').addEventListener('change', e=>{ if (e.target.files[0]) tokenFrom(e.target.files[0]); e.target.value = ''; });
+  $('#file').addEventListener('change', async e=>{ const f = e.target.files[0]; if (!f) return;
+    try { const o = JSON.parse(await f.text()); const L = loadAll(); for (const r of (o.pnj||[])){ if (!r.id) continue; const i = L.findIndex(x=>x.id===r.id); if (i>=0) L[i] = r; else L.push(r); }
+      storeAll(L); renderSaved(); if (o.pnj && o.pnj[0]){ P = Object.assign(blank(), o.pnj[0]); fill(); } msg(`${(o.pnj||[]).length} PNJ importé(s).`); }
+    catch(err){ msg('Fichier illisible.'); } e.target.value = ''; });
+});
+
+</script>
+<script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
+(function(){
+  function place(){
+    var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
+    document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
+      el.style.top = '';
+      if (getComputedStyle(el).position === 'sticky'){
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
+        el.style.top = (h + extra) + 'px';
+        if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
+      } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
+    });
+    var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
+    document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
+  }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
+  window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
+  if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+</body>
+</html>

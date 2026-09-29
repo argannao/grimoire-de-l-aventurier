@@ -1755,6 +1755,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const h = decodeURIComponent(location.hash.slice(1));
   const rec = h.startsWith('edit-') ? loadAll().find(r=>r.id===h.slice(5)) : null;
   if (rec) S = Object.assign(blank(), rec.state);
+  else if (h==='pnj'){ let q = null; try { q = JSON.parse(localStorage.getItem('grimoire-pnj-vers-atelier')||'null'); localStorage.removeItem('grimoire-pnj-vers-atelier'); } catch(e){}
+    const m = q && DATA.find(x=>x.id===q.base); if (m){ S = fromMonster(m); if (q.name) S.name = q.name; if (q.token) S.token = q.token; setTimeout(()=>msg(`PNJ « ${q.name||m.name} » chargé à partir du profil ${m.name}. Personnalisez-le puis enregistrez.`), 50); } }
   else { try { const d = localStorage.getItem('grimoire-atelier-brouillon'); if (d) S = Object.assign(blank(), JSON.parse(d)); } catch(e){} }
   initImages(); fillForm(); refresh(); renderSaved(); renderParty();
 

@@ -100,7 +100,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
      fichier     : nom du fichier HTML (dans le même dossier que ce menu)
      categorie   : regroupe les cartes sous un même titre de section
      icone       : une des clés de ICONES plus bas (ou "etoile" par défaut)
-     statut      : "disponible", "bientot" ou "prototype" (carte grisée, non cliquable)
+     statut      : "disponible", "bientot", "prototype" (carte grisée, non cliquable) ou "prototype-ouvert" (prototype utilisable)
    ===================================================================== */
 const MODULES = [
   { titre:"Espèces", accroche:"Les peuples du multivers", categorie:"Création de personnage",
@@ -130,7 +130,7 @@ const MODULES = [
     fichier:"createur-dnd-2024.html", icone:"atelier", statut:"disponible" },
   { titre:"Atelier de PNJ", accroche:"Des personnages vivants", categorie:"Ateliers",
     description:"Créer des personnages non joueurs : identité, personnalité, motivations, profil de jeu adapté à leur rôle, et fiche prête à l'emploi pour vos parties.",
-    fichier:"atelier-pnj-dnd-2024.html", icone:"pnj", statut:"prototype" },
+    fichier:"atelier-pnj-dnd-2024.html", icone:"pnj", statut:"prototype-ouvert" },
   { titre:"Atelier de PJ", accroche:"Votre héros pas à pas", categorie:"Ateliers",
     description:"Construire un personnage joueur étape par étape : espèce, classe, historique, caractéristiques, équipement et sorts, avec une fiche de personnage complète.",
     fichier:"atelier-pj-dnd-2024.html", icone:"pj", statut:"prototype" },
@@ -196,7 +196,7 @@ function renderMenu(){
       const inner = `
         <div class="card-top">${emblem(m.icone)}<div><h2>${m.titre}</h2><div class="tagline">${m.accroche || ""}</div></div></div>
         <p>${m.description || ""}</p>
-        <div class="meta">${ok ? '<span class="badge ok">Disponible</span><span class="go">Ouvrir ›</span>'
+        <div class="meta">${m.statut === "prototype-ouvert" ? '<span class="badge proto">Prototype</span><span class="go">Essayer ›</span>' : ok ? '<span class="badge ok">Disponible</span><span class="go">Ouvrir ›</span>'
                                 : m.statut === "prototype" ? '<span class="badge proto">Prototype</span><span class="go">Conception en cours</span>'
                                 : '<span class="badge soon">Bientôt</span><span class="go">En préparation</span>'}</div>`;
       return ok ? `<a class="card" href="${m.fichier}">${inner}</a>`
