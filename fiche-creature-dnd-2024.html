@@ -126,6 +126,8 @@ main.fmain{max-width:1100px}
 .pick label{display:flex;gap:8px;align-items:center;background:#fffaf0;border:1px solid var(--gold);border-radius:3px;padding:5px 8px;cursor:pointer;font-size:15.5px;line-height:1.15}
 .pick label small{display:block;color:var(--ink-soft);font-size:13px}
 .pick input{width:auto}
+.pick label > span{flex:1}
+.pick .rm{border:0;background:none;color:var(--blood);cursor:pointer;font-size:15px;padding:0 2px}
 .opts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0;font-size:15px}
 .opts label{display:flex;gap:6px;align-items:center}
 .opts select{font-family:'Crimson Text',serif;font-size:15px;border:1px solid var(--gold);background:#fffaf0;padding:2px 6px}
@@ -250,13 +252,13 @@ main.fmain{max-width:1100px}
 <header>
   <div class="sigil"><span>📜</span></div>
   <h1>Fiches de créatures</h1>
-  <p>Exportez vos créatures de l’atelier en PDF · une fiche par page A4</p>
+  <p>Exportez vos créatures en PDF (atelier et bestiaire) · une fiche par page A4</p>
 </header>
 <nav><ul><li><a href="createur-dnd-2024.html">← Atelier de créatures</a></li><li><a href="createur-dnd-2024.html#mes">Mes créatures</a></li><li><a href="bestiaire-dnd-2024.html">Bestiaire</a></li></ul></nav>
 <main class="fmain">
 <section class="tools">
   <h2>Choisir les fiches</h2>
-  <p class="hint">Les créatures enregistrées dans l’atelier de ce navigateur apparaissent ici. Vous pouvez aussi importer un fichier exporté depuis l’atelier (« Exporter (fichier) » ou « Exporter toutes »).</p>
+  <p class="hint">Les créatures enregistrées dans l’atelier de ce navigateur apparaissent ici, ainsi que celles envoyées depuis le bestiaire avec « 📜 Exporter en PDF ». Vous pouvez aussi importer un fichier exporté depuis l’atelier (« Exporter (fichier) » ou « Exporter toutes »).</p>
   <ul class="pick" id="pick"></ul>
   <div class="opts">
     <label><input type="checkbox" id="o-art" checked> Illustration</label>
@@ -743,6 +745,8 @@ const SIZEN = {TP:'Très Petite', P:'Petite', M:'Moyenne', G:'Grande', TG:'Très
 let LIST = [];      // [{id, monster, date, from:'local'|'file'}]
 let SEL = new Set();
 
+function loadBest(){ try { return JSON.parse(localStorage.getItem('grimoire-fiche')||'[]'); } catch(e){ return []; } }
+function dropBest(id){ try { localStorage.setItem('grimoire-fiche', JSON.stringify(loadBest().filter(r=>r.id!==id))); } catch(e){} }
 function loadLocal(){ try { return JSON.parse(localStorage.getItem('grimoire-homebrew')||'[]'); } catch(e){ return []; } }
 function addRecords(recs, from){
   for (const r of recs){ const m = r && (r.monster || r); if (!m || !m.name || !m.stats) continue;
@@ -783,7 +787,8 @@ function sheetHTML(m, date, o){
   const isBig = h=>/gendaire|mythique/i.test(h);
   const secs = (m.sections||[]).filter(x=>!isBig(x[0])).map(sec).join('');
   const bigs = (m.sections||[]).filter(x=>isBig(x[0])).map(sec).join('');
-  const hb = m.homebrew !== false;
+  const hb = !!m.homebrew;
+  const srcLine = hb ? '' : ' · ' + (m.src || 'SRD 5.2.1');
   const d = date ? new Date(date).toLocaleDateString('fr-FR') : '';
   return `<section class="sheet" id="s-${esc(m.id)}">
   <div class="cartouche">
@@ -808,7 +813,7 @@ function sheetHTML(m, date, o){
   ${(m.extra||[]).length ? `<dl class="kv">${m.extra.map(([k,v])=>`<dt>${esc(k)}</dt><dd class="${kvCls[k]||''}">${esc(v)}</dd>`).join('')}</dl>` : ''}
   <div class="body${o.cols==='2'?' c2':''}">${secs}</div>${bigs ? `<div class="bigs${o.cols==='2'?' c2':''}">${bigs}</div>` : ''}
   ${o.notes ? '<div class="notes"><span class="label">Notes du MJ</span></div>' : ''}
-  <div class="foot"><span><b>Grimoire de l’aventurier</b> · Fiche de créature${hb ? ' maison' : ''}${d ? ' · enregistrée le ' + d : ''} · FP ${esc(m.fp)} (${esc(xp)})</span><span>Contient du matériel du SRD 5.2.1 (Wizards of the Coast), licence CC BY 4.0</span></div>
+  <div class="foot"><span><b>Grimoire de l’aventurier</b> · Fiche de créature${hb ? ' maison' : ''}${srcLine}${d ? ' · enregistrée le ' + d : ''} · FP ${esc(m.fp)} (${esc(xp)})</span><span>Contient du matériel du SRD 5.2.1 (Wizards of the Coast), licence CC BY 4.0</span></div>
 </section>`;
 }
 
@@ -826,7 +831,7 @@ addEventListener('beforeprint', ()=>{ fitPages($('#o-fit').checked); document.qu
 addEventListener('afterprint', ()=>document.querySelectorAll('.sheet').forEach(el=>el.style.zoom = ''));
 function opts(){ return {art:$('#o-art').checked, notes:$('#o-notes').checked, cols:$('#o-cols').value}; }
 function renderPick(){
-  $('#pick').innerHTML = LIST.length ? LIST.map(r=>`<li><label><input type="checkbox" data-id="${esc(r.id)}"${SEL.has(r.id)?' checked':''}>${monsterSVG(r.monster, 30)}<span><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}${r.from==='file'?' · fichier importé':''}</small></span></label></li>`).join('')
+  $('#pick').innerHTML = LIST.length ? LIST.map(r=>`<li><label><input type="checkbox" data-id="${esc(r.id)}"${SEL.has(r.id)?' checked':''}>${monsterSVG(r.monster, 30)}<span><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}${r.from==='file'?' · fichier importé':r.from==='best'?' · bestiaire':' · atelier'}</small></span>${r.from==='best'?`<button type="button" class="rm" data-rm="${esc(r.id)}" title="Retirer de la liste">✕</button>`:''}</label></li>`).join('')
     : '<li class="hint" style="grid-column:1/-1">Aucune créature enregistrée dans l’atelier sur ce navigateur. Créez-en une dans l’<a href="createur-dnd-2024.html">atelier</a>, ou importez un fichier exporté.</li>';
   $('#count').textContent = `${SEL.size} fiche${SEL.size>1?'s':''} sélectionnée${SEL.size>1?'s':''}`;
 }
@@ -838,10 +843,11 @@ function renderSheets(){
 function all(){ renderPick(); renderSheets(); }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  addRecords(loadLocal(), 'local');
-  const h = decodeURIComponent(location.hash.slice(1));
-  if (h && LIST.some(r=>r.id===h)) SEL.add(h); else if (LIST.length) SEL.add(LIST[LIST.length-1].id);
+  addRecords(loadLocal(), 'local'); addRecords(loadBest(), 'best');
+  const H = location.hash.slice(1).split(',').map(decodeURIComponent).filter(id=>LIST.some(r=>r.id===id));
+  if (H.length) H.forEach(id=>SEL.add(id)); else { const L = LIST.filter(r=>r.from==='local'); if (L.length) SEL.add(L[L.length-1].id); }
   all();
+  $('#pick').addEventListener('click', e=>{ const b = e.target.closest('[data-rm]'); if (!b) return; e.preventDefault(); dropBest(b.dataset.rm); LIST = LIST.filter(r=>r.id!==b.dataset.rm); SEL.delete(b.dataset.rm); all(); });
   $('#pick').addEventListener('change', e=>{ const id = e.target.dataset.id; if (!id) return; e.target.checked ? SEL.add(id) : SEL.delete(id); all(); });
   $('.opts').addEventListener('change', renderSheets);
   $('#selall').onclick = ()=>{ LIST.forEach(r=>SEL.add(r.id)); all(); };
@@ -855,7 +861,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       $('#msg').textContent = `Fichier « ${f.name} » importé.`; } catch(err){ $('#msg').textContent = `Fichier « ${f.name} » illisible.`; } }
     e.target.value = ''; all();
   };
-  addEventListener('hashchange', ()=>{ const h = decodeURIComponent(location.hash.slice(1)); if (LIST.some(r=>r.id===h)){ SEL = new Set([h]); all(); } });
+  addEventListener('hashchange', ()=>{ addRecords(loadBest(), 'best'); const H = location.hash.slice(1).split(',').map(decodeURIComponent).filter(id=>LIST.some(r=>r.id===id)); if (H.length){ SEL = new Set(H); all(); } });
 });
 
 </script>

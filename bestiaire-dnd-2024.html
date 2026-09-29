@@ -136,8 +136,9 @@ main.bmain{max-width:1360px}
 .m-head .en{font-style:italic;color:var(--ink-soft);font-size:15px}
 .m-head .tl{font-style:italic;font-size:15.5px}
 .m-head .src{font-size:13.5px;color:var(--ink-soft);font-family:'Cinzel',serif;letter-spacing:.3px;margin-top:2px}
-.m-head .addtop{margin-left:auto;align-self:center;flex:none;white-space:nowrap}
-.m-head .addtop + .fpb{margin-left:12px}
+.m-head .tops{margin-left:auto;align-self:center;flex:none;display:flex;flex-direction:column;gap:5px}
+.m-head .tops .btn{white-space:nowrap;text-align:center}
+.m-head .tops + .fpb{margin-left:12px}
 .fpb{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:54px;height:54px;border-radius:50%;background:var(--leather);color:var(--gold-light);font-family:'Cinzel',serif;margin-left:auto;flex:none;border:2px solid var(--gold)}
 .fpb b{font-size:17px;line-height:1}.fpb small{font-size:9.5px;letter-spacing:1px;text-align:center}
 .core{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin:8px 0}
@@ -193,7 +194,7 @@ table.abil td.l{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-soft);
  .fab-close{display:inline-block}
  .filters{position:relative;top:0}
 }
-@media (max-width:600px){.m-head{flex-wrap:wrap}.m-head .fpb{margin-left:0}.m-head .addtop{order:5;margin-left:0}}
+@media (max-width:600px){.m-head{flex-wrap:wrap}.m-head .fpb{margin-left:0}.m-head .tops{order:5;margin-left:0;flex-direction:row;flex-wrap:wrap}}
 
 
 /* finitions */
@@ -255,7 +256,7 @@ table.abil td.l{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-soft);
   <div id="ediff" style="margin-top:10px"></div>
   <div class="budget" id="ebudget"></div>
   <p class="mini" style="font-size:13.5px;color:var(--ink-soft)">Budget de PX par personnage selon la difficulté (Guide du Maître 2024), multiplié par le nombre de personnages. Les PX d’antre ne sont pas comptés.</p>
-  <div class="acts"><button class="btn" id="eclear">Vider la rencontre</button></div>
+  <div class="acts"><button class="btn" id="eclear">Vider la rencontre</button><button class="btn" id="epdf">📜 Fiches PDF de la rencontre</button></div>
 </aside>
 </div>
 
@@ -841,7 +842,7 @@ function card(m){
   if (comp.length) rel.push(`<div class="rel"><span class="lab">Compagnons</span>${comp.join('')}</div>`);
   if (m.spells.length) rel.push(`<div class="rel"><span class="lab">Sorts</span>${m.spells.map(([n,id])=>`<a class="chip r" href="sorts-dnd-2024.html#${id}">${esc(n)}</a>`).join('')}</div>`);
   const ext = [];
-  if (m.homebrew) ext.push(`<a href="createur-dnd-2024.html#edit-${m.id}">Modifier dans l’atelier</a>`, `<a href="fiche-creature-dnd-2024.html#${m.id}">Fiche PDF</a>`);
+  if (m.homebrew) ext.push(`<a href="createur-dnd-2024.html#edit-${m.id}">Modifier dans l’atelier</a>`);
   if (m.en){ ext.push(`<a href="https://www.aidedd.org/monster/${m.en_index}" target="_blank" rel="noopener">AideDD (${esc(m.en)})</a>`);
     ext.push(`<a href="https://www.dndbeyond.com/monsters?filter-search=${encodeURIComponent(m.en)}" target="_blank" rel="noopener">D&amp;D Beyond</a>`); }
   const badges = [m.homebrew ? `<span class="badge" style="background:#6a3f8a">Création maison</span>` : `<span class="badge" style="background:#1d3550" title="Règles 2024 (Manuel des monstres 2025)">2024</span>`, `<span class="badge">${esc(m.type)}</span>`, `<span class="badge alt">${m.sizes.map(s=>SIZE[s]).join(' ou ')}</span>`];
@@ -850,7 +851,7 @@ function card(m){
   if (m.swarm) badges.push(`<span class="badge alt">Nuée</span>`);
   return `<article class="mon" id="${m.id}">
     <div class="m-head">${monsterSVG(m, 110)}<div><h3>${esc(m.name)}</h3>${m.en?`<div class="en">${esc(m.en)}</div>`:''}<div class="tl">${esc(m.typeline)}</div><div class="src">${m.homebrew ? `Création maison (atelier)${m.hbdate ? ' · enregistrée le ' + new Date(m.hbdate).toLocaleDateString('fr-FR') : ''}` : 'Édition 2024 · Manuel des monstres 2025 · SRD 5.2.1'}</div><div class="badges">${badges.join('')}</div></div>
-      <button class="btn red addtop" data-add="${m.id}">+ Ajouter à la rencontre</button><div class="fpb" title="Facteur de puissance" style="border-color:${TIER_COL[tier(m.fpv)]}"><small>FP</small><b>${esc(m.fp)}</b></div></div>
+      <div class="tops"><button class="btn red addtop" data-add="${m.id}">+ Ajouter à la rencontre</button><button class="btn pdftop" data-pdf="${m.id}" title="Ouvrir la fiche imprimable (PDF)">📜 Exporter en PDF</button></div><div class="fpb" title="Facteur de puissance" style="border-color:${TIER_COL[tier(m.fpv)]}"><small>FP</small><b>${esc(m.fp)}</b></div></div>
     <div class="core"><div><b>CA</b>${esc(m.ca)}</div><div><b>Points de vie</b>${esc(m.pv)}</div><div><b>Initiative</b>${esc(m.init)}</div><div><b>Vitesse</b>${esc(m.vitesse)}</div><div><b>PX</b>${nf(m.xpn)}${m.xplair?` (${nf(m.xplair)} antre)`:''}</div></div>
     <div class="body">${abil}${extra}${secs}</div>
     ${rel.join('')}
@@ -951,8 +952,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
   $('#eclear').addEventListener('click', ()=>{ E.list={}; saveE(); renderEnc(); });
   $('#fab').addEventListener('click', ()=>$('#enc').classList.toggle('open'));
   $('#closee').addEventListener('click', ()=>$('#enc').classList.remove('open'));
+  // export PDF : on confie la fiche à la page d’impression (même stockage local), puis on l’ouvre
+  function toFiche(ids){
+    ids = ids.filter(id=>BYID[id]); if (!ids.length) return;
+    let F = []; try { F = JSON.parse(localStorage.getItem('grimoire-fiche')||'[]'); } catch(e){}
+    for (const id of ids){ const m = BYID[id]; if (m.homebrew) continue;
+      F = F.filter(r=>r.id!==id); F.push({id, monster:Object.assign({}, m, {homebrew:false, src:'Édition 2024 · SRD 5.2.1'}), date:null}); }
+    try { localStorage.setItem('grimoire-fiche', JSON.stringify(F.slice(-40))); } catch(e){}
+    window.open('fiche-creature-dnd-2024.html#' + ids.map(encodeURIComponent).join(','), '_blank');
+  }
+  $('#epdf').addEventListener('click', ()=>toFiche(Object.keys(E.list)));
   document.addEventListener('click', e=>{
     const t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.pdf){ toFiche([t.dataset.pdf]); return; }
     const id = t.dataset.add || t.dataset.inc || t.dataset.dec; if (!id) return;
     E.list[id] = (E.list[id]||0) + (t.dataset.dec ? -1 : 1); if (E.list[id]<=0) delete E.list[id];
     saveE(); renderEnc();
