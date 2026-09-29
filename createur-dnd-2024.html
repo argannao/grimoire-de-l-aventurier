@@ -229,7 +229,7 @@ table.ab td{padding:2px;border-bottom:1px dotted #b8892e66;background:transparen
   <h1>L’Atelier de créatures</h1>
   <p>Créez vos monstres maison · assistant de facteur de puissance · import depuis le bestiaire</p>
 </header>
-<nav><ul><li><a href="#apercu">Aperçu</a></li><li><a href="#depart">Point de départ</a></li><li><a href="#editor">Éditeur</a></li><li><a href="#emprunt">Emprunter</a></li><li><a href="#mes">Mes créatures</a></li><li><a href="bestiaire-dnd-2024.html">Bestiaire</a></li></ul></nav>
+<nav><ul><li><a href="#apercu">Aperçu</a></li><li><a href="#depart">Point de départ</a></li><li><a href="#editor">Éditeur</a></li><li><a href="#emprunt">Emprunter</a></li><li><a href="#mes">Mes créatures</a></li><li><a href="fiche-creature-dnd-2024.html">Fiches PDF</a></li><li><a href="bestiaire-dnd-2024.html">Bestiaire</a></li></ul></nav>
 <main class="cmain">
 <section class="panel intro" id="apercu">
   <h2>Comment ça marche</h2>
@@ -302,7 +302,7 @@ table.ab td{padding:2px;border-bottom:1px dotted #b8892e66;background:transparen
 
   <section class="box" id="mes" style="margin-top:14px">
     <h2>Mes créatures</h2>
-    <div class="acts" style="margin-top:0"><button type="button" class="btn red" id="save">Enregistrer la créature</button><button type="button" class="btn" id="export">Exporter (fichier)</button><button type="button" class="btn" id="exportall">Exporter toutes</button><button type="button" class="btn" id="import">Importer un fichier</button><input type="file" id="file" accept=".json,application/json" hidden></div>
+    <div class="acts" style="margin-top:0"><button type="button" class="btn red" id="save">Enregistrer la créature</button><button type="button" class="btn" id="topdf">📜 Fiche PDF</button><button type="button" class="btn" id="export">Exporter (fichier)</button><button type="button" class="btn" id="exportall">Exporter toutes</button><button type="button" class="btn" id="import">Importer un fichier</button><input type="file" id="file" accept=".json,application/json" hidden></div>
     <ul class="saved" id="saved"></ul>
   </section>
 </div>
@@ -859,13 +859,27 @@ function parseEntry(e, noRef){
   const d = t.match(/JS \S+ : DD (\d+)/) || t.match(/DD (\d+)/);
   return {dmg, atk: a ? (a[1]==='+'?1:-1)*+a[2] : null, dc: d ? +d[1] : null, text:t};
 }
-function physMult(idx){
-  const has = s => ['contondants','perforants','tranchants'].every(x=>s.toLowerCase().includes(x));
-  const cr = crVal(REF[idx].cr);
-  if (has(S.immun)) return cr<=10 ? 2 : cr<=16 ? 1.5 : 1.25;
-  if (has(S.resist)) return cr<=4 ? 2 : cr<=10 ? 1.5 : cr<=16 ? 1.25 : 1;
-  return 1;
+// Part des dégâts reçus par type (estimation : les dégâts physiques des armes dominent, puis le feu, la force, le radiant…)
+const DMG_W = {contondants:.18, perforants:.19, tranchants:.18, feu:.10, force:.06, radiants:.06, froid:.05, foudre:.04, 'nécrotiques':.04, poison:.03, psychiques:.03, acide:.02, tonnerre:.02};
+function defProfile(){
+  const low = str => splitDef(str);
+  const R = low(S.resist), V = low(S.vuln), I = low(S.immun);
+  const fac = {}; for (const t in DMG_W) fac[t] = 1;
+  for (const t of R.dm) if (t in fac) fac[t] = Math.min(fac[t], .5);
+  for (const t of I.dm) if (t in fac) fac[t] = 0;
+  for (const t of V.dm) if (t in fac) fac[t] = fac[t]===0 ? 0 : fac[t]*2;
+  let f = 0; for (const t in DMG_W) f += DMG_W[t]*fac[t];
+  f = Math.max(.25, f);
+  return {f, conds: I.cd.length, nR: R.dm.length, nV: V.dm.length, nI: I.dm.length};
 }
+// multiplicateur de PV effectifs : l'effet des résistances s'estompe à haut FP (les héros ont d'autres options)
+function defMult(idx){
+  const P = defProfile(), cr = crVal(REF[idx].cr);
+  const k = cr<=4 ? 1 : cr<=10 ? .75 : cr<=16 ? .5 : .3;
+  const cond = Math.min(.15, P.conds * .02);
+  return Math.max(.5, 1 + (1/P.f - 1)*k) * (1 + cond);
+}
+const physMult = defMult;
 let EST = null;
 function estimate(){
   const clamp = i => Math.max(0, Math.min(REF.length-1, i));
@@ -1037,7 +1051,9 @@ function renderAnalysis(){
   if (S.mythic.on) w.push('Mythique : les PV rendus sont comptés dans la défense ; pensez à des actions mythiques qui changent la dynamique du combat.');
   if ((S.traits||[]).some(x=>/résistance légendaire/i.test(x.n||''))) w.push('Résistance légendaire : chaque utilisation par jour ajoute des PV effectifs (10 à 40 selon le FP).');
   if ((S.actions||[]).some(x=>/^Incantation/.test(x.n||''))) w.push('Incantation : les dégâts des sorts ne sont pas comptés ; si la créature compte surtout sur ses sorts, son FP réel est plus élevé que l’estimation.');
-  if (e.mult>1) w.push(`Résistance ou immunité aux dégâts physiques : PV effectifs × ${e.mult}.`);
+  { const P = defProfile(); if (P.nR || P.nV || P.nI || P.conds){
+      const pct = Math.round((1-P.f)*100);
+      w.push(`Résistances, vulnérabilités et immunités : la créature subit environ ${Math.round(P.f*100)} % des dégâts habituels (${pct>=0?'−'+pct:'+'+(-pct)} %)${P.conds? ', ' + P.conds + ' immunité(s) d’état' : ''} → PV effectifs × ${Math.round(e.mult*100)/100} au FP ${REF[e.hpI].cr}.`); } }
   $('#analysis').innerHTML = `<div class="crbig"><span><small>FP ESTIMÉ</small><b>${REF[e.fin].cr}</b></span><span><small>DÉFENSE</small>FP ${REF[e.defI].cr}</span><span><small>ATTAQUE</small>FP ${REF[e.offI].cr}</span><span><small>PX</small>${nf(REF[e.fin].xp)}</span></div>
     <p class="hint">Repères pour le FP ${S.crdecl==='auto'?'estimé':'déclaré'} <b>${R.cr}</b>, calibrés sur les ${DATA.length} créatures 2024 du SRD :</p>
     <div class="gauges">
@@ -1182,7 +1198,7 @@ function save(kind){
 }
 function renderSaved(){
   const L = loadAll();
-  $('#saved').innerHTML = L.length ? L.map(r=>`<li>${monsterSVG(r.monster,32)}<div><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}</small></div><div class="acts" style="margin:0"><button class="btn small" data-load="${r.id}">Ouvrir</button><button class="btn small" data-dup="${r.id}">Dupliquer</button><a class="btn small" href="bestiaire-dnd-2024.html#${r.id}">Bestiaire</a><button class="btn small" data-rm="${r.id}">✕</button></div></li>`).join('') : '<li class="hint" style="display:block">Aucune créature enregistrée.</li>';
+  $('#saved').innerHTML = L.length ? L.map(r=>`<li>${monsterSVG(r.monster,32)}<div><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}</small></div><div class="acts" style="margin:0"><button class="btn small" data-load="${r.id}">Ouvrir</button><button class="btn small" data-dup="${r.id}">Dupliquer</button><a class="btn small" href="bestiaire-dnd-2024.html#${r.id}">Bestiaire</a><a class="btn small" href="fiche-creature-dnd-2024.html#${r.id}" title="Fiche imprimable / PDF">PDF</a><button class="btn small" data-rm="${r.id}">✕</button></div></li>`).join('') : '<li class="hint" style="display:block">Aucune créature enregistrée.</li>';
 }
 function download(name, obj){
   const a = document.createElement('a');
@@ -1289,6 +1305,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       case 'toenc': { save('rec'); let E = {party:4, level:3, list:{}}; try { E = Object.assign(E, JSON.parse(localStorage.getItem('grimoire-rencontre')||'{}')); } catch(e){}
         E.list = E.list||{}; E.list[S.id] = (E.list[S.id]||0) + (+$('#p-count').value||1); try { localStorage.setItem('grimoire-rencontre', JSON.stringify(E)); } catch(e){}
         msg('Ajoutée à la rencontre du bestiaire.'); renderParty(); break; }
+      case 'topdf': save('rec'); location.href = 'fiche-creature-dnd-2024.html#' + encodeURIComponent(S.id); break;
       case 'export': download((S.name||'creature').replace(/[^\w\-]+/g,'_') + '.json', {format:'grimoire-creature', version:1, creatures:[{id:S.id, state:S, monster:toMonster()}]}); break;
       case 'exportall': download('mes-creatures.json', {format:'grimoire-creature', version:1, creatures:loadAll()}); break;
       case 'import': $('#file').click(); break;

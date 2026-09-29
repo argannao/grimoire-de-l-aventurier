@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiches de créatures (PDF) · D&amp;D 2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+:root{--sheet:#fbf4e2;--rule:#cdb68a;--rule-strong:#2b1d12;--muted:#6b5540;--gold-soft:#f1e2bd;--forest-soft:#dfe8d3;--blood-soft:#f3dcd4;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+main.fmain{max-width:1100px}
+/* ---------- barre d'outils (écran seulement) */
+.tools{background:var(--parch);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 20px var(--shadow);padding:14px 16px;margin:0 auto 22px;max-width:210mm}
+.tools h2{font-family:'Cinzel',serif;color:var(--blood);font-size:19px;margin:0 0 8px;border-bottom:2px solid var(--gold);padding-bottom:4px}
+.tools p{margin:6px 0}
+.pick{list-style:none;padding:0;margin:8px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px}
+.pick label{display:flex;gap:8px;align-items:center;background:#fffaf0;border:1px solid var(--gold);border-radius:3px;padding:5px 8px;cursor:pointer;font-size:15.5px;line-height:1.15}
+.pick label small{display:block;color:var(--ink-soft);font-size:13px}
+.pick input{width:auto}
+.opts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0;font-size:15px}
+.opts label{display:flex;gap:6px;align-items:center}
+.opts select{font-family:'Crimson Text',serif;font-size:15px;border:1px solid var(--gold);background:#fffaf0;padding:2px 6px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{font-family:'Cinzel',serif;font-size:13.5px;letter-spacing:.5px;border:1px solid var(--gold);background:#fffaf0;color:var(--ink);padding:7px 13px;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--gold);color:#fff}
+.btn.red{background:var(--blood);color:#fff;border-color:var(--blood-dark)}
+.btn.red:hover{background:var(--blood-dark)}
+.hint{font-size:14.5px;color:var(--ink-soft);font-style:italic}
+.empty{background:var(--parch);border:1px dashed var(--gold);padding:24px;text-align:center;max-width:210mm;margin:0 auto;font-size:17px}
+
+/* ---------- la fiche */
+.sheets{display:flex;flex-direction:column;align-items:center;gap:28px}
+.sheet{width:210mm;max-width:100%;background:var(--sheet);color:var(--ink);border:2px solid var(--rule-strong);padding:9mm 10mm 7mm;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);font-family:'Crimson Text',serif;font-size:10.6pt;line-height:1.32;position:relative;
+  background-image:radial-gradient(ellipse at 20% 0%,rgba(184,137,46,.10),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(142,27,27,.06),transparent 50%)}
+.sheet .label{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block}
+.sheet .n,.sheet .mono{font-family:var(--mono);font-size:.93em;letter-spacing:-.02em;color:var(--blood-dark);white-space:nowrap}
+/* cartouche */
+.cartouche{display:grid;grid-template-columns:auto 1fr auto;gap:0;border:2px solid var(--rule-strong);margin-bottom:10px;background:var(--parch)}
+.cartouche .art{border-right:2px solid var(--rule-strong);padding:4px;display:flex;align-items:center;justify-content:center;background:var(--gold-soft)}
+.cartouche .art svg{display:block}
+.cartouche .title{padding:6px 12px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.cartouche h1{font-family:'Cinzel',serif;font-weight:900;font-size:25pt;line-height:1;margin:0;color:var(--blood);letter-spacing:.01em;overflow-wrap:break-word}
+.cartouche .tl{font-style:italic;color:var(--ink-soft);margin-top:4px;font-size:11pt}
+.cartouche .tags{margin-top:5px;display:flex;gap:5px;flex-wrap:wrap}
+.cartouche .tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--gold);background:#fffaf0;padding:1px 6px;border-radius:2px}
+.cartouche .tag.hb{background:#6a3f8a;border-color:#4d2c66;color:#fff}
+.cartouche .cells{display:grid;grid-template-columns:1fr 1fr;border-left:2px solid var(--rule-strong);min-width:150px}
+.cartouche .cell{padding:4px 9px;border-bottom:1px solid var(--rule)}
+.cartouche .cell:nth-child(odd){border-right:1px solid var(--rule)}
+.cartouche .cell:nth-last-child(-n+2){border-bottom:0}
+.cartouche .cell b{font-family:var(--mono);font-size:13pt;color:var(--ink);display:block;line-height:1.1}
+.cartouche .cell.fp{background:var(--blood);color:#fff}
+.cartouche .cell.fp .label{color:#f3dcd4}
+.cartouche .cell.fp b{color:#fff;font-size:17pt}
+/* combat */
+.combat{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.cb{border:1.5px solid var(--rule-strong);background:#fffaf0;padding:4px 8px 5px;min-width:0}
+.cb b{font-family:var(--mono);font-size:17pt;display:block;line-height:1.05;color:var(--ink)}
+.cb small{display:block;font-size:9pt;color:var(--muted);line-height:1.15}
+.cb.hp{background:var(--forest-soft);border-color:var(--forest)}
+.cb.hp b{color:var(--forest)}
+.cb.ac{background:var(--gold-soft)}
+.cb.spd b{font-family:'Crimson Text',serif;font-size:12pt;font-weight:600;line-height:1.2;padding-top:3px}
+/* caractéristiques */
+.abilities{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px}
+.ab{border:1.5px solid var(--rule-strong);background:#fffaf0;text-align:center;padding:3px 3px 6px;position:relative}
+.ab .label{font-size:.62rem}
+.ab .mod{font-family:var(--mono);font-size:19pt;line-height:1.05;font-weight:600;display:block;color:var(--ink)}
+.ab .score{display:inline-block;font-family:var(--mono);font-size:8.5pt;border:1px solid var(--rule-strong);border-radius:9px;padding:0 7px;background:var(--sheet)}
+.ab .save{display:block;font-size:8.5pt;color:var(--muted);margin-top:3px}
+.ab .save .mono{color:var(--ink)}
+.ab.key{border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold);background:var(--gold-soft)}
+.ab.key .save{color:var(--blood);font-weight:600}
+.ab.key::after{content:'◆';position:absolute;top:1px;right:4px;font-size:8pt;color:var(--gold)}
+/* détails */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:0;margin:0 0 8px;border-top:1px solid var(--rule)}
+.kv dt,.kv dd{border-bottom:1px solid var(--rule);padding:2px 8px 2px 0;margin:0}
+.kv dt{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-top:4px;white-space:nowrap}
+.kv dd{padding-left:4px}
+.kv dd.res{color:var(--forest);font-weight:600}.kv dd.vul{color:var(--blood);font-weight:600}.kv dd.imm{color:#2f5d8a;font-weight:600}
+/* sections */
+.body.c2{column-count:2;column-gap:7mm;column-rule:1px solid var(--rule)}
+.sheet h2{font-family:'Cinzel',serif;text-transform:uppercase;letter-spacing:.08em;font-size:11.5pt;color:var(--blood);border-bottom:2px solid var(--rule-strong);
+  margin:9px 0 5px;padding-bottom:1px;display:flex;justify-content:space-between;align-items:baseline;break-after:avoid;break-inside:avoid}
+.body > h2:first-child,.body > .blk:first-child h2{margin-top:0}
+.sheet h2 small{font-family:var(--mono);font-size:8pt;color:var(--muted);letter-spacing:0;text-transform:none;font-weight:400}
+.feat{margin:0 0 5px;break-inside:avoid}
+.feat header{all:unset;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.feat h3{font-family:'Crimson Text',serif;font-weight:700;font-style:italic;font-size:11pt;margin:0;color:var(--ink)}
+.feat .src{font-family:var(--mono);font-size:7.8pt;color:var(--blood);white-space:nowrap;border:1px solid var(--rule);padding:0 5px;border-radius:2px;background:#fffaf0}
+.feat p{margin:1px 0 0}
+.feat p.intro{font-style:italic;color:var(--ink-soft)}
+.feat i.k{font-style:italic;font-weight:600;color:var(--ink-soft)}
+.blk{break-inside:auto}
+.bigs .blk{padding:2px 8px 4px;margin:8px 0 0}
+.bigs.c2 .blk > .feat,.bigs.c2 .blk > article{display:inline-block;width:calc(50% - 8px);vertical-align:top;margin-right:6px}
+.bigs.c2 .blk > .feat:has(.intro){display:block;width:auto}
+.blk.leg{border:1.5px solid var(--forest);background:var(--forest-soft);padding:2px 8px 4px;margin:8px 0}
+.blk.leg h2{color:var(--forest);border-bottom-color:var(--forest)}
+.blk.myth{border:1.5px solid var(--blood);background:var(--blood-soft);padding:2px 8px 4px;margin:8px 0}
+.blk.myth h2{border-bottom-color:var(--blood)}
+.notes{margin-top:8px;border:1.5px dashed var(--rule-strong);padding:3px 8px;min-height:32mm;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 7mm,var(--rule) 7mm calc(7mm + 1px));background-position:0 6mm}
+.notes .label{background:var(--sheet);display:inline-block;padding-right:6px}
+.sheet .foot{margin-top:8px;border-top:1px solid var(--rule-strong);padding-top:3px;display:flex;justify-content:space-between;gap:10px;font-size:7.6pt;color:var(--muted);line-height:1.25}
+.sheet .foot b{font-family:'Cinzel',serif;color:var(--ink);letter-spacing:.05em}
+@media (max-width:760px){
+  .sheet{padding:14px 12px;font-size:15px}
+  .cartouche{grid-template-columns:1fr}
+  .cartouche .art{border-right:0;border-bottom:2px solid var(--rule-strong)}
+  .cartouche .cells{border-left:0;border-top:2px solid var(--rule-strong)}
+  .combat{grid-template-columns:repeat(2,1fr)}
+  .abilities{grid-template-columns:repeat(3,1fr)}
+  .body.c2{column-count:1}
+}
+/* ---------- impression / PDF */
+@page{size:A4;margin:9mm}
+@media print{
+  html,body{background:#fff!important;background-image:none!important}
+  body > *:not(main),.tools,#sources,footer,.empty{display:none!important}
+  main{padding:0!important;margin:0!important;max-width:none!important}
+  .sheets{display:block;gap:0}
+  .sheet{width:auto;max-width:none;box-shadow:none;margin:0;padding:5mm 6mm 4mm;font-size:10.2pt;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sheet + .sheet{break-before:page}
+  .sheet[data-zoom]{margin:0 auto}
+  .sheet *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cartouche,.combat,.abilities,.kv{break-inside:avoid}
+  .notes{min-height:24mm}
+}
+
+
+/* finitions */
+#sources a,.links a{overflow-wrap:anywhere}
+@media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a class="on" href="createur-dnd-2024.html">Atelier</a></div>
+<header>
+  <div class="sigil"><span>📜</span></div>
+  <h1>Fiches de créatures</h1>
+  <p>Exportez vos créatures de l’atelier en PDF · une fiche par page A4</p>
+</header>
+<nav><ul><li><a href="createur-dnd-2024.html">← Atelier de créatures</a></li><li><a href="createur-dnd-2024.html#mes">Mes créatures</a></li><li><a href="bestiaire-dnd-2024.html">Bestiaire</a></li></ul></nav>
+<main class="fmain">
+<section class="tools">
+  <h2>Choisir les fiches</h2>
+  <p class="hint">Les créatures enregistrées dans l’atelier de ce navigateur apparaissent ici. Vous pouvez aussi importer un fichier exporté depuis l’atelier (« Exporter (fichier) » ou « Exporter toutes »).</p>
+  <ul class="pick" id="pick"></ul>
+  <div class="opts">
+    <label><input type="checkbox" id="o-art" checked> Illustration</label>
+    <label><input type="checkbox" id="o-notes"> Cadre « Notes du MJ »</label>
+    <label><input type="checkbox" id="o-fit" checked> Tenir sur une page (réduit si besoin)</label>
+    <label>Capacités sur <select id="o-cols"><option value="2" selected>2 colonnes</option><option value="1">1 colonne</option></select></label>
+  </div>
+  <div class="acts">
+    <button type="button" class="btn red" id="print">🖨 Imprimer / Enregistrer en PDF</button>
+    <button type="button" class="btn" id="selall">Tout cocher</button><button type="button" class="btn" id="selnone">Tout décocher</button>
+    <button type="button" class="btn" id="import">Importer un fichier</button><input type="file" id="file" accept=".json,application/json" multiple hidden>
+  </div>
+  <p class="hint"><span id="count"></span> · Dans la fenêtre d’impression, choisissez <b>« Enregistrer au format PDF »</b> comme imprimante et activez <b>« Graphiques d’arrière-plan »</b> pour garder les couleurs. <span id="msg"></span></p>
+</section>
+<div class="sheets" id="sheets"></div>
+
+<section class="panel" id="sources" style="margin-top:34px">
+  <h2>Sources et licence</h2>
+  <ul>
+    <li>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible à l’adresse <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">https://www.dndbeyond.com/srd</a>. Le SRD 5.2.1 est régi par la Licence Creative Commons Attribution 4.0 International, disponible à l’adresse <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">https://creativecommons.org/licenses/by/4.0/legalcode</a>.</li>
+    <li>Les créatures affichées sont vos créations de l’<a href="createur-dnd-2024.html">atelier</a> ; elles restent dans votre navigateur.</li>
+  </ul>
+</section>
+</main>
+<footer>Page de référence non officielle, compatible 5E.</footer>
+<script>
+// Illustrations originales des créatures : silhouettes paramétriques (quadrupède, bipède, oiseau,
+// serpent, poisson, arthropode, dragon, élémentaire, vase, plante…) réglées d'après le nom, le type
+// et la taille de la créature, sur un fond propre à son type. Graine = identifiant de la créature.
+
+function mhash(str){ let h=2166136261; for(const ch of str){ h^=ch.codePointAt(0); h=Math.imul(h,16777619);} return h>>>0; }
+function mrng(seed){ let s=seed||7; return ()=>{ s^=s<<13; s>>>=0; s^=s>>17; s^=s<<5; s>>>=0; return s/4294967296; }; }
+function shade(hex, f){ const n=parseInt(hex.slice(1),16); let r=n>>16,g=(n>>8)&255,b=n&255;
+  const t=f<0?0:255, p=Math.abs(f); r=Math.round((t-r)*p+r); g=Math.round((t-g)*p+g); b=Math.round((t-b)*p+b);
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+
+const TYPE_BG = {
+  "Aberration":["#6a3f8a","#1a0c24"], "Artificiel":["#7a7f86","#22262b"], "Bête":["#6f8a4a","#1c2610"],
+  "Céleste":["#e8cf7a","#5a4412"], "Dragon":["#a83a2a","#2a0c08"], "Élémentaire":["#d0782a","#2e1406"],
+  "Fée":["#5fb08a","#0f2a20"], "Fiélon":["#8e1b1b","#1a0404"], "Géant":["#8a6a44","#2a1a0a"],
+  "Humanoïde":["#b08a5a","#2b1d12"], "Monstruosité":["#8a5a2a","#240f04"], "Mort-vivant":["#5f6f6a","#0e1413"],
+  "Plante":["#4f8a3a","#0f200a"], "Vase":["#6a9a3a","#142008"]
+};
+const TYPE_ICON_COL = {
+  "Aberration":"#c9a6e8", "Artificiel":"#d7dde3", "Bête":"#6b4a2e", "Céleste":"#fff4cf", "Dragon":"#c0392b",
+  "Élémentaire":"#ffb347", "Fée":"#bff0d8", "Fiélon":"#5e0f0f", "Géant":"#c69c6d", "Humanoïde":"#e0b48a",
+  "Monstruosité":"#6b4a2e", "Mort-vivant":"#d8d8c8", "Plante":"#2f5d23", "Vase":"#a6e04a"
+};
+const NAMECOL = [
+  [/rouge|feu|magmat|ardent|infernal|salamandre|horriflamme|azer/, "#c0392b"], [/bleu|foudre|tempête/, "#2f6fb8"],
+  [/vert|sylv|dryade|arbre|arbuste|tertre/, "#3f8a3a"], [/noir|ombre|obscur|nocturne|sénestre/, "#2b2830"],
+  [/blanc|givre|gelé|polaire|arctique|glace/, "#e8eef2"], [/\bd’or\b|doré|solar/, "#e0b640"], [/argent/, "#c9d2da"],
+  [/airain|laiton/, "#c49a45"], [/bronze/, "#a67c2e"], [/cuivre/, "#c0703a"], [/pourpre|violet/, "#7a3a8a"],
+  [/brun/, "#6b4a2e"], [/gris/, "#8a8f95"], [/ocre/, "#c9a060"], [/sang/, "#8e1b1b"]
+];
+
+// ------------------------------------------------------------------ silhouettes
+const Z = {
+  // quadrupède paramétrique
+  quad(o){
+    const c=o.col, d=shade(c,-.35), bl=o.bl||40, bh=o.bh||18, leg=o.leg||18, cx=46, cy=82-leg-bh/2+4;
+    const hx=cx+bl/2, hy=cy-(o.neck??10);
+    let s='';
+    // queue
+    const tail=o.tail??'thin';
+    if(tail==='thin') s+=`<path d="M${cx-bl/2+2} ${cy-4}Q${cx-bl/2-14} ${cy-10} ${cx-bl/2-12} ${cy+10}" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`;
+    if(tail==='bushy') s+=`<path d="M${cx-bl/2+2} ${cy-4}Q${cx-bl/2-18} ${cy-6} ${cx-bl/2-16} ${cy+12}Q${cx-bl/2-8} ${cy+4} ${cx-bl/2+2} ${cy+2}Z" fill="${c}"/>`;
+    if(tail==='thick') s+=`<path d="M${cx-bl/2+4} ${cy-6}Q${cx-bl/2-22} ${cy} ${cx-bl/2-26} ${cy+14}Q${cx-bl/2-8} ${cy+10} ${cx-bl/2+4} ${cy+6}Z" fill="${c}"/>`;
+    if(tail==='lion') s+=`<path d="M${cx-bl/2+2} ${cy-4}Q${cx-bl/2-14} ${cy-2} ${cx-bl/2-12} ${cy+14}" fill="none" stroke="${c}" stroke-width="2.5"/><circle cx="${cx-bl/2-12}" cy="${cy+15}" r="3" fill="${d}"/>`;
+    if(tail==='scorpion') s+=`<path d="M${cx-bl/2+2} ${cy-4}Q${cx-bl/2-18} ${cy-10} ${cx-bl/2-10} ${cy-34}Q${cx-bl/2} ${cy-40} ${cx-bl/2+6} ${cy-32}" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/><path d="M${cx-bl/2+6} ${cy-32}l6 4-7 2z" fill="${d}"/>`;
+    // pattes arrière-plan
+    const lw=o.lw||6;
+    const legs=[[cx+bl/2-14,1],[cx-bl/2+12,1],[cx+bl/2-8,0],[cx-bl/2+6,0]];
+    for(const [x,far] of legs) s+=`<rect x="${x-lw/2}" y="${cy}" width="${lw}" height="${82-cy}" rx="${lw/2.5}" fill="${far?d:c}"/>`;
+    // ailes (arrière)
+    if(o.wings) s+=`<path d="M${cx-4} ${cy-bh/2+2}Q${cx-20} ${cy-40} ${cx-2} ${cy-50}Q${cx+6} ${cy-34} ${cx+18} ${cy-38}Q${cx+10} ${cy-20} ${cx+10} ${cy-bh/2+2}Z" fill="${o.wcol||shade(c,.25)}" stroke="${d}" stroke-width="1.2"/>`;
+    // corps
+    s+=`<ellipse cx="${cx}" cy="${cy}" rx="${bl/2}" ry="${bh/2}" fill="${c}"/>`;
+    if(o.hump) s+=`<ellipse cx="${cx-2}" cy="${cy-bh/2}" rx="9" ry="7" fill="${c}"/>`;
+    if(o.shell) s+=`<path d="M${cx-bl/2} ${cy+2}Q${cx} ${cy-bh-8} ${cx+bl/2} ${cy+2}Z" fill="${d}"/>`+[0,1,2].map(i=>`<path d="M${cx-bl/3+i*bl/3-4} ${cy-bh/2}l4 -8 4 8z" fill="${shade(c,.3)}"/>`).join('');
+    if(o.stripes) s+=[0,1,2,3].map(i=>`<path d="M${cx-bl/3+i*9} ${cy-bh/2+1}q2 ${bh/3} -2 ${bh/2}" stroke="${d}" stroke-width="2.5" fill="none"/>`).join('');
+    if(o.spots) s+=[0,1,2,3,4].map(i=>`<circle cx="${cx-bl/3+i*8}" cy="${cy-2+(i%2)*5}" r="2" fill="${d}"/>`).join('');
+    if(o.spikes) s+=[0,1,2,3,4].map(i=>`<path d="M${cx-bl/2+6+i*8} ${cy-bh/2+2}l3 -8 3 8z" fill="${d}"/>`).join('');
+    if(o.armor) s+=`<path d="M${cx-bl/2+4} ${cy-bh/2+4}Q${cx} ${cy-bh/2-4} ${cx+bl/2-4} ${cy-bh/2+4}V${cy+4}H${cx-bl/2+4}Z" fill="#c4ccd4" opacity=".85"/>`;
+    // cou
+    if((o.neck??10)>2) s+=`<path d="M${hx-10} ${cy-bh/2+6}L${hx-4} ${hy-2}L${hx+4} ${hy+2}L${hx+2} ${cy+2}Z" fill="${c}"/>`;
+    if(o.mane) s+=`<circle cx="${hx}" cy="${hy+2}" r="${o.mane}" fill="${o.mcol||shade(c,-.2)}"/>`;
+    if(o.maneline) s+=`<path d="M${hx-10} ${cy-bh/2+4}L${hx-2} ${hy-4}" stroke="${d}" stroke-width="4" stroke-linecap="round"/>`;
+    // tête
+    const H=o.head||'canine';
+    if(H==='canine') s+=`<path d="M${hx-6} ${hy-6}L${hx+16} ${hy+2}L${hx+14} ${hy+6}L${hx-4} ${hy+8}Z" fill="${c}"/><path d="M${hx-4} ${hy-5}l2 -9 5 7z" fill="${d}"/><circle cx="${hx+3}" cy="${hy-1}" r="1.4" fill="#111"/>`;
+    if(H==='feline') s+=`<circle cx="${hx+2}" cy="${hy}" r="8" fill="${c}"/><path d="M${hx+6} ${hy+2}l8 2-7 4z" fill="${c}"/><path d="M${hx-4} ${hy-5}l1 -7 5 4zM${hx+4} ${hy-7}l3 -6 3 6z" fill="${d}"/><circle cx="${hx+5}" cy="${hy-1}" r="1.4" fill="#111"/>`;
+    if(H==='bear') s+=`<circle cx="${hx+2}" cy="${hy+2}" r="9" fill="${c}"/><path d="M${hx+6} ${hy+2}q10 1 10 6q-6 3-10 1z" fill="${c}"/><circle cx="${hx-2}" cy="${hy-6}" r="3" fill="${d}"/><circle cx="${hx+5}" cy="${hy-1}" r="1.4" fill="#111"/><circle cx="${hx+16}" cy="${hy+7}" r="1.6" fill="#111"/>`;
+    if(H==='horse') s+=`<path d="M${hx-6} ${hy-8}Q${hx+4} ${hy-12} ${hx+18} ${hy+6}L${hx+14} ${hy+12}L${hx-4} ${hy+4}Z" fill="${c}"/><path d="M${hx-4} ${hy-8}l1 -8 4 7z" fill="${d}"/><circle cx="${hx+4}" cy="${hy-3}" r="1.4" fill="#111"/>`;
+    if(H==='bovine') s+=`<path d="M${hx-6} ${hy-6}L${hx+12} ${hy-2}L${hx+14} ${hy+10}L${hx-2} ${hy+8}Z" fill="${c}"/><path d="M${hx-2} ${hy-6}Q${hx-8} ${hy-18} ${hx+6} ${hy-20}" fill="none" stroke="#e8dcc0" stroke-width="3"/><circle cx="${hx+5}" cy="${hy}" r="1.4" fill="#111"/>`;
+    if(H==='goat') s+=`<path d="M${hx-6} ${hy-6}L${hx+12} ${hy+2}L${hx+10} ${hy+8}L${hx-2} ${hy+6}Z" fill="${c}"/><path d="M${hx-2} ${hy-6}Q${hx-14} ${hy-14} ${hx-10} ${hy+2}" fill="none" stroke="#c9b28a" stroke-width="3.5"/><path d="M${hx+8} ${hy+6}l-2 7" stroke="${d}" stroke-width="2"/><circle cx="${hx+4}" cy="${hy-1}" r="1.4" fill="#111"/>`;
+    if(H==='boar') s+=`<path d="M${hx-8} ${hy-8}L${hx+16} ${hy+4}L${hx+14} ${hy+10}L${hx-6} ${hy+10}Z" fill="${c}"/><path d="M${hx+10} ${hy+8}q4 -2 4 -8" fill="none" stroke="#f3e6c8" stroke-width="2.5"/><path d="M${hx-4} ${hy-6}l2 -7 4 6z" fill="${d}"/><circle cx="${hx+3}" cy="${hy}" r="1.4" fill="#111"/>`;
+    if(H==='rodent') s+=`<path d="M${hx-6} ${hy-4}L${hx+14} ${hy+4}L${hx-4} ${hy+8}Z" fill="${c}"/><circle cx="${hx-2}" cy="${hy-5}" r="3.5" fill="${d}"/><circle cx="${hx+3}" cy="${hy+1}" r="1.2" fill="#111"/>`;
+    if(H==='reptile') s+=`<path d="M${hx-8} ${hy-4}Q${hx+6} ${hy-8} ${hx+20} ${hy+2}Q${hx+6} ${hy+10} ${hx-8} ${hy+6}Z" fill="${c}"/><path d="M${hx+2} ${hy+2}H${hx+18}" stroke="${d}" stroke-width="1.2"/><circle cx="${hx+2}" cy="${hy-2}" r="1.6" fill="#ffd66a"/>`;
+    if(H==='elephant') s+=`<circle cx="${hx}" cy="${hy+2}" r="12" fill="${c}"/><path d="M${hx+8} ${hy+4}Q${hx+16} ${hy+20} ${hx+10} ${hy+34}" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="M${hx-10} ${hy-6}Q${hx-18} ${hy+6} ${hx-8} ${hy+16}Z" fill="${d}"/><path d="M${hx+6} ${hy+10}q8 2 10 -4" fill="none" stroke="#f3e6c8" stroke-width="3"/><circle cx="${hx+4}" cy="${hy-2}" r="1.5" fill="#111"/>`;
+    if(H==='rhino') s+=`<path d="M${hx-8} ${hy-8}L${hx+16} ${hy+2}L${hx+14} ${hy+12}L${hx-6} ${hy+10}Z" fill="${c}"/><path d="M${hx+10} ${hy}l6 -12 2 12z" fill="#e8dcc0"/><circle cx="${hx+2}" cy="${hy}" r="1.4" fill="#111"/>`;
+    if(H==='hippo') s+=`<path d="M${hx-8} ${hy-6}Q${hx+10} ${hy-10} ${hx+18} ${hy+4}Q${hx+18} ${hy+14} ${hx-4} ${hy+12}Z" fill="${c}"/><circle cx="${hx-2}" cy="${hy-6}" r="2.5" fill="${d}"/><circle cx="${hx+2}" cy="${hy-2}" r="1.4" fill="#111"/>`;
+    if(H==='beak') s+=`<circle cx="${hx}" cy="${hy}" r="8" fill="${o.hcol||c}"/><path d="M${hx+6} ${hy-3}L${hx+18} ${hy+2}L${hx+6} ${hy+6}Z" fill="#e0b640"/><circle cx="${hx+2}" cy="${hy-2}" r="1.6" fill="#111"/>${o.tuft?`<path d="M${hx-4} ${hy-7}l-2 -8 6 5z" fill="${o.hcol||c}"/>`:''}`;
+    if(H==='human') s+=`<circle cx="${hx+2}" cy="${hy-4}" r="8" fill="#e0b48a"/><path d="M${hx-6} ${hy-6}Q${hx+2} ${hy-16} ${hx+10} ${hy-6}" fill="${o.hair||d}"/><circle cx="${hx+5}" cy="${hy-4}" r="1.3" fill="#111"/>${o.crown?`<path d="M${hx-5} ${hy-11}l3 -6 3 4 3 -5 3 5 3 -4v6z" fill="#e0b640"/>`:''}`;
+    if(H==='centaur') s+=`<path d="M${hx-8} ${cy-bh/2+4}L${hx-6} ${hy-14}H${hx+8}L${hx+8} ${cy-bh/2+4}Z" fill="#b08a5a"/><circle cx="${hx}" cy="${hy-20}" r="7" fill="#e0b48a"/><path d="M${hx+6} ${hy-10}L${hx+22} ${hy-30}" stroke="${o.wcol2||'#8a6a44'}" stroke-width="2.5"/><path d="M${hx+18} ${hy-40}Q${hx+30} ${hy-24} ${hx+18} ${hy-8}" fill="none" stroke="#8a6a44" stroke-width="2.5"/>`;
+    if(H==='lionhuman') s+=`<circle cx="${hx+2}" cy="${hy}" r="${o.mane||11}" fill="${o.mcol||'#8a5a2a'}"/><circle cx="${hx+4}" cy="${hy}" r="7" fill="#e0b48a"/><circle cx="${hx+7}" cy="${hy-2}" r="1.3" fill="#111"/>${o.crown?`<path d="M${hx-4} ${hy-8}l3 -6 3 4 3 -5 3 5 3 -4v6z" fill="#e0b640"/>`:''}`;
+    if(o.horn) s+=`<path d="M${hx+4} ${hy-8}L${hx+16} ${hy-24}L${hx+8} ${hy-6}Z" fill="${o.horn}"/>`;
+    if(o.frill) s+=`<path d="M${hx-10} ${hy-10}Q${hx-6} ${hy-24} ${hx+4} ${hy-14}L${hx+2} ${hy+2}Z" fill="${shade(c,.2)}"/><path d="M${hx+6} ${hy-4}l10 -8M${hx+2} ${hy-8}l6 -12" stroke="#f3e6c8" stroke-width="3"/>`;
+    if(o.heads) for(let i=1;i<o.heads;i++){ const a=(i-o.heads/2)*18; s+=`<path d="M${hx-8} ${cy-bh/2+6}Q${hx-6+a/2} ${hy-10-Math.abs(a)/3} ${hx+a/2} ${hy-16+Math.abs(a)/4}" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="M${hx+a/2-4} ${hy-20+Math.abs(a)/4}l14 4-12 5z" fill="${c}"/><circle cx="${hx+a/2}" cy="${hy-17+Math.abs(a)/4}" r="1.2" fill="#ffd66a"/>`; }
+    if(o.fire) s+=`<path d="M${hx-10} ${cy-bh/2+2}Q${hx-6} ${hy-16} ${hx+2} ${hy-8}Q${hx} ${hy-20} ${hx+8} ${hy-12}Q${hx+10} ${hy-4} ${hx} ${hy+2}Z" fill="#ff8a3d" opacity=".9"/>`+[0,1,2,3].map(i=>`<path d="M${cx-bl/2+4+i*2} ${82}q-3 -6 1 -10q1 6 4 3q0 5 -5 7z" fill="#ff8a3d" transform="translate(${i*9} 0)"/>`).join('');
+    return s; },
+
+  // bipède (humanoïdes, géants, morts-vivants, fiélons, célestes…)
+  biped(o){
+    const k=o.k||1, c=o.col, d=shade(c,-.35), skin=o.skin||'#e0b48a';
+    let s=`<g transform="translate(50 84) scale(${k}) translate(-50 -84)">`;
+    const bulk=o.bulk||1;
+    if(o.wings) s+=`<path d="M42 40Q14 20 6 44Q20 40 22 58Q30 48 44 52ZM58 40Q86 20 94 44Q80 40 78 58Q70 48 56 52Z" fill="${o.wcol||'#f3f3e6'}" stroke="${shade(o.wcol||'#f3f3e6',-.4)}" stroke-width="1"/>`;
+    if(o.batwings) s+=`<path d="M44 42Q20 14 4 30L12 36L8 46L18 46L20 56L44 52ZM56 42Q80 14 96 30L88 36L92 46L82 46L80 56L56 52Z" fill="${o.wcol||'#3a1010'}"/>`;
+    if(o.cape) s+=`<path d="M38 38L26 84H74L62 38Z" fill="${o.cape}"/>`;
+    if(o.tail) s+=`<path d="M52 66Q76 74 72 88Q80 76 78 70" fill="none" stroke="${d}" stroke-width="3"/><path d="M76 68l6 -2-2 6z" fill="${d}"/>`;
+    // jambes
+    if(o.robe) s+=`<path d="M${40-4*bulk} 50L${32-6*bulk} 84H${68+6*bulk}L${60+4*bulk} 50Z" fill="${o.robe}"/>`;
+    else if(o.goatlegs) s+=`<path d="M42 60L38 72L42 84H48L46 72L48 60ZM58 60L62 72L58 84H52L54 72L52 60Z" fill="#6b4a2e"/>`;
+    else if(o.snaketail) s+=`<path d="M40 56Q30 74 46 80Q70 88 84 76Q74 82 56 76Q46 72 60 56Z" fill="${o.snaketail}"/>`;
+    else s+=`<rect x="${43-3*bulk}" y="58" width="${7*bulk}" height="26" rx="2" fill="${d}"/><rect x="${51}" y="58" width="${7*bulk}" height="26" rx="2" fill="${d}"/>`;
+    // torse
+    s+=`<path d="M${38-6*bulk} 36Q50 ${30} ${62+6*bulk} 36L${60+3*bulk} 62H${40-3*bulk}Z" fill="${c}"/>`;
+    if(o.wrap) s+=[0,1,2,3,4].map(i=>`<path d="M${36-4*bulk} ${40+i*5}L${64+4*bulk} ${37+i*5}" stroke="#bfb28a" stroke-width="2"/>`).join('');
+    if(o.ribs) s+=[0,1,2,3].map(i=>`<path d="M42 ${40+i*5}Q50 ${43+i*5} 58 ${40+i*5}" stroke="#1c130d" stroke-width="1.6" fill="none"/>`).join('')+`<path d="M50 36V62" stroke="#1c130d" stroke-width="1.6"/>`;
+    if(o.belt) s+=`<rect x="${40-3*bulk}" y="54" width="${20+6*bulk}" height="4" fill="${o.belt}"/>`;
+    // bras
+    s+=`<path d="M${38-6*bulk} 37L${30-8*bulk} 58" stroke="${o.arm||c}" stroke-width="${6*bulk}" stroke-linecap="round"/><path d="M${62+6*bulk} 37L${70+8*bulk} 58" stroke="${o.arm||c}" stroke-width="${6*bulk}" stroke-linecap="round"/>`;
+    const lhx=30-8*bulk, rhx=70+8*bulk;
+    // tête
+    const H=o.head||'human', hy=24-(bulk-1)*2;
+    if(H==='human') s+=`<circle cx="50" cy="${hy}" r="${8+bulk}" fill="${skin}"/>`;
+    if(H==='skull') s+=`<circle cx="50" cy="${hy}" r="9" fill="#e8e0d0"/><circle cx="46.5" cy="${hy}" r="2.4" fill="#111"/><circle cx="53.5" cy="${hy}" r="2.4" fill="#111"/><rect x="46" y="${hy+5}" width="8" height="4" fill="#e8e0d0"/><path d="M47.5 ${hy+5}v4M50 ${hy+5}v4M52.5 ${hy+5}v4" stroke="#111"/>`;
+    if(H==='goblin') s+=`<circle cx="50" cy="${hy+1}" r="8" fill="${skin}"/><path d="M42 ${hy}L30 ${hy-6}L42 ${hy+4}ZM58 ${hy}L70 ${hy-6}L58 ${hy+4}Z" fill="${skin}"/>`;
+    if(H==='kobold') s+=`<path d="M42 ${hy+4}Q42 ${hy-8} 52 ${hy-6}L64 ${hy+2}L54 ${hy+8}Z" fill="${skin}"/><path d="M44 ${hy-6}l-4 -6 6 3z" fill="${skin}"/><circle cx="52" cy="${hy-2}" r="1.3" fill="#ffd66a"/>`;
+    if(H==='gnoll') s+=`<path d="M42 ${hy-6}L64 ${hy+2}L62 ${hy+6}L44 ${hy+8}Z" fill="${skin}"/><path d="M44 ${hy-6}l0 -9 6 7z" fill="${shade(skin,-.3)}"/><circle cx="51" cy="${hy-1}" r="1.3" fill="#111"/>`;
+    if(H==='bull') s+=`<path d="M42 ${hy-8}H58L60 ${hy+8}H40Z" fill="${skin}"/><path d="M42 ${hy-6}Q32 ${hy-8} 30 ${hy-18}M58 ${hy-6}Q68 ${hy-8} 70 ${hy-18}" stroke="#e8dcc0" stroke-width="3.5" fill="none"/>`;
+    if(H==='fish') s+=`<path d="M40 ${hy+6}Q40 ${hy-10} 54 ${hy-8}Q66 ${hy-2} 62 ${hy+8}Z" fill="${skin}"/><path d="M46 ${hy-8}l2 -8 4 8 3 -6 2 7" fill="${shade(skin,-.3)}"/><circle cx="56" cy="${hy-1}" r="1.8" fill="#ffd66a"/>`;
+    if(H==='hag') s+=`<circle cx="50" cy="${hy}" r="8" fill="${skin}"/><path d="M40 ${hy-4}Q50 ${hy-16} 60 ${hy-4}L64 ${hy+14}L58 ${hy}L42 ${hy}L36 ${hy+14}Z" fill="${o.hair||'#3a3a3a'}"/><path d="M50 ${hy}l6 6-6 0z" fill="${shade(skin,-.2)}"/>`;
+    if(H==='snakes') s+=`<circle cx="50" cy="${hy}" r="8" fill="${skin}"/>`+[-12,-6,0,6,12].map(a=>`<path d="M50 ${hy-6}q${a} -6 ${a*1.3} -12" stroke="#3f8a3a" stroke-width="2.5" fill="none"/>`).join('');
+    if(H==='hood') s+=`<path d="M40 ${hy+8}Q38 ${hy-12} 50 ${hy-12}Q62 ${hy-12} 60 ${hy+8}Z" fill="${o.hood||d}"/><ellipse cx="50" cy="${hy+1}" rx="6" ry="7" fill="#1c130d"/><circle cx="47.5" cy="${hy}" r="1.2" fill="${o.eyes||'#ffd66a'}"/><circle cx="52.5" cy="${hy}" r="1.2" fill="${o.eyes||'#ffd66a'}"/>`;
+    if(H==='ghost') s=`<g transform="translate(50 84) scale(${k}) translate(-50 -84)"><path d="M34 40Q34 14 50 14Q66 14 66 40L70 84L62 76L56 86L50 76L44 86L38 76L30 84Z" fill="${c}" opacity=".85"/><ellipse cx="44" cy="32" rx="3" ry="4" fill="#111"/><ellipse cx="56" cy="32" rx="3" ry="4" fill="#111"/><path d="M34 44L20 58M66 44L80 58" stroke="${c}" stroke-width="5" stroke-linecap="round" opacity=".8"/>`;
+    if(H==='cyclops') s+=`<circle cx="50" cy="${hy}" r="9" fill="${skin}"/><circle cx="50" cy="${hy-1}" r="3" fill="#fff"/><circle cx="50" cy="${hy-1}" r="1.4" fill="#111"/>`;
+    if(o.twohead) s+=`<circle cx="40" cy="${hy+2}" r="${7+bulk}" fill="${skin}"/>`;
+    if(o.horns) s+=`<path d="M44 ${hy-6}Q38 ${hy-18} 44 ${hy-22}Q42 ${hy-14} 48 ${hy-8}ZM56 ${hy-6}Q62 ${hy-18} 56 ${hy-22}Q58 ${hy-14} 52 ${hy-8}Z" fill="${o.horns}"/>`;
+    if(o.ears) s+=`<path d="M42 ${hy}L36 ${hy-8}L44 ${hy-3}ZM58 ${hy}L64 ${hy-8}L56 ${hy-3}Z" fill="${skin}"/>`;
+    if(o.hair) s+=H==='human'?`<path d="M${41-bulk} ${hy-2}Q50 ${hy-14} ${59+bulk} ${hy-2}Q56 ${hy-6} 50 ${hy-6}Q44 ${hy-6} ${41-bulk} ${hy-2}Z" fill="${o.hair}"/>`:'';
+    if(o.beard) s+=`<path d="M43 ${hy+4}Q50 ${hy+18} 57 ${hy+4}Z" fill="${o.beard}"/>`;
+    if(o.hat) s+=`<path d="M38 ${hy-6}H62L54 ${hy-10}L50 ${hy-28}L46 ${hy-10}Z" fill="${o.hat}"/>`;
+    if(o.helm) s+=`<path d="M41 ${hy+2}Q41 ${hy-12} 50 ${hy-12}Q59 ${hy-12} 59 ${hy+2}Z" fill="${o.helm}"/><rect x="42" y="${hy-1}" width="16" height="2.5" fill="#1c130d"/>`;
+    if(o.tricorne) s+=`<path d="M36 ${hy-6}Q50 ${hy-20} 64 ${hy-6}Q50 ${hy-10} 36 ${hy-6}Z" fill="#1c130d"/>`;
+    if(o.crown) s+=`<path d="M42 ${hy-8}l2 -7 3 4 3 -6 3 6 3 -4 2 7z" fill="${o.crown}"/>`;
+    if(o.halo) s+=`<ellipse cx="50" cy="${hy-13}" rx="9" ry="2.5" fill="none" stroke="#ffe45c" stroke-width="2"/>`;
+    if(o.eyes && H!=='hood') s+=`<circle cx="47" cy="${hy}" r="1.4" fill="${o.eyes}"/><circle cx="53" cy="${hy}" r="1.4" fill="${o.eyes}"/>`;
+    // équipement
+    const w=o.weapon;
+    if(w==='sword') s+=`<path d="M${rhx} 60L${rhx+10} 24" stroke="#d7dde3" stroke-width="3"/><path d="M${rhx-4} 58L${rhx+6} 62" stroke="#d9b25f" stroke-width="3"/>`;
+    if(w==='staff') s+=`<path d="M${rhx} 86L${rhx+4} 18" stroke="#8a6a3c" stroke-width="3"/><circle cx="${rhx+4}" cy="17" r="4" fill="${o.orb||'#9fd8f5'}"/>`;
+    if(w==='club') s+=`<path d="M${rhx} 60L${rhx+12} 22" stroke="#8a6a3c" stroke-width="${5*bulk}" stroke-linecap="round"/><circle cx="${rhx+12}" cy="22" r="${5*bulk}" fill="#6b4a2e"/>`;
+    if(w==='axe') s+=`<path d="M${rhx} 60L${rhx+8} 20" stroke="#8a6a3c" stroke-width="3"/><path d="M${rhx+7} 22Q${rhx+22} 22 ${rhx+18} 36Q${rhx+12} 30 ${rhx+4} 32Z" fill="#d7dde3"/>`;
+    if(w==='spear') s+=`<path d="M${rhx} 86L${rhx+6} 12" stroke="#8a6a3c" stroke-width="2.5"/><path d="M${rhx+6} 6l3 8h-6z" fill="#d7dde3"/>`;
+    if(w==='trident') s+=`<path d="M${rhx} 86L${rhx+4} 14" stroke="#c49a45" stroke-width="2.5"/><path d="M${rhx-3} 18V10M${rhx+4} 14V6M${rhx+11} 18V10M${rhx-3} 18H${rhx+11}" stroke="#c49a45" stroke-width="2"/>`;
+    if(w==='bow') s+=`<path d="M${rhx+2} 30Q${rhx+16} 48 ${rhx+2} 66" stroke="#8a6a3c" stroke-width="3" fill="none"/><path d="M${rhx+2} 30V66" stroke="#eee" stroke-width="1"/>`;
+    if(w==='dagger') s+=`<path d="M${rhx} 60L${rhx+6} 46" stroke="#d7dde3" stroke-width="3"/>`;
+    if(w==='whip') s+=`<path d="M${rhx} 58Q${rhx+20} 40 ${rhx+4} 20Q${rhx-10} 8 ${rhx+14} 6" stroke="#ff8a3d" stroke-width="2" fill="none"/>`;
+    if(w==='symbol') s+=`<circle cx="${rhx}" cy="58" r="5" fill="#e0b640"/><path d="M${rhx} 54V62M${rhx-3} 57H${rhx+3}" stroke="#8e1b1b" stroke-width="1.6"/>`;
+    if(w==='book') s+=`<rect x="${lhx-6}" y="52" width="12" height="10" fill="#7a2020"/><path d="M${lhx} 52V62" stroke="#e0b640"/>`;
+    if(w==='fire') s+=`<path d="M${rhx} 60C${rhx+10} 50 ${rhx+2} 44 ${rhx+6} 36C${rhx-6} 42 ${rhx-6} 54 ${rhx} 60Z" fill="#ff8a3d"/>`;
+    if(w==='claws') s+=`<path d="M${lhx-4} 60l-3 6M${lhx} 61l-1 7M${lhx+3} 60l1 6M${rhx-3} 60l-1 6M${rhx} 61l1 7M${rhx+4} 60l3 6" stroke="#f3e6c8" stroke-width="1.6"/>`;
+    if(o.shield) s+=`<path d="M${lhx-8} 46H${lhx+8}V58Q${lhx} 68 ${lhx-8} 58Z" fill="${o.shield}" stroke="#1c130d" stroke-width="1"/>`;
+    if(o.glow) s+=`<circle cx="50" cy="48" r="30" fill="${o.glow}" opacity=".18"/>`;
+    return s+'</g>'; },
+
+  oiseau(o){ const c=o.col, d=shade(c,-.35);
+    return `<path d="M50 50Q20 20 8 34Q26 36 30 50Z" fill="${d}"/><ellipse cx="54" cy="56" rx="20" ry="13" fill="${c}"/><path d="M36 58L18 66L36 64Z" fill="${d}"/><path d="M56 50Q${o.soar?90:70} ${o.soar?16:24} ${o.soar?96:86} 30Q${o.soar?80:74} 40 70 54Z" fill="${shade(c,.12)}"/><circle cx="72" cy="44" r="9" fill="${o.hcol||c}"/><path d="M79 42L${o.hook?88:92} 46L79 50Z" fill="#e0b640"/>${o.hook?`<path d="M88 46q1 4 -3 5" stroke="#e0b640" stroke-width="2" fill="none"/>`:''}<circle cx="74" cy="42" r="1.6" fill="#111"/><path d="M52 68L50 80M60 68L62 80" stroke="#e0b640" stroke-width="2.5"/>${o.owl?`<circle cx="70" cy="42" r="3" fill="#ffd66a"/><circle cx="76" cy="42" r="3" fill="#ffd66a"/><circle cx="70" cy="42" r="1.2" fill="#111"/><circle cx="76" cy="42" r="1.2" fill="#111"/><path d="M66 34l2 -6 3 5M78 34l-2 -6 -3 5" fill="${c}"/>`:''}${o.bald?`<circle cx="72" cy="42" r="6" fill="#d8a0a0"/>`:''}`; },
+  chauvesouris(o){ const c=o.col; return `<path d="M50 50Q34 26 8 30L14 38L10 48L20 46L22 58L46 56ZM50 50Q66 26 92 30L86 38L90 48L80 46L78 58L54 56Z" fill="${c}"/><ellipse cx="50" cy="54" rx="7" ry="10" fill="${shade(c,-.2)}"/><path d="M45 46l1 -8 3 5M55 46l-1 -8 -3 5" fill="${c}"/><circle cx="48" cy="50" r="1.2" fill="#ff5a5a"/><circle cx="52" cy="50" r="1.2" fill="#ff5a5a"/>`; },
+  serpent(o){ const c=o.col, d=shade(c,-.35);
+    return `<path d="M14 76Q30 60 46 72Q62 84 72 66Q80 50 66 40" fill="none" stroke="${c}" stroke-width="${o.w||9}" stroke-linecap="round"/><path d="M14 76Q30 60 46 72Q62 84 72 66Q80 50 66 40" fill="none" stroke="${d}" stroke-width="2" stroke-dasharray="3 5"/><path d="M58 30Q74 26 78 36Q70 42 60 40Z" fill="${c}"/><circle cx="68" cy="33" r="1.5" fill="#ffd66a"/><path d="M78 36l6 1-4 2 4 2-6 0" stroke="#c0392b" stroke-width="1.2" fill="none"/>${o.wings?`<path d="M60 44Q50 20 36 26Q48 32 50 46Z" fill="${o.wings}"/>`:''}${o.hood?`<path d="M58 30Q54 44 62 48Q70 44 66 30Z" fill="${d}"/>`:''}`; },
+  poisson(o){ const c=o.col, d=shade(c,-.35), L=o.big?1.15:1;
+    return `<g transform="translate(50 55) scale(${L}) translate(-50 -55)"><path d="M20 56L8 42L10 70Z" fill="${d}"/><path d="M18 56Q40 30 72 42Q88 50 90 58Q86 66 70 70Q40 80 18 56Z" fill="${c}"/><path d="M40 42L${o.shark?52:48} ${o.shark?22:32}L56 42Z" fill="${d}"/><path d="M26 58Q56 72 88 60" stroke="${shade(c,.3)}" stroke-width="3" fill="none" opacity=".6"/><circle cx="76" cy="52" r="2" fill="#111"/>${o.teeth?`<path d="M80 62l2 3 2 -3 2 3 2 -3" stroke="#fff" stroke-width="1.2" fill="none"/>`:''}${o.orca?`<ellipse cx="70" cy="52" rx="6" ry="3" fill="#f3f3e6"/><path d="M30 64Q50 72 80 64" stroke="#f3f3e6" stroke-width="4"/>`:''}${o.neck?`<path d="M72 50Q84 20 92 16" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="92" cy="16" r="5" fill="${c}"/>`:''}</g>`; },
+  hippocampe(o){ const c=o.col; return `<path d="M50 20Q66 18 66 32Q64 44 54 48Q66 58 58 72Q52 84 40 80Q48 74 44 66Q34 56 44 44Q40 30 50 20Z" fill="${c}"/><path d="M62 26L78 30L64 34Z" fill="${c}"/><circle cx="58" cy="26" r="1.6" fill="#111"/><path d="M48 24q-6 6 -2 12q-6 6 -2 12" stroke="${shade(c,-.3)}" stroke-width="3" fill="none"/>`; },
+  arthropode(o){ const c=o.col||'#6b4a2e', d=shade(c,-.35), n=o.legs||8; let s='';
+    for(let i=0;i<n/2;i++){ const x=38+i*(28/(n/2)); s+=`<path d="M${x} 56Q${x-10} 40 ${x-14} ${70+(i%2)*6}M${x+4} 60Q${x+14} 44 ${x+18} ${74-(i%2)*6}" stroke="${d}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`; }
+    if(o.kind==='spider') s+=`<ellipse cx="38" cy="54" rx="16" ry="13" fill="${c}"/><circle cx="60" cy="58" r="9" fill="${d}"/><circle cx="64" cy="55" r="1.2" fill="#ff5a5a"/><circle cx="66" cy="58" r="1.2" fill="#ff5a5a"/>${o.mark?`<path d="M34 48l4 6 4 -6-4 12z" fill="${o.mark}"/>`:''}`;
+    else if(o.kind==='scorpion') s+=`<ellipse cx="46" cy="60" rx="18" ry="8" fill="${c}"/><path d="M30 60Q14 50 18 30Q24 20 34 26" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="M34 26l6 -2-3 6z" fill="${d}"/><path d="M62 58L76 48L84 52L76 56L80 60Z" fill="${c}"/>`;
+    else if(o.kind==='crab') s+=`<ellipse cx="50" cy="58" rx="20" ry="12" fill="${c}"/><path d="M34 50Q22 30 30 26Q36 32 30 36Q38 38 36 48ZM66 50Q78 30 70 26Q64 32 70 36Q62 38 64 48Z" fill="${c}"/><circle cx="45" cy="46" r="2" fill="#111"/><circle cx="55" cy="46" r="2" fill="#111"/>`;
+    else if(o.kind==='wasp') s=`<path d="M46 46Q40 20 30 22Q34 36 44 50ZM54 46Q62 20 74 24Q66 36 56 50Z" fill="#dfe8f0" opacity=".8"/><ellipse cx="34" cy="58" rx="16" ry="10" fill="#e0b640"/><path d="M26 52v12M34 50v16M42 52v12" stroke="#1c130d" stroke-width="3"/><path d="M18 58l-8 2 8 2z" fill="#1c130d"/><ellipse cx="54" cy="56" rx="8" ry="6" fill="#1c130d"/><circle cx="66" cy="54" r="7" fill="#e0b640"/><circle cx="69" cy="52" r="2" fill="#1c130d"/><path d="M50 62l-4 12M56 62l2 12" stroke="#1c130d" stroke-width="2"/>`;
+    else if(o.kind==='centipede') s=[0,1,2,3,4,5,6].map(i=>`<circle cx="${18+i*10}" cy="${60+Math.sin(i)*6}" r="6" fill="${i%2?c:d}"/><path d="M${18+i*10} ${62+Math.sin(i)*6}l-3 10M${18+i*10} ${58+Math.sin(i)*6}l-3 -10" stroke="${d}" stroke-width="2"/>`).join('')+`<circle cx="86" cy="56" r="7" fill="${c}"/><path d="M90 50l6 -4M90 62l6 4" stroke="${d}" stroke-width="2"/>`;
+    else if(o.kind==='beetle') s+=`<ellipse cx="48" cy="58" rx="20" ry="13" fill="${c}"/><path d="M48 45V71" stroke="${d}" stroke-width="2"/><circle cx="70" cy="58" r="7" fill="${d}"/><circle cx="46" cy="54" r="5" fill="#ff8a3d" opacity=".9"/><circle cx="56" cy="62" r="4" fill="#ff8a3d" opacity=".9"/>`;
+    else s+=`<ellipse cx="48" cy="58" rx="20" ry="12" fill="${c}"/><circle cx="70" cy="56" r="8" fill="${d}"/>`;
+    return s; },
+  tentacules(o){ const c=o.col, d=shade(c,-.35); let s='';
+    for(let i=0;i<(o.n||6);i++){ const x=30+i*8; s+=`<path d="M${x} 56Q${x-6+(i%2)*12} 72 ${x-8+i*3} 88" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/>`; }
+    s+=`<ellipse cx="50" cy="42" rx="${o.big?26:20}" ry="${o.big?22:18}" fill="${c}"/><circle cx="42" cy="44" r="4" fill="#ffd66a"/><circle cx="58" cy="44" r="4" fill="#ffd66a"/><circle cx="42" cy="44" r="1.8" fill="#111"/><circle cx="58" cy="44" r="1.8" fill="#111"/>`;
+    if(o.eyes3) s+=`<circle cx="50" cy="32" r="4" fill="#ff5a5a"/><circle cx="50" cy="32" r="1.8" fill="#111"/>`;
+    if(o.fish) s=`<path d="M10 50L28 42V62Z" fill="${d}"/><path d="M24 52Q40 30 70 38Q86 46 86 52Q84 62 70 64Q40 72 24 52Z" fill="${c}"/>`+[0,1,2,3].map(i=>`<path d="M${70-i*8} 62Q${66-i*10} 78 ${56-i*10} 86" stroke="${c}" stroke-width="4" fill="none"/>`).join('')+`<circle cx="74" cy="46" r="2.5" fill="#ff5a5a"/><circle cx="66" cy="44" r="2.5" fill="#ff5a5a"/><circle cx="58" cy="42" r="2.5" fill="#ff5a5a"/>`;
+    return s; },
+  dragon(o){ const c=o.col, d=shade(c,-.4), w=shade(c,.2);
+    return `<path d="M32 58Q6 40 14 20Q26 30 34 26Q36 36 46 38Q42 48 48 54Z" fill="${w}" stroke="${d}" stroke-width="1.2"/><path d="M24 30L40 50M20 22L38 46" stroke="${d}" stroke-width="1"/>
+      <path d="M30 66Q10 68 4 82Q18 74 30 74Z" fill="${c}"/>
+      <ellipse cx="44" cy="64" rx="20" ry="12" fill="${c}"/>
+      <rect x="30" y="68" width="6" height="16" rx="2" fill="${d}"/><rect x="52" y="68" width="6" height="16" rx="2" fill="${d}"/><rect x="36" y="70" width="6" height="14" rx="2" fill="${c}"/><rect x="46" y="70" width="6" height="14" rx="2" fill="${c}"/>
+      <path d="M56 60Q66 44 66 32Q68 26 72 26" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round"/>
+      <path d="M66 22L90 28L88 34L72 36Q64 34 64 28Z" fill="${c}"/><path d="M68 22L62 12L70 20ZM72 22L70 10L76 20Z" fill="${o.horn||'#e8dcc0'}"/>
+      <circle cx="74" cy="27" r="1.8" fill="#ffd66a"/><path d="M84 32l2 3M80 33l1 3" stroke="#fff" stroke-width="1"/>
+      <path d="M36 54l3 -6 3 6M44 52l3 -6 3 6M52 54l2 -6 3 5" fill="${d}"/>
+      ${o.breath?`<path d="M90 31Q96 26 99 34Q96 40 90 34Z" fill="${o.breath}" opacity=".9"/>`:''}
+      <path d="M40 72Q48 76 56 72" stroke="${w}" stroke-width="3" fill="none" opacity=".6"/>`; },
+  vouivre(o){ const c=o.col, d=shade(c,-.4);
+    return `<path d="M46 50Q20 14 6 22Q24 30 22 44Q32 40 44 58ZM52 50Q60 16 84 12Q70 28 72 40Q62 40 54 58Z" fill="${shade(c,.15)}" stroke="${d}"/><ellipse cx="48" cy="60" rx="14" ry="10" fill="${c}"/><path d="M40 66Q20 80 10 72Q16 88 36 76" fill="${c}"/><path d="M10 72l-6 -4 4 8z" fill="${d}"/><path d="M56 56Q70 44 74 38" stroke="${c}" stroke-width="7" stroke-linecap="round"/><path d="M70 34L88 38L74 44Z" fill="${c}"/><circle cx="76" cy="38" r="1.5" fill="#ffd66a"/><path d="M44 70V84M52 70V84" stroke="${d}" stroke-width="4"/>`; },
+  hydre(o){ const c=o.col, d=shade(c,-.4); let s=`<ellipse cx="44" cy="68" rx="24" ry="14" fill="${c}"/><path d="M22 70Q6 74 4 84Q16 78 24 78Z" fill="${c}"/><rect x="28" y="74" width="7" height="12" fill="${d}"/><rect x="52" y="74" width="7" height="12" fill="${d}"/>`;
+    [[-20,0],[-8,-8],[6,-12],[18,-6],[28,4]].forEach(([dx,dy])=>{ s+=`<path d="M50 60Q${56+dx/2} ${40+dy} ${58+dx} ${28+dy}" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="M${54+dx} ${24+dy}L${68+dx} ${28+dy}L${56+dx} ${33+dy}Z" fill="${c}"/><circle cx="${59+dx}" cy="${27+dy}" r="1.2" fill="#ffd66a"/>`; });
+    return s; },
+  ver(o){ const c=o.col, d=shade(c,-.35); let s='';
+    for(let i=0;i<8;i++){ const x=14+i*9, y=78-Math.sin(i/7*Math.PI)*36-(i>5?(i-5)*10:0); s+=`<circle cx="${x}" cy="${y}" r="${9+i*0.8}" fill="${i%2?c:shade(c,.1)}"/>`; }
+    s+=`<circle cx="86" cy="30" r="14" fill="${d}"/><circle cx="86" cy="30" r="9" fill="#1c130d"/>`+[0,45,90,135,180,225,270,315].map(a=>`<path transform="rotate(${a} 86 30)" d="M86 21l2 4h-4z" fill="#f3e6c8"/>`).join('');
+    if(o.spikes) s+=[0,1,2,3,4].map(i=>`<path d="M${24+i*12} ${50-Math.sin(i/4*Math.PI)*20}l3 -10 3 10z" fill="#ff8a3d"/>`).join('');
+    return s; },
+  vase(o){ const c=o.col; if(o.cube) return `<path d="M24 36L50 26L78 34V74L52 84L24 74Z" fill="${c}" opacity=".55" stroke="${shade(c,.3)}" stroke-width="2"/><path d="M24 36L52 46L78 34M52 46V84" stroke="${shade(c,.3)}" stroke-width="1.5" fill="none"/><circle cx="42" cy="60" r="5" fill="#e8e0d0" opacity=".8"/><path d="M60 58l6 8" stroke="#d7dde3" stroke-width="2"/>`;
+    return `<path d="M14 82Q12 60 30 56Q34 34 52 38Q72 34 76 56Q92 60 88 82Z" fill="${c}"/><circle cx="40" cy="58" r="4" fill="${shade(c,.35)}"/><circle cx="62" cy="50" r="6" fill="${shade(c,.35)}"/><circle cx="52" cy="70" r="3" fill="${shade(c,.35)}"/><path d="M30 82q4 -6 8 0M64 82q4 -6 8 0" fill="${shade(c,-.3)}"/>`; },
+  plante(o){ const c=o.col, d=shade(c,-.35); const k=o.kind||'tree';
+    if(k==='tree') return `<path d="M42 86L44 50Q30 50 24 40M44 60Q56 50 66 54M56 86L54 48" stroke="#6b4a2e" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M40 86L42 44H58L60 86Z" fill="#6b4a2e"/><circle cx="50" cy="30" r="20" fill="${c}"/><circle cx="32" cy="38" r="12" fill="${d}"/><circle cx="68" cy="38" r="12" fill="${d}"/><circle cx="45" cy="52" r="2" fill="#ffd66a"/><circle cx="55" cy="52" r="2" fill="#ffd66a"/><path d="M46 60Q50 64 54 60" stroke="#1c130d" stroke-width="1.5" fill="none"/>`;
+    if(k==='shrub') return `<ellipse cx="50" cy="58" rx="22" ry="20" fill="${c}"/><circle cx="36" cy="46" r="10" fill="${d}"/><circle cx="64" cy="48" r="10" fill="${d}"/><path d="M40 78L36 88M50 78V88M60 78L64 88" stroke="#6b4a2e" stroke-width="3"/><circle cx="45" cy="56" r="1.8" fill="#ffd66a"/><circle cx="55" cy="56" r="1.8" fill="#ffd66a"/>`;
+    if(k==='mushroom') return `<path d="M44 84L46 52H56L58 84Z" fill="#e8dcc0"/><path d="M20 54Q22 24 50 22Q78 24 80 54Z" fill="${c}"/>`+[[34,40],[52,32],[66,44],[44,48]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="#f3e6c8"/>`).join('')+(o.scream?`<ellipse cx="51" cy="66" rx="4" ry="6" fill="#1c130d"/>`:'');
+    if(k==='mound') return `<path d="M18 84Q12 50 34 36Q50 22 66 36Q88 50 82 84Z" fill="${c}"/><path d="M24 70Q34 60 30 48M50 30V60M72 70Q64 58 70 48M40 44Q46 56 40 68M60 44Q54 56 60 68" stroke="${d}" stroke-width="3" fill="none"/><path d="M18 60L8 70M82 60L92 70" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`;
+    return ''; },
+  elementaire(o){ const k=o.kind;
+    if(k==='feu') return `<path d="M50 6C64 26 80 36 74 60C70 78 60 86 50 86C40 86 28 78 26 60C22 40 40 30 50 6Z" fill="#ff8a3d"/><path d="M50 30C58 42 66 50 62 64C60 74 54 78 50 78C46 78 38 74 38 64C36 52 46 44 50 30Z" fill="#ffe45c"/><circle cx="45" cy="56" r="2.5" fill="#1c130d"/><circle cx="55" cy="56" r="2.5" fill="#1c130d"/>`;
+    if(k==='eau') return `<path d="M20 84Q16 56 34 40Q38 20 56 18Q76 22 72 42Q86 56 80 84Z" fill="#4f86b8" opacity=".9"/><path d="M28 60Q40 50 50 58T72 56M30 72Q44 64 54 72T76 70" stroke="#bfe3f0" stroke-width="3" fill="none"/><circle cx="50" cy="34" r="3" fill="#e8f6ff"/><circle cx="60" cy="34" r="3" fill="#e8f6ff"/>`;
+    if(k==='air') return `<path d="M24 20H76M30 34H70M36 48H64M42 62H58M46 74H54" stroke="#dfe8f0" stroke-width="6" stroke-linecap="round"/><path d="M76 20Q86 26 74 30M70 34Q80 40 66 44" stroke="#dfe8f0" stroke-width="3" fill="none"/><circle cx="44" cy="28" r="2.5" fill="#2f6fb8"/><circle cx="56" cy="28" r="2.5" fill="#2f6fb8"/>`;
+    if(k==='terre') return `<path d="M26 84L22 50L30 30L50 20L72 28L80 52L74 84Z" fill="#8a6a44" stroke="#3a2a1a" stroke-width="2"/><path d="M30 30L44 44L50 20M72 28L58 42L44 44L40 62L22 50M58 42L66 60L80 52M40 62L52 72L66 60" stroke="#3a2a1a" stroke-width="1.5" fill="none"/><circle cx="44" cy="36" r="2.5" fill="#ffd66a"/><circle cx="58" cy="34" r="2.5" fill="#ffd66a"/><path d="M22 50L10 66L16 70M80 52L90 68L84 72" stroke="#8a6a44" stroke-width="8" stroke-linecap="round"/>`;
+    if(k==='genie') return `<path d="M50 60Q28 70 44 78Q62 86 44 94" stroke="${o.col}" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/><path d="M34 36Q50 28 66 36L62 62H38Z" fill="${o.col}"/><path d="M34 38L20 30M66 38L80 30" stroke="${o.col}" stroke-width="6" stroke-linecap="round"/><circle cx="50" cy="22" r="10" fill="${o.col}"/><path d="M40 16Q50 4 60 16" fill="${o.turban||'#f3e6c8'}"/><circle cx="46" cy="22" r="1.5" fill="#ffd66a"/><circle cx="54" cy="22" r="1.5" fill="#ffd66a"/>${o.beard?`<path d="M44 28Q50 40 56 28Z" fill="#1c130d"/>`:''}`;
+    if(k==='mephite') return `<path d="M44 46Q24 24 14 34Q26 40 28 54ZM56 46Q76 24 86 34Q74 40 72 54Z" fill="${shade(o.col,.2)}"/><ellipse cx="50" cy="58" rx="12" ry="16" fill="${o.col}"/><circle cx="50" cy="36" r="9" fill="${o.col}"/><path d="M44 30l-4 -8 6 4M56 30l4 -8 -6 4" fill="${o.col}"/><circle cx="47" cy="36" r="1.5" fill="#fff"/><circle cx="53" cy="36" r="1.5" fill="#fff"/><path d="M44 74L42 86M56 74L58 86" stroke="${o.col}" stroke-width="4"/>`;
+    if(k==='feufollet') return `<circle cx="50" cy="48" r="16" fill="#bfe3ff" opacity=".9"/><circle cx="50" cy="48" r="28" fill="#bfe3ff" opacity=".2"/><circle cx="50" cy="48" r="8" fill="#fff"/>`;
+    return ''; },
+  golem(o){ const c=o.col, d=shade(c,-.35);
+    return `<rect x="34" y="30" width="32" height="30" rx="3" fill="${c}"/><rect x="38" y="60" width="10" height="24" fill="${d}"/><rect x="52" y="60" width="10" height="24" fill="${d}"/><rect x="20" y="32" width="12" height="30" rx="3" fill="${c}"/><rect x="68" y="32" width="12" height="30" rx="3" fill="${c}"/><rect x="40" y="12" width="20" height="18" rx="2" fill="${c}"/><rect x="43" y="18" width="5" height="3" fill="${o.eye||'#ffd66a'}"/><rect x="52" y="18" width="5" height="3" fill="${o.eye||'#ffd66a'}"/>${o.stitch?`<path d="M36 40H64M36 50H64M50 30V60" stroke="#3a2a1a" stroke-width="1.5" stroke-dasharray="3 2"/>`:''}${o.rivets?[0,1,2,3].map(i=>`<circle cx="${38+i*8}" cy="34" r="1.5" fill="${d}"/>`).join(''):''}`; },
+  armure(o){ return `<path d="M36 30L44 26Q50 30 56 26L64 30L70 48L64 50L62 66H38L36 50L30 48Z" fill="#b8c2cc" stroke="#5d6670" stroke-width="1.5"/><path d="M40 12Q50 2 60 12V24H40Z" fill="#8a96a3"/><rect x="42" y="16" width="16" height="3" fill="#1c130d"/><rect x="40" y="66" width="8" height="20" fill="#8a96a3"/><rect x="52" y="66" width="8" height="20" fill="#8a96a3"/><path d="M64 50L78 20" stroke="#d7dde3" stroke-width="3"/>`; },
+  epee(){ return `<g transform="rotate(35 50 50)"><path d="M46 70V14L50 6L54 14V70Z" fill="#e6eef6" stroke="#8a96a3"/><rect x="36" y="70" width="28" height="5" fill="#d9b25f"/><rect x="47" y="75" width="6" height="14" fill="#8b5a2b"/></g><path d="M20 80Q30 70 40 80M60 86Q70 76 80 86" stroke="#bfe3f0" stroke-width="2" fill="none" opacity=".6"/>`; },
+  tapis(o){ return `<path d="M10 50Q30 36 50 50T90 50L86 76Q66 62 50 76T14 76Z" fill="${o.col||'#8e1b1b'}" stroke="#d9b25f" stroke-width="2"/><path d="M30 54Q40 48 50 56T76 56" stroke="#d9b25f" stroke-width="2" fill="none"/>`; },
+  mimique(){ return `<path d="M16 50Q16 30 50 30Q84 30 84 50Z" fill="#9a6a3c" stroke="#5e3d1f" stroke-width="2" transform="rotate(-18 16 50)"/><path d="M16 52H84V84H16Z" fill="#9a6a3c" stroke="#5e3d1f" stroke-width="2"/><path d="M16 52H84" stroke="#5d6670" stroke-width="4"/>`+[0,1,2,3,4,5,6].map(i=>`<path d="M${20+i*9} 52l4 8 4 -8z" fill="#f3e6c8"/>`).join('')+`<path d="M40 40Q50 60 64 48" stroke="#c0392b" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="30" cy="40" r="3" fill="#ffd66a"/>`; },
+  oeil(o){ const c=o.col; return `<ellipse cx="50" cy="50" rx="30" ry="22" fill="${c}"/><circle cx="50" cy="50" r="12" fill="#ffd66a"/><circle cx="50" cy="50" r="6" fill="#111"/>`+[0,1,2,3,4].map(i=>`<path d="M${30+i*10} 70Q${26+i*10} 82 ${32+i*10} 90" stroke="${c}" stroke-width="4" fill="none"/>`).join(''); },
+  cape(o){ const c=o.col; return `<path d="M10 40Q50 14 90 40L80 70Q66 56 50 76Q34 56 20 70Z" fill="${c}"/><circle cx="42" cy="40" r="3" fill="#ff5a5a"/><circle cx="58" cy="40" r="3" fill="#ff5a5a"/><path d="M40 60l3 6 3 -6 3 6 3 -6 3 6 3 -6" stroke="#f3e6c8" stroke-width="1.5" fill="none"/>`; },
+  nuee(o){ let s=''; const R=mrng(o.seed); for(let i=0;i<14;i++){ const x=18+R()*64, y=24+R()*56, r=2.5+R()*3; s+=`<ellipse cx="${x}" cy="${y}" rx="${r*1.5}" ry="${r}" fill="${o.col}" transform="rotate(${Math.round(R()*60-30)} ${x} ${y})"/>`; } return s; },
+  sphinx(o){ return Z.quad({col:o.col, bl:44, bh:18, leg:14, neck:12, head:'lionhuman', mane:12, mcol:'#c9a060', wings:true, wcol:'#e8d6a0', tail:'lion', crown:o.crown}); },
+  tarasque(){ return Z.quad({col:'#5a6a3a', bl:52, bh:26, leg:18, neck:4, head:'reptile', tail:'thick', spikes:true, horn:'#e8dcc0', shell:true}); },
+};
+
+// ------------------------------------------------------------------ choix du dessin
+function pickCreature(m, R){
+  const n = m.name.toLowerCase(), has=(...w)=>w.some(x=>n.includes(x));
+  const tc = TYPE_ICON_COL[m.type] || '#6b4a2e';
+  const nc = (NAMECOL.find(([re])=>re.test(n))||[])[1];
+  const col = nc || tc;
+  const B = (o)=>Z.biped(Object.assign({col:'#6b4a2e'}, o));
+  // nuées
+  if (m.swarm){ return Z.nuee({seed:mhash(m.id), col: has('sénestre')?'#e8e0d0':has('chauve')?'#2b2830':has('corbeau')?'#1c1c24':has('piranha')?'#7a8a9a':has('rat')?'#6b5a4a':has('serpent')?'#3f8a3a':'#1c130d'}); }
+  // --- dragons
+  if (has('dragon-tortue')) return Z.quad({col:'#2f6b5a', bl:50, bh:22, leg:12, neck:10, head:'reptile', shell:true, tail:'thick'});
+  if (has('demi-dragon')) return B({col:'#8e1b1b', head:'kobold', skin:'#a83a2a', batwings:true, wcol:'#6e1a14', weapon:'sword', tail:true});
+  if (has('pseudodragon')) return Z.vouivre({col:'#c0703a'});
+  if (has('vouivre')) return Z.vouivre({col:'#5a6a3a'});
+  if (has('dragon')) { const br = has('rouge','or ','d’or','airain')?'#ff8a3d':has('bleu','bronze')?'#9fd8f5':has('blanc','argent')?'#e8f6ff':has('vert')?'#8fcf3a':has('noir','cuivre')?'#a6e04a':null;
+    const small = has('dragonnet'); const g = Z.dragon({col, breath:br});
+    return small ? `<g transform="translate(50 60) scale(.75) translate(-50 -60)">${g}</g>` : g; }
+  if (has('hydre')) return Z.hydre({col:'#3f6b3a'});
+  if (has('tarasque')) return Z.tarasque();
+  // --- bêtes et animaux
+  const Q=(o)=>Z.quad(Object.assign({col}, o));
+  if (has('nécronte')) return B({col:'#3a3a3a', head:'skull', weapon:'claws'});
+  if (has('loup-garou')) return B({col:'#5a4a3a', head:'gnoll', skin:'#5a4a3a', weapon:'claws', bulk:1.1});
+  if (has('rat-garou')) return B({col:'#6b5a4a', head:'gnoll', skin:'#6b5a4a', weapon:'dagger'});
+  if (has('ours-garou')) return B({col:'#6b4a2e', head:'gnoll', skin:'#6b4a2e', weapon:'axe', bulk:1.3});
+  if (has('sanglier-garou')) return B({col:'#5a4a3a', head:'gnoll', skin:'#6b5a4a', weapon:'club', bulk:1.2});
+  if (has('tigre-garou')) return B({col:'#c0703a', head:'gnoll', skin:'#d0782a', weapon:'claws', bulk:1.1});
+  if (has('hibours')) return Q({col:'#6b4a2e', bl:40, bh:24, leg:16, neck:6, head:'beak', hcol:'#8a6a44', tuft:true, tail:'none'});
+  if (has('griffon')) return Q({col:'#c9a060', bl:40, bh:18, leg:18, neck:10, head:'beak', hcol:'#f3e6c8', wings:true, wcol:'#8a6a44', tail:'lion'});
+  if (has('hippogriffe')) return Q({col:'#8a6a44', bl:40, bh:18, leg:20, neck:12, head:'beak', hcol:'#e8dcc0', wings:true, tail:'bushy'});
+  if (has('cockatrice')) return Z.oiseau({col:'#c0703a', hcol:'#c0392b'});
+  if (has('chimère')) return Q({col:'#c9a060', bl:44, bh:20, leg:16, neck:8, head:'feline', mane:12, mcol:'#8a5a2a', wings:true, wcol:'#8e1b1b', heads:3, tail:'thin'});
+  if (has('manticore')) return Q({col:'#a8744a', bl:44, bh:20, leg:16, neck:8, head:'lionhuman', mane:12, wings:true, wcol:'#6b3a1e', tail:'scorpion'});
+  if (has('sphinx')) return Z.sphinx({col:'#d9b25f', crown: has('valeureux')?'#e0b640':null});
+  if (has('pégase')) return Q({col:'#f3f3e6', bl:42, bh:17, leg:22, neck:12, head:'horse', wings:true, wcol:'#ffffff', maneline:true, tail:'bushy'});
+  if (has('licorne')) return Q({col:'#f3f3e6', bl:42, bh:17, leg:22, neck:12, head:'horse', horn:'#e0b640', maneline:true, tail:'bushy'});
+  if (has('horriflamme')) return Q({col:'#1c1c24', bl:42, bh:17, leg:22, neck:12, head:'horse', fire:true, tail:'bushy'});
+  if (has('centaure')) return Q({col:'#8a5a2a', bl:40, bh:17, leg:22, neck:2, head:'centaur', tail:'bushy'});
+  if (has('chien du trépas')) return Q({col:'#2b2830', bl:40, bh:16, leg:18, head:'canine', heads:2, tail:'thin'});
+  if (has('molosse infernal')) return Q({col:'#5e0f0f', bl:40, bh:16, leg:18, head:'canine', fire:true, tail:'thin'});
+  if (has('chien esquiveur')) return Q({col:'#c9a060', bl:38, bh:15, leg:18, head:'canine', spots:true, tail:'thin'});
+  if (has('worg')) return Q({col:'#3a3a3a', bl:44, bh:18, leg:18, head:'canine', tail:'bushy'});
+  if (has('loup arctique')) return Q({col:'#e8eef2', bl:44, bh:18, leg:18, head:'canine', tail:'bushy'});
+  if (has('loup','chacal','molosse','hyène')) return Q({col: has('sanguinaire')?'#4a4040':has('hyène')?'#b8925a':has('chacal')?'#c9a060':has('molosse')?'#7a5a3a':'#7a7a7a', bl:has('géante','sanguinaire')?44:38, bh:15, leg:17, head:'canine', tail: has('hyène')?'thin':'bushy', spots: has('hyène')});
+  if (has('tigre à dents')) return Q({col:'#d0922a', bl:44, bh:18, leg:16, head:'feline', stripes:true, tail:'thin', horn:null});
+  if (has('tigre')) return Q({col:'#d0782a', bl:44, bh:17, leg:16, head:'feline', stripes:true});
+  if (has('lion')) return Q({col:'#d9a860', bl:44, bh:17, leg:16, head:'feline', mane:12, mcol:'#8a5a2a', tail:'lion'});
+  if (has('panthère')) return Q({col:'#2b2830', bl:42, bh:15, leg:15, head:'feline'});
+  if (has('chat')) return Q({col:'#c07a4a', bl:30, bh:12, leg:12, head:'feline', stripes:true});
+  if (has('ours')) return Q({col: has('polaire')?'#f3efe6':has('noir')?'#2b2830':'#6b4a2e', bl:42, bh:24, leg:16, neck:4, head:'bear', tail:'none'});
+  if (has('cheval','poney','destrier','mule')) return Q({col: has('trait')?'#5a3a24':has('mule')?'#6b5a4a':has('poney')?'#a8744a':'#7a4a28', bl: has('poney','mule')?36:42, bh:17, leg: has('poney')?16:22, neck:12, head:'horse', maneline:true, armor: has('destrier'), tail:'bushy'});
+  if (has('chameau')) return Q({col:'#c9a060', bl:40, bh:16, leg:24, neck:14, head:'horse', hump:true});
+  if (has('cervidé')) return Q({col:'#8a5a2a', bl:40, bh:15, leg:22, neck:12, head:'horse', horn: null, tail:'none'}) + `<path d="M${46+20-4} ${82-22-15/2+4-12-8}q-6 -12 -14 -14M${62} ${38}q4 -12 12 -14" stroke="#e8dcc0" stroke-width="2.5" fill="none"/>`;
+  if (has('chèvre')) return Q({col:'#d8cbb0', bl:34, bh:14, leg:16, neck:8, head:'goat', tail:'thin'});
+  if (has('sanglier')) return Q({col:'#5a4a3a', bl:40, bh:20, leg:12, neck:2, head:'boar', spikes:true});
+  if (has('rhinocéros')) return Q({col:'#8a8f95', bl:46, bh:22, leg:14, neck:2, head:'rhino', tail:'thin'});
+  if (has('hippopotame')) return Q({col:'#8a7a8a', bl:48, bh:24, leg:10, neck:2, head:'hippo', tail:'thin'});
+  if (has('éléphant','mammouth')) return Q({col: has('mammouth')?'#6b4a2e':'#8b8f95', bl:48, bh:26, leg:20, neck:0, head:'elephant', lw:9, tail:'thin'});
+  if (has('tricératops')) return Q({col:'#6f8a4a', bl:48, bh:22, leg:14, neck:2, head:'rhino', frill:true, tail:'thick', lw:8});
+  if (has('ankylosaure')) return Q({col:'#8a7a4a', bl:48, bh:18, leg:12, neck:2, head:'reptile', shell:true, tail:'thick', lw:8});
+  if (has('tyrannosaure','allosaure')) return `<path d="M20 74Q8 70 4 58Q18 64 30 64Z" fill="${has('allosaure')?'#8a5a2a':'#5a6a3a'}"/><ellipse cx="42" cy="56" rx="20" ry="14" fill="${has('allosaure')?'#8a5a2a':'#5a6a3a'}"/><path d="M36 66L32 84H40L42 68ZM48 66L50 84H58L54 66Z" fill="${shade(has('allosaure')?'#8a5a2a':'#5a6a3a',-.3)}"/><path d="M54 48Q62 30 72 28L92 32L90 42L74 44Q66 50 60 58Z" fill="${has('allosaure')?'#8a5a2a':'#5a6a3a'}"/><path d="M76 42l2 3 2 -3 2 3 2 -3 2 3" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="76" cy="33" r="1.8" fill="#ffd66a"/><path d="M60 58l6 6" stroke="${has('allosaure')?'#8a5a2a':'#5a6a3a'}" stroke-width="3"/>`;
+  if (has('ptéranodon')) return Z.oiseau({col:'#8a7a5a', hcol:'#8a7a5a', soar:true, hook:false});
+  if (has('crocodile','lézard','basilic','béhir')) return Q({col: has('basilic')?'#5a6a3a':has('béhir')?'#2f5d8a':'#5a6a3a', bl: has('béhir')?54:has('géant')?50:40, bh: has('béhir')?14:12, leg: has('béhir')?12:8, neck:0, head:'reptile', tail:'thick', spikes: has('béhir','basilic'), heads:0, lw:5});
+  if (has('crapaud','grenouille')) return `<ellipse cx="48" cy="62" rx="24" ry="16" fill="${has('crapaud')?'#6b7a3a':'#4f9a3a'}"/><circle cx="40" cy="44" r="7" fill="${has('crapaud')?'#6b7a3a':'#4f9a3a'}"/><circle cx="58" cy="44" r="7" fill="${has('crapaud')?'#6b7a3a':'#4f9a3a'}"/><circle cx="40" cy="43" r="3" fill="#ffd66a"/><circle cx="58" cy="43" r="3" fill="#ffd66a"/><path d="M34 62Q48 70 64 62" stroke="#1c130d" stroke-width="2" fill="none"/><path d="M24 70L14 84H28M72 70L82 84H68" stroke="${has('crapaud')?'#6b7a3a':'#4f9a3a'}" stroke-width="5" fill="none"/>`;
+  if (has('serpent volant')) return Z.serpent({col:'#3f8a8a', w:6, wings:'#9fd8f5'});
+  if (has('serpent')) return Z.serpent({col: has('venimeux')?'#3f8a3a':'#8a6a3a', w: has('géant','constricteur')?11:7, hood: has('venimeux')});
+  if (has('couatl')) return Z.serpent({col:'#3f8a8a', w:9, wings:'#e0b640'});
+  if (has('naga')) return B({col:'#3f6b3a', head:'human', skin:'#8fae6a', snaketail:'#3f6b3a', hair:'#1c130d'});
+  if (has('lamie')) return B({col:'#c9a060', head:'human', skin:'#e0b48a', snaketail:'#c9a060', hair:'#8e1b1b', weapon:'dagger'});
+  if (has('araignée','ettercap')&&!has('ettercap')) return Z.arthropode({col: has('phase')?'#4f86b8':has('loup')?'#6b5a4a':'#2b2830', kind:'spider', mark: has('phase')?'#bfe3ff':'#c0392b'});
+  if (has('ettercap')) return B({col:'#4a3a2a', head:'kobold', skin:'#6b5a4a', weapon:'claws'});
+  if (has('scorpion')) return Z.arthropode({col:'#8a5a2a', kind:'scorpion', legs:6});
+  if (has('crabe')) return Z.arthropode({col:'#c0503a', kind:'crab', legs:6});
+  if (has('guêpe')) return Z.arthropode({kind:'wasp'});
+  if (has('mille-pattes')) return Z.arthropode({col:'#8e3b1b', kind:'centipede'});
+  if (has('scarabée')) return Z.arthropode({col:'#3a2a1a', kind:'beetle', legs:6});
+  if (has('ankheg')) return Z.arthropode({col:'#6b4a2e', kind:'insect', legs:6});
+  if (has('chuul')) return Z.arthropode({col:'#5a6a3a', kind:'crab', legs:6});
+  if (has('oxydeur')) return Z.arthropode({col:'#a8603a', kind:'insect', legs:4});
+  if (has('pieuvre','kraken')) return Z.tentacules({col: has('kraken')?'#3a5a6a':'#b8484a', n: has('kraken')?8:6, big: has('kraken','géante')});
+  if (has('aboleth')) return Z.tentacules({col:'#5a7a6a', fish:true});
+  if (has('requin','piranha','épaulard','plésiosaure','archélon')) return has('archélon') ? Q({col:'#4f7a6a', bl:48, bh:18, leg:6, neck:4, head:'reptile', shell:true, tail:'none'}) : Z.poisson({col: has('épaulard')?'#1c1c24':has('piranha')?'#8a7a6a':'#6a7f8f', shark: has('requin','épaulard'), teeth: has('requin','piranha'), orca: has('épaulard'), neck: has('plésiosaure'), big: has('géant')});
+  if (has('hippocampe')) return Z.hippocampe({col:'#3f8a8a'});
+  if (has('chauve-souris')) return Z.chauvesouris({col: has('géante')?'#3a2a2a':'#2b2830'});
+  if (has('strige')) return Z.chauvesouris({col:'#8e3b3b'});
+  if (has('harpie')) return B({col:'#6b4a2e', head:'hag', skin:'#c9a67a', batwings:true, wcol:'#6b4a2e', hair:'#3a2a1a'});
+  if (has('aigle','faucon','corbeau','chouette','vautour','rukh')) return Z.oiseau({col: has('corbeau')?'#1c1c24':has('chouette')?'#8a6a44':has('vautour')?'#3a2a2a':has('faucon de sang')?'#8e1b1b':'#6b4a2e', hcol: has('aigle')?'#f3f3e6':has('vautour')?'#d8a0a0':null, owl: has('chouette'), bald: has('vautour'), hook: has('aigle','faucon','rukh','vautour'), soar: has('rukh','géant')});
+  if (has('singe','babouin')) return B({col: has('babouin')?'#8a6a44':'#4a3a2a', head:'human', skin: has('babouin')?'#b88a6a':'#6b5a4a', bulk: has('géant')?1.5:1.2, weapon:null, k: has('babouin')?.8:1});
+  if (has('rat','belette','blaireau')) return Q({col: has('blaireau')?'#5a5a5a':has('belette')?'#a8744a':'#6b5a4a', bl: has('géant')?38:30, bh: 12, leg:8, neck:2, head:'rodent', stripes: has('blaireau'), tail: has('rat')?'thin':'bushy'});
+  if (has('autrache')) return Z.oiseau({col:'#8a6a44', hcol:'#e8dcc0'});
+  if (has('bulette')) return Q({col:'#6f7a8a', bl:46, bh:24, leg:12, neck:0, head:'reptile', shell:true, tail:'none'});
+  if (has('remorhaz')) return Z.ver({col:'#6fa8c9', spikes:true});
+  if (has('ver pourpre')) return Z.ver({col:'#7a3a8a'});
+  if (has('otyugh')) return Z.tentacules({col:'#6b6a3a', n:3, eyes3:true});
+  if (has('enlaceur')) return `<path d="M34 84L40 26Q50 16 60 26L66 84Z" fill="#6f7a6a"/><circle cx="50" cy="40" r="6" fill="#ffd66a"/><circle cx="50" cy="40" r="2.5" fill="#111"/><path d="M42 58h16" stroke="#1c130d" stroke-width="3"/><path d="M40 50Q20 40 10 58M60 50Q80 36 90 52M44 30Q30 10 18 16" stroke="#8a8f7a" stroke-width="2.5" fill="none"/>`;
+  if (has('manteleur','mante obscure')) return Z.cape({col: has('mante')?'#2b2830':'#3a2a2a'});
+  if (has('mimique')) return Z.mimique();
+  if (has('tapis')) return Z.tapis({col:'#6b1a1a'});
+  if (has('armure animée')) return Z.armure();
+  if (has('épée volante')) return Z.epee();
+  if (has('golem','garde animé')) return Z.golem({col: has('fer')?'#5d6670':has('pierre')?'#9a958a':has('argile')?'#a8744a':has('chair')?'#a88a7a':'#c49a45', stitch: has('chair'), rivets: has('fer','garde'), eye: has('garde')?'#9fd8f5':null});
+  if (has('homoncule')) return B({col:'#6b8a4a', head:'goblin', skin:'#8fae6a', batwings:true, wcol:'#4f6b3a', k:.6});
+  if (has('gargouille')) return B({col:'#7a7f86', head:'gnoll', skin:'#8a8f95', batwings:true, wcol:'#5a5f66', horns:'#5a5f66', weapon:'claws'});
+  if (has('xorn')) return `<ellipse cx="50" cy="58" rx="26" ry="24" fill="#8a7a6a"/><path d="M40 42l10 12 10 -12" stroke="#1c130d" stroke-width="3" fill="none"/>`+[0,120,240].map(a=>`<circle cx="${50+Math.cos(a*Math.PI/180-1.6)*18}" cy="${46+Math.sin(a*Math.PI/180-1.6)*10}" r="4" fill="#ffd66a"/>`).join('')+`<path d="M24 60L10 70M76 60L90 70M34 78L28 88M66 78L72 88" stroke="#8a7a6a" stroke-width="6" stroke-linecap="round"/>`;
+  if (has('grick')) return Z.ver({col:'#6f7a6a'}) ;
+  if (has('babélien')) return `<path d="M14 84Q12 50 50 44Q88 50 86 84Z" fill="#8a4a6a"/>`+[[30,60],[46,54],[62,62],[72,72],[40,72],[56,74]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="#f3e6c8"/><circle cx="${x}" cy="${y}" r="2" fill="#111"/>`).join('')+`<path d="M34 80Q40 76 46 80M58 80Q64 76 70 80" stroke="#1c130d" stroke-width="2" fill="none"/>`;
+  if (has('gorgone')) return Q({col:'#5d6670', bl:44, bh:20, leg:16, neck:4, head:'bovine', armor:true});
+  if (has('minotaure')) return B({col:'#6b3a1e', head:'bull', skin:'#6b3a1e', weapon:'axe', bulk:1.3});
+  if (has('méduse')) return B({col:'#3f6b3a', head:'snakes', skin:'#8fae6a', weapon:'bow', robe:'#3f6b3a'});
+  if (has('merrow')) return B({col:'#3f6b6a', head:'fish', skin:'#5a8a8a', weapon:'trident', snaketail:'#3f6b6a', bulk:1.3});
+  if (has('sahuagin','thalasséen')) return B({col: has('thalasséen')?'#4f86b8':'#3f6b3a', head:'fish', skin: has('thalasséen')?'#e0b48a':'#5a8a5a', weapon: 'trident', snaketail: has('thalasséen')?'#4f86b8':null});
+  if (has('doppelganger')) return B({col:'#8a8f95', head:'human', skin:'#c9c6c0', eyes:'#fff'});
+  if (has('drider')) return Z.arthropode({col:'#2b2830', kind:'spider'}) + `<g transform="translate(18 -20) scale(.6)">${B({col:'#3a2a4a', head:'human', skin:'#6a5a8a', hair:'#f3f3e6', weapon:'sword'})}</g>`;
+  // --- plantes et vases
+  if (has('sylvanien','arbre')) return Z.plante({col: has('arbre')?'#5a8a3a':'#3f6b2a', kind:'tree'});
+  if (has('arbuste')) return Z.plante({col:'#5a8a3a', kind:'shrub'});
+  if (has('criard','thallophyte')) return Z.plante({col: has('violette')?'#7a3a8a':'#c9a060', kind:'mushroom', scream: has('criard')});
+  if (has('tertre')) return Z.plante({col:'#3f5a2a', kind:'mound'});
+  if (has('cube gélatineux')) return Z.vase({col:'#8fd0c0', cube:true});
+  if (m.type==='Vase') return Z.vase({col: has('noir')?'#2b2830':has('ocre')?'#c9a060':has('gris')?'#8a8f95':'#a6e04a'});
+  // --- élémentaires
+  if (has('élémentaire du feu','salamandre','magmatique')&&!has('méphite')) return Z.elementaire({kind:'feu'});
+  if (has('élémentaire de l’eau')) return Z.elementaire({kind:'eau'});
+  if (has('élémentaire de l’air','traqueur invisible')) return Z.elementaire({kind:'air'});
+  if (has('élémentaire de la terre')) return Z.elementaire({kind:'terre'});
+  if (has('djinn')) return Z.elementaire({kind:'genie', col:'#4f86b8'});
+  if (has('éfrit')) return Z.elementaire({kind:'genie', col:'#c0392b', turban:'#1c130d', beard:true});
+  if (has('méphite')) return Z.elementaire({kind:'mephite', col: has('gelé')?'#bfe3f0':has('magmatique')?'#ff8a3d':has('poussiéreux')?'#c9a060':'#dfe8f0'});
+  if (has('feu follet')) return Z.elementaire({kind:'feufollet'});
+  if (has('azer')) return B({col:'#c49a45', head:'human', skin:'#c49a45', beard:'#ff8a3d', hair:'#ff8a3d', weapon:'axe', glow:'#ff8a3d', bulk:1.1});
+  // --- morts-vivants
+  if (has('liche')) return B({col:'#3a2a4a', head:'skull', robe:'#3a2a4a', crown:'#e0b640', weapon:'staff', orb:'#8fcf3a', glow:'#8fcf3a'});
+  if (has('vampire')) return B({col:'#1c1c24', head:'human', skin:'#d8d0d0', cape:'#8e1b1b', hair:'#1c1c24', eyes:'#ff3a3a', weapon: has('rejeton')?'claws':null});
+  if (has('momie')) return B({col:'#bfb28a', head:'human', skin:'#bfb28a', wrap:true, eyes:'#ffd66a', crown: has('auguste')?'#e0b640':null});
+  if (has('squelette')) return B({col:'#e8e0d0', head:'skull', ribs:true, arm:'#e8e0d0', weapon:'sword', shield: has('guerrier')?'#6b4a2e':null});
+  if (has('zombi')) return B({col:'#6f7a5a', head:'human', skin:'#8fa07a', arm:'#8fa07a', eyes:'#fff', bulk: has('ogre')?1.5:1});
+  if (has('goule','blême')) return B({col:'#5f6f6a', head:'human', skin:'#9aa89a', weapon:'claws', eyes:'#ffd66a'});
+  if (has('fantôme','spectre','âme-en-peine','ombre','sénestre')) return B({col: has('ombre')?'#1c1c24':has('âme')?'#2b2830':'#bfd8e0', head:'ghost', k:1});
+  // --- fiélons
+  if (has('diablotin')) return B({col:'#8e1b1b', head:'goblin', skin:'#a83a2a', batwings:true, wcol:'#5e0f0f', horns:'#1c130d', tail:true, k:.6});
+  if (has('quasit')) return B({col:'#3f6b3a', head:'goblin', skin:'#5a8a3a', horns:'#1c130d', weapon:'claws', k:.6});
+  if (has('lémure')) return Z.vase({col:'#a8604a'});
+  if (has('dretch')) return B({col:'#8a6a5a', head:'goblin', skin:'#a88a7a', bulk:1.3, k:.8});
+  if (has('succube','incube')) return B({col:'#5a1a3a', head:'human', skin:'#d0a0a0', batwings:true, wcol:'#3a0a1a', horns:'#1c130d', tail:true, hair:'#1c130d'});
+  if (has('érinye')) return B({col:'#1c1c24', head:'human', skin:'#d0b0a0', wings:true, wcol:'#2b2830', weapon:'sword', helm:'#5d6670'});
+  if (has('balor')) return B({col:'#5e0f0f', head:'bull', skin:'#c0392b', eyes:'#ffd66a', batwings:true, wcol:'#3a0404', weapon:'whip', glow:'#ff8a3d', bulk:1.5});
+  if (has('marilith')) return B({col:'#3f6b3a', head:'human', skin:'#6b8a4a', snaketail:'#3f6b3a', weapon:'sword', hair:'#1c130d'});
+  if (has('vrock')) return B({col:'#5a4a3a', head:'gnoll', skin:'#6b5a4a', wings:true, wcol:'#3a2a1a', weapon:'claws'});
+  if (has('hezrou')) return B({col:'#4f6b3a', head:'kobold', skin:'#6b8a4a', bulk:1.5, weapon:'claws'});
+  if (has('glabrezu')) return B({col:'#8e1b1b', head:'gnoll', skin:'#a83a2a', horns:'#1c130d', bulk:1.5, weapon:'claws'});
+  if (has('nalfeshnie')) return B({col:'#6b4a2e', head:'bull', skin:'#8a6a4a', batwings:true, wcol:'#3a1a0a', bulk:1.6}) ;
+  if (has('diantrefosse')) return B({col:'#8e1b1b', head:'human', skin:'#a83a2a', batwings:true, wcol:'#5e0f0f', horns:'#1c130d', weapon:'club', tail:true, bulk:1.4});
+  if (has('diable osseux')) return B({col:'#e8e0d0', head:'skull', ribs:true, batwings:true, wcol:'#bfb28a', tail:true});
+  if (has('diable')) return B({col: has('gelé')?'#bfe3f0':has('barbelé')?'#8e1b1b':has('chaînes')?'#5d6670':'#8e3b1b', head:'human', skin: has('gelé')?'#dfe8f0':'#a83a2a', horns:'#1c130d', tail:true, weapon: has('chaînes')?'whip':has('cornu')?'trident':'spear', batwings: has('cornu'), wcol:'#5e0f0f'});
+  if (has('rakshasa')) return B({col:'#8e3b1b', head:'lionhuman', skin:'#d0782a', robe:'#5a2a6a', weapon:'claws'});
+  if (m.type==='Fiélon') return B({col:'#8e1b1b', head:'human', skin:'#a83a2a', horns:'#1c130d', tail:true});
+  // --- célestes
+  if (has('déva','planétar','solar')) return B({col:'#f3e6c8', head:'human', skin: has('planétar')?'#8fcf8a':has('solar')?'#e0b640':'#c9d2da', wings:true, wcol:'#ffffff', halo:true, weapon: has('solar')?'bow':'sword', robe:'#f3e6c8', glow:'#ffe45c', bulk: has('solar','planétar')?1.2:1});
+  // --- fées
+  if (has('esprit follet')) return B({col:'#6fbf6f', head:'human', skin:'#bff0d8', wings:true, wcol:'#bfe3ff', ears:true, k:.55, weapon:'bow'});
+  if (has('dryade')) return B({col:'#3f8a3a', head:'human', skin:'#9fcf7a', hair:'#3f6b2a', robe:'#3f8a3a', ears:true});
+  if (has('satyre')) return B({col:'#8a6a44', head:'human', skin:'#e0b48a', goatlegs:true, horns:'#c9b28a', hair:'#5a3a1a', weapon:'dagger'});
+  if (has('guenaude')) return B({col: has('marine')?'#3f6b6a':has('verte')?'#3f6b3a':'#2b2830', head:'hag', skin: has('marine')?'#8faa9a':has('verte')?'#8fae6a':'#7a6a8a', hair: has('marine')?'#2f4f4a':'#1c130d', robe: has('marine')?'#2f4f4a':has('verte')?'#2f4f23':'#1c1c24', weapon:'claws'});
+  // --- géants et grands humanoïdes
+  if (has('ettin')) return B({col:'#6b4a2e', head:'human', skin:'#b08a6a', twohead:true, weapon:'club', bulk:1.5});
+  if (has('troll')) return B({col:'#4f6b3a', head:'goblin', skin:'#6b8a4a', weapon:'claws', bulk:1.4, hair:'#2f3a2a'});
+  if (has('ogre')) return B({col:'#8a6a44', head:'human', skin:'#b08a5a', weapon:'club', bulk:1.6, belt:'#3a2a1a'});
+  if (has('oni')) return B({col:'#2f4f8a', head:'human', skin:'#4f6fb8', horns:'#e8dcc0', weapon:'sword', bulk:1.4, hair:'#1c130d'});
+  if (has('torve')) return B({col:'#5a3a2a', head:'cyclops', skin:'#b08a6a', weapon:'club', bulk:1.3});
+  if (m.type==='Géant') { const gs = has('feu')?['#c0392b','#3a2a2a','#ff8a3d']:has('givre')?['#bfe3f0','#6f8fa8','#f3f3f3']:has('nuages')?['#dfe8f0','#8a9ab8','#f3f3f3']:has('tempêtes')?['#2f6fb8','#6f9ac9','#e8eef2']:has('pierres')?['#8a8f95','#9a958a','#5a5a5a']:['#8a6a44','#c9a67a','#5a3a1a'];
+    return B({col:gs[0], head:'human', skin:gs[1], hair:gs[2], beard: has('feu','givre','tempêtes')?gs[2]:null, weapon: has('collines')?'club':has('tempêtes')?'sword':has('pierres')?'club':'axe', bulk:1.6, helm: has('feu')?'#3a3a3a':null}); }
+  // --- humanoïdes
+  if (has('gobelours')) return B({col:'#6b4a2e', head:'goblin', skin:'#a8744a', weapon:'club', bulk:1.3, hair:'#5a3a1a'});
+  if (has('hobgobelin')) return B({col:'#8e1b1b', head:'goblin', skin:'#c0703a', weapon:'sword', shield:'#8e1b1b', helm: has('capitaine')?'#5d6670':null});
+  if (has('gobelin')) return B({col:'#5a4a3a', head:'goblin', skin:'#7a9a4a', weapon: has('sbire')?'dagger':'sword', k:.75, crown: has('chef')?'#8a6a3c':null});
+  if (has('kobold')) return B({col:'#8a4a2a', head:'kobold', skin:'#a8603a', weapon:'spear', k:.75});
+  if (has('gnoll')) return B({col:'#6b5a3a', head:'gnoll', skin:'#b8925a', weapon:'spear'});
+  if (has('mage','archimage')) return B({col:'#3a2e5a', head:'human', robe:'#3a2e5a', hat: has('archimage')?'#1d3550':'#3a2e5a', weapon:'staff', beard: has('archimage')?'#f3f3f3':null, orb: has('archimage')?'#ffd66a':'#9fd8f5'});
+  if (has('druide')) return B({col:'#3f6b2a', head:'human', robe:'#3f6b2a', hair:'#6b4a2e', weapon:'staff', orb:'#8fcf3a', beard:'#6b4a2e'});
+  if (has('prêtre','acolyte')) return B({col:'#f3e6c8', head:'human', robe:'#f3e6c8', weapon:'symbol', hair:'#5a3a1a', belt:'#8e1b1b'});
+  if (has('sectateur','secte')) return B({col:'#5e0f0f', head:'hood', hood:'#5e0f0f', robe:'#5e0f0f', weapon: has('fanatique')?'fire':'dagger', eyes:'#ff5a5a'});
+  if (has('assassin','espion')) return B({col:'#1c1c24', head:'hood', hood:'#1c1c24', weapon:'dagger', eyes:'#e8eef2', cape:'#2b2830'});
+  if (has('éclaireur')) return B({col:'#3f5a2a', head:'hood', hood:'#3f5a2a', weapon:'bow', eyes:'#e8eef2', cape:'#3f5a2a'});
+  if (has('pirate')) return B({col:'#8e1b1b', head:'human', hair:'#1c130d', tricorne:true, weapon:'sword', belt:'#1c130d', beard: has('capitaine')?'#1c130d':null});
+  if (has('bandit','chef de bande','gros-bras')) return B({col:'#6b5a3a', head:'hood', hood:'#6b5a3a', weapon: has('gros-bras')?'club':'sword', eyes:'#e8eef2', bulk: has('gros-bras')?1.3:1});
+  if (has('chevalier')) return B({col:'#c4ccd4', head:'human', helm:'#8a96a3', weapon:'sword', shield:'#8e1b1b', cape:'#8e1b1b'});
+  if (has('garde','soldat','vétéran','capitaine')) return B({col:'#6b3a1e', head:'human', helm:'#8a96a3', weapon: has('soldat','vétéran')?'sword':'spear', shield:'#6b3a1e', hair:'#5a3a1a'});
+  if (has('gladiateur')) return B({col:'#c49a45', head:'human', helm:'#c49a45', weapon:'trident', shield:'#c49a45', bulk:1.2});
+  if (has('berserker')) return B({col:'#6b4a2e', head:'human', hair:'#c0703a', beard:'#c0703a', weapon:'axe', bulk:1.3});
+  if (has('noble')) return B({col:'#5a2a6a', head:'human', hair:'#c9a060', cape:'#8e1b1b', weapon:'sword', crown:'#e0b640'});
+  if (has('roturier')) return B({col:'#8a6a44', head:'human', hair:'#6b4a2e', belt:'#5a3a1a'});
+  // repli par type
+  const fallback = {
+    "Aberration": ()=>Z.oeil({col:'#6a3f8a'}), "Artificiel": ()=>Z.golem({col:'#8a8f95'}), "Bête": ()=>Q({}),
+    "Céleste": ()=>B({col:'#f3e6c8', wings:true, halo:true}), "Élémentaire": ()=>Z.elementaire({kind:'feu'}),
+    "Fée": ()=>B({col:'#3f8a3a', ears:true, wings:true, wcol:'#bfe3ff'}), "Humanoïde": ()=>B({col:'#6b5a3a'}),
+    "Monstruosité": ()=>Q({col:'#6b4a2e', head:'reptile', spikes:true}), "Mort-vivant": ()=>B({head:'skull', col:'#e8e0d0', ribs:true}),
+    "Plante": ()=>Z.plante({col:'#3f6b2a'}), "Dragon": ()=>Z.dragon({col}), "Géant": ()=>B({col, bulk:1.6})
+  };
+  return (fallback[m.type] || (()=>B({col})))();
+}
+
+const SIZE_K = {TP:.64, P:.76, M:.9, G:1, TG:1.04, Gig:1.08};
+function monsterSVG(m, size){
+  const h = mhash(m.id), R = mrng(h), gid = 'mg'+h.toString(36);
+  const bg = TYPE_BG[m.type] || ["#6b5a3a","#2b1d12"];
+  const fp = m.fpv||0, ring = fp>=17?'#ffb23d':fp>=11?'#c07cff':fp>=5?'#4fa3ff':fp>=1?'#5fd06a':'#d9b25f';
+  let s = `<svg class="mon-art" viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="Illustration : ${m.name.replace(/"/g,'')}">`;
+  s += `<defs><radialGradient id="${gid}" cx="${38+R()*24}%" cy="${30+R()*20}%" r="78%"><stop offset="0%" stop-color="${bg[0]}"/><stop offset="100%" stop-color="${bg[1]}"/></radialGradient><clipPath id="${gid}c"><circle cx="60" cy="60" r="56"/></clipPath></defs>`;
+  s += `<circle cx="60" cy="60" r="57" fill="url(#${gid})"/>`;
+  s += `<g clip-path="url(#${gid}c)">`;
+  // décor : sol ou eau ou ciel selon la vitesse
+  const v = (m.vitesse||'');
+  if (/nage/.test(v) && !/vol/.test(v)) s += `<path d="M0 ${92+R()*6}Q30 ${86} 60 ${94}T120 ${90}V120H0Z" fill="#1d3550" opacity=".55"/>`;
+  else if (!/vol \d/.test(v) || /stationnaire/.test(v)) s += `<ellipse cx="60" cy="${98+R()*4}" rx="${40+R()*10}" ry="7" fill="#000" opacity=".28"/>`;
+  const n = 5 + Math.floor(R()*7);
+  for (let i=0;i<n;i++){ const a=R()*Math.PI*2, r=24+R()*30; s += `<circle cx="${(60+Math.cos(a)*r).toFixed(1)}" cy="${(52+Math.sin(a)*r*.7).toFixed(1)}" r="${(0.5+R()*1.3).toFixed(1)}" fill="#f3e6c8" opacity="${(0.2+R()*0.4).toFixed(2)}"/>`; }
+  const k = m.swarm ? 1 : (SIZE_K[m.sizes[m.sizes.length-1]] || .86);
+  const flip = R()<.5 ? -1 : 1;
+  s += `<g transform="translate(60 ${62+ (1-k)*22}) scale(${(k*flip).toFixed(3)} ${k.toFixed(3)}) translate(-50 -55)" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,.55))">${pickCreature(m, R)}</g>`;
+  s += `</g><circle cx="60" cy="60" r="57" fill="none" stroke="${ring}" stroke-width="3"/><circle cx="60" cy="60" r="52" fill="none" stroke="#d9b25f" stroke-width=".8" stroke-dasharray="${1+h%3} ${3+h%4}"/></svg>`;
+  return s;
+}
+
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const AB = ['For','Dex','Con','Int','Sag','Cha'];
+const ABN = {For:'Force', Dex:'Dextérité', Con:'Constitution', Int:'Intelligence', Sag:'Sagesse', Cha:'Charisme'};
+const SIZEN = {TP:'Très Petite', P:'Petite', M:'Moyenne', G:'Grande', TG:'Très Grande', Gig:'Gigantesque'};
+let LIST = [];      // [{id, monster, date, from:'local'|'file'}]
+let SEL = new Set();
+
+function loadLocal(){ try { return JSON.parse(localStorage.getItem('grimoire-homebrew')||'[]'); } catch(e){ return []; } }
+function addRecords(recs, from){
+  for (const r of recs){ const m = r && (r.monster || r); if (!m || !m.name || !m.stats) continue;
+    const id = m.id || r.id || ('f-' + Math.random().toString(36).slice(2));
+    m.id = id; const i = LIST.findIndex(x=>x.id===id); const rec = {id, monster:m, date:r.date||null, from};
+    if (i>=0) LIST[i] = rec; else LIST.push(rec); }
+}
+
+// mise en valeur des nombres de jeu (bonus, DD, dégâts) dans un texte déjà échappé
+function rich(t){
+  let s = esc(t);
+  s = s.replace(/((?:Corps à corps ou à distance|Corps à corps|À distance)) : ([+−-]\d+)/g, '<i class="k">$1 :</i> <span class="n">$2</span>');
+  s = s.replace(/\b(DD \d+)/g, '<span class="n">$1</span>');
+  s = s.replace(/(\d+ \(\d+d\d+(?: [+−-] \d+)?\))/g, '<span class="n">$1</span>');
+  s = s.replace(/(^|[.\n] ?)(Touché|Échec ou réussite|Échec|Réussite|Premier échec|Second échec|Raté|Déclencheur|Réponse)( :)/g, '$1<i class="k">$2$3</i>');
+  return s.replace(/\n/g, '</p><p>');
+}
+function splitName(n){ const m = String(n).match(/^(.*?)\s*\(([^()]+)\)\s*$/); return m ? [m[1], m[2]] : [n, '']; }
+function cap(s){ s = String(s||''); return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function sheetHTML(m, date, o){
+  const [acN, ...acR] = String(m.ca||'').split(/\s+(?=\()/);
+  const pvM = String(m.pv||'').match(/^(\d+)\s*(.*)$/) || [0, m.pv, ''];
+  const inM = String(m.init||'').match(/^([+−-]?\d+)\s*(.*)$/) || [0, m.init, ''];
+  const xp = String(m.xp||''); const pb = (xp.match(/BM \+?(\d+)/)||[])[1]; const xpN = (xp.match(/^([\d  ]+)\s*PX/)||[])[1];
+  const pp = (((m.extra||[]).find(e=>e[0]==='Sens')||[])[1]||'').match(/Perception passive (\d+)/)?.[1];
+  const saveKey = a=>{ const s = m.stats[a]; return s && s[1] !== s[2]; };
+  const kvCls = {'Résistances':'res','Vulnérabilités':'vul','Immunités':'imm'};
+  const sec = ([h, E])=>{
+    const cls = /gendaire/i.test(h) ? 'blk leg' : /mythique/i.test(h) ? 'blk myth' : 'blk';
+    const cnt = E.filter(e=>e[0]).length;
+    return `<div class="${cls}"><h2>${esc(h)}<small>${cnt}</small></h2>${E.map(([n,t])=>{
+      if (!n) return `<div class="feat"><p class="intro">${rich(t)}</p></div>`;
+      const [nm, tag] = splitName(n);
+      return `<article class="feat"><header><h3>${esc(nm)}.</h3>${tag?`<span class="src">${esc(cap(tag))}</span>`:''}</header><p>${rich(t)}</p></article>`;
+    }).join('')}</div>`;
+  };
+  const isBig = h=>/gendaire|mythique/i.test(h);
+  const secs = (m.sections||[]).filter(x=>!isBig(x[0])).map(sec).join('');
+  const bigs = (m.sections||[]).filter(x=>isBig(x[0])).map(sec).join('');
+  const hb = m.homebrew !== false;
+  const d = date ? new Date(date).toLocaleDateString('fr-FR') : '';
+  return `<section class="sheet" id="s-${esc(m.id)}">
+  <div class="cartouche">
+    ${o.art ? `<div class="art">${monsterSVG(m, 104)}</div>` : '<div></div>'}
+    <div class="title"><span class="label">${hb ? 'Créature maison' : 'Créature'}${m.en ? ' · ' + esc(m.en) : ''}</span><h1>${esc(m.name)}</h1><div class="tl">${esc(m.typeline)}</div>
+      <div class="tags">${hb?'<span class="tag hb">Création maison</span>':''}<span class="tag">${esc(m.type)}</span>${(m.sizes||[]).map(s=>`<span class="tag">${esc(SIZEN[s]||s)}</span>`).join('')}<span class="tag">Règles 2024</span></div></div>
+    <div class="cells">
+      <div class="cell fp"><span class="label">FP</span><b>${esc(m.fp)}</b></div>
+      <div class="cell"><span class="label">PX</span><b>${esc(xpN || '—')}</b></div>
+      <div class="cell"><span class="label">Bonus de maîtrise</span><b>+${esc(pb || '?')}</b></div>
+      <div class="cell"><span class="label">Perception passive</span><b>${esc(pp || '—')}</b></div>
+    </div>
+  </div>
+  <div class="combat">
+    <div class="cb ac"><span class="label">Classe d’armure</span><b>${esc(acN)}</b><small>${esc(acR.join(' ').replace(/^\(|\)$/g,''))}&nbsp;</small></div>
+    <div class="cb hp"><span class="label">Points de vie</span><b>${esc(pvM[1])}</b><small>${esc(String(pvM[2]).replace(/^\(|\)$/g,''))}&nbsp;</small></div>
+    <div class="cb"><span class="label">Initiative</span><b>${esc(inM[1])}</b><small>${esc(String(inM[2]).replace(/^\(|\)$/g,'') ? 'score ' + String(inM[2]).replace(/^\(|\)$/g,'') : '')}&nbsp;</small></div>
+    <div class="cb spd"><span class="label">Vitesse</span><b>${esc(m.vitesse)}</b></div>
+  </div>
+  <div class="abilities">${AB.map(a=>{ const s = m.stats[a] || [10,'+0','+0'];
+    return `<div class="ab${saveKey(a)?' key':''}"><span class="label">${ABN[a]}</span><span class="mod">${esc(s[1])}</span><span class="score">${esc(s[0])}</span><span class="save">JS <span class="mono">${esc(s[2])}</span></span></div>`; }).join('')}</div>
+  ${(m.extra||[]).length ? `<dl class="kv">${m.extra.map(([k,v])=>`<dt>${esc(k)}</dt><dd class="${kvCls[k]||''}">${esc(v)}</dd>`).join('')}</dl>` : ''}
+  <div class="body${o.cols==='2'?' c2':''}">${secs}</div>${bigs ? `<div class="bigs${o.cols==='2'?' c2':''}">${bigs}</div>` : ''}
+  ${o.notes ? '<div class="notes"><span class="label">Notes du MJ</span></div>' : ''}
+  <div class="foot"><span><b>Grimoire de l’aventurier</b> · Fiche de créature${hb ? ' maison' : ''}${d ? ' · enregistrée le ' + d : ''} · FP ${esc(m.fp)} (${esc(xp)})</span><span>Contient du matériel du SRD 5.2.1 (Wizards of the Coast), licence CC BY 4.0</span></div>
+</section>`;
+}
+
+// réduit chaque fiche trop longue pour qu'elle tienne sur une page A4 (zone imprimable 192 × 279 mm)
+function fitPages(on){
+  const mm = v=>v * 96 / 25.4;
+  document.querySelectorAll('.sheet').forEach(el=>{
+    el.style.zoom = ''; if (!on) return;
+    const w = el.style.width; el.style.width = mm(192) + 'px'; el.style.fontSize = '10.2pt';
+    const h = el.getBoundingClientRect().height; el.style.width = w; el.style.fontSize = '';
+    const z = Math.min(1, (mm(278)) / h); if (z < 1) el.dataset.zoom = z.toFixed(3); else delete el.dataset.zoom;
+  });
+}
+addEventListener('beforeprint', ()=>{ fitPages($('#o-fit').checked); document.querySelectorAll('.sheet[data-zoom]').forEach(el=>el.style.zoom = el.dataset.zoom); });
+addEventListener('afterprint', ()=>document.querySelectorAll('.sheet').forEach(el=>el.style.zoom = ''));
+function opts(){ return {art:$('#o-art').checked, notes:$('#o-notes').checked, cols:$('#o-cols').value}; }
+function renderPick(){
+  $('#pick').innerHTML = LIST.length ? LIST.map(r=>`<li><label><input type="checkbox" data-id="${esc(r.id)}"${SEL.has(r.id)?' checked':''}>${monsterSVG(r.monster, 30)}<span><b>${esc(r.monster.name)}</b><small>FP ${esc(r.monster.fp)} · ${esc(r.monster.type)}${r.from==='file'?' · fichier importé':''}</small></span></label></li>`).join('')
+    : '<li class="hint" style="grid-column:1/-1">Aucune créature enregistrée dans l’atelier sur ce navigateur. Créez-en une dans l’<a href="createur-dnd-2024.html">atelier</a>, ou importez un fichier exporté.</li>';
+  $('#count').textContent = `${SEL.size} fiche${SEL.size>1?'s':''} sélectionnée${SEL.size>1?'s':''}`;
+}
+function renderSheets(){
+  const o = opts(), R = LIST.filter(r=>SEL.has(r.id));
+  $('#sheets').innerHTML = R.length ? R.map(r=>sheetHTML(r.monster, r.date, o)).join('') : '<div class="empty">Cochez au moins une créature pour afficher sa fiche.</div>';
+  $('#print').disabled = !R.length;
+}
+function all(){ renderPick(); renderSheets(); }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  addRecords(loadLocal(), 'local');
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h && LIST.some(r=>r.id===h)) SEL.add(h); else if (LIST.length) SEL.add(LIST[LIST.length-1].id);
+  all();
+  $('#pick').addEventListener('change', e=>{ const id = e.target.dataset.id; if (!id) return; e.target.checked ? SEL.add(id) : SEL.delete(id); all(); });
+  $('.opts').addEventListener('change', renderSheets);
+  $('#selall').onclick = ()=>{ LIST.forEach(r=>SEL.add(r.id)); all(); };
+  $('#selnone').onclick = ()=>{ SEL.clear(); all(); };
+  $('#print').onclick = ()=>{ const n = LIST.filter(r=>SEL.has(r.id)); const t = document.title;
+    document.title = n.length===1 ? 'Fiche - ' + n[0].monster.name : 'Fiches de créatures'; fitPages($('#o-fit').checked); document.querySelectorAll('.sheet[data-zoom]').forEach(el=>el.style.zoom = el.dataset.zoom); window.print(); setTimeout(()=>document.title = t, 1000); };
+  $('#import').onclick = ()=>$('#file').click();
+  $('#file').onchange = async e=>{
+    for (const f of e.target.files){ try { const j = JSON.parse(await f.text()); const recs = j.creatures || (Array.isArray(j) ? j : [j]);
+      const before = new Set(LIST.map(r=>r.id)); addRecords(recs, 'file'); LIST.forEach(r=>{ if (!before.has(r.id) || recs.some(x=>(x.id||x.monster&&x.monster.id)===r.id)) SEL.add(r.id); });
+      $('#msg').textContent = `Fichier « ${f.name} » importé.`; } catch(err){ $('#msg').textContent = `Fichier « ${f.name} » illisible.`; } }
+    e.target.value = ''; all();
+  };
+  addEventListener('hashchange', ()=>{ const h = decodeURIComponent(location.hash.slice(1)); if (LIST.some(r=>r.id===h)){ SEL = new Set([h]); all(); } });
+});
+
+</script>
+<script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
+(function(){
+  function place(){
+    var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
+    document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
+      el.style.top = '';
+      if (getComputedStyle(el).position === 'sticky'){
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
+        el.style.top = (h + extra) + 'px';
+        if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
+      } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
+    });
+    var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
+    document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
+  }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
+  window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
+  if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+</body>
+</html>
