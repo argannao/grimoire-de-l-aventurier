@@ -211,7 +211,11 @@ h2.part{font-family:'Cinzel',serif;color:var(--gold-light);text-align:center;fon
 .toc a:hover{border-color:var(--blood)}
 .hint{text-align:center;color:#cdb991;font-style:italic;max-width:900px;margin:16px auto}
 .hint a{color:var(--gold-light)}
-main.bmain{max-width:1100px}
+main.bmain{max-width:1100px;padding-top:24px}
+.bookbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:10px 16px;background:rgba(28,19,13,.94);border-bottom:1px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.bookbar .home{font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--leather);background:var(--gold);border:1px solid var(--gold-light);padding:7px 16px;border-radius:3px;text-decoration:none;font-weight:700}
+.bookbar .home:hover{background:var(--gold-light)}
+.bookbar .bt{font-family:'Cinzel',serif;color:var(--gold-light);font-size:15px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 main.bmain > .bookpage > .feat{max-width:1000px;margin-left:auto;margin-right:auto}
 @media (max-width:600px){.bhero{grid-template-columns:1fr}.bhero .cover{min-height:140px}}
 
@@ -233,22 +237,16 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 <radialGradient id="medalDark" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#4a2e1c"/><stop offset="100%" stop-color="#1c130d"/></radialGradient>
 <g id="ring"><circle cx="60" cy="60" r="56" fill="none" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#b8892e" stroke-width="1" stroke-dasharray="2 4"/></g>
 </defs></svg>
-<div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="dons-dnd-2024.html">Dons</a><a href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a href="createur-dnd-2024.html">Atelier</a></div>
-<header>
-  <div class="sigil"><span>📚</span></div>
-  <h1>La Bibliothèque</h1>
-  <p>Le contenu de chaque livre, rassemblé au même endroit</p>
-</header>
+<div class="bookbar"><a class="home" href="index.html#bibliotheque">⌂ Accueil</a><span class="bt" id="booktitle"></span></div>
 <main class="bmain">
-<div class="btabs"><a class="cv-core" href="#regles" data-k="regles">Règles de base 2024</a><a class="cv-eberron" href="#eberron" data-k="eberron">Eberron</a><a class="cv-ravenloft" href="#ravenloft" data-k="ravenloft">Ravenloft</a><a class="cv-lorwyn" href="#lorwyn" data-k="lorwyn">Lorwyn</a><a class="cv-ua" href="#ua" data-k="ua">Unearthed Arcana</a></div>
 <div class="bookpage" id="regles">
   <div class="bhero"><div class="cover cv-core"><div><div class="ct">Règles de base 2024</div><div class="cs">Manuel des joueurs · Guide du Maître · Manuel des monstres</div></div><div class="cy">2024 – 2025</div></div>
-    <div class="bi"><h1>Règles de base 2024</h1><p>Le cœur du jeu. Tout le site en découle : cette page sert de sommaire vers chaque module.</p><p style="font-size:14.5px;color:var(--ink-soft)">Les fiches ci-dessous sont reprises des pages du site ; elles y restent aussi à leur place habituelle.</p></div></div>
+    <div class="bi"><h1>Règles de base 2024</h1><p>Le cœur du jeu. Tout le site en découle : cette page sert de sommaire vers chaque module.</p></div></div>
   <div class="toc"><a href="especes-dnd-2024.html"><b>Espèces</b><span>10 espèces du Manuel des joueurs</span></a><a href="classes-dnd-2024.html"><b>Classes</b><span>12 classes et 48 sous-classes</span></a><a href="historiques-dnd-2024.html"><b>Historiques</b><span>16 historiques et leurs dons d’origine</span></a><a href="dons-dnd-2024.html"><b>Dons</b><span>dons d’origine, généraux, styles de combat, faveurs épiques</span></a><a href="sorts-dnd-2024.html"><b>Sorts</b><span>390 sorts, dont 339 du SRD</span></a><a href="magasin-dnd-2024.html"><b>Magasin</b><span>armes, armures, équipement et objets magiques</span></a><a href="bestiaire-dnd-2024.html"><b>Bestiaire</b><span>les créatures du SRD et le calcul des rencontres</span></a><a href="compagnons-dnd-2024.html"><b>Compagnons</b><span>familiers, montures, formes sauvages</span></a></div><p class="hint">Une grande partie de ces règles est libre dans le <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">SRD 5.2.1</a> ; les <a href="https://www.dndbeyond.com/sources/dnd/br-2024" target="_blank" rel="noopener">règles de base gratuites</a> sont aussi consultables sur D&amp;D Beyond.</p>
 </div>
 <div class="bookpage" id="eberron">
   <div class="bhero"><div class="cover cv-eberron"><div><div class="ct">Eberron : Forge of the Artificer</div><div class="cs">Univers de campagne</div></div><div class="cy">2025</div></div>
-    <div class="bi"><h1>Eberron : Forge of the Artificer</h1><p>Un monde où la magie est une industrie : l’artificier revu pour 2024, cinq espèces et les marques du dragon des grandes maisons.</p><p style="font-size:14.5px;color:var(--ink-soft)">Les fiches ci-dessous sont reprises des pages du site ; elles y restent aussi à leur place habituelle.</p></div></div>
+    <div class="bi"><h1>Eberron : Forge of the Artificer</h1><p>Un monde où la magie est une industrie : l’artificier revu pour 2024, cinq espèces et les marques du dragon des grandes maisons.</p></div></div>
   <h2 class="part">La classe</h2><section class="panel species supp" id="artificier">
 
 <div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Artificier"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="classes-dnd-2024.html#ring"/>
@@ -394,7 +392,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </div>
 <div class="bookpage" id="ravenloft">
   <div class="bhero"><div class="cover cv-ravenloft"><div><div class="ct">Ravenloft : The Horrors Within</div><div class="cs">Horreur gothique</div></div><div class="cy">2026</div></div>
-    <div class="bi"><h1>Ravenloft : The Horrors Within</h1><p>Les Domaines de l’effroi pour les règles 2024 : trois espèces mises à jour et une nouvelle, le lupin.</p><p style="font-size:14.5px;color:var(--ink-soft)">Les fiches ci-dessous sont reprises des pages du site ; elles y restent aussi à leur place habituelle.</p></div></div>
+    <div class="bi"><h1>Ravenloft : The Horrors Within</h1><p>Les Domaines de l’effroi pour les règles 2024 : trois espèces mises à jour et une nouvelle, le lupin.</p></div></div>
   <h2 class="part">Les espèces</h2><section class="panel species supp" id="dhampir">
   
   <div class="species-head">
@@ -479,7 +477,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </div>
 <div class="bookpage" id="lorwyn">
   <div class="bhero"><div class="cover cv-lorwyn"><div><div class="ct">Lorwyn : First Light</div><div class="cs">Supplément numérique</div></div><div class="cy">2025</div></div>
-    <div class="bi"><h1>Lorwyn : First Light</h1><p>Le monde féerique de Lorwyn-Shadowmoor : deux nouvelles espèces et des conseils pour jouer ses peuples.</p><p style="font-size:14.5px;color:var(--ink-soft)">Les fiches ci-dessous sont reprises des pages du site ; elles y restent aussi à leur place habituelle.</p></div></div>
+    <div class="bi"><h1>Lorwyn : First Light</h1><p>Le monde féerique de Lorwyn-Shadowmoor : deux nouvelles espèces et des conseils pour jouer ses peuples.</p></div></div>
   <h2 class="part">Les espèces</h2><section class="panel species supp" id="changelin-lorwyn">
   
   <div class="species-head">
@@ -534,7 +532,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </div>
 <div class="bookpage" id="ua">
   <div class="bhero"><div class="cover cv-ua"><div><div class="ct">Unearthed Arcana</div><div class="cs">Règles en test</div></div><div class="cy">2025</div></div>
-    <div class="bi"><h1>Unearthed Arcana</h1><p>Documents de test publiés par Wizards of the Coast. Leurs règles sont provisoires et peuvent changer avant publication.</p><p style="font-size:14.5px;color:var(--ink-soft)">Les fiches ci-dessous sont reprises des pages du site ; elles y restent aussi à leur place habituelle.</p></div></div>
+    <div class="bi"><h1>Unearthed Arcana</h1><p>Documents de test publiés par Wizards of the Coast. Leurs règles sont provisoires et peuvent changer avant publication.</p></div></div>
   <h2 class="part">La classe en test</h2><section class="panel species supp playtest" id="psion">
 
 <div class="species-head"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="Emblème Psion"><circle cx="60" cy="60" r="56" fill="url(#medalDark)"/><use href="classes-dnd-2024.html#ring"/>
@@ -593,10 +591,10 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
     let k = decodeURIComponent(location.hash.slice(1)); if (!keys.includes(k)) k = keys[0];
     document.querySelectorAll('.bookpage').forEach(p=>p.classList.toggle('on', p.id===k));
     document.querySelectorAll('.btabs a').forEach(a=>a.classList.toggle('on', a.dataset.k===k));
-    const t = document.querySelector('.bookpage.on h1'); document.title = (t ? t.textContent + ' · ' : '') + 'Bibliothèque · D&D 2024';
+    const t = document.querySelector('.bookpage.on h1'); document.getElementById('booktitle').textContent = t ? t.textContent : ''; document.title = (t ? t.textContent + ' · ' : '') + 'Bibliothèque · D&D 2024';
   }
   addEventListener('hashchange', ()=>{ show(); scrollTo({top:0}); });
-  document.addEventListener('DOMContentLoaded', show);
+  document.addEventListener('DOMContentLoaded', ()=>{ show(); scrollTo(0,0); setTimeout(()=>scrollTo(0,0), 50); });
 })();
 </script>
 <script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
