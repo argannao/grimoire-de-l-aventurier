@@ -170,13 +170,13 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 <header>
   <div class="sigil"><span>D</span></div>
   <h1>Le Grimoire des Sorts</h1>
-  <p>Règles 2024 · 390 sorts · Sorts mineurs au niveau 9</p>
+  <p>Règles 2024 · 390 sorts · sorts mineurs (cantrips) au niveau 9</p>
 </header>
 <nav><ul><li><a href="#apercu">Aperçu</a></li><li><a href="#niv-0">Mineurs</a></li><li><a href="#niv-1">Niv. 1</a></li><li><a href="#niv-2">Niv. 2</a></li><li><a href="#niv-3">Niv. 3</a></li><li><a href="#niv-4">Niv. 4</a></li><li><a href="#niv-5">Niv. 5</a></li><li><a href="#niv-6">Niv. 6</a></li><li><a href="#niv-7">Niv. 7</a></li><li><a href="#niv-8">Niv. 8</a></li><li><a href="#niv-9">Niv. 9</a></li></ul></nav>
 <main>
 <div class="filters">
   <input type="search" id="q" placeholder="Rechercher un sort (français, anglais ou texte)…" aria-label="Rechercher">
-  <select id="fl" aria-label="Niveau"><option value="">Tous niveaux</option><option value="0">Sorts mineurs</option><option value="1">Niveau 1</option><option value="2">Niveau 2</option><option value="3">Niveau 3</option><option value="4">Niveau 4</option><option value="5">Niveau 5</option><option value="6">Niveau 6</option><option value="7">Niveau 7</option><option value="8">Niveau 8</option><option value="9">Niveau 9</option></select>
+  <select id="fl" aria-label="Niveau"><option value="">Tous niveaux</option><option value="0">Sorts mineurs (cantrips)</option><option value="1">Niveau 1</option><option value="2">Niveau 2</option><option value="3">Niveau 3</option><option value="4">Niveau 4</option><option value="5">Niveau 5</option><option value="6">Niveau 6</option><option value="7">Niveau 7</option><option value="8">Niveau 8</option><option value="9">Niveau 9</option></select>
   <select id="fs" aria-label="École"><option value="">Toutes écoles</option><option value="abjuration">Abjuration</option><option value="conjuration">Invocation</option><option value="divination">Divination</option><option value="enchantment">Enchantement</option><option value="evocation">Évocation</option><option value="illusion">Illusion</option><option value="necromancy">Nécromancie</option><option value="transmutation">Transmutation</option></select>
   <select id="fc" aria-label="Classe"><option value="">Toutes classes</option><option value="bard">Barde</option><option value="cleric">Clerc</option><option value="druid">Druide</option><option value="sorcerer">Ensorceleur</option><option value="wizard">Magicien</option><option value="warlock">Occultiste</option><option value="paladin">Paladin</option><option value="ranger">Rôdeur</option></select>
   <select id="fsrc" aria-label="Source"><option value="">SRD et hors SRD</option><option value="srd">SRD (texte complet)</option><option value="hors">Hors SRD (résumé)</option></select>
@@ -225,6 +225,7 @@ window.SMART = (function(){
   const STOP = new Set(['de','du','des','la','le','les','l','d','un','une','et','a','au','aux','en','pour','avec','sur','the','of','a']);
   const GROUPS = [
     ['soin','soigne','soigner','guerison','guerir','gueri','healing','heal','cure'],
+    ['cantrip','cantrips'],
     ['potion','fiole','elixir','philtre','breuvage','flacon'],
     ['parchemin','rouleau','scroll'],
     ['epee','lame','sword','sabre','glaive'],
@@ -472,7 +473,7 @@ function spellSVG(sp, size){
 
 const $ = s=>document.querySelector(s);
 function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-const LVL = l => l===0 ? "Sort mineur" : `Niveau ${l}`;
+const LVL = l => l===0 ? "Sort mineur (cantrip)" : `Niveau ${l}`;
 
 function formatText(sp){
   let t = esc(sp.text);
@@ -528,7 +529,7 @@ function render(){
   const q = $('#q').value.trim().toLowerCase();
   const fl = $('#fl').value, fs = $('#fs').value, fc = $('#fc').value, fsrc = $('#fsrc').value;
   const conc = $('#fconc').checked, rit = $('#frit').checked;
-  const P = SMART.plan($('#q').value.trim(), DATA, x=>x.fr+' '+x.en, x=>x.fr+' '+x.en+' '+x.text);
+  const P = SMART.plan($('#q').value.trim(), DATA, x=>x.fr+' '+x.en+(x.lvl===0?' cantrip':''), x=>x.fr+' '+x.en+(x.lvl===0?' cantrip sort mineur':'')+' '+x.text);
   let html = '', n = 0, cur = -1;
   for (const sp of DATA){
     if (fl!=='' && sp.lvl!=+fl) continue;
@@ -539,7 +540,7 @@ function render(){
     if (conc && !sp.conc) continue;
     if (rit && !sp.rit) continue;
     if (P.qc && !P.match(sp)) continue;
-    if (sp.lvl!==cur){ cur = sp.lvl; html += `<h2 class="lvl-title" id="niv-${cur}">${cur===0?'Sorts mineurs':'Sorts de niveau '+cur}</h2>`; }
+    if (sp.lvl!==cur){ cur = sp.lvl; html += `<h2 class="lvl-title" id="niv-${cur}">${cur===0?'Sorts mineurs (cantrips)':'Sorts de niveau '+cur}</h2>`; }
     html += card(sp); n++;
   }
   $('#list').innerHTML = html || '<p class="panel">Aucun sort ne correspond à ces filtres.</p>';

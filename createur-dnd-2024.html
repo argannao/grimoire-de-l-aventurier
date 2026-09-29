@@ -1727,7 +1727,7 @@ function renderParty(){
   const mythX = S.mythic.on ? (+S.mythic.xp || 1) : 1;
   let best = -1; REF.forEach((r,i)=>{ if (inc.xp + n * r.xp * mythX <= budget) best = i; });
   // selon la composition : FP le plus élevé dont la simulation reste dans la difficulté visée
-  const maxLoss = [.2, .4, .6][d], base = toMonster();
+  const maxLoss = [.15, .35, .55][d], base = toMonster();
   let bestG = -1;
   REF.forEach((r,i)=>{ const m = Object.assign({}, base, {pv:String(Math.round(r.hp * (S.mythic.on ? 1.5 : 1))), ca:String(r.ac), fpv:crVal(r.cr), xpn:r.xp});
     const sim = PARTY.analyze([{m, q:n, est:{dpr:(r.dpr[0]+r.dpr[1])/2, atk:r.atk, dc:r.dc}}, ...others], PM); if (sim && sim.loss <= maxLoss) bestG = i; });
