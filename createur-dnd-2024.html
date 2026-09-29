@@ -164,11 +164,57 @@ input[type=checkbox]{width:auto}
 .btn.red:hover{background:var(--blood-dark)}
 .btn.small{font-size:11px;padding:3px 7px}
 .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
-.entry{border:1px solid #b8892e88;border-left:4px solid var(--gold);background:#fffaf0;padding:8px;margin-bottom:8px;border-radius:2px}
-.entry .top{display:grid;grid-template-columns:1fr 90px auto;gap:6px;align-items:end}
-.entry .kind{font-family:'Cinzel',serif;font-size:11px;color:var(--forest);letter-spacing:.5px}
-.entry .prev{font-size:14.5px;margin-top:6px;color:var(--ink)}
-.entry .mini{font-size:13px;color:var(--ink-soft);margin-top:4px}
+.entry{--kc:var(--gold);border:1px solid #d9c49a;border-left:5px solid var(--kc);background:#fffcf4;margin-bottom:10px;border-radius:4px;box-shadow:0 2px 6px rgba(60,35,10,.08);transition:box-shadow .15s}
+.entry:focus-within{box-shadow:0 0 0 2px #d9b25f66,0 4px 12px rgba(60,35,10,.15)}
+.entry.k-atk{--kc:#8e1b1b}.entry.k-js{--kc:#2f5d8a}.entry.k-text{--kc:#b8892e}
+.entry .eh{display:flex;align-items:center;gap:8px;padding:7px 8px;background:linear-gradient(#f7ecd3,#f1e2bf);border-bottom:1px solid #e3d0a4;border-radius:0 4px 0 0;flex-wrap:wrap}
+.entry.folded .eh{border-bottom:0}
+.entry .fold{border:0;background:none;color:var(--kc);font-size:15px;cursor:pointer;width:20px;padding:0}
+.entry .kchip{display:inline-flex;align-items:center;gap:2px;background:var(--kc);color:#fff;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.5px;padding:3px 8px;border-radius:11px;white-space:nowrap}
+.entry .ename{flex:1 1 180px;min-width:140px;font-family:'Cinzel',serif;font-weight:700;font-size:15.5px;color:var(--blood);background:transparent;border:1px solid transparent;border-bottom:1px dashed #c9ad73;border-radius:2px;padding:4px 6px}
+.entry .ename:hover{border-color:#e0c995;background:#fffaf0}.entry .ename:focus{background:#fff;border-color:var(--gold);outline:none}
+.entry .lim{width:auto;font-size:14px;padding:3px 5px;background:#fffaf0}
+.entry .uses{display:inline-flex;align-items:center;border:1px solid var(--gold);border-radius:3px;background:#fffaf0;overflow:hidden}
+.entry .uses span{font-size:12px;color:var(--ink-soft);padding:0 6px;font-family:'Cinzel',serif}
+.entry .uses button,.entry .dice button{border:0;background:#f1e2bf;color:var(--ink);width:24px;height:28px;cursor:pointer;font-size:16px;line-height:1}
+.entry .uses button:hover,.entry .dice button:hover{background:var(--gold);color:#fff}
+.entry .uses input{width:48px;border:0;border-radius:0;text-align:center;padding:3px 0;font-size:15px;-moz-appearance:textfield}
+.entry .uses input::-webkit-inner-spin-button{display:none}
+.entry .tb{display:flex;gap:2px;margin-left:auto}
+.entry .tb button{border:1px solid transparent;background:none;color:var(--ink-soft);min-width:26px;height:26px;border-radius:3px;cursor:pointer;font-size:14px;padding:0 5px}
+.entry .tb button:hover{border-color:var(--gold);background:#fffaf0;color:var(--ink)}
+.entry .tb .del:hover,.entry .tb .del.sure{border-color:var(--blood);background:var(--blood);color:#fff;font-family:'Cinzel',serif;font-size:11.5px}
+.entry .eb{padding:10px 12px 4px}
+.entry.folded .eb{display:none}
+.entry .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 16px}
+.entry .f{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;min-width:0}
+.entry .f.wide{grid-column:1/-1}
+.entry .fl{font-family:'Cinzel',serif;font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
+.entry .fl small{text-transform:none;letter-spacing:0;font-family:'Crimson Text',serif;font-style:italic;font-size:12.5px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--gold);border-radius:4px;overflow:hidden;background:#fffaf0;width:max-content;max-width:100%}
+.seg button{border:0;border-right:1px solid #e3d0a4;background:none;padding:5px 10px;font-family:'Crimson Text',serif;font-size:14.5px;cursor:pointer;color:var(--ink)}
+.seg button:last-child{border-right:0}
+.seg button small{color:var(--ink-soft);font-size:12px}
+.seg button:hover{background:#f6e8c7}
+.seg button.on{background:var(--kc,var(--gold));color:#fff}.seg button.on small{color:#ffffffcc}
+.quick{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.quick span{font-size:12.5px;color:var(--ink-soft);font-style:italic}
+.quick button{border:1px dashed #c9ad73;background:none;border-radius:11px;padding:1px 9px;font-family:'Crimson Text',serif;font-size:13.5px;cursor:pointer;color:var(--ink-soft)}
+.quick button:hover{border-style:solid;border-color:var(--kc);color:var(--ink);background:#fff}
+.quick button.on{border-style:solid;border-color:var(--kc);background:var(--kc);color:#fff}
+.dmgrow{display:flex;gap:6px;align-items:stretch;flex-wrap:wrap}
+.dice{display:inline-flex;align-items:center;border:1px solid var(--gold);border-radius:3px;overflow:hidden;background:#fffaf0}
+.dice b{min-width:26px;text-align:center;font-size:17px}
+.dice select{width:auto;border:0;border-left:1px solid #e3d0a4;border-radius:0;font-weight:600;padding:3px 4px;background:#fff}
+.dmgrow .dt{flex:1;min-width:130px;width:auto}
+.entry textarea.grow{min-height:70px;overflow:hidden;resize:none;font-size:15.5px;line-height:1.4}
+.entry .ef{padding:6px 12px 8px;border-top:1px dashed #e3d0a4;background:#fffaf2;border-radius:0 0 4px 0}
+.entry.k-text:not(.folded) .ef .prev{display:none}
+.entry .prev{font-size:14.5px;color:var(--ink);line-height:1.35}
+.entry .mini{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.entry .mini .m{font-size:12.5px;background:#f1e2bf;border-radius:10px;padding:1px 8px;color:var(--ink)}
+.entry .mini .m.warn{background:#f3dcd4;color:var(--blood)}
+.empty-list{font-style:italic;color:var(--ink-soft);border:1px dashed #c9ad73;padding:10px;text-align:center;border-radius:4px;margin:0 0 8px}
 .helper{background:var(--parch-dark);border:1px dashed var(--gold);padding:8px 10px;margin:8px 0;border-radius:2px}
 .helper summary{cursor:pointer;font-family:'Cinzel',serif;font-size:13.5px;color:var(--blood)}
 /* analyse */
@@ -214,7 +260,7 @@ table.ab td{padding:2px;border-bottom:1px dotted #b8892e66;background:transparen
 .tabs button.on{background:var(--blood);color:var(--parch)}
 .optional{font-family:'Cinzel',serif;font-size:10.5px;background:#6a3f8a;color:#fff;padding:2px 6px;border-radius:2px;letter-spacing:.5px;margin-left:6px}
 @media (max-width:1100px){.work{grid-template-columns:1fr}.side{position:static;max-height:none}}
-@media (max-width:600px){.abil{grid-template-columns:repeat(3,1fr)}.entry .top{grid-template-columns:1fr 70px}.entry .top .acts{grid-column:1/-1}}
+@media (max-width:600px){.abil{grid-template-columns:repeat(3,1fr)}.entry .eh .kchip span{display:none}.entry .tb{margin-left:0}.entry .grid2{grid-template-columns:1fr}.seg{display:flex;width:100%}.seg button{flex:1 1 30%;border-bottom:1px solid #e3d0a4}}
 
 
 /* finitions */
@@ -997,45 +1043,76 @@ function editDef(f, part, vals, add){
   S[f] = joinDef(dm, cd); renderPicks(); refresh();
 }
 
+const KINDS = {atk:['⚔','Attaque','calculée'], js:['✦','Jet de sauvegarde','calculé'], text:['¶','Texte libre','']};
+const LIMITS = [['','À volonté'],['recharge 5–⁠6','Recharge 5–⁠6'],['recharge 6','Recharge 6'],['1/jour','1/jour'],['2/jour','2/jour'],['3/jour','3/jour']];
+const LIMIT_USES = {'recharge 5–⁠6':0.33, 'recharge 6':0.17, '1/jour':0.33, '2/jour':0.5, '3/jour':0.67};
+const REACH_M = ['1,50 m','3 m','4,50 m','6 m'], REACH_R = ['9/36 m','18/72 m','24/96 m','36/144 m'];
+const AREAS = ['une créature visible dans un rayon de 18 m','chaque créature dans un Cône de 4,50 m','chaque créature dans un Cône de 9 m','chaque créature dans une Ligne de 18 m de long sur 1,50 m de large','chaque créature dans une Émanation de 3 m','chaque créature dans une Sphère de 6 m de rayon'];
+const RIDERS_A = [['À terre','Si la cible est une créature de taille M ou inférieure, elle subit l’état À terre.'],['Agrippée','La cible subit l’état Agrippé (évasion DD {dc}).'],['Empoisonnée','La cible doit réussir un JS de Constitution DD {dc} ou subir l’état Empoisonné jusqu’à la fin de son prochain tour.'],['Poison +','La cible subit aussi 7 (2d6) dégâts de poison.']];
+const RIDERS_S = [['À terre','Échec : la cible subit aussi l’état À terre.'],['Effrayée','Échec : la cible subit l’état Effrayé jusqu’à la fin de son prochain tour.'],['Entravée','Échec : la cible subit l’état Entravé jusqu’à la fin de son prochain tour.'],['Étourdie','Échec : la cible subit l’état Étourdi jusqu’à la fin de son prochain tour.']];
+function limitOf(n){ const m = String(n||'').match(/\(([^()]+)\)\s*$/); return m && LIMITS.some(l=>l[0]===m[1].toLowerCase()) ? m[1].toLowerCase() : ''; }
+function setLimit(x, lim){ const base = String(x.n||'').replace(/\s*\(([^()]+)\)\s*$/, m=>LIMITS.some(l=>l[0] && m.toLowerCase().includes(l[0])) ? '' : m); x.n = base + (lim ? ` (${lim})` : ''); }
+function diceParts(d){ const m = String(d||'').match(/(\d+)\s*d\s*(\d+)/); return m ? [+m[1], +m[2]] : [1, 6]; }
+const seg = (k,i,f,opts,cur)=>`<div class="seg">${opts.map(([v,l,tip])=>`<button type="button" data-set="${f}|${v}" class="${String(cur)===String(v)?'on':''}"${tip?` title="${esc(tip)}"`:''}>${l}</button>`).join('')}</div>`;
+function diceField(e, A){
+  const [n, s] = diceParts(e.dice);
+  return `<div class="dice"><button type="button" data-dn="-1" title="Un dé de moins">−</button><b>${n}</b><button type="button" data-dn="1" title="Un dé de plus">+</button>
+    <select ${A} data-f="dsize" title="Taille du dé">${[4,6,8,10,12,20].map(v=>`<option value="${v}"${v===s?' selected':''}>d${v}</option>`).join('')}</select></div>`;
+}
 function entryHTML(k, e, i){
-  const p = parseEntry(e);
-  const kindLab = e.kind==='atk' ? 'Attaque (calculée)' : e.kind==='js' ? 'Jet de sauvegarde (calculé)' : 'Texte libre';
-  const usesField = k==='traits' ? '' : `<label class="fld">Par round<input type="number" step="0.25" min="0" data-k="${k}" data-i="${i}" data-f="uses" value="${e.uses??0}" title="Nombre d’utilisations par round, pour l’estimation des dégâts"></label>`;
+  const p = parseEntry(e), [ic, lab, sub] = KINDS[e.kind] || KINDS.text;
+  const A = `data-k="${k}" data-i="${i}"`;
+  const lim = limitOf(e.n);
+  const uses = k==='traits' ? '' : `<div class="uses" title="Utilisations par round, pour l’estimation des dégâts (0 = ne compte pas)"><span>×/round</span><button type="button" data-us="-0.5">−</button><input type="number" step="0.25" min="0" ${A} data-f="uses" value="${e.uses??0}"><button type="button" data-us="0.5">+</button></div>`;
   let body = '';
   if (e.kind==='atk'){
-    body = `<div class="row">
-      <label>Type<select data-k="${k}" data-i="${i}" data-f="melee"><option value="1"${e.melee?' selected':''}>Corps à corps</option><option value="0"${!e.melee?' selected':''}>À distance</option></select></label>
-      <label>Caractéristique<select data-k="${k}" data-i="${i}" data-f="ab">${AB.map(a=>`<option${a===e.ab?' selected':''}>${a}</option>`).join('')}</select></label>
-      <label>${e.melee?'Allonge':'Portée'}<input data-k="${k}" data-i="${i}" data-f="reach" value="${esc(e.reach)}"></label>
-      <label>Dés de dégâts<input data-k="${k}" data-i="${i}" data-f="dice" value="${esc(e.dice)}"></label>
-      <label>Type de dégâts<select data-k="${k}" data-i="${i}" data-f="dtype">${DMGTYPES.map(d=>`<option${d===e.dtype?' selected':''}>${d}</option>`).join('')}</select></label></div>
-      <label class="fld">Effet supplémentaire<input data-k="${k}" data-i="${i}" data-f="extra" value="${esc(e.extra)}" placeholder="ex. Si la cible est de taille M ou inférieure, elle subit l’état À terre."></label>`;
+    const pb = PB(), dc = 8 + pb + mod(S.abil[e.ab]||10);
+    body = `<div class="grid2">
+      <div class="f"><span class="fl">Portée</span>${seg(k,i,'melee',[['1','Corps à corps'],['0','À distance']], e.melee?'1':'0')}</div>
+      <div class="f"><span class="fl">${e.melee?'Allonge':'Portée (normale/longue)'}</span><input ${A} data-f="reach" value="${esc(e.reach)}"><div class="quick">${(e.melee?REACH_M:REACH_R).map(r=>`<button type="button" data-set="reach|${r}" class="${r===e.reach?'on':''}">${r}</button>`).join('')}</div></div>
+      <div class="f wide"><span class="fl">Caractéristique d’attaque</span>${seg(k,i,'ab',AB.map(a=>[a, `${a} <small>${sgn(mod(S.abil[a]||10)+pb)}</small>`, `${ABF[a]} : bonus d’attaque ${sgn(mod(S.abil[a]||10)+pb)}`]), e.ab)}</div>
+      <div class="f"><span class="fl">Dégâts</span><div class="dmgrow">${diceField(e, A)}<select ${A} data-f="dtype" class="dt t-${esc(e.dtype)}">${DMGTYPES.map(d=>`<option${d===e.dtype?' selected':''}>${d}</option>`).join('')}</select></div></div>
+    </div>
+    <div class="f"><span class="fl">Effet supplémentaire <small>(facultatif)</small></span><input ${A} data-f="extra" value="${esc(e.extra)}" placeholder="ex. Si la cible est de taille M ou inférieure, elle subit l’état À terre.">
+      <div class="quick"><span>Ajouter :</span>${RIDERS_A.map(([l,t])=>`<button type="button" data-rider="${esc(t.replace('{dc}', dc))}">${l}</button>`).join('')}</div></div>`;
   } else if (e.kind==='js'){
-    body = `<div class="row">
-      <label>JS de<select data-k="${k}" data-i="${i}" data-f="save">${AB.map(a=>`<option value="${a}"${a===e.save?' selected':''}>${ABF[a]}</option>`).join('')}</select></label>
-      <label>DD basé sur<select data-k="${k}" data-i="${i}" data-f="dcab">${AB.map(a=>`<option${a===e.dcab?' selected':''}>${a}</option>`).join('')}</select></label>
-      <label>Zone / cibles<input data-k="${k}" data-i="${i}" data-f="area" value="${esc(e.area)}"></label>
-      <label>Dés de dégâts<input data-k="${k}" data-i="${i}" data-f="dice" value="${esc(e.dice)}"></label>
-      <label>Type de dégâts<select data-k="${k}" data-i="${i}" data-f="dtype">${DMGTYPES.map(d=>`<option${d===e.dtype?' selected':''}>${d}</option>`).join('')}</select></label>
-      <label style="flex-direction:row;align-items:center;gap:6px;margin-top:18px"><input type="checkbox" data-k="${k}" data-i="${i}" data-f="half"${e.half?' checked':''}> demi-dégâts si réussite</label></div>
-      <label class="fld">Effet supplémentaire<input data-k="${k}" data-i="${i}" data-f="extra" value="${esc(e.extra)}"></label>`;
+    const pb = PB();
+    body = `<div class="grid2">
+      <div class="f wide"><span class="fl">Jet de sauvegarde de la cible</span>${seg(k,i,'save',AB.map(a=>[a, a, ABF[a]]), e.save)}</div>
+      <div class="f wide"><span class="fl">DD calculé sur</span>${seg(k,i,'dcab',AB.map(a=>[a, `${a} <small>${8+pb+mod(S.abil[a]||10)}</small>`, `${ABF[a]} : DD ${8+pb+mod(S.abil[a]||10)}`]), e.dcab)}</div>
+      <div class="f wide"><span class="fl">Zone ou cibles</span><input ${A} data-f="area" value="${esc(e.area)}"><div class="quick">${AREAS.map(r=>`<button type="button" data-set="area|${esc(r)}" class="${r===e.area?'on':''}">${esc(r.replace(/^chaque créature dans (une? )?/,'').replace(/ de long sur 1,50 m de large/,'').replace(' visible dans un rayon de',' à'))}</button>`).join('')}</div></div>
+      <div class="f"><span class="fl">Dégâts</span><div class="dmgrow">${diceField(e, A)}<select ${A} data-f="dtype" class="dt t-${esc(e.dtype)}">${DMGTYPES.map(d=>`<option${d===e.dtype?' selected':''}>${d}</option>`).join('')}</select></div></div>
+      <div class="f"><span class="fl">En cas de réussite</span>${seg(k,i,'half',[['1','Demi-dégâts'],['0','Aucun dégât']], e.half?'1':'0')}</div>
+    </div>
+    <div class="f"><span class="fl">Effet supplémentaire <small>(facultatif)</small></span><input ${A} data-f="extra" value="${esc(e.extra)}">
+      <div class="quick"><span>Ajouter :</span>${RIDERS_S.map(([l,t])=>`<button type="button" data-rider="${esc(t)}">${l}</button>`).join('')}</div></div>`;
   } else {
-    body = `<textarea data-k="${k}" data-i="${i}" data-f="t">${esc(e.t)}</textarea>`;
+    body = `<textarea ${A} data-f="t" class="grow" placeholder="Décrivez la capacité. Écrivez les dégâts sous la forme « 9 (2d6 + 2) dégâts tranchants » pour qu’ils soient comptés.">${esc(e.t)}</textarea>`;
   }
   const info = [];
-  if (p.dmg) info.push(`dégâts moyens ${p.dmg}`); if (p.atk!=null) info.push(`attaque ${sgn(p.atk)}`); if (p.dc!=null) info.push(`DD ${p.dc}`);
-  return `<div class="entry" data-k="${k}" data-i="${i}">
-    <div class="top"><label class="fld">Nom <span class="kind">${kindLab}</span><input data-k="${k}" data-i="${i}" data-f="n" value="${esc(e.n)}"></label>${usesField}
-      <div class="acts"><button class="btn small" data-mv="-1" title="Monter">↑</button><button class="btn small" data-mv="1" title="Descendre">↓</button>${e.kind!=='text'?'<button class="btn small" data-totext title="Convertir en texte libre">✎</button>':''}<button class="btn small" data-del title="Supprimer">✕</button></div></div>
-    ${body}
-    ${e.kind!=='text' ? `<div class="prev"><b><i>${esc(e.n)}.</i></b> ${esc(entryText(e))}</div>` : ''}
-    ${info.length? `<div class="mini">${info.join(' · ')}</div>`:''}</div>`;
+  if (p.dmg) info.push(`<span class="m">⌀ ${p.dmg} dégâts${p.via?' (via '+esc(p.via.split(' (')[0])+')':''}</span>`); if (p.atk!=null) info.push(`<span class="m">attaque ${sgn(p.atk)}</span>`); if (p.dc!=null) info.push(`<span class="m">DD ${p.dc}</span>`);
+  if (k!=='traits' && p.dmg && !p.via && !(+e.uses)) info.push(`<span class="m warn" title="Mettez ×/round à 1 ou plus pour que ces dégâts comptent dans le FP">non compté dans le FP</span>`);
+  const limits = k==='traits' ? '' : `<select class="lim" data-lim title="Limite d’utilisation (modifie le nom et l’estimation)">${LIMITS.map(([v,l])=>`<option value="${v}"${v===lim?' selected':''}>${l}</option>`).join('')}</select>`;
+  return `<div class="entry k-${e.kind||'text'}${e._c?' folded':''}" ${A}>
+    <div class="eh">
+      <button type="button" class="fold" data-fold title="${e._c?'Déplier':'Replier'}">${e._c?'▸':'▾'}</button>
+      <span class="kchip" title="${lab}${sub?' ('+sub+')':''}">${ic}<span> ${lab}</span></span>
+      <input class="ename" ${A} data-f="n" value="${esc(e.n)}" placeholder="Nom de la capacité" aria-label="Nom">
+      ${limits}${uses}
+      <div class="tb"><button type="button" data-mv="-1" title="Monter">↑</button><button type="button" data-mv="1" title="Descendre">↓</button><button type="button" data-dupe title="Dupliquer">⧉</button>${e.kind!=='text'?'<button type="button" data-totext title="Convertir en texte libre (pour le modifier à la main)">✎</button>':''}<button type="button" class="del" data-del title="Supprimer">✕</button></div>
+    </div>
+    <div class="eb">${body}</div>
+    <div class="ef"><div class="prev"><b><i>${esc(e.n)}.</i></b> ${esc(entryText(e))}</div>${info.length? `<div class="mini">${info.join('')}</div>`:''}</div>
+  </div>`;
 }
 function renderEntries(){
   for (const [k,l] of SECS){
     const L = listOf(k);
-    $('#list-'+k).innerHTML = L.length ? L.map((e,i)=>entryHTML(k,e,i)).join('') : '<p class="hint">Aucune entrée.</p>';
+    $('#list-'+k).innerHTML = L.length ? L.map((e,i)=>entryHTML(k,e,i)).join('') : '<p class="empty-list">Aucune entrée pour l’instant : utilisez les boutons ci-dessous.</p>';
   }
+  document.querySelectorAll('textarea.grow').forEach(grow);
+}
+function grow(t){ t.style.height = 'auto'; t.style.height = Math.max(70, t.scrollHeight + 2) + 'px';
 }
 
 // ---------------------------------------------------------------- analyse + aperçu
@@ -1257,9 +1334,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (t.id && t.id.startsWith('m-')){ const k = t.id.slice(2); if (k==='on') return; S.mythic[k] = t.type==='number' ? (t.value===''?'':+t.value) : t.value; refresh(); return; }
     if (t.dataset.f){
       const L = listOf(t.dataset.k), x = L[+t.dataset.i], f = t.dataset.f;
-      if (f==='melee') x.melee = t.value==='1'; else if (f==='half') x.half = t.checked; else if (f==='uses') x.uses = t.value===''?0:+t.value; else x[f] = t.value;
+      if (f==='dsize'){ x.dice = `${diceParts(x.dice)[0]}d${t.value}`; } else if (f==='melee') x.melee = t.value==='1'; else if (f==='half') x.half = t.checked; else if (f==='uses') x.uses = t.value===''?0:+t.value; else x[f] = t.value;
       refresh();
-      const ent = t.closest('.entry'); if (ent && (f!=='t')){ const k=t.dataset.k, i=+t.dataset.i; const pv = ent.querySelector('.prev'); if (pv) pv.innerHTML = `<b><i>${esc(x.n)}.</i></b> ${esc(entryText(x))}`; }
+      const ent = t.closest('.entry'); if (ent){ const pv = ent.querySelector('.prev'); if (pv) pv.innerHTML = `<b><i>${esc(x.n)}.</i></b> ${esc(entryText(x))}`; }
+      if (t.classList.contains('grow')) grow(t);
     }
     if (['p-size','p-level','p-diff','p-count','p-inc'].includes(t.id)) renderParty();
   });
@@ -1267,7 +1345,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const t = e.target;
     if (t.id && t.id.startsWith('s-')){ S.saves[t.id.slice(2)] = t.checked; refresh(); }
     if (t.id==='m-on'){ S.mythic.on = t.checked; $('#mythbox').hidden = !t.checked; refresh(); renderParty(); }
-    if (t.dataset && (t.dataset.f==='melee' || t.dataset.f==='ab' || t.dataset.f==='save' || t.dataset.f==='dcab' || t.dataset.f==='dtype')) renderEntries();
+    if (t.matches && t.matches('select[data-lim]')){ const ent = t.closest('.entry'), L = listOf(ent.dataset.k), x = L[+ent.dataset.i]; setLimit(x, t.value); if (ent.dataset.k==='actions' && x.kind!=='text'){ x.uses = t.value ? LIMIT_USES[t.value] : Math.max(1, +x.uses||0); } renderEntries(); refresh(); return; }
+    if (t.dataset && (t.dataset.f==='dsize' || t.dataset.f==='melee' || t.dataset.f==='ab' || t.dataset.f==='save' || t.dataset.f==='dcab' || t.dataset.f==='dtype')) renderEntries();
     if (t.id==='f-crdecl' || t.id==='f-size' || t.id==='f-type'){ renderEntries(); }
     if (['p-level','p-diff','p-inc'].includes(t.id)) renderParty();
   });
@@ -1281,7 +1360,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (b.dataset.rmdef){ const [f, part, v] = b.dataset.rmdef.split('|'); editDef(f, part, [v], false); return; }
     const ent = b.closest('.entry');
     if (ent){ const L = listOf(ent.dataset.k), i = +ent.dataset.i;
-      if (b.hasAttribute('data-del')){ L.splice(i,1); renderEntries(); refresh(); }
+      const x = L[i];
+      if (b.dataset.set){ const [f, v] = [b.dataset.set.slice(0, b.dataset.set.indexOf('|')), b.dataset.set.slice(b.dataset.set.indexOf('|')+1)];
+        if (f==='melee'){ x.melee = v==='1'; if (x.melee && !REACH_M.includes(x.reach)) x.reach = '1,50 m'; if (!x.melee && !REACH_R.includes(x.reach)) x.reach = '18/72 m'; }
+        else if (f==='half') x.half = v==='1'; else x[f] = v;
+        renderEntries(); refresh(); return; }
+      if (b.dataset.dn){ const [n, sz] = diceParts(x.dice); x.dice = `${Math.max(1, n + +b.dataset.dn)}d${sz}`; renderEntries(); refresh(); return; }
+      if (b.dataset.us){ x.uses = Math.max(0, Math.round(((+x.uses||0) + +b.dataset.us)*100)/100); renderEntries(); refresh(); return; }
+      if (b.dataset.rider){ const r = b.dataset.rider; x.extra = (x.extra||'').includes(r) ? x.extra : ((x.extra||'').trim() + ' ' + r).trim(); renderEntries(); refresh(); return; }
+      if (b.hasAttribute('data-fold')){ x._c = !x._c; renderEntries(); return; }
+      if (b.hasAttribute('data-dupe')){ const c = JSON.parse(JSON.stringify(x)); c.n = (c.n||'') ; delete c._c; L.splice(i+1, 0, c); renderEntries(); refresh(); return; }
+      if (b.hasAttribute('data-del')){ if (!b.dataset.sure){ b.dataset.sure = '1'; b.textContent = 'Supprimer ?'; b.classList.add('sure'); setTimeout(()=>{ if (b.isConnected){ delete b.dataset.sure; b.textContent = '✕'; b.classList.remove('sure'); } }, 2500); return; } L.splice(i,1); renderEntries(); refresh(); }
       else if (b.dataset.mv){ const j = i + +b.dataset.mv; if (j>=0 && j<L.length){ [L[i],L[j]] = [L[j],L[i]]; renderEntries(); refresh(); } }
       else if (b.hasAttribute('data-totext')){ L[i] = {kind:'text', n:L[i].n, t:entryText(L[i]), uses:L[i].uses||0}; renderEntries(); refresh(); }
       return; }
