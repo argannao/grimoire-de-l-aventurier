@@ -233,6 +233,33 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </style>
 </head>
 <body>
+<script>/* MODE LIVRE : ?livre=regles n'affiche que le contenu des livres de règles */
+(function(){
+  if (!/[?&]livre=regles\b/.test(location.search)) return;
+  document.documentElement.classList.add('book-mode');
+  var st = document.createElement('style');
+  st.textContent = '.book-mode .topnav,.book-mode .supp-sep,.book-mode #autres,.book-mode .species.supp,.book-mode .supp-book,.book-mode .supp-note,.book-mode .supp-foot,'
+    + '.book-mode nav a[href="#autres"],.book-mode nav li:has(a[href="#autres"]),.book-mode .b-eberron,.book-mode #cat-marque,.book-mode #cat-marque + .cat-sub,.book-mode #fcat option[value=marque],'
+    + '.book-mode #fsrc option[value=eberron],.book-mode #fc option[value=artificer],.book-mode #fsub optgroup[label=Artificier],.book-mode #fsub optgroup[label=Psion],.book-mode .cats a[href="#cat-marque"]{display:none!important}'
+    + '.bookbar2{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 14px;background:rgba(28,19,13,.95);border-bottom:1px solid #b8892e;box-shadow:0 4px 14px rgba(0,0,0,.4)}'
+    + '.bookbar2 a{font-family:Cinzel,serif;font-size:13px;letter-spacing:1px;text-decoration:none;padding:6px 13px;border-radius:3px;border:1px solid #b8892e;color:#d9b25f}'
+    + '.bookbar2 a.home{background:#b8892e;color:#1c130d;font-weight:700}.bookbar2 span{font-family:Cinzel,serif;color:#d9b25f;font-size:14px;letter-spacing:1px}';
+  document.head.appendChild(st);
+  document.addEventListener('DOMContentLoaded', function(){
+    var bar = document.createElement('div'); bar.className = 'bookbar2';
+    bar.innerHTML = '<a class="home" href="index.html#bibliotheque">⌂ Accueil</a><a href="livre-dnd-2024.html#regles">← Règles de base 2024</a><span>Contenu des livres de règles uniquement</span>';
+    document.body.insertBefore(bar, document.body.firstChild);
+  });
+  function keep(a){
+      var h = a.getAttribute('href'); if (!h || /^(https?:|#|mailto:)/.test(h) || a.target === '_blank' || a.closest('.bookbar2')) return;
+      if (/^index\.html/.test(h) || /^livre-dnd-2024\.html/.test(h) || /livre=regles/.test(h)) return;
+      var m = h.match(/^([^?#]+\.html)(\?[^#]*)?(#.*)?$/); if (!m) return;
+      a.setAttribute('href', m[1] + '?livre=regles' + (m[3] || ''));
+  }
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('a[href]'); if (a) keep(a); }, true);
+  document.addEventListener('auxclick', function(e){ var a = e.target.closest && e.target.closest('a[href]'); if (a) keep(a); }, true);
+})();
+</script>
 <div class="topnav"><a href="index.html">⌂ Accueil</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="dons-dnd-2024.html">Dons</a><a href="sorts-dnd-2024.html">Sorts</a><a class="on" href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a href="createur-dnd-2024.html">Atelier</a></div>
 <header>
   <div class="sigil"><span>⚖</span></div>
