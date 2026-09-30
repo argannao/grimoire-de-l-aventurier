@@ -1213,9 +1213,9 @@ function diceAvg(d){ const m = String(d).match(/(\d+)\s*d\s*(\d+)/); return m ? 
 function entryText(e){
   if (e.kind==='atk'){
     const pb = PB(), m = mod(S.abil[e.ab]||10), b = m + pb;
-    const avg = diceAvg(e.dice) + m;
+    const dm = e.noMod ? 0 : m, avg = diceAvg(e.dice) + dm;
     const kind = e.melee ? `Corps à corps : ${sgn(b)}, allonge ${e.reach}` : `À distance : ${sgn(b)}, portée ${e.reach}`;
-    return `${kind}. Touché : ${Math.max(1,avg)} (${e.dice}${m? ' ' + (m>0?'+':'−') + ' ' + Math.abs(m):''}) dégâts ${dmgWord(e.dtype)}.${e.extra? ' ' + e.extra : ''}`;
+    return `${kind}. Touché : ${Math.max(1,avg)} (${e.dice}${dm? ' ' + (dm>0?'+':'−') + ' ' + Math.abs(dm):''}) dégâts ${dmgWord(e.dtype)}.${e.extra? ' ' + e.extra : ''}`;
   }
   if (e.kind==='js'){
     const pb = PB(), m = mod(S.abil[e.dcab]||10), dc = 8 + pb + m;
@@ -1399,6 +1399,7 @@ function entryHTML(k, e, i){
       <div class="f"><span class="fl">${e.melee?'Allonge':'Portée (normale/longue)'}</span><input ${A} data-f="reach" value="${esc(e.reach)}"><div class="quick">${(e.melee?REACH_M:REACH_R).map(r=>`<button type="button" data-set="reach|${r}" class="${r===e.reach?'on':''}">${r}</button>`).join('')}</div></div>
       <div class="f wide"><span class="fl">Caractéristique d’attaque</span>${seg(k,i,'ab',AB.map(a=>[a, `${a} <small>${sgn(mod(S.abil[a]||10)+pb)}</small>`, `${ABF[a]} : bonus d’attaque ${sgn(mod(S.abil[a]||10)+pb)}`]), e.ab)}</div>
       <div class="f"><span class="fl">Dégâts</span><div class="dmgrow">${diceField(e, A)}<select ${A} data-f="dtype" class="dt t-${esc(e.dtype)}">${DMGTYPES.map(d=>`<option${d===e.dtype?' selected':''}>${d}</option>`).join('')}</select></div></div>
+      <div class="f"><span class="fl">Modificateur aux dégâts</span>${seg(k,i,'noMod',[['0',`Oui <small>${sgn(mod(S.abil[e.ab]||10))}</small>`],['1','Non']], e.noMod?'1':'0')}</div>
     </div>
     <div class="f"><span class="fl">Effet supplémentaire <small>(facultatif)</small></span><input ${A} data-f="extra" value="${esc(e.extra)}" placeholder="ex. Si la cible est de taille M ou inférieure, elle subit l’état À terre.">
       <div class="quick"><span>Ajouter :</span>${RIDERS_A.map(([l,t])=>`<button type="button" data-rider="${esc(t.replace('{dc}', dc))}">${l}</button>`).join('')}</div></div>`;
@@ -1536,6 +1537,35 @@ function adjustTo(ti){
 
 // ---------------------------------------------------------------- import depuis le bestiaire
 const NUMW = {deux:2,trois:3,quatre:4,cinq:5,six:6,une:1,un:1};
+
+// Convertit une action du bestiaire en attaque ou effet « calculé » quand ses chiffres correspondent aux caractéristiques
+const AB_BY_FR = {Force:'For',Dextérité:'Dex',Constitution:'Con',Intelligence:'Int',Sagesse:'Sag',Charisme:'Cha'};
+function dtypeOf(w){ const x = w.replace(/^de\s+/,'').replace(/^d[’']/,''); return DMGTYPES.includes(x) ? x : null; }
+function tidyExtra(r){ r = r.replace(/\s+/g,' ').replace(/^[\s,.;]+/,'').trim(); if (!r) return ''; if (/^plus /.test(r)) r = 'La cible subit aussi ' + r.slice(5); else if (/^et /.test(r)) r = r.slice(3); return r[0].toUpperCase() + r.slice(1); }
+const RX_ATK = /^(Corps à corps|À distance)\s*:\s*([+−-]\d+)(?:\s*\(([^)]*)\))?,\s*(allonge|portée)\s+([^.]+?)\.\s*Touché\s*:\s*(\d+)\s*\((\d+)d(\d+)(?:\s*([+−-])\s*(\d+))?\)\s*dégâts\s+(d[’']\w+|de \w+|\w+)([\s\S]*)$/;
+const RX_JS = /^JS (Force|Dextérité|Constitution|Intelligence|Sagesse|Charisme)\s*:\s*DD\s*(\d+),\s*([^.]+?)\.\s*Échec\s*:\s*(\d+)\s*\((\d+)d(\d+)\)\s*dégâts\s+(d[’']\w+|de \w+|\w+)([\s\S]*)$/;
+function toStruct(n, t, pb, st){
+  const num = x=>parseInt(String(x).replace('−','-'));
+  let m = t.match(RX_ATK);
+  if (m){
+    const bonus = num(m[2]), dmod = m[9] ? (m[9]==='+'?1:-1)*num(m[10]) : 0, dtype = dtypeOf(m[11]); if (!dtype) return null;
+    const cands = m[1]==='À distance' ? ['Dex','For'] : ['For','Dex'];
+    let noMod = false, ab = cands.find(a=>mod(st.abil[a])+pb===bonus && mod(st.abil[a])===dmod);
+    if (!ab && !m[9]){ ab = cands.find(a=>mod(st.abil[a])+pb===bonus); noMod = !!ab; }
+    if (!ab) return null;
+    const extra = [m[3] ? '(' + m[3] + ')' : '', tidyExtra(m[12])].filter(Boolean).join(' ');
+    return {kind:'atk', n, melee:m[1]==='Corps à corps', ab, reach:m[5].trim(), dice:`${m[7]}d${m[8]}`, dtype, extra, noMod, uses:0};
+  }
+  m = t.match(RX_JS);
+  if (m){
+    const dc = +m[2], dtype = dtypeOf(m[7]); if (!dtype) return null;
+    const dcab = ['Con','Cha','Int','Sag','Dex','For'].find(a=>8+pb+mod(st.abil[a])===dc); if (!dcab) return null;
+    let rest = m[8]; const half = /Réussite\s*:\s*(demi-dégâts|moitié des dégâts)\.?/.test(rest);
+    rest = rest.replace(/Réussite\s*:\s*(demi-dégâts|moitié des dégâts)\.?/,'');
+    return {kind:'js', n, save:AB_BY_FR[m[1]], dcab, area:m[3].trim(), dice:`${m[5]}d${m[6]}`, dtype, half, extra:tidyExtra(rest), uses:0};
+  }
+  return null;
+}
 function fromMonster(m){
   const s = blank();
   s.src = m.id; s.name = m.name + ' (variante)'; s.size = m.sizes[m.sizes.length-1]; s.type = TYPES.includes(m.type)? m.type : 'Monstruosité';
@@ -1556,7 +1586,7 @@ function fromMonster(m){
     const k = map[h]; if (!k) continue;
     for (const [n,t] of ents){
       if (k==='legend' && !n){ s.legIntro = t; const u = t.match(/Légendaire : (\d+)/); if (u) s.legUses = +u[1]; continue; }
-      s[k].push({kind:'text', n, t, uses:0});
+      s[k].push((k!=='traits' && toStruct(n, t, pb, s)) || {kind:'text', n, t, uses:0});
     }
   }
   // utilisations par round (heuristique : attaques multiples, recharges)
@@ -1824,7 +1854,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const x = L[i];
       if (b.dataset.set){ const [f, v] = [b.dataset.set.slice(0, b.dataset.set.indexOf('|')), b.dataset.set.slice(b.dataset.set.indexOf('|')+1)];
         if (f==='melee'){ x.melee = v==='1'; if (x.melee && !REACH_M.includes(x.reach)) x.reach = '1,50 m'; if (!x.melee && !REACH_R.includes(x.reach)) x.reach = '18/72 m'; }
-        else if (f==='half') x.half = v==='1'; else x[f] = v;
+        else if (f==='half') x.half = v==='1'; else if (f==='noMod') x.noMod = v==='1'; else x[f] = v;
         renderEntries(); refresh(); return; }
       if (b.dataset.dn){ const [n, sz] = diceParts(x.dice); x.dice = `${Math.max(1, n + +b.dataset.dn)}d${sz}`; renderEntries(); refresh(); return; }
       if (b.dataset.us){ x.uses = Math.max(0, Math.round(((+x.uses||0) + +b.dataset.us)*100)/100); renderEntries(); refresh(); return; }
