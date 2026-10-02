@@ -20,6 +20,8 @@
 .cv-eberron{background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px),radial-gradient(ellipse at 20% 10%,#3f7d86,transparent 60%),linear-gradient(160deg,#1f4a52,#0f2328)}
 .cv-ravenloft{background:radial-gradient(ellipse at 70% 30%,rgba(140,90,170,.45),transparent 55%),radial-gradient(ellipse at 20% 90%,rgba(90,20,30,.6),transparent 60%),linear-gradient(170deg,#2a1b33,#0c0810)}
 .cv-lorwyn{background:radial-gradient(circle,rgba(255,240,180,.18) 1.2px,transparent 1.6px) 0 0/12px 12px,radial-gradient(ellipse at 30% 20%,#7ea45a,transparent 60%),linear-gradient(160deg,#3f6b3a,#1d3a1a)}
+.cv-2014{background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px),radial-gradient(ellipse at 25% 15%,#4d5f86,transparent 60%),linear-gradient(160deg,#2a3550,#11172a)}
+.cv-2014 .cy{color:#e8d9a8}
 .cv-ua{color:#2b1d12;background:repeating-linear-gradient(0deg,transparent 0 21px,rgba(43,29,18,.12) 21px 22px),linear-gradient(160deg,#efe2c0,#d8c192)}
 .cv-ua .ct,.cv-ua .cy{text-shadow:none}.cv-ua .cy{border-top-color:rgba(43,29,18,.35)}
 .cv-ua::after{content:"PLAYTEST";position:absolute;right:-28px;bottom:64px;transform:rotate(-38deg);background:#8e1b1b;color:#fff;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2px;padding:2px 30px}
@@ -242,6 +244,10 @@ const BOOKS = [
     resume:"Le monde féerique de Lorwyn-Shadowmoor (Magic : The Gathering) : deux nouvelles espèces et des conseils pour jouer ses peuples.",
     apports:[["Changelin de Lorwyn","especes-dnd-2024.html#changelin-lorwyn"],["Rimekin","especes-dnd-2024.html#rimekin"]],
     liens:[["Le livre (D&D Beyond)","https://www.dndbeyond.com/sources/dnd/lfl"]] },
+  { cle:"srd2014", titre:"Règles de 2014", sous:"SRD 5.1 · cinquième édition d’origine", annee:"2014", classe:"cv-2014", tag:"Ancienne édition",
+    resume:"Les règles de la cinquième édition d’origine (SRD 5.1, texte officiel français) : races, classes, sorts et créatures, pour les tables qui jouent encore en 2014.",
+    apports:[["9 races","livre-dnd-2014.html#srd2014/races"],["12 classes","livre-dnd-2014.html#srd2014/classes"],["319 sorts","livre-dnd-2014.html#srd2014/sorts"],["318 créatures","livre-dnd-2014.html#srd2014/creatures"]],
+    liens:[["SRD 5.1 (Wizards of the Coast)","https://dnd.wizards.com/fr/resources/systems-reference-document"]] },
   { cle:"ua", titre:"Unearthed Arcana", sous:"Règles en test", annee:"2025", classe:"cv-ua", tag:"Playtest gratuit",
     resume:"Documents de test publiés par Wizards of the Coast. Leurs règles sont provisoires et peuvent changer avant publication.",
     apports:[["Psion","classes-dnd-2024.html#psion"]],
@@ -249,10 +255,10 @@ const BOOKS = [
 ];
 function renderBooks(){
   return `<h2 class="section-title" id="bibliotheque">Bibliothèque</h2><div class="shelf">` + BOOKS.map(b=>`
-    <article class="book"><a class="cover ${b.classe}" href="livre-dnd-2024.html#${b.cle}" title="Tout le contenu de ce livre"><div><div class="ct">${b.titre}</div><div class="cs">${b.sous}</div></div><div class="cy">${b.annee}</div></a>
+    <article class="book"><a class="cover ${b.classe}" href="${b.cle==='srd2014' ? 'livre-dnd-2014.html' : 'livre-dnd-2024.html'}#${b.cle}" title="Tout le contenu de ce livre"><div><div class="ct">${b.titre}</div><div class="cs">${b.sous}</div></div><div class="cy">${b.annee}</div></a>
       <div class="binfo"><span class="tag">${b.tag}</span><p>${b.resume}</p>
         <div class="brings">${b.apports.map(([l,h])=>`<a href="${h}">${l}</a>`).join('')}</div>
-        <a class="open" href="livre-dnd-2024.html#${b.cle}">Tout le contenu du livre ›</a>
+        <a class="open" href="${b.cle==='srd2014' ? 'livre-dnd-2014.html' : 'livre-dnd-2024.html'}#${b.cle}">Tout le contenu du livre ›</a>
         <div class="ext">${b.liens.map(([l,h])=>`<a href="${h}" target="_blank" rel="noopener">${l} ↗</a>`).join('')}</div></div></article>`).join('') + `</div>`;
 }
 
