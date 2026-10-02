@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grimoire de l'aventurier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* bibliothèque */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+.book{display:grid;grid-template-columns:128px 1fr;background:var(--parch,#f3e6c8);border:1px solid #b8892e;border-radius:4px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.cover{position:relative;min-height:190px;padding:14px 10px 12px 18px;display:flex;flex-direction:column;justify-content:space-between;color:#f6ead0;border-right:3px solid rgba(0,0,0,.35);box-shadow:inset 6px 0 10px -4px rgba(0,0,0,.55),inset -2px 0 0 rgba(255,255,255,.08)}
+.cover::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:rgba(0,0,0,.25);box-shadow:3px 0 0 rgba(255,255,255,.07)}
+.cover .ct{font-family:'Cinzel',serif;font-weight:900;font-size:17px;line-height:1.15;letter-spacing:.5px;text-shadow:0 2px 3px rgba(0,0,0,.6)}
+.cover .cs{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;margin-top:5px}
+.cover .cy{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;border-top:1px solid rgba(246,234,208,.45);padding-top:5px;opacity:.9}
+.cv-core{background:radial-gradient(ellipse at 30% 20%,#a52a22,transparent 60%),repeating-radial-gradient(circle at 70% 80%,rgba(0,0,0,.08) 0 2px,transparent 2px 5px),linear-gradient(160deg,#7a1712,#3e0a08)}
+.cv-eberron{background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px),radial-gradient(ellipse at 20% 10%,#3f7d86,transparent 60%),linear-gradient(160deg,#1f4a52,#0f2328)}
+.cv-ravenloft{background:radial-gradient(ellipse at 70% 30%,rgba(140,90,170,.45),transparent 55%),radial-gradient(ellipse at 20% 90%,rgba(90,20,30,.6),transparent 60%),linear-gradient(170deg,#2a1b33,#0c0810)}
+.cv-lorwyn{background:radial-gradient(circle,rgba(255,240,180,.18) 1.2px,transparent 1.6px) 0 0/12px 12px,radial-gradient(ellipse at 30% 20%,#7ea45a,transparent 60%),linear-gradient(160deg,#3f6b3a,#1d3a1a)}
+.cv-2014{background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px),radial-gradient(ellipse at 25% 15%,#4d5f86,transparent 60%),linear-gradient(160deg,#2a3550,#11172a)}
+.cv-2014 .cy{color:#e8d9a8}
+.cv-ua{color:#2b1d12;background:repeating-linear-gradient(0deg,transparent 0 21px,rgba(43,29,18,.12) 21px 22px),linear-gradient(160deg,#efe2c0,#d8c192)}
+.cv-ua .ct,.cv-ua .cy{text-shadow:none}.cv-ua .cy{border-top-color:rgba(43,29,18,.35)}
+.cv-ua::after{content:"PLAYTEST";position:absolute;right:-28px;bottom:64px;transform:rotate(-38deg);background:#8e1b1b;color:#fff;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2px;padding:2px 30px}
+.binfo{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.binfo p{margin:0;font-size:15.5px;color:var(--ink,#2b1d12)}
+.binfo .brings{display:flex;flex-wrap:wrap;gap:5px}
+.binfo .brings a{font-family:'Cinzel',serif;font-size:11.5px;letter-spacing:.5px;text-decoration:none;color:#2b1d12;border:1px solid #b8892e;background:#fffaf0;padding:3px 9px;border-radius:12px}
+.binfo .brings a:hover{background:#b8892e;color:#fff}
+a.cover{text-decoration:none;transition:filter .15s}a.cover:hover{filter:brightness(1.15)}
+.binfo .open{font-family:'Cinzel',serif;font-size:13px;color:#8e1b1b;text-decoration:none;font-weight:700;margin-top:auto}.binfo .open:hover{text-decoration:underline}
+.binfo .ext{font-size:13.5px;display:flex;gap:12px;flex-wrap:wrap}
+.binfo .ext a{color:#8e1b1b}
+.binfo .tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6b5540}
+@media (max-width:420px){.book{grid-template-columns:100px 1fr}.cover .ct{font-size:14.5px}}
+
+/* fin bibliothèque */
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --leather:#1c130d; --shadow:rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.5;
+  background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+}
+header{text-align:center;padding:64px 16px 30px;color:var(--parch)}
+.sigil{width:84px;height:84px;margin:0 auto 18px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 7px rgba(184,137,46,.15),0 0 40px rgba(217,178,95,.15)}
+.sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:34px;color:var(--gold-light)}
+h1{font-family:'Cinzel Decorative',serif;font-size:clamp(32px,6.5vw,62px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 26px rgba(217,178,95,.25)}
+.subtitle{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:12px 0 0}
+.divider{display:flex;align-items:center;gap:14px;max-width:420px;margin:26px auto 0;color:var(--gold)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+main{max-width:1100px;margin:0 auto;padding:10px 16px 60px}
+.section-title{font-family:'Cinzel',serif;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:15px;margin:30px 0 14px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:"";flex:1;height:1px;background:rgba(184,137,46,.5)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.4),transparent 45%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.2),transparent 55%);
+  border-radius:4px;padding:24px 22px 20px;
+  box-shadow:0 10px 26px var(--shadow),inset 0 0 50px rgba(120,80,30,.22);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(184,137,46,.55);border-radius:2px;pointer-events:none}
+a.card:hover,a.card:focus-visible{transform:translateY(-4px);box-shadow:0 16px 34px var(--shadow),0 0 0 2px var(--gold-light),inset 0 0 50px rgba(120,80,30,.22);outline:none}
+.card-top{display:flex;align-items:center;gap:14px}
+.emblem{width:72px;height:72px;flex:none;filter:drop-shadow(0 3px 5px rgba(40,20,5,.4))}
+.card h2{font-family:'Cinzel',serif;font-weight:900;font-size:22px;color:var(--blood);margin:0;line-height:1.15}
+.card .tagline{font-style:italic;color:var(--ink-soft);font-size:15.5px}
+.card p{margin:0;font-size:16.5px}
+.card .meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px dotted rgba(90,67,48,.4)}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:2px;color:var(--parch)}
+.badge.ok{background:#2f5d33}
+.badge.soon{background:var(--ink-soft)}
+.badge.proto{background:#6a3f8a}
+.go{font-family:'Cinzel',serif;font-size:13px;color:var(--blood)}
+.card.disabled{opacity:.62;filter:saturate(.6)}
+.card.disabled .go{color:var(--ink-soft)}
+
+.help{margin-top:40px;background:rgba(243,230,200,.08);border:1px solid rgba(184,137,46,.4);border-radius:4px;color:#e8dcc0;padding:4px 18px}
+.help summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--gold-light);padding:10px 0}
+.help code,.help pre{font-family:ui-monospace,Consolas,monospace;font-size:14px}
+.help pre{background:rgba(0,0,0,.35);border:1px solid rgba(184,137,46,.3);padding:12px;border-radius:3px;overflow-x:auto;color:#f3e6c8}
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){header{padding-top:44px}.card{padding:20px 18px}}
+
+/* finitions */
+#sources a,.links a{overflow-wrap:anywhere}
+footer.sitefoot{padding:26px 16px 34px;margin-top:10px;border-top:1px solid rgba(184,137,46,.25);font-size:12.5px;color:#a38f6a;text-align:center}
+footer.sitefoot .fl{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px}
+footer.sitefoot a{color:#c9b48a;text-decoration:none}footer.sitefoot a:hover{color:var(--gold-light);text-decoration:underline}
+footer.sitefoot .gh{display:inline-flex;align-items:center;gap:7px;color:#c9b48a}
+footer.sitefoot .gh svg{width:20px;height:20px;fill:currentColor}
+footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
+@media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sigil"><span>D</span></div>
+  <h1>Grimoire de l'aventurier</h1>
+  <p class="subtitle">Compagnon de jeu · Règles D&amp;D 2024</p>
+  <div class="divider">◆</div>
+</header>
+
+<main id="modules"></main>
+
+<footer class="sitefoot"><div class="fl"><a class="gh" href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener" title="Code source sur GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>© 2026 Grimoire de l’aventurier</span></a><a href="mentions-legales.html#mentions">Mentions légales</a><a href="mentions-legales.html#licence">Licence</a><a href="mentions-legales.html#marques">Marques</a><a href="mentions-legales.html#confidentialite">Confidentialité</a><a href="mentions-legales.html#credits">Crédits</a><a href="mentions-legales.html#contact">Contact</a><a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">Signaler un problème</a><a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">Code source</a></div><div class="fs">Référence de fan non officielle, compatible 5E · Dungeons &amp; Dragons est une marque de Wizards of the Coast LLC, non affiliée à ce site · Contient du matériel du SRD 5.2.1 sous licence CC BY 4.0</div></footer>
+
+<script>
+/* =====================================================================
+   LISTE DES MODULES — c'est le seul endroit à modifier.
+   Pour ajouter un module, copiez un bloc { ... } et changez :
+     titre       : nom affiché
+     accroche    : sous-titre court
+     description : une ou deux phrases
+     fichier     : nom du fichier HTML (dans le même dossier que ce menu)
+     categorie   : regroupe les cartes sous un même titre de section
+     icone       : une des clés de ICONES plus bas (ou "etoile" par défaut)
+     statut      : "disponible", "bientot", "prototype" (carte grisée, non cliquable) ou "prototype-ouvert" (prototype utilisable)
+   ===================================================================== */
+const MODULES = [
+  { titre:"Espèces", accroche:"Les peuples du multivers", categorie:"Création de personnage",
+    description:"Les 10 espèces du Manuel des Joueurs 2024 : lore, traits, conseils de jeu et changements depuis 2014.",
+    fichier:"especes-dnd-2024.html", icone:"especes", statut:"disponible" },
+  { titre:"Classes", accroche:"Les 12 voies de l'aventure", categorie:"Création de personnage",
+    description:"Progression du niveau 1 au 20, capacités, 48 sous-classes et conseils pour chaque classe.",
+    fichier:"classes-dnd-2024.html", icone:"classes", statut:"disponible" },
+  { titre:"Sorts", accroche:"Le grimoire complet", categorie:"Magie",
+    description:"390 sorts illustrés, du sort mineur au niveau 9, avec filtres et liens vers les classes et espèces.",
+    fichier:"sorts-dnd-2024.html", icone:"sorts", statut:"disponible" },
+  { titre:"Magasin", accroche:"Le comptoir de l'aventurier", categorie:"Équipement",
+    description:"536 objets courants et magiques illustrés, prix d'achat et de revente, bourse, panier et équipement de départ par classe.",
+    fichier:"magasin-dnd-2024.html", icone:"objet", statut:"disponible" },
+  { titre:"Bestiaire", accroche:"Monstres et animaux", categorie:"Créatures",
+    description:"330 créatures illustrées avec leur profil complet, tri par puissance (FP), filtres et calculateur de rencontre.",
+    fichier:"bestiaire-dnd-2024.html", icone:"monstre", statut:"disponible" },
+  { titre:"Compagnons", accroche:"Familiers, montures et bêtes", categorie:"Créatures",
+    description:"Familiers, montures, compagnon du rôdeur, formes sauvages du druide et sorts d'invocation, classe par classe.",
+    fichier:"compagnons-dnd-2024.html", icone:"patte", statut:"disponible" },
+  { titre:"Historiques", accroche:"D'où vient votre héros", categorie:"Création de personnage",
+    description:"Les 16 historiques 2024 illustrés : caractéristiques, dons d'origine, équipement relié au magasin, idées de personnage et langues.",
+    fichier:"historiques-dnd-2024.html", icone:"parchemin", statut:"disponible" },
+  { titre:"Dons", accroche:"Talents et faveurs", categorie:"Création de personnage",
+    description:"Tous les dons des règles 2024 : dons d'origine, dons généraux, styles de combat et faveurs épiques, avec filtres par catégorie et par caractéristique.",
+    fichier:"dons-dnd-2024.html", icone:"etoile", statut:"disponible" },
+  // ---- Ateliers : outils de création (présents et à venir)
+  { titre:"Atelier de créatures", accroche:"Vos monstres maison", categorie:"Ateliers",
+    description:"Créez une créature de A à Z ou à partir d'un monstre existant, empruntez des capacités, et laissez l'assistant ajuster son FP à votre groupe.",
+    fichier:"createur-dnd-2024.html", icone:"atelier", statut:"disponible" },
+  { titre:"Atelier de PNJ", accroche:"Des personnages vivants", categorie:"Ateliers",
+    description:"Créer des personnages non joueurs : identité, personnalité, motivations, profil de jeu adapté à leur rôle, et fiche prête à l'emploi pour vos parties.",
+    fichier:"atelier-pnj-dnd-2024.html", icone:"pnj", statut:"prototype-ouvert" },
+  { titre:"Atelier de PJ", accroche:"Votre héros pas à pas", categorie:"Ateliers",
+    description:"Construire un personnage joueur étape par étape : espèce, classe, historique, caractéristiques, équipement et sorts, avec une fiche de personnage complète.",
+    fichier:"atelier-pj-dnd-2024.html", icone:"pj", statut:"prototype" },
+];
+
+/* Emblèmes disponibles (SVG 120×120). Ajoutez-en si besoin. */
+const RING = '<circle cx="60" cy="60" r="56" fill="none" stroke="#b8892e" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#b8892e" stroke-width="1" stroke-dasharray="2 4"/>';
+const ICONES = {
+  especes: `<circle cx="60" cy="60" r="56" fill="#3f6b3a"/>${RING}
+    <path d="M60 22C80 40 80 76 60 98C40 76 40 40 60 22Z" fill="#f3e6c8"/><path d="M60 28V94" stroke="#3f6b3a" stroke-width="2"/>
+    <path d="M60 46L48 38M60 46L72 38M60 62L46 52M60 62L74 52M60 78L50 70M60 78L70 70" stroke="#3f6b3a" stroke-width="1.6"/>`,
+  classes: `<circle cx="60" cy="60" r="56" fill="#8e1b1b"/>${RING}
+    <g transform="rotate(35 60 60)"><rect x="57" y="14" width="6" height="62" fill="#e6d2a6"/><rect x="46" y="74" width="28" height="5" fill="#d9b25f"/><rect x="57" y="79" width="6" height="16" fill="#5a4330"/></g>
+    <path d="M38 40H82V62C82 78 72 88 60 94C48 88 38 78 38 62Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="3"/><path d="M60 44V90M42 58H78" stroke="#8e1b1b" stroke-width="3"/>`,
+  sorts: `<circle cx="60" cy="60" r="56" fill="#2e1f52"/>${RING}
+    <path d="M60 46C48 40 32 40 22 44V90C32 86 48 86 60 92Z" fill="#fbf3de" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 46C72 40 88 40 98 44V90C88 86 72 86 60 92Z" fill="#fbf3de" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 14L64 26L76 28L66 35L69 47L60 40L51 47L54 35L44 28L56 26Z" fill="#d9b25f"/>
+    <circle cx="30" cy="24" r="2" fill="#d9b25f"/><circle cx="92" cy="30" r="1.6" fill="#d9b25f"/>`,
+  parchemin: `<circle cx="60" cy="60" r="56" fill="#5a4330"/>${RING}
+    <path d="M34 30H80C86 30 86 40 80 40H78V86C78 92 72 94 68 90H30C36 88 36 80 36 78V40C36 34 32 30 34 30Z" fill="#f3e6c8"/>
+    <path d="M44 50H70M44 60H70M44 70H64" stroke="#8e1b1b" stroke-width="2.5" stroke-linecap="round"/>`,
+  carte: `<circle cx="60" cy="60" r="56" fill="#1d3550"/>${RING}
+    <path d="M26 34L46 28L74 36L94 30V86L74 92L46 84L26 90Z" fill="#f3e6c8"/><path d="M46 28V84M74 36V92" stroke="#b8892e" stroke-width="2"/>
+    <path d="M34 70C44 56 54 74 64 58S84 50 86 44" fill="none" stroke="#8e1b1b" stroke-width="2.5" stroke-dasharray="4 3"/><path d="M82 40L90 48M90 40L82 48" stroke="#8e1b1b" stroke-width="3"/>`,
+  monstre: `<circle cx="60" cy="60" r="56" fill="#4e0f0c"/>${RING}
+    <path d="M18 60Q60 22 102 60Q60 96 18 60Z" fill="#d9b25f"/><ellipse cx="60" cy="60" rx="5" ry="18" fill="#1c130d"/>
+    <path d="M30 34L42 22L44 38ZM90 34L78 22L76 38Z" fill="#f3e6c8"/>`,
+  des: `<circle cx="60" cy="60" r="56" fill="#5e0f0f"/>${RING}
+    <path d="M60 18L94 38V82L60 102L26 82V38Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="2.5"/>
+    <path d="M60 18V58M26 38L60 58L94 38M60 58L60 102" stroke="#8e1b1b" stroke-width="2"/><text x="60" y="85" text-anchor="middle" font-family="Cinzel,serif" font-size="18" font-weight="700" fill="#8e1b1b">20</text>`,
+  objet: `<circle cx="60" cy="60" r="56" fill="#43310c"/>${RING}
+    <path d="M40 46H80L86 60H34Z" fill="#d9b25f"/><rect x="36" y="60" width="48" height="30" rx="3" fill="#b8892e" stroke="#f3e6c8" stroke-width="2"/>
+    <rect x="55" y="66" width="10" height="12" rx="2" fill="#f3e6c8"/><path d="M50 40L54 30L58 40M66 38L70 26L74 38" stroke="#fff4d6" stroke-width="2" fill="none"/>`,
+  patte: `<circle cx="60" cy="60" r="56" fill="#3f5a2a"/>${RING}
+    <ellipse cx="60" cy="72" rx="18" ry="15" fill="#f3e6c8"/><ellipse cx="38" cy="50" rx="7" ry="10" fill="#f3e6c8" transform="rotate(-20 38 50)"/>
+    <ellipse cx="52" cy="38" rx="7" ry="10" fill="#f3e6c8"/><ellipse cx="68" cy="38" rx="7" ry="10" fill="#f3e6c8"/><ellipse cx="82" cy="50" rx="7" ry="10" fill="#f3e6c8" transform="rotate(20 82 50)"/>`,
+  atelier: `<circle cx="60" cy="60" r="56" fill="#5a3a24"/>${RING}
+    <path d="M26 78H94L88 88H32Z" fill="#8a96a3"/><path d="M34 66H86V78H34Z" fill="#5d6670"/><path d="M40 66Q40 58 50 58H70Q80 58 80 66Z" fill="#8a96a3"/>
+    <g transform="rotate(-35 60 40)"><rect x="56" y="14" width="8" height="46" rx="3" fill="#b8892e"/><rect x="44" y="10" width="32" height="14" rx="3" fill="#d7dde3"/></g>
+    <path d="M88 30l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z" fill="#d9b25f"/>`,
+  pnj: `<circle cx="60" cy="60" r="56" fill="#2f4f5a"/>${RING}
+    <circle cx="52" cy="46" r="14" fill="#f3e6c8"/><path d="M26 94Q26 66 52 64Q78 66 78 94Z" fill="#f3e6c8"/>
+    <path d="M40 42Q52 26 64 42Q58 36 52 36Q46 36 40 42Z" fill="#8a6a44"/>
+    <path d="M70 22H100Q104 22 104 26V42Q104 46 100 46H84L76 54V46H70Q66 46 66 42V26Q66 22 70 22Z" fill="#d9b25f"/>
+    <circle cx="76" cy="34" r="2.5" fill="#2f4f5a"/><circle cx="85" cy="34" r="2.5" fill="#2f4f5a"/><circle cx="94" cy="34" r="2.5" fill="#2f4f5a"/>`,
+  pj: `<circle cx="60" cy="60" r="56" fill="#3a2e5a"/>${RING}
+    <path d="M60 18L90 28V56Q90 82 60 98Q30 82 30 56V28Z" fill="#f3e6c8" stroke="#d9b25f" stroke-width="3"/>
+    <path d="M60 36L65 50L80 50L68 59L72 74L60 65L48 74L52 59L40 50L55 50Z" fill="#8e1b1b"/>`,
+  etoile: `<circle cx="60" cy="60" r="56" fill="#2b1d12"/>${RING}
+    <path d="M60 20L67 50L96 60L67 70L60 100L53 70L24 60L53 50Z" fill="#d9b25f"/>`,
+};
+
+function emblem(key){
+  return `<svg class="emblem" viewBox="0 0 120 120" aria-hidden="true">${ICONES[key] || ICONES.etoile}</svg>`;
+}
+
+
+/* =====================================================================
+   BIBLIOTHÈQUE — les livres dont le contenu est présent sur le site.
+   classe : cv-core, cv-eberron, cv-ravenloft, cv-lorwyn ou cv-ua (couleur et texture de la couverture)
+   ===================================================================== */
+const BOOKS = [
+  { cle:"regles", titre:"Règles de base 2024", sous:"Manuel des joueurs · Guide du Maître · Manuel des monstres", annee:"2024 – 2025", classe:"cv-core", tag:"Livres de règles",
+    resume:"Le cœur du jeu : espèces, classes, historiques, dons, sorts, équipement et créatures. Une partie est libre dans le SRD 5.2.1.",
+    apports:[["10 espèces","especes-dnd-2024.html"],["12 classes","classes-dnd-2024.html"],["16 historiques","historiques-dnd-2024.html"],["Dons","dons-dnd-2024.html"],["390 sorts","sorts-dnd-2024.html"],["Magasin","magasin-dnd-2024.html"],["Bestiaire","bestiaire-dnd-2024.html"]],
+    liens:[["Règles de base gratuites (D&D Beyond)","https://www.dndbeyond.com/sources/dnd/br-2024"],["SRD 5.2.1","https://www.dndbeyond.com/srd"]] },
+  { cle:"eberron", titre:"Eberron : Forge of the Artificer", sous:"Univers de campagne", annee:"2025", classe:"cv-eberron", tag:"Supplément",
+    resume:"Un monde où la magie est une industrie : l’artificier revu pour 2024, cinq espèces et les marques du dragon des grandes maisons.",
+    apports:[["Artificier","classes-dnd-2024.html#artificier"],["Sorts d’artificier","sorts-dnd-2024.html#classe-artificier"],["5 espèces","especes-dnd-2024.html#changelin"],["28 dons de marque","dons-dnd-2024.html#cat-marque"]],
+    liens:[["Nouveautés de l’artificier (D&D Beyond)","https://www.dndbeyond.com/posts/2106-whats-new-with-the-artificer-in-eberron-forge-of"],["Les marques du dragon","https://www.dndbeyond.com/posts/2112-choose-your-dragonmark-28-new-feats-that-explore"]] },
+  { cle:"ravenloft", titre:"Ravenloft : The Horrors Within", sous:"Horreur gothique", annee:"2026", classe:"cv-ravenloft", tag:"Supplément",
+    resume:"Les Domaines de l’effroi pour les règles 2024 : trois espèces mises à jour et une nouvelle, le lupin.",
+    apports:[["Dhampir","especes-dnd-2024.html#dhampir"],["Sang-maudit","especes-dnd-2024.html#sang-maudit"],["Lupin","especes-dnd-2024.html#lupin"],["Réincarné","especes-dnd-2024.html#reincarne"]],
+    liens:[["Présentation (D&D Beyond)","https://www.dndbeyond.com/posts/2169-everything-you-need-to-know-about-ravenloft-the"]] },
+  { cle:"lorwyn", titre:"Lorwyn : First Light", sous:"Supplément numérique", annee:"2025", classe:"cv-lorwyn", tag:"Supplément",
+    resume:"Le monde féerique de Lorwyn-Shadowmoor (Magic : The Gathering) : deux nouvelles espèces et des conseils pour jouer ses peuples.",
+    apports:[["Changelin de Lorwyn","especes-dnd-2024.html#changelin-lorwyn"],["Rimekin","especes-dnd-2024.html#rimekin"]],
+    liens:[["Le livre (D&D Beyond)","https://www.dndbeyond.com/sources/dnd/lfl"]] },
+  { cle:"srd2014", titre:"Règles de 2014", sous:"SRD 5.1 · cinquième édition d’origine", annee:"2014", classe:"cv-2014", tag:"Ancienne édition",
+    resume:"Les règles de la cinquième édition d’origine (SRD 5.1, texte officiel français) : races, classes et sorts, pour les tables qui jouent encore en 2014.",
+    apports:[["9 races","livre-dnd-2024.html#srd2014/races"],["12 classes","livre-dnd-2024.html#srd2014/classes"],["319 sorts","livre-dnd-2024.html#srd2014/sorts"]],
+    liens:[["SRD 5.1 (Wizards of the Coast)","https://dnd.wizards.com/resources/systems-reference-document"]] },
+  { cle:"ua", titre:"Unearthed Arcana", sous:"Règles en test", annee:"2025", classe:"cv-ua", tag:"Playtest gratuit",
+    resume:"Documents de test publiés par Wizards of the Coast. Leurs règles sont provisoires et peuvent changer avant publication.",
+    apports:[["Psion","classes-dnd-2024.html#psion"]],
+    liens:[["Psion (PDF officiel)","https://media.dndbeyond.com/compendium-images/ua/psion-update/kZh2hf4yC7KS45wW/UA2025-Psion+Update.pdf"]] },
+];
+function renderBooks(){
+  return `<h2 class="section-title" id="bibliotheque">Bibliothèque</h2><div class="shelf">` + BOOKS.map(b=>`
+    <article class="book"><a class="cover ${b.classe}" href="livre-dnd-2024.html#${b.cle}" title="Tout le contenu de ce livre"><div><div class="ct">${b.titre}</div><div class="cs">${b.sous}</div></div><div class="cy">${b.annee}</div></a>
+      <div class="binfo"><span class="tag">${b.tag}</span><p>${b.resume}</p>
+        <div class="brings">${b.apports.map(([l,h])=>`<a href="${h}">${l}</a>`).join('')}</div>
+        <a class="open" href="livre-dnd-2024.html#${b.cle}">Tout le contenu du livre ›</a>
+        <div class="ext">${b.liens.map(([l,h])=>`<a href="${h}" target="_blank" rel="noopener">${l} ↗</a>`).join('')}</div></div></article>`).join('') + `</div>`;
+}
+
+function renderMenu(){
+  const cats = [...new Set(MODULES.map(m => m.categorie || "Modules"))];
+  document.getElementById('modules').innerHTML = cats.map(cat => {
+    const cards = MODULES.filter(m => (m.categorie || "Modules") === cat).map(m => {
+      const ok = m.statut !== "bientot" && m.statut !== "prototype";
+      const inner = `
+        <div class="card-top">${emblem(m.icone)}<div><h2>${m.titre}</h2><div class="tagline">${m.accroche || ""}</div></div></div>
+        <p>${m.description || ""}</p>
+        <div class="meta">${m.statut === "prototype-ouvert" ? '<span class="badge proto">Prototype</span><span class="go">Essayer ›</span>' : ok ? '<span class="badge ok">Disponible</span><span class="go">Ouvrir ›</span>'
+                                : m.statut === "prototype" ? '<span class="badge proto">Prototype</span><span class="go">Conception en cours</span>'
+                                : '<span class="badge soon">Bientôt</span><span class="go">En préparation</span>'}</div>`;
+      return ok ? `<a class="card" href="${m.fichier}">${inner}</a>`
+                : `<div class="card disabled" aria-disabled="true">${inner}</div>`;
+    }).join('');
+    return `<h2 class="section-title">${cat}</h2><div class="grid">${cards}</div>`;
+  }).join('') + renderBooks() + `
+    <details class="help"><summary>Ajouter un nouveau module</summary>
+      <p>Placez le fichier HTML du module dans le même dossier que ce menu, puis ouvrez <code>index.html</code> dans un éditeur de texte et ajoutez un bloc dans la liste <code>MODULES</code> :</p>
+      <pre>{ titre:"Bestiaire", accroche:"Créatures et monstres", categorie:"Maître du jeu",
+  description:"Les monstres du SRD avec leurs profils.",
+  fichier:"bestiaire.html", icone:"monstre", statut:"disponible" },</pre>
+      <p>Emblèmes disponibles : ${Object.keys(ICONES).join(', ')}. Une nouvelle catégorie crée automatiquement une nouvelle section.</p>
+    </details>`;
+}
+renderMenu();
+</script>
+<script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
+(function(){
+  function place(){
+    var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
+    document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
+      el.style.top = '';
+      if (getComputedStyle(el).position === 'sticky'){
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
+        el.style.top = (h + extra) + 'px';
+        if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
+      } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
+    });
+    var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
+    document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
+  }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
+  window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
+  if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+</body>
+</html>
