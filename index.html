@@ -20,6 +20,8 @@
 .cv-eberron{background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px),radial-gradient(ellipse at 20% 10%,#3f7d86,transparent 60%),linear-gradient(160deg,#1f4a52,#0f2328)}
 .cv-ravenloft{background:radial-gradient(ellipse at 70% 30%,rgba(140,90,170,.45),transparent 55%),radial-gradient(ellipse at 20% 90%,rgba(90,20,30,.6),transparent 60%),linear-gradient(170deg,#2a1b33,#0c0810)}
 .cv-lorwyn{background:radial-gradient(circle,rgba(255,240,180,.18) 1.2px,transparent 1.6px) 0 0/12px 12px,radial-gradient(ellipse at 30% 20%,#7ea45a,transparent 60%),linear-gradient(160deg,#3f6b3a,#1d3a1a)}
+.cv-faerun{background:repeating-radial-gradient(circle at 50% 120%,rgba(255,215,140,.07) 0 3px,transparent 3px 10px),radial-gradient(ellipse at 25% 15%,#4f7fb0,transparent 60%),linear-gradient(160deg,#22476e,#0f2036)}
+.cv-arcana{background:radial-gradient(circle,rgba(200,170,255,.22) 1px,transparent 1.5px) 0 0/9px 9px,radial-gradient(ellipse at 70% 25%,#9a5cc8,transparent 58%),linear-gradient(160deg,#4a2470,#1b0c2c)}
 .cv-2014{background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px),radial-gradient(ellipse at 25% 15%,#4d5f86,transparent 60%),linear-gradient(160deg,#2a3550,#11172a)}
 .cv-2014 .cy{color:#e8d9a8}
 .cv-ua{color:#2b1d12;background:repeating-linear-gradient(0deg,transparent 0 21px,rgba(43,29,18,.12) 21px 22px),linear-gradient(160deg,#efe2c0,#d8c192)}
@@ -225,7 +227,7 @@ function emblem(key){
 
 /* =====================================================================
    BIBLIOTHÈQUE — les livres dont le contenu est présent sur le site.
-   classe : cv-core, cv-eberron, cv-ravenloft, cv-lorwyn ou cv-ua (couleur et texture de la couverture)
+   classe : cv-core, cv-eberron, cv-faerun, cv-ravenloft, cv-lorwyn, cv-arcana, cv-2014 ou cv-ua (couleur et texture de la couverture)
    ===================================================================== */
 const BOOKS = [
   { cle:"regles", titre:"Règles de base 2024", sous:"Manuel des joueurs · Guide du Maître · Manuel des monstres", annee:"2024 – 2025", classe:"cv-core", tag:"Livres de règles",
@@ -236,14 +238,22 @@ const BOOKS = [
     resume:"Un monde où la magie est une industrie : l’artificier revu pour 2024, cinq espèces et les marques du dragon des grandes maisons.",
     apports:[["Artificier","classes-dnd-2024.html#artificier"],["Sorts d’artificier","sorts-dnd-2024.html#classe-artificier"],["5 espèces","especes-dnd-2024.html#changelin"],["28 dons de marque","dons-dnd-2024.html#cat-marque"]],
     liens:[["Nouveautés de l’artificier (D&D Beyond)","https://www.dndbeyond.com/posts/2106-whats-new-with-the-artificer-in-eberron-forge-of"],["Les marques du dragon","https://www.dndbeyond.com/posts/2112-choose-your-dragonmark-28-new-feats-that-explore"]] },
+  { cle:"faerun", titre:"Forgotten Realms : Heroes of Faerûn", sous:"Univers de campagne", annee:"2025", classe:"cv-faerun", tag:"Supplément",
+    resume:"Les Royaumes oubliés pour les règles 2024 : huit sous-classes propres à Faerûn, du Chantelame elfe au feu magique de la Toile.",
+    apports:[["8 sous-classes","livre-dnd-2024.html#faerun/sous-classes"]],
+    liens:[["Boutique D&D Beyond","https://www.dndbeyond.com/marketplace"]] },
   { cle:"ravenloft", titre:"Ravenloft : The Horrors Within", sous:"Horreur gothique", annee:"2026", classe:"cv-ravenloft", tag:"Supplément",
-    resume:"Les Domaines de l’effroi pour les règles 2024 : trois espèces mises à jour et une nouvelle, le lupin.",
-    apports:[["Dhampir","especes-dnd-2024.html#dhampir"],["Sang-maudit","especes-dnd-2024.html#sang-maudit"],["Lupin","especes-dnd-2024.html#lupin"],["Réincarné","especes-dnd-2024.html#reincarne"]],
+    resume:"Les Domaines de l’effroi pour les règles 2024 : trois espèces mises à jour, une nouvelle (le lupin) et sept sous-classes d’horreur, dont le Réanimateur de l’artificier.",
+    apports:[["Dhampir","especes-dnd-2024.html#dhampir"],["Sang-maudit","especes-dnd-2024.html#sang-maudit"],["Lupin","especes-dnd-2024.html#lupin"],["Réincarné","especes-dnd-2024.html#reincarne"],["7 sous-classes","livre-dnd-2024.html#ravenloft/sous-classes"]],
     liens:[["Présentation (D&D Beyond)","https://www.dndbeyond.com/posts/2169-everything-you-need-to-know-about-ravenloft-the"]] },
   { cle:"lorwyn", titre:"Lorwyn : First Light", sous:"Supplément numérique", annee:"2025", classe:"cv-lorwyn", tag:"Supplément",
     resume:"Le monde féerique de Lorwyn-Shadowmoor (Magic : The Gathering) : deux nouvelles espèces et des conseils pour jouer ses peuples.",
     apports:[["Changelin de Lorwyn","especes-dnd-2024.html#changelin-lorwyn"],["Rimekin","especes-dnd-2024.html#rimekin"]],
     liens:[["Le livre (D&D Beyond)","https://www.dndbeyond.com/sources/dnd/lfl"]] },
+  { cle:"arcana", titre:"Arcana Unleashed", sous:"Supplément de magie", annee:"2026", classe:"cv-arcana", tag:"Supplément",
+    resume:"Le livre de la magie : huit sous-classes de lanceurs et de combattants mystiques, dont les quatre écoles de magicien manquantes.",
+    apports:[["8 sous-classes","livre-dnd-2024.html#arcana/sous-classes"]],
+    liens:[["Boutique D&D Beyond","https://www.dndbeyond.com/marketplace"]] },
   { cle:"srd2014", titre:"Règles de 2014", sous:"SRD 5.1 · cinquième édition d’origine", annee:"2014", classe:"cv-2014", tag:"Ancienne édition",
     resume:"Les règles de la cinquième édition d’origine (SRD 5.1, texte officiel français) : races, classes, sorts et créatures, pour les tables qui jouent encore en 2014.",
     apports:[["9 races","livre-dnd-2014.html#srd2014/races"],["12 classes","livre-dnd-2014.html#srd2014/classes"],["319 sorts","livre-dnd-2014.html#srd2014/sorts"],["318 créatures","livre-dnd-2014.html#srd2014/creatures"]],
