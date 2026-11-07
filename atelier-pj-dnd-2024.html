@@ -432,8 +432,8 @@ const SLOTS = [[],[2],[3],[4,2],[4,3],[4,3,2],[4,3,3],[4,3,3,1],[4,3,3,2],[4,3,3
 const WEAP = {'hache à deux mains':['1d12','tr',''],'hachette':['1d6','tr','j'],'dague':['1d4','perf','f'],'masse d’armes':['1d6','cont',''],"masse d'armes":['1d6','cont',''],'serpe':['1d4','tr',''],
   'lance':['1d6','perf','j'],'bâton':['1d6','cont',''],'épée longue':['1d8','tr',''],'javeline':['1d6','perf','j'],'cimeterre':['1d6','tr','f'],'épée courte':['1d6','perf','f'],'arc long':['1d8','perf','d'],'arc court':['1d6','perf','d']};
 const ARM = [['cuir clouté',12,99],['armure de cuir',11,99],['chemise de mailles',13,2],['cotte de mailles',16,0]];
-const fresh = () => ({nom:'', joueur:'', niveau:1, esp:'', espNote:'', cls:'', sub:'', bg:'', bgMode:'21', bg2:'', bg1:'', base:{For:15,Dex:14,Con:13,Int:12,Sag:10,Cha:8}, extra:{For:0,Dex:0,Con:0,Int:0,Sag:0,Cha:0},
-  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:'', method:'std'});
+const fresh = () => ({nom:'', joueur:'', niveau:1, esp:'', espNote:'', cls:'', sub:'', bg:'', bgMode:'21', bg2:'', bg1:'', base:{For:8,Dex:8,Con:8,Int:8,Sag:8,Cha:8}, extra:{For:0,Dex:0,Con:0,Int:0,Sag:0,Cha:0},
+  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:'', method:'pb'});
 let P = fresh();
 // n'écrit que si le contenu change : un rendu déclenché par un blur ne doit pas remplacer le bouton qu'on est en train de cliquer
 const put = (el, h) => { if (el._h !== h){ el._h = h; el.innerHTML = h; } };
@@ -552,7 +552,7 @@ function abOK(){ const v = AB.map(a => +P.base[a]);
   if (P.method === 'pb') return pbCost() <= 27;
   return v.every(x => x >= 3 && x <= 18); }
 // anciens brouillons sans méthode : on la déduit des valeurs
-function guessMethod(o){ if (o && o.method) return; P.method = 'std'; if (abOK()) return; P.method = 'pb'; if (abOK()) return; P.method = 'des'; }
+function guessMethod(o){ if (o && o.method) return; P.method = 'pb'; if (abOK()) return; P.method = 'std'; if (abOK()) return; P.method = 'des'; }
 let swapSel = '';
 function abilities(){
   const c = C(), m = P.method, prio = c ? c.order.slice(0, 2) : [], use = c ? c.order.slice(2, 4) : [], b = B(), left = 27 - pbCost();
