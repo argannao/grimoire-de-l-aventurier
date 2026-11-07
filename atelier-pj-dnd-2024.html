@@ -274,6 +274,27 @@ main.pmain{max-width:1440px}
 .ab-meta{font-size:13px;color:var(--ink-soft)}.ab-meta .g{color:var(--forest);font-weight:600}
 .ab-x{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);border-top:1px dashed #d9c49a;padding-top:5px;width:100%;justify-content:center}
 .cc-step button:disabled{opacity:.35;cursor:not-allowed}
+.seg{display:flex;flex-wrap:wrap;gap:6px 20px;margin:2px 0 8px}.seg label{cursor:pointer;font-size:16px;display:inline-flex;align-items:center;gap:6px}.seg input{accent-color:var(--blood);width:auto;margin:0;display:inline-block}
+.reco{background:#fffaf0;border:1px solid #d9c49a;border-left:3px solid var(--gold);border-radius:3px;padding:8px 12px;margin:6px 0 10px}
+.reco p{margin:4px 0}.reco-head{font-family:'Cinzel',serif;color:var(--blood);font-size:15px}
+.reco-chip{display:inline-block;font-family:'Cinzel',serif;font-size:11px;padding:0 6px;border-radius:2px;border:1px solid}
+.reco-chip.p1{color:var(--blood);border-color:var(--gold);background:#f4e4b8}.reco-chip.p2{color:var(--ink-soft);border-color:#d9c49a}
+.btn.small{margin-left:6px}
+.carac-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:6px}
+.carac{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:#fffaf0;border:1px solid #d9c49a;border-radius:3px;color:var(--ink);font-family:'Crimson Text',serif}
+button.carac{cursor:pointer}button.carac:hover{border-color:var(--gold)}
+.carac > span:first-child{font-family:'Cinzel',serif;font-size:13px;color:var(--ink-soft)}
+.carac strong{font-family:'Cinzel',serif;font-size:28px;color:var(--blood);line-height:1}
+.carac small{font-size:13px;color:var(--ink-soft)}.carac small em{font-style:normal;color:var(--forest);font-weight:600}
+.carac.reco-1{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(184,137,46,.45)}.carac.reco-1 > span:first-child::after{content:" ★";color:var(--gold)}
+.carac.reco-2{border-color:var(--gold-light)}.carac.reco-2 > span:first-child::after{content:" ☆";color:var(--gold)}
+.carac.sel{border-color:var(--blood);box-shadow:0 0 0 2px rgba(142,27,27,.35);background:#fbeedd}
+.carac.x{padding:6px 4px}
+.stepper{display:inline-flex;align-items:center;gap:5px}
+.stepper button{width:26px;height:26px;border:1px solid var(--gold);background:#fff7e3;cursor:pointer;font-size:15px;line-height:1;border-radius:2px;padding:0;color:var(--ink)}
+.stepper button:hover:not(:disabled){background:var(--gold);color:var(--leather)}.stepper button:disabled{opacity:.3;cursor:default}
+.stepper b{font-family:'Cinzel',serif;min-width:22px;text-align:center}
+strong.ko{color:var(--blood)}
 .cc-side{background:var(--parch);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 20px var(--shadow);padding:14px;display:grid;gap:12px}
 .cc-id{display:flex;gap:10px;align-items:center}
 .cc-av{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--blood);color:var(--parch);font-family:'Cinzel',serif;font-weight:700;font-size:19px;border:2px solid var(--gold);flex:none}
@@ -287,7 +308,7 @@ main.pmain{max-width:1440px}
 .cc-bar{height:7px;background:#fffaf0;border:1px solid #d9c49a;border-radius:4px;overflow:hidden}.cc-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .2s}.cc-bar.over i{background:var(--blood)}
 .cc-save{font-size:12.5px;color:var(--ink-soft);margin:0;font-style:italic}.cc-save::first-letter{color:var(--forest)}
 @media (max-width:1000px){.work{grid-template-columns:minmax(0,1fr)}.side{position:static}}
-@media (max-width:760px){.ab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc-stat{grid-template-columns:minmax(0,1fr) auto 30px auto 44px;gap:8px;padding:7px 8px}.cc-stat .cc-pips{grid-column:1/-1;grid-row:2}.cc-stat.hd{display:none}
+@media (max-width:760px){.carac-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cc-stat{grid-template-columns:minmax(0,1fr) auto 30px auto 44px;gap:8px;padding:7px 8px}.cc-stat .cc-pips{grid-column:1/-1;grid-row:2}.cc-stat.hd{display:none}
   .cc-steps{display:flex;overflow-x:auto;top:0}.cc-steps li{flex:none}.cc-steps button{white-space:nowrap}}
 @media print{
   .cc-steps,.cc-nav,.side,#s-fiche > :not(#card){display:none!important}
@@ -368,7 +389,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   </section>
   <section class="box" id="s-ab"><h2>Caractéristiques <span class="st"></span></h2>
     <div id="ab-ui"></div>
-    <p class="hint">Le bonus d’historique s’ajoute tout seul ; « niv./dons » sert aux améliorations de caractéristique des niveaux 4, 8, 12… et aux dons. ★ priorité, ☆ utile pour votre classe.</p>
+    <p class="hint">Le bonus d’historique s’ajoute tout seul ; ★ priorité, ☆ utile pour votre classe.</p>
   </section>
   <section class="box" id="s-sk"><h2>Compétences <span class="st"></span></h2>
     <p class="hint" id="sk-help"></p><div class="skills" id="skills"></div>
@@ -532,32 +553,29 @@ function abOK(){ const v = AB.map(a => +P.base[a]);
   return v.every(x => x >= 3 && x <= 18); }
 // anciens brouillons sans méthode : on la déduit des valeurs
 function guessMethod(o){ if (o && o.method) return; P.method = 'std'; if (abOK()) return; P.method = 'pb'; if (abOK()) return; P.method = 'des'; }
+let swapSel = '';
 function abilities(){
-  const c = C(), m = P.method, prio = c ? c.order.slice(0, 2) : [], left = 27 - pbCost();
-  const tools = [['std','Tableau standard'],['pb','Achat de points'],['des','Dés (4d6)']].map(([k, l]) => `<button type="button" class="chip ${m === k ? 'on' : ''}" data-meth="${k}">${l}</button>`).join('')
-    + '<span class="sep"></span>' + (m === 'des' ? '<button type="button" class="btn" data-ab="roll">🎲 Tirer 4d6 × 6</button>' : `<button type="button" class="btn" data-ab="auto">⚡ Répartition conseillée${c ? ' (' + esc(c.n) + ')' : ''}</button>`)
-    + '<button type="button" class="btn" data-ab="reset">↺ Réinitialiser</button>';
-  const intro = m === 'std' ? 'Attribuez <strong>15, 14, 13, 12, 10 et 8</strong>, une valeur par caractéristique. Cliquer une valeur déjà prise échange les deux.'
-    : m === 'pb' ? `<strong>27 points</strong>, valeurs de 8 à 15 (14 coûte 7, 15 coûte 9). Il reste <b class="${left < 0 ? 'ko' : left === 0 ? 'ok' : 'crit'}">${left}</b> point${Math.abs(left) > 1 ? 's' : ''}.`
-    : 'Lancez 4d6 six fois en gardant les trois meilleurs dés ; les résultats sont répartis selon votre classe, ajustez ensuite avec − et +.';
-  const use = c ? c.order.slice(2, 4) : [], b = B();
-  const rows = AB.map(a => {
-    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a), us = use.includes(a), [lo, hi] = m === 'pb' ? [8, 15] : [3, 18];
-    const ctl = m === 'std' ? STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')
-      : m === 'pb' ? [8,9,10,11,12,13,14,15].map(n => `<button type="button" class="pip ${n <= v ? 'f' : ''}" data-set="${a}" data-v="${n}" title="${n} : ${COST[n]} point${COST[n] > 1 ? 's' : ''}">${n}</button>`).join('')
-      : Array.from({length: 16}, (_, i) => `<button type="button" class="pip ${i + 3 <= v ? 'f' : ''}" data-set="${a}" data-v="${i + 3}" title="${i + 3}"></button>`).join('');
-    return `<div class="cc-stat ${pr ? 'prio' : ''}"><div class="cc-sl"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Priorité pour votre classe">★</i>' : us ? '<i title="Utile pour votre classe">☆</i>' : ''}</div>
-      <div class="cc-pips">${ctl}</div>
-      <div class="cc-step">${m === 'std' ? `<output>${v}</output>` : `<button type="button" data-dn="${a}" aria-label="${ABN[a]} moins" ${v <= lo ? 'disabled' : ''}>−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus" ${v >= hi ? 'disabled' : ''}>+</button>`}</div>
-      <div class="cc-bon" title="Bonus d’historique">${bb ? '+' + bb : ''}</div>
-      <div class="cc-step sm" title="Améliorations de niveau, dons…"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div>
-      <div class="cc-tot">${score(a)}<small>${sg(M(a))}</small></div></div>`; }).join('');
-  const rec = c ? `<div class="ab-rec"><h4>Recommandations pour ${esc(c.n)}${P.sub ? ' · ' + esc(P.sub) : ''}</h4>
-      <div><span class="tg p">Priorité</span> ${prio.map(k => ABN[k]).join(', ')} · <span class="tg u">Utile</span> ${use.map(k => ABN[k]).join(', ')}${REC[c.k] ? ' — ' + REC[c.k] : ''}</div>
-      ${b ? `<div class="sm">Historique ${esc(b.n)} : ${b.ab.some(k => prio.includes(k)) ? `placez le +2 en ${ABN[b.ab.find(k => prio.includes(k))]}.` : `aucune de vos priorités n’en profite (${b.ab.map(k => ABN[k]).join(', ')}) : un autre historique ira peut-être mieux.`}</div>` : ''}
-      <div class="sm">Le modificateur vaut (valeur − 10) ÷ 2, arrondi vers le bas : 14 et 15 donnent le même +2. Visez un total pair après le bonus d’historique.</div></div>`
-    : '<div class="ab-rec"><div class="sm">Choisissez une classe pour voir les caractéristiques à privilégier.</div></div>';
-  put($('#ab-ui'), `${rec}<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p><div class="cc-stats"><div class="cc-stat hd"><span>Caractéristique</span><span></span><span>Base</span><span>Hist.</span><span>Niv./dons</span><span>Total</span></div>${rows}</div>`);
+  const c = C(), m = P.method, prio = c ? c.order.slice(0, 2) : [], use = c ? c.order.slice(2, 4) : [], b = B(), left = 27 - pbCost();
+  const rk = a => prio.includes(a) ? ' reco-1' : use.includes(a) ? ' reco-2' : '';
+  let h = `<div class="seg">${[['std','Tableau standard (15, 14, 13, 12, 10, 8)'],['pb','Achat de points (27 points)'],['des','Au hasard (4d6)']].map(([k, l]) =>
+    `<label><input type="radio" name="abm" data-meth="${k}" ${m === k ? 'checked' : ''}> ${l}</label>`).join('')}</div>`;
+  h += c ? `<div class="reco"><div class="reco-head">Recommandations pour ${esc(c.n)}${P.sub ? ' · ' + esc(P.sub) : ''}</div>
+      <p><span class="reco-chip p1">Priorité</span> ${prio.join(', ')}${REC[c.k] ? ' (' + REC[c.k] + ')' : ''} · <span class="reco-chip p2">Utile</span> ${use.join(', ')}</p>
+      ${b ? `<p class="hint">Historique ${esc(b.n)} : ${b.ab.some(k => prio.includes(k)) ? `placez le +2 en ${ABN[b.ab.find(k => prio.includes(k))]}.` : `il n’aide aucune de vos priorités (${b.ab.join(', ')}).`}</p>` : ''}
+      <p class="hint">Le modificateur vaut (valeur − 10) ÷ 2, arrondi vers le bas : 14 et 15 donnent le même +2. Visez un total pair après le bonus d’historique.</p></div>`
+    : '<div class="reco"><p class="hint">Choisissez une classe pour voir les caractéristiques à privilégier.</p></div>';
+  const auto = `<button type="button" class="btn small" data-ab="auto">Répartition conseillée</button>`;
+  if (m === 'pb') h += `<p class="hint">Chaque caractéristique part de 8. Dépensez 27 points (8 à 15 ; 14 coûte 7, 15 coûte 9). Reste : <strong class="${left < 0 ? 'ko' : ''}">${left}</strong> ${auto}<button type="button" class="btn small" data-ab="reset">Tout à 8</button></p>`;
+  else if (m === 'des') h += `<p><button type="button" class="btn" data-ab="roll">🎲 Lancer 4d6 × 6</button> <span class="hint">Trois meilleurs dés sur quatre, six fois. Pour échanger deux valeurs, cliquez sur l’une puis sur l’autre.</span> ${auto.replace('Répartition conseillée', 'Placer mes meilleurs jets selon les recommandations')}</p>`;
+  else h += `<p class="hint">Pour échanger deux valeurs, cliquez sur l’une puis sur l’autre. ${auto}<button type="button" class="btn small" data-ab="reset">Réinitialiser</button></p>`;
+  h += `<div class="carac-grid">${AB.map(a => {
+    const v = +P.base[a], bb = bgBonus(a), body = `<span>${a}</span><strong>${score(a)}</strong><small>${sg(M(a))} · base ${v}${bb ? ` <em>+${bb}</em>` : ''}</small>`;
+    return m === 'pb' ? `<div class="carac${rk(a)}">${body}<span class="stepper"><button type="button" data-dn="${a}" aria-label="${ABN[a]} moins" ${v <= 8 ? 'disabled' : ''}>−</button>
+        <button type="button" data-up="${a}" aria-label="${ABN[a]} plus" ${v >= 15 || pbCost() - (COST[v] ?? 0) + (COST[v + 1] ?? 99) > 27 ? 'disabled' : ''}>+</button></span></div>`
+      : `<button type="button" class="carac${rk(a)} ${swapSel === a ? 'sel' : ''}" data-swap="${a}" title="${ABN[a]}">${body}</button>`; }).join('')}</div>`;
+  if (P.niveau >= 4 || AB.some(a => +P.extra[a])) h += `<p class="hint" style="margin-top:.8rem">Améliorations de caractéristique (niveaux 4, 8, 12, 16, 19) et dons :</p>
+    <div class="carac-grid">${AB.map(a => `<div class="carac x"><span>${a}</span><span class="stepper"><button type="button" data-xdn="${a}" aria-label="${ABN[a]} bonus moins">−</button><b>${+P.extra[a] ? sg(+P.extra[a]) : 0}</b><button type="button" data-xup="${a}" aria-label="${ABN[a]} bonus plus">+</button></span></div>`).join('')}</div>`;
+  put($('#ab-ui'), h);
 }
 const REC = {barbare: 'frapper fort et encaisser ; sans armure, la CA vaut 10 + Dex + Con.', barde: 'le Charisme fait les sorts et l’Inspiration, la Dextérité la CA et l’initiative.',
   clerc: 'la Sagesse fait les sorts, la Constitution tient la Concentration ; la Force sert en armure lourde.', druide: 'la Sagesse fait les sorts et la Forme sauvage, la Constitution tient la Concentration.',
@@ -566,14 +584,14 @@ const REC = {barbare: 'frapper fort et encaisser ; sans armure, la CA vaut 10 + 
   occultiste: 'le Charisme fait les sorts et la Décharge occulte, la Constitution tient la Concentration.', paladin: 'Force pour frapper, Charisme pour les sorts et l’Aura de protection.',
   rodeur: 'la Dextérité fait l’arc et la CA, la Sagesse les sorts.', roublard: 'la Dextérité fait tout : attaques, CA, initiative et Discrétion.'};
 function abClick(e){
-  const t = e.target.closest('button'); if (!t) return; const d = t.dataset, o = C() ? C().order : AB;
-  if (d.meth){ P.method = d.meth; if (!abOK()) o.forEach((a, i) => P.base[a] = d.meth === 'pb' ? 8 : STD[i]); }
-  else if (d.ab === 'auto') o.forEach((a, i) => P.base[a] = STD[i]);  // le tableau standard coûte aussi 27 points à l'achat
-  else if (d.ab === 'reset') AB.forEach(a => P.base[a] = P.method === 'std' ? STD[o.indexOf(a)] : P.method === 'pb' ? 8 : 10);
+  const t = e.target.closest('button,input'); if (!t) return; const d = t.dataset, o = C() ? C().order : AB;
+  if (d.meth){ if (d.meth === P.method) return; P.method = d.meth; swapSel = ''; if (!abOK()) o.forEach((a, i) => P.base[a] = d.meth === 'pb' ? 8 : STD[i]); }
+  else if (d.ab === 'auto'){ const v = P.method === 'des' ? AB.map(a => +P.base[a]).sort((p, q) => q - p) : STD; o.forEach((a, i) => P.base[a] = v[i]); }  // le tableau standard coûte aussi 27 points à l'achat
+  else if (d.ab === 'reset') AB.forEach(a => P.base[a] = P.method === 'pb' ? 8 : STD[o.indexOf(a)]);
   else if (d.ab === 'roll'){ const r = () => { const x = [0,0,0,0].map(() => 1 + Math.floor(Math.random() * 6)).sort((p, q) => p - q); return x[1] + x[2] + x[3]; };
-    const v = AB.map(r).sort((p, q) => q - p); o.forEach((a, i) => P.base[a] = v[i]); }
-  else if (d.set){ const a = d.set, v = +d.v; if (P.method === 'std'){ const b = AB.find(k => k !== a && +P.base[k] === v); if (b) P.base[b] = P.base[a]; } P.base[a] = v; }
-  else if (d.up || d.dn){ const a = d.up || d.dn, [lo, hi] = P.method === 'pb' ? [8, 15] : [3, 18]; P.base[a] = Math.max(lo, Math.min(hi, +P.base[a] + (d.up ? 1 : -1))); }
+    const v = AB.map(r).sort((p, q) => q - p); o.forEach((a, i) => P.base[a] = v[i]); swapSel = ''; }
+  else if (d.swap){ if (!swapSel) swapSel = d.swap; else { const a = swapSel; swapSel = ''; [P.base[a], P.base[d.swap]] = [P.base[d.swap], P.base[a]]; } }
+  else if (d.up || d.dn){ const a = d.up || d.dn; P.base[a] = Math.max(8, Math.min(15, +P.base[a] + (d.up ? 1 : -1))); }
   else if (d.xup || d.xdn){ const a = d.xup || d.xdn; P.extra[a] = Math.max(-5, Math.min(10, (+P.extra[a] || 0) + (d.xup ? 1 : -1))); }
   else return;
   render();
