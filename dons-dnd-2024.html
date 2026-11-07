@@ -163,7 +163,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   var st = document.createElement('style');
   st.textContent = '.book-mode .topnav,.book-mode .supp-sep,.book-mode #autres,.book-mode .species.supp,.book-mode .supp-book,.book-mode .supp-note,.book-mode .supp-foot,'
     + '.book-mode nav a[href="#autres"],.book-mode nav li:has(a[href="#autres"]),.book-mode .b-eberron,.book-mode .b-drop,.book-mode .b-ua,.book-mode #cat-pacte,.book-mode #cat-pacte + .cat-sub,.book-mode #fcat option[value=pacte],.book-mode #fsrc option[value=drop],.book-mode #fsrc option[value=ua],.book-mode .cats a[href="#cat-pacte"],.book-mode #cat-marque,.book-mode #cat-marque + .cat-sub,.book-mode #fcat option[value=marque],'
-    + '.book-mode #fsrc option[value=eberron],.book-mode #fc option[value=artificer],.book-mode #fsub optgroup[label=Artificier],.book-mode #fsub optgroup[label=Psion],.book-mode .cats a[href="#cat-marque"]{display:none!important}'
+    + '.book-mode #fsrc option[value=eberron],.book-mode #fannee,.book-mode #fc option[value=artificer],.book-mode #fsub optgroup[label=Artificier],.book-mode #fsub optgroup[label=Psion],.book-mode .cats a[href="#cat-marque"]{display:none!important}'
     + '.bookbar2{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 14px;background:rgba(28,19,13,.95);border-bottom:1px solid #b8892e;box-shadow:0 4px 14px rgba(0,0,0,.4)}'
     + '.bookbar2 a{font-family:Cinzel,serif;font-size:13px;letter-spacing:1px;text-decoration:none;padding:6px 13px;border-radius:3px;border:1px solid #b8892e;color:#d9b25f}'
     + '.bookbar2 a.home{background:#b8892e;color:#1c130d;font-weight:700}.bookbar2 span{font-family:Cinzel,serif;color:#d9b25f;font-size:14px;letter-spacing:1px}';
@@ -195,7 +195,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <input type="search" id="q" placeholder="Rechercher un don (français ou anglais) ou un mot du texte" aria-label="Rechercher">
   <select id="fcat" aria-label="Catégorie"><option value="">Toutes catégories</option><option value="origine">Dons d’origine</option><option value="marque">Marques du dragon (Eberron)</option><option value="pacte">Pactes planaires (D&amp;D Beyond)</option><option value="general">Dons généraux</option><option value="style">Dons de style de combat</option><option value="epique">Faveurs épiques</option></select>
   <select id="fab" aria-label="Caractéristique"><option value="">Toute caractéristique</option><option value="For">+1 Force</option><option value="Dex">+1 Dextérité</option><option value="Con">+1 Constitution</option><option value="Int">+1 Intelligence</option><option value="Sag">+1 Sagesse</option><option value="Cha">+1 Charisme</option></select>
-  <select id="fsrc" aria-label="Source"><option value="">SRD et hors SRD</option><option value="srd">SRD 5.2.1 (texte officiel)</option><option value="phb">Manuel des joueurs (résumés)</option><option value="eberron">Eberron : Forge of the Artificer</option><option value="drop">Drops D&amp;D Beyond</option><option value="ua">Unearthed Arcana 2026</option></select>
+  <select id="fsrc" aria-label="Livre"><option value="">Tous les livres</option><option value="srd">SRD 5.2.1 (texte officiel, 2024)</option><option value="phb">Manuel des joueurs (2024)</option><option value="eberron">Eberron : Forge of the Artificer (2025)</option><option value="drop">Drops D&amp;D Beyond (2026)</option><option value="ua">Unearthed Arcana (2026)</option></select><select id="fannee" aria-label="Année"><option value="">Toutes les années</option><option>2024</option><option>2025</option><option>2026</option></select>
   <label><input type="checkbox" id="frep"> Répétable</label>
   <button type="button" class="chip" id="reset">Réinitialiser</button>
   <span class="counter" id="count"></span>
@@ -299,11 +299,11 @@ function card(d){
     ${d.srd ? '' : `<p class="note">Résumé rédigé pour ce site : consultez ${({eberron:'<em>Eberron : Forge of the Artificer</em>', drop:'D&amp;D Beyond (contenu des Drops réservé aux abonnés : résumé partiel)', ua:'le document de playtest Unearthed Arcana sur D&amp;D Beyond (règles provisoires)'})[d.book] || 'le Manuel des joueurs 2024'} pour le texte exact.</p>`}</article>`;
 }
 function render(){
-  const fc = $('#fcat').value, fsrc = $('#fsrc').value, fab = $('#fab').value, frep = $('#frep').checked;
+  const fc = $('#fcat').value, fsrc = $('#fsrc').value, fab = $('#fab').value, frep = $('#frep').checked; const fan = $('#fannee').value, YR = {srd:'2024', phb:'2024', eberron:'2025', drop:'2026', ua:'2026'};
   const P = SMART.plan($('#q').value.trim(), DATA, x=>x.fr+' '+x.en, x=>x.fr+' '+x.en+' '+x.pre+' '+x.text);
   let html = '', n = 0;
   for (const c of Object.keys(CATS)){
-    const L = DATA.filter(d=>d.cat===c && (!fc || fc===c) && (!fsrc || fsrc===d.book) && (!fab || d.ab.includes(fab)) && (!frep || d.rep) && (!P.qc || P.match(d)));
+    const L = DATA.filter(d=>d.cat===c && (!fc || fc===c) && (!fsrc || fsrc===d.book) && (!fan || YR[d.book]===fan) && (!fab || d.ab.includes(fab)) && (!frep || d.rep) && (!P.qc || P.match(d)));
     if (!L.length) continue;
     L.sort((a,b)=>a.fr.localeCompare(b.fr,'fr'));
     html += `<h2 class="cat-title" id="cat-${c}">${CATS[c][0]}</h2><p class="cat-sub">${CATS[c][1]}</p>` + L.map(card).join(''); n += L.length;
@@ -319,8 +319,8 @@ function applyHash(){
   if (el && el.classList.contains('feat')){ const go=()=>el.scrollIntoView({block:'start'}); go(); setTimeout(go,150); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),2500); }
 }
 document.addEventListener('DOMContentLoaded', ()=>{
-  for (const id of ['q','fcat','fsrc','fab','frep']) $('#'+id).addEventListener(id==='q'?'input':'change', render);
-  $('#reset').addEventListener('click', ()=>{ for (const id of ['q','fcat','fsrc','fab']) $('#'+id).value=''; $('#frep').checked=false; render(); });
+  for (const id of ['q','fcat','fsrc','fab','frep','fannee']) $('#'+id).addEventListener(id==='q'?'input':'change', render);
+  $('#reset').addEventListener('click', ()=>{ for (const id of ['q','fcat','fsrc','fab','fannee']) $('#'+id).value=''; $('#frep').checked=false; render(); });
   render(); applyHash(); addEventListener('hashchange', applyHash);
 });
 

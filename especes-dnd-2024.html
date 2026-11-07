@@ -139,6 +139,16 @@ footer.sitefoot .gh svg{width:20px;height:20px;fill:currentColor}
 footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 @media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 </style>
+
+
+<style>/* filtre livres */
+#lf{position:sticky;top:calc(var(--navh, 50px) + 6px);z-index:9;background:rgba(243,230,200,.97);border:1px solid var(--gold);border-radius:3px;padding:10px 12px;margin:0 auto 18px;max-width:1000px;box-shadow:0 6px 18px var(--shadow);display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+#lf select{font-family:'Crimson Text',serif;font-size:15.5px;padding:5px 7px;border:1px solid var(--gold);background:#fffaf0;color:var(--ink);border-radius:2px;max-width:100%}
+#lf .lfc{margin-left:auto;font-style:italic;color:var(--blood)}#lf button{font-family:'Cinzel',serif;font-size:12px;border:1px solid var(--gold);background:#fffaf0;border-radius:3px;padding:5px 10px;cursor:pointer}
+.book-mode #lf{display:none!important}
+.subclass[hidden],section.species[hidden],.supp-book[hidden],.supp-sep[hidden],#autres[hidden]{display:none!important}
+@media (max-width:700px){#lf{position:relative;top:0}}
+</style>
 </head>
 <body>
 <script>/* MODE LIVRE : ?livre=regles n'affiche que le contenu des livres de règles */
@@ -213,6 +223,9 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
 </nav>
 
 <main>
+<div id="lf" role="search"><select id="flivre" aria-label="Livre"><option value="">Tous les livres</option><option value="phb">Manuel des joueurs / SRD 5.2.1 (2024)</option><option value="eberron">Eberron : Forge of the Artificer (2025)</option><option value="lorwyn">Lorwyn : First Light (2025)</option><option value="ravenloft">Ravenloft : The Horrors Within (2026)</option><option value="drop">Drops D&amp;D Beyond (2026)</option><option value="ua">Unearthed Arcana (playtests) (2025 et 2026)</option></select><select id="fannee" aria-label="Année"><option value="">Toutes les années</option><option>2024</option><option>2025</option><option>2026</option></select><button type="button" id="lfr">Réinitialiser</button><span class="lfc" id="lfc"></span></div>
+
+
 
 <!-- ===================== APERÇU ===================== -->
 <section class="panel" id="apercu">
@@ -1322,6 +1335,34 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   });
   window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
   if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+
+
+<script>/* filtre livres */
+(function(){
+  const $ = s => document.querySelector(s);
+  const BADGE = {'Heroes of Faerûn':['faerun','2025'], 'Arcana Unleashed':['arcana','2026'], 'Ravenloft':['ravenloft','2026'], 'UA 2026':['ua','2026'], 'Playtest':['ua','2025'],
+    'Maison':['maison',''], 'D&D Beyond':['drop','2026'], 'Eberron : Forge of the Artificer':['eberron','2025'], 'Lorwyn : First Light':['lorwyn','2025'],
+    'Ravenloft : The Horrors Within':['ravenloft','2026'], 'Drop D&D Beyond':['drop','2026'], 'Unearthed Arcana':['ua','2026']};
+  const ok = (b, l, a) => (!l || b[0] === l) && (!a || b[1] === a);
+
+  function apply(l, a){
+    let n = 0, grp = null, vis = false;
+    const flush = ()=>{ if (grp) grp.hidden = !vis; };
+    document.querySelectorAll('main > .supp-book, main section.species[id]').forEach(el=>{
+      if (el.classList.contains('supp-book')){ flush(); grp = el; vis = false; return; }
+      const t = el.querySelector('.badges .badge'), b = (t && BADGE[t.textContent.trim()]) || ['phb','2024'];
+      const show = ok(b, l, a); el.hidden = !show; if (show){ n++; vis = true; }
+    });
+    flush();
+    return `${n} espèce${n>1?'s':''}`;
+  }
+  function run(){ const l = $('#flivre').value, a = $('#fannee').value, n = apply(l, a); $('#lfc').textContent = (l || a) ? n : ''; }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    for (const id of ['flivre','fannee']) $('#'+id).addEventListener('change', run);
+    $('#lfr').addEventListener('click', ()=>{ $('#flivre').value = ''; $('#fannee').value = ''; run(); });
+  });
 })();
 </script>
 </body>

@@ -10,7 +10,7 @@
 <style>/* historiques des suppléments */
 .supp-sep{display:flex;align-items:center;gap:14px;max-width:1000px;margin:46px auto 26px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase}
 .supp-sep::before,.supp-sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent)}
-.book-mode .supp-book-bg{display:none!important}
+.book-mode .supp-book-bg,.book-mode #flivre,.book-mode #fannee{display:none!important}
 
 
 :root{
@@ -218,6 +218,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <select id="fa" aria-label="Caractéristique"><option value="">Toute caractéristique</option><option value="For">Force</option><option value="Dex">Dextérité</option><option value="Con">Constitution</option><option value="Int">Intelligence</option><option value="Sag">Sagesse</option><option value="Cha">Charisme</option></select>
   <select id="fc" aria-label="Classe"><option value="">Pour toute classe</option><option value="barbare">Barbare</option><option value="barde">Barde</option><option value="clerc">Clerc</option><option value="druide">Druide</option><option value="ensorceleur">Ensorceleur</option><option value="guerrier">Guerrier</option><option value="magicien">Magicien</option><option value="moine">Moine</option><option value="occultiste">Occultiste</option><option value="paladin">Paladin</option><option value="rodeur">Rôdeur</option><option value="roublard">Roublard</option></select>
   <select id="ff" aria-label="Don"><option value="">Tout don d’origine</option><option>Bagarreur de tavernes</option><option>Chanceux</option><option>Doué</option><option>Façonneur</option><option>Guérisseur</option><option>Initié à la magie</option><option>Musicien</option><option>Robuste</option><option>Sauvagerie martiale</option><option>Vigilant</option></select>
+  <select id="flivre" aria-label="Livre"><option value="">Tous les livres</option><option value="phb">Manuel des joueurs / SRD 5.2.1 (2024)</option><option value="drop">Drops D&amp;D Beyond (2026)</option></select><select id="fannee" aria-label="Année"><option value="">Toutes les années</option><option>2024</option><option>2025</option><option>2026</option></select>
   <button id="reset" type="button" class="btn">Réinitialiser</button>
   <span class="count" id="count"></span>
 </div>
@@ -1175,12 +1176,13 @@ function take(id, opt){
 }
 function filter(){
   const a = $('#fa').value, c = $('#fc').value, f = $('#ff').value;
+  const fl = $('#flivre').value, fy = $('#fannee').value, BK = {'chercheur-de-pacte':['drop','2026']};
   const CLS = {"barbare": ["For"], "barde": ["Cha"], "clerc": ["Sag"], "druide": ["Sag"], "ensorceleur": ["Cha"], "guerrier": ["For", "Dex"], "magicien": ["Int"], "moine": ["Dex", "Sag"], "occultiste": ["Cha"], "paladin": ["For", "Cha"], "rodeur": ["Dex", "Sag"], "roublard": ["Dex"]};
   const need = c ? CLS[c] : null;
   let n = 0;
   document.querySelectorAll('section.bg').forEach(sec=>{
     const ab = sec.dataset.abil.split(' ');
-    const show = (!a || ab.includes(a)) && (!need || need.some(x=>ab.includes(x))) && (!f || sec.dataset.feat===f);
+    const show = (!a || ab.includes(a)) && (!need || need.some(x=>ab.includes(x))) && (!f || sec.dataset.feat===f) && (!fl || (BK[sec.id]||['phb'])[0]===fl) && (!fy || (BK[sec.id]||[0,'2024'])[1]===fy);
     sec.hidden = !show; if (show) n++;
     const g = document.querySelector(`.grid16 a[href="#${sec.id}"]`); if (g) g.classList.toggle('dim', !show);
     const r = document.querySelector(`table.cmp tr[data-abil] a[href="#${sec.id}"]`); if (r) r.closest('tr').hidden = !show;
@@ -1192,8 +1194,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('.iart[data-item]').forEach(el=>el.innerHTML = itemSVG(ITEMS[el.dataset.item], 40));
   document.querySelectorAll('.asi').forEach(box=>{ box.addEventListener('change', ()=>asi(box)); asi(box); });
   document.addEventListener('click', e=>{ const t=e.target.closest('[data-take]'); if (t) take(t.dataset.take, t.dataset.opt); });
-  for (const id of ['fa','fc','ff']) $('#'+id).addEventListener('change', filter);
-  $('#reset').addEventListener('click', ()=>{ for (const id of ['fa','fc','ff']) $('#'+id).value=''; filter(); });
+  for (const id of ['fa','fc','ff','flivre','fannee']) $('#'+id).addEventListener('change', filter);
+  $('#reset').addEventListener('click', ()=>{ $('#flivre').value=''; $('#fannee').value=''; for (const id of ['fa','fc','ff']) $('#'+id).value=''; filter(); });
   filter();
   const h = decodeURIComponent(location.hash.slice(1));
   if (h.startsWith('classe-') && document.querySelector(`#fc option[value="${h.slice(7)}"]`)){ $('#fc').value = h.slice(7); filter(); const first=document.querySelector('section.bg:not([hidden])'); if (first) first.scrollIntoView(); return; }
