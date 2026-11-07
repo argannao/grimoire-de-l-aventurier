@@ -260,6 +260,20 @@ main.pmain{max-width:1440px}
 .cc-step.sm button{width:24px;height:24px;font-size:14px}.cc-step.sm output{font-size:14px;min-width:24px}
 .cc-bon{font-family:'Cinzel',serif;color:var(--forest);font-size:16px;text-align:center}
 .cc-tot{font-family:'Cinzel',serif;font-size:22px;color:var(--blood);text-align:center;line-height:1}.cc-tot small{display:block;font-size:13px;color:var(--ink)}
+.ab-rec{background:#fffaf0;border:1px solid #d9c49a;border-left:4px solid var(--gold);border-radius:3px;padding:8px 12px;margin-bottom:10px;font-size:15.5px}
+.ab-rec h4{font-family:'Cinzel',serif;color:var(--blood);font-size:14px;margin:0 0 4px}
+.ab-rec .sm{font-size:14px;font-style:italic;color:var(--ink-soft);margin-top:3px}
+.tg{font-family:'Cinzel',serif;font-size:11px;padding:1px 6px;border-radius:2px;border:1px solid var(--gold)}.tg.p{background:var(--gold);color:var(--leather)}.tg.u{color:var(--ink-soft)}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ab-card{background:#fffaf0;border:1px solid #d9c49a;border-radius:3px;padding:8px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.ab-card.prio{border:2px solid var(--gold);box-shadow:0 0 0 1px rgba(184,137,46,.25),0 4px 10px rgba(184,137,46,.25)}
+.ab-card.use{border-color:var(--gold-light)}
+.ab-h{font-family:'Cinzel',serif;font-size:12px;color:var(--ink-soft);display:flex;gap:5px;align-items:baseline}.ab-h b{color:var(--blood);font-size:14px}.ab-h i{color:var(--gold);font-style:normal}
+.ab-big{font-family:'Cinzel',serif;font-size:34px;color:var(--blood);line-height:1}.ab-big small{display:block;font-size:15px;color:var(--ink);margin-top:2px}
+.ab-std{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:100%}.ab-std .pip{height:24px}
+.ab-meta{font-size:13px;color:var(--ink-soft)}.ab-meta .g{color:var(--forest);font-weight:600}
+.ab-x{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);border-top:1px dashed #d9c49a;padding-top:5px;width:100%;justify-content:center}
+.cc-step button:disabled{opacity:.35;cursor:not-allowed}
 .cc-side{background:var(--parch);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 20px var(--shadow);padding:14px;display:grid;gap:12px}
 .cc-id{display:flex;gap:10px;align-items:center}
 .cc-av{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--blood);color:var(--parch);font-family:'Cinzel',serif;font-weight:700;font-size:19px;border:2px solid var(--gold);flex:none}
@@ -273,7 +287,7 @@ main.pmain{max-width:1440px}
 .cc-bar{height:7px;background:#fffaf0;border:1px solid #d9c49a;border-radius:4px;overflow:hidden}.cc-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .2s}.cc-bar.over i{background:var(--blood)}
 .cc-save{font-size:12.5px;color:var(--ink-soft);margin:0;font-style:italic}.cc-save::first-letter{color:var(--forest)}
 @media (max-width:1000px){.work{grid-template-columns:minmax(0,1fr)}.side{position:static}}
-@media (max-width:760px){.cc-stat{grid-template-columns:minmax(0,1fr) auto 30px auto 44px;gap:8px;padding:7px 8px}.cc-stat .cc-pips{grid-column:1/-1;grid-row:2}.cc-stat.hd{display:none}
+@media (max-width:760px){.ab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc-stat{grid-template-columns:minmax(0,1fr) auto 30px auto 44px;gap:8px;padding:7px 8px}.cc-stat .cc-pips{grid-column:1/-1;grid-row:2}.cc-stat.hd{display:none}
   .cc-steps{display:flex;overflow-x:auto;top:0}.cc-steps li{flex:none}.cc-steps button{white-space:nowrap}}
 @media print{
   .cc-steps,.cc-nav,.side,#s-fiche > :not(#card){display:none!important}
@@ -354,7 +368,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   </section>
   <section class="box" id="s-ab"><h2>Caractéristiques <span class="st"></span></h2>
     <div id="ab-ui"></div>
-    <p class="hint">Le bonus d’historique s’ajoute tout seul ; « niv./dons » sert aux améliorations de caractéristique des niveaux 4, 8, 12… et aux dons.</p>
+    <p class="hint">Le bonus d’historique s’ajoute tout seul ; « niv./dons » sert aux améliorations de caractéristique des niveaux 4, 8, 12… et aux dons. ★ priorité, ☆ utile pour votre classe.</p>
   </section>
   <section class="box" id="s-sk"><h2>Compétences <span class="st"></span></h2>
     <p class="hint" id="sk-help"></p><div class="skills" id="skills"></div>
@@ -526,20 +540,31 @@ function abilities(){
   const intro = m === 'std' ? 'Attribuez <strong>15, 14, 13, 12, 10 et 8</strong>, une valeur par caractéristique. Cliquer une valeur déjà prise échange les deux.'
     : m === 'pb' ? `<strong>27 points</strong>, valeurs de 8 à 15 (14 coûte 7, 15 coûte 9). Il reste <b class="${left < 0 ? 'ko' : left === 0 ? 'ok' : 'crit'}">${left}</b> point${Math.abs(left) > 1 ? 's' : ''}.`
     : 'Lancez 4d6 six fois en gardant les trois meilleurs dés ; les résultats sont répartis selon votre classe, ajustez ensuite avec − et +.';
+  const use = c ? c.order.slice(2, 4) : [], b = B();
   const rows = AB.map(a => {
-    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a);
-    const ctl = m === 'std' ? STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')
-      : m === 'pb' ? [8,9,10,11,12,13,14,15].map(n => `<button type="button" class="pip ${n <= v ? 'f' : ''}" data-set="${a}" data-v="${n}" title="${n} : ${COST[n]} point${COST[n] > 1 ? 's' : ''}">${n}</button>`).join('')
-      : Array.from({length: 16}, (_, i) => `<button type="button" class="pip ${i + 3 <= v ? 'f' : ''}" data-set="${a}" data-v="${i + 3}" title="${i + 3}"></button>`).join('');
-    return `<div class="cc-stat ${pr ? 'prio' : ''}"><div class="cc-sl"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Importante pour votre classe">★</i>' : ''}</div>
-      <div class="cc-pips">${ctl}</div>
-      <div class="cc-step">${m === 'std' ? `<output>${v}</output>` : `<button type="button" data-dn="${a}" aria-label="${ABN[a]} moins">−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus">+</button>`}</div>
-      <div class="cc-bon" title="Bonus d’historique">${bb ? '+' + bb : ''}</div>
-      <div class="cc-step sm" title="Améliorations de niveau, dons…"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div>
-      <div class="cc-tot">${score(a)}<small>${sg(M(a))}</small></div></div>`; }).join('');
-  put($('#ab-ui'), `<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p>
-    <div class="cc-stats"><div class="cc-stat hd"><span>Caractéristique</span><span></span><span>Base</span><span>Hist.</span><span>Niv./dons</span><span>Total</span></div>${rows}</div>`);
+    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a), us = use.includes(a);
+    const ctl = m === 'std' ? `<div class="ab-std">${STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')}</div>`
+      : `<div class="cc-step"><button type="button" data-dn="${a}" aria-label="${ABN[a]} moins" ${v <= (m === 'pb' ? 8 : 3) ? 'disabled' : ''}>−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus" ${v >= (m === 'pb' ? 15 : 18) ? 'disabled' : ''}>+</button></div>`;
+    return `<div class="ab-card ${pr ? 'prio' : us ? 'use' : ''}">
+      <div class="ab-h"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Priorité pour votre classe">★</i>' : us ? '<i title="Utile pour votre classe">☆</i>' : ''}</div>
+      <div class="ab-big">${score(a)}<small>${sg(M(a))}</small></div>
+      ${ctl}
+      <div class="ab-meta">base ${v}${m === 'pb' ? ` · coût ${COST[v] ?? '—'}` : ''}${bb ? ` · <span class="g">+${bb} hist.</span>` : ''}</div>
+      <div class="ab-x" title="Améliorations de caractéristique (niveaux 4, 8, 12…) et dons"><span>niv./dons</span><div class="cc-step sm"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div></div>
+    </div>`; }).join('');
+  const rec = c ? `<div class="ab-rec"><h4>Recommandations pour ${esc(c.n)}${P.sub ? ' · ' + esc(P.sub) : ''}</h4>
+      <div><span class="tg p">Priorité</span> ${prio.map(k => ABN[k]).join(', ')} · <span class="tg u">Utile</span> ${use.map(k => ABN[k]).join(', ')}${REC[c.k] ? ' — ' + REC[c.k] : ''}</div>
+      ${b ? `<div class="sm">Historique ${esc(b.n)} : ${b.ab.some(k => prio.includes(k)) ? `placez le +2 en ${ABN[b.ab.find(k => prio.includes(k))]}.` : `aucune de vos priorités n’en profite (${b.ab.map(k => ABN[k]).join(', ')}) : un autre historique ira peut-être mieux.`}</div>` : ''}
+      <div class="sm">Le modificateur vaut (valeur − 10) ÷ 2, arrondi vers le bas : 14 et 15 donnent le même +2. Visez un total pair après le bonus d’historique.</div></div>`
+    : '<div class="ab-rec"><div class="sm">Choisissez une classe pour voir les caractéristiques à privilégier.</div></div>';
+  put($('#ab-ui'), `${rec}<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p><div class="ab-grid">${rows}</div>`);
 }
+const REC = {barbare: 'frapper fort et encaisser ; sans armure, la CA vaut 10 + Dex + Con.', barde: 'le Charisme fait les sorts et l’Inspiration, la Dextérité la CA et l’initiative.',
+  clerc: 'la Sagesse fait les sorts, la Constitution tient la Concentration ; la Force sert en armure lourde.', druide: 'la Sagesse fait les sorts et la Forme sauvage, la Constitution tient la Concentration.',
+  ensorceleur: 'le Charisme fait les sorts, la Constitution les PV et la Concentration.', guerrier: 'Force pour le corps à corps (ou Dextérité pour l’arc et la finesse), Constitution pour encaisser.',
+  magicien: 'l’Intelligence fait les sorts ; peu de PV et pas d’armure, donc Constitution et Dextérité pour survivre.', moine: 'la CA vaut 10 + Dex + Sag, et la Dextérité porte les attaques.',
+  occultiste: 'le Charisme fait les sorts et la Décharge occulte, la Constitution tient la Concentration.', paladin: 'Force pour frapper, Charisme pour les sorts et l’Aura de protection.',
+  rodeur: 'la Dextérité fait l’arc et la CA, la Sagesse les sorts.', roublard: 'la Dextérité fait tout : attaques, CA, initiative et Discrétion.'};
 function abClick(e){
   const t = e.target.closest('button'); if (!t) return; const d = t.dataset, o = C() ? C().order : AB;
   if (d.meth){ P.method = d.meth; if (!abOK()) o.forEach((a, i) => P.base[a] = d.meth === 'pb' ? 8 : STD[i]); }
