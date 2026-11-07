@@ -231,6 +231,56 @@ main.pmain{max-width:1440px}
 }
 
 
+/* assistant à étapes */
+.work{grid-template-columns:minmax(0,1fr) 320px}
+.cc-steps{list-style:none;margin:0 0 16px;padding:8px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px;position:sticky;top:44px;z-index:20;background:rgba(28,19,13,.94);backdrop-filter:blur(4px)}
+.cc-steps button{width:100%;display:flex;align-items:center;gap:7px;background:var(--parch);border:1px solid var(--gold);color:var(--ink-soft);padding:6px 8px;cursor:pointer;font-family:'Cinzel',serif;font-size:12.5px;text-align:left;border-radius:2px}
+.cc-steps button:hover{border-color:var(--gold-light);color:var(--ink)}
+.cc-steps .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--blood);color:var(--blood);font-size:11px;flex:none}
+.cc-steps button.done .n{background:var(--forest);border-color:var(--forest);color:var(--parch)}
+.cc-steps button.on{background:var(--blood);color:var(--parch);border-color:var(--blood-dark)}.cc-steps button.on .n{border-color:var(--parch);color:var(--parch)}
+.cc-steps button.on.done .n{background:var(--parch);color:var(--forest);border-color:var(--parch)}
+.cc-nav{display:flex;justify-content:space-between;gap:10px;margin:4px 0 14px}
+.cc-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 6px}.cc-tools .sep{flex:1}
+.cc-p{margin:6px 0 10px}.cc-p .ok,.cc-meter b.ok{color:var(--forest)}.cc-p .ko,.cc-meter b.ko{color:var(--blood)}.cc-p .crit{color:#9a6400}
+.cc-stats{display:grid;gap:6px}
+.cc-stat{display:grid;grid-template-columns:150px minmax(0,1fr) 100px 36px 86px 54px;gap:10px;align-items:center;background:#fffaf0;border:1px solid #d9c49a;border-radius:3px;padding:7px 10px}
+.cc-stat.hd{background:none;border:0;padding:0 10px;font-family:'Cinzel',serif;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft)}
+.cc-stat.hd span:nth-child(n+3){text-align:center}
+.cc-stat.prio{box-shadow:inset 4px 0 0 var(--gold)}
+.cc-sl b{font-family:'Cinzel',serif;color:var(--blood);margin-right:6px}.cc-sl span{font-size:15.5px}.cc-sl i{color:var(--gold);font-style:normal;margin-left:4px}
+.cc-pips{display:flex;gap:4px}
+.pip{flex:1;min-width:0;height:28px;border:1px solid var(--gold);background:#fff;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;color:var(--ink-soft);border-radius:2px;padding:0}
+.pip:hover{border-color:var(--blood)}
+.pip.f{background:linear-gradient(180deg,#a82525,var(--blood));color:var(--parch);border-color:var(--blood-dark)}
+.cc-step{display:flex;align-items:center;justify-content:center;gap:3px}
+.cc-step button{width:28px;height:28px;border:1px solid var(--gold);background:#fff7e3;cursor:pointer;font-size:16px;line-height:1;border-radius:2px;padding:0;color:var(--ink)}
+.cc-step button:hover{background:var(--gold);color:var(--leather)}
+.cc-step output{min-width:28px;text-align:center;font-family:'Cinzel',serif;font-size:18px}
+.cc-step.sm button{width:24px;height:24px;font-size:14px}.cc-step.sm output{font-size:14px;min-width:24px}
+.cc-bon{font-family:'Cinzel',serif;color:var(--forest);font-size:16px;text-align:center}
+.cc-tot{font-family:'Cinzel',serif;font-size:22px;color:var(--blood);text-align:center;line-height:1}.cc-tot small{display:block;font-size:13px;color:var(--ink)}
+.cc-side{background:var(--parch);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 20px var(--shadow);padding:14px;display:grid;gap:12px}
+.cc-id{display:flex;gap:10px;align-items:center}
+.cc-av{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--blood);color:var(--parch);font-family:'Cinzel',serif;font-weight:700;font-size:19px;border:2px solid var(--gold);flex:none}
+.cc-nm{font-family:'Cinzel',serif;font-weight:700;font-size:19px;color:var(--blood);line-height:1.1;word-break:break-word}
+.cc-rl{font-style:italic;color:var(--ink-soft);font-size:14.5px}
+.cc-mini,.cc-der{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.cc-der{grid-template-columns:repeat(4,1fr)}
+.cc-mini div,.cc-der div{background:#fffaf0;border:1px solid #d9c49a;text-align:center;padding:3px 0;border-radius:2px}
+.cc-mini span,.cc-der span{display:block;font-family:'Cinzel',serif;font-size:10px;color:var(--ink-soft)}
+.cc-mini b,.cc-der b{font-family:'Cinzel',serif;font-size:17px}.cc-mini small{display:block;font-size:12px;color:var(--blood)}
+.cc-meter label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:11.5px;color:var(--ink-soft);margin-bottom:3px}
+.cc-bar{height:7px;background:#fffaf0;border:1px solid #d9c49a;border-radius:4px;overflow:hidden}.cc-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .2s}.cc-bar.over i{background:var(--blood)}
+.cc-save{font-size:12.5px;color:var(--ink-soft);margin:0;font-style:italic}.cc-save::first-letter{color:var(--forest)}
+@media (max-width:1000px){.work{grid-template-columns:minmax(0,1fr)}.side{position:static}}
+@media (max-width:760px){.cc-stat{grid-template-columns:minmax(0,1fr) auto 30px auto 44px;gap:8px;padding:7px 8px}.cc-stat .cc-pips{grid-column:1/-1;grid-row:2}.cc-stat.hd{display:none}
+  .cc-steps{display:flex;overflow-x:auto;top:0}.cc-steps li{flex:none}.cc-steps button{white-space:nowrap}}
+@media print{
+  .cc-steps,.cc-nav,.side,#s-fiche > :not(#card){display:none!important}
+  .work > div:first-child{display:block!important}.work > div > section{display:none!important}
+  #s-fiche{display:block!important;border:0;box-shadow:none;background:none;padding:0;margin:0}
+}
+
 /* finitions */
 #sources a,.links a{overflow-wrap:anywhere}
 footer.sitefoot{padding:26px 16px 34px;margin-top:10px;border-top:1px solid rgba(184,137,46,.25);font-size:12.5px;color:#a38f6a;text-align:center}
@@ -276,60 +326,59 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <h1>L’Atelier de PJ</h1>
   <p>Votre héros pas à pas, jusqu’à sa fiche de personnage</p>
 </header>
-<nav><ul><li><a href="#s-id">1 · Identité</a></li><li><a href="#s-esp">2 · Espèce</a></li><li><a href="#s-cls">3 · Classe</a></li><li><a href="#s-bg">4 · Historique</a></li><li><a href="#s-ab">5 · Caractéristiques</a></li><li><a href="#s-sk">6 · Compétences</a></li><li><a href="#s-eq">7 · Équipement</a></li><li><a href="#s-sp">8 · Sorts</a></li><li><a href="#mes">Mes personnages</a></li></ul></nav>
 <main class="pmain">
+<ol class="cc-steps" id="steps"></ol>
 <div class="work">
 <div>
-  <section class="box" id="s-id"><h2>1 · Identité <span class="st"></span></h2>
+  <section class="box" id="s-id"><h2>Identité <span class="st"></span></h2>
     <div class="row"><label class="fld"><span>Nom du personnage</span><input id="f-nom"></label><label class="fld"><span>Joueur</span><input id="f-joueur"></label></div>
     <div class="row"><label class="fld"><span>Niveau</span><input type="number" id="f-niveau" min="1" max="20"></label><label class="fld"><span>Alignement</span><input id="f-align" list="aligns"></label></div>
     <datalist id="aligns"><option>Loyal bon</option><option>Neutre bon</option><option>Chaotique bon</option><option>Loyal neutre</option><option>Neutre</option><option>Chaotique neutre</option><option>Loyal mauvais</option><option>Neutre mauvais</option><option>Chaotique mauvais</option></datalist>
+    <div class="row"><label class="fld"><span>Apparence</span><textarea id="f-apparence" rows="2"></textarea></label><label class="fld"><span>Histoire et personnalité</span><textarea id="f-histoire" rows="2"></textarea></label></div>
+    <label class="fld"><span>Notes</span><textarea id="f-notes" rows="2"></textarea></label>
   </section>
-  <section class="box" id="s-esp"><h2>2 · Espèce <span class="st"></span></h2>
+  <section class="box" id="s-esp"><h2>Espèce <span class="st"></span></h2>
     <div class="pick" id="esp"></div><div class="desc" id="esp-d"></div>
     <label class="fld" style="margin-top:8px"><span>Vos choix d’espèce (lignage, taille, compétence, sorts…)</span><input id="f-espnote" placeholder="Ex. : lignage drow, maîtrise de Perception"></label>
     <p class="hint">Détails de chaque espèce : <a href="especes-dnd-2024.html">page des espèces</a>.</p>
   </section>
-  <section class="box" id="s-cls"><h2>3 · Classe <span class="st"></span></h2>
+  <section class="box" id="s-cls"><h2>Classe <span class="st"></span></h2>
     <div class="pick" id="cls"></div>
     <label class="fld" id="sub-w" style="margin-top:8px"><span>Sous-classe (niveau 3)</span><select id="f-sub"></select></label>
     <div class="desc" id="cls-d"></div>
     <p class="hint">Tables complètes : <a href="classes-dnd-2024.html">page des classes</a>.</p>
   </section>
-  <section class="box" id="s-bg"><h2>4 · Historique <span class="st"></span></h2>
+  <section class="box" id="s-bg"><h2>Historique <span class="st"></span></h2>
     <div class="pick" id="bg"></div><div id="bg-ab"></div><div class="desc" id="bg-d"></div>
     <p class="hint">L’historique donne +2/+1 (ou +1/+1/+1) à trois caractéristiques, un don d’origine, deux compétences et un outil. <a href="historiques-dnd-2024.html">Page des historiques</a>.</p>
   </section>
-  <section class="box" id="s-ab"><h2>5 · Caractéristiques <span class="st"></span></h2>
-    <div class="chips"><button type="button" class="btn" id="ab-std">Tableau standard (réparti selon la classe)</button><button type="button" class="btn" id="ab-pb">Achat de points (tout à 8)</button><button type="button" class="btn" id="ab-roll">🎲 Tirer 4d6</button></div>
-    <div class="abil"><label>For<input type="number" id="b-For" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-For" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-For"></span></label><label>Dex<input type="number" id="b-Dex" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-Dex" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-Dex"></span></label><label>Con<input type="number" id="b-Con" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-Con" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-Con"></span></label><label>Int<input type="number" id="b-Int" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-Int" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-Int"></span></label><label>Sag<input type="number" id="b-Sag" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-Sag" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-Sag"></span></label><label>Cha<input type="number" id="b-Cha" min="1" max="20"><span class="hint">bonus</span><input type="number" id="x-Cha" value="0" title="Améliorations de niveau, dons…"><span class="tot" id="t-Cha"></span></label></div>
-    <p class="hint" id="ab-check"></p>
-    <p class="hint">Valeur de base, puis « bonus » pour les améliorations de niveau et les dons. Le bonus d’historique est ajouté automatiquement. Achat de points : 27 points, valeurs de 8 à 15 (13 = 5, 14 = 7, 15 = 9).</p>
+  <section class="box" id="s-ab"><h2>Caractéristiques <span class="st"></span></h2>
+    <div id="ab-ui"></div>
+    <p class="hint">Le bonus d’historique s’ajoute tout seul ; « niv./dons » sert aux améliorations de caractéristique des niveaux 4, 8, 12… et aux dons.</p>
   </section>
-  <section class="box" id="s-sk"><h2>6 · Compétences <span class="st"></span></h2>
+  <section class="box" id="s-sk"><h2>Compétences <span class="st"></span></h2>
     <p class="hint" id="sk-help"></p><div class="skills" id="skills"></div>
     <p class="hint">Cliquez pour faire défiler : Classe → Autre (espèce, don) → Expertise. Vert : historique. Bord doré : compétences de votre classe.</p>
   </section>
-  <section class="box" id="s-eq"><h2>7 · Équipement <span class="st"></span></h2>
+  <section class="box" id="s-eq"><h2>Équipement <span class="st"></span></h2>
     <div class="eq" id="eq"></div>
     <label class="fld" style="margin-top:8px;max-width:220px"><span>Classe d’armure (forcer)</span><input id="f-ca" inputmode="numeric"></label>
     <p class="hint">La CA est calculée d’après l’armure et le bouclier de départ (ou la Défense sans armure) ; saisissez une valeur pour la remplacer. Achats : <a href="magasin-dnd-2024.html">magasin</a>.</p>
   </section>
-  <section class="box" id="s-sp" hidden><h2>8 · Sorts <span class="st"></span></h2>
+  <section class="box" id="s-sp" hidden><h2>Sorts <span class="st"></span></h2>
     <p class="hint" id="sp-help"></p><input id="sp-q" placeholder="Filtrer les sorts…" style="margin-bottom:6px"><div class="sp-list" id="sp-list"></div>
     <p class="hint">Sorts de votre classe jusqu’au niveau d’emplacement auquel vous avez accès. Les sorts toujours préparés de la sous-classe ne sont pas comptés. <a href="sorts-dnd-2024.html">Tous les sorts</a>.</p>
   </section>
-  <section class="box" id="s-perso"><h2>Personnage</h2>
-    <div class="row"><label class="fld"><span>Apparence</span><textarea id="f-apparence" rows="2"></textarea></label><label class="fld"><span>Histoire et personnalité</span><textarea id="f-histoire" rows="2"></textarea></label></div>
-    <label class="fld"><span>Notes</span><textarea id="f-notes" rows="2"></textarea></label>
-  </section>
-  <section class="box" id="mes"><h2>Mes personnages</h2>
+  <section class="box" id="s-fiche"><h2>Fiche du personnage</h2>
     <div class="gen"><button type="button" class="btn red" id="save">Enregistrer</button><button type="button" class="btn" id="print">🖨 Imprimer / PDF</button><button type="button" class="btn" id="export">Exporter</button><button type="button" class="btn" id="import">Importer</button><button type="button" class="btn" id="new">Nouveau</button><input type="file" id="file" accept=".json" hidden></div>
+    <div id="card"></div>
+    <h2 style="margin-top:16px">Mes personnages</h2>
     <p class="msg" id="msg"></p><ul class="saved" id="saved"></ul>
     <p class="hint">Le personnage en cours est gardé automatiquement dans ce navigateur. Exportez-le pour le conserver ailleurs.</p>
   </section>
+  <div class="cc-nav" id="ccnav"></div>
 </div>
-<aside class="side"><div id="card"></div></aside>
+<aside class="side"><div class="cc-side" id="sum"></div></aside>
 </div>
 <section class="panel intro" id="sources" style="margin-top:30px">
   <h2>Sources et licence</h2>
@@ -349,7 +398,7 @@ const WEAP = {'hache à deux mains':['1d12','tr',''],'hachette':['1d6','tr','j']
   'lance':['1d6','perf','j'],'bâton':['1d6','cont',''],'épée longue':['1d8','tr',''],'javeline':['1d6','perf','j'],'cimeterre':['1d6','tr','f'],'épée courte':['1d6','perf','f'],'arc long':['1d8','perf','d'],'arc court':['1d6','perf','d']};
 const ARM = [['cuir clouté',12,99],['armure de cuir',11,99],['chemise de mailles',13,2],['cotte de mailles',16,0]];
 const fresh = () => ({nom:'', joueur:'', niveau:1, esp:'', espNote:'', cls:'', sub:'', bg:'', bgMode:'21', bg2:'', bg1:'', base:{For:15,Dex:14,Con:13,Int:12,Sag:10,Cha:8}, extra:{For:0,Dex:0,Con:0,Int:0,Sag:0,Cha:0},
-  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:''});
+  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:'', method:'std'});
 let P = fresh();
 // n'écrit que si le contenu change : un rendu déclenché par un blur ne doit pas remplacer le bouton qu'on est en train de cliquer
 const put = (el, h) => { if (el._h !== h){ el._h = h; el.innerHTML = h; } };
@@ -379,7 +428,8 @@ function castInfo(){ const c = C(); if (!c || !c.cast) return null; const [a, ki
 function picker(el, list, cur, key, small){ put(el, list.map(x => `<button type="button" data-v="${x.k}" class="${x.k === cur ? 'on' : ''}">${esc(x.n)}${small ? `<small>${esc(small(x))}</small>` : ''}</button>`).join(''));
   el.onclick = e => { const b = e.target.closest('button'); if (!b) return; P[key] = b.dataset.v; onPick(key); }; }
 function onPick(key){ if (key === 'cls'){ P.sub = ''; P.spells = []; } if (key === 'bg'){ const b = B(); P.bg2 = b.ab[0]; P.bg1 = b.ab[1]; for (const k in P.skills) if (P.skills[k] === 'bg') delete P.skills[k]; for (const s of b.sk) P.skills[s] = 'bg'; } render(); }
-function stepOK(id, ok, msg){ $('#' + id + ' h2 .st').innerHTML = ok ? '<span class="ok">✓ fait</span>' : `<span class="ko">${msg}</span>`; }
+const OK = {};
+function stepOK(id, ok, msg){ OK[id] = ok; $('#' + id + ' h2 .st').innerHTML = ok ? '<span class="ok">✓ fait</span>' : `<span class="ko">${msg}</span>`; }
 function render(){
   const c = C(), s = S(), b = B(), ci = castInfo();
   $('#f-nom').value = P.nom; $('#f-joueur').value = P.joueur; $('#f-niveau').value = P.niveau; $('#f-align').value = P.align;
@@ -406,10 +456,7 @@ function render(){
   const bgOK = b && (P.bgMode === '111' || (P.bg2 && P.bg1 && P.bg2 !== P.bg1));
   stepOK('s-bg', bgOK, !b ? 'à choisir' : '+2 et +1 sur deux caractéristiques différentes');
   // caractéristiques
-  for (const a of AB){ $('#b-' + a).value = P.base[a]; $('#x-' + a).value = P.extra[a]; $('#t-' + a).innerHTML = `${score(a)}<small>${sg(M(a))}</small>`; }
-  const vals = AB.map(a => +P.base[a]), isStd = [...vals].sort((x, y) => y - x).join() === STD.join(), cost = vals.reduce((t, v) => t + (COST[v] ?? 99), 0);
-  $('#ab-check').textContent = isStd ? 'Tableau standard : valeurs correctes.' : cost <= 27 ? `Achat de points : ${cost} / 27 points dépensés.` : 'Valeurs libres (tirage ou choix du MJ).';
-  stepOK('s-ab', true, '');
+  abilities(); stepOK('s-ab', abOK(), {std: 'une valeur du tableau chacune', pb: 'au plus 27 points, de 8 à 15', des: 'valeurs de 3 à 18'}[P.method]);
   // compétences
   const want = c ? c.skn : 0, clsSk = Object.entries(P.skills).filter(([k, v]) => v === 'cls').length;
   put($('#skills'), Object.keys(D.skills).map(k => { const v = P.skills[k], cl = c && (c.skl.length === 0 || c.skl.includes(k));
@@ -430,7 +477,81 @@ function render(){
       h += `<h5>${l ? 'Niveau ' + l : 'Sorts mineurs'}</h5>` + g.map(x => `<label><input type="checkbox" data-sp="${x.id}" ${P.spells.includes(x.id) ? 'checked' : ''}> ${esc(x.n)}</label>`).join(''); }
     put($('#sp-list'), h); stepOK('s-sp', nc === ci.can && ns === ci.prep, `${nc}/${ci.can} mineurs, ${ns}/${ci.prep} préparés`); }
   for (const k of ['apparence','histoire','notes']) $('#f-' + k).value = P[k];
-  sheet(); store.set('grimoire-pj-brouillon', P);
+  sheet(); wizard(); store.set('grimoire-pj-brouillon', P);
+}
+
+// ------------------------------------------------------------------ assistant à étapes
+let cur = 0;
+const STEPS = [['s-id','Identité'],['s-esp','Espèce'],['s-cls','Classe'],['s-bg','Historique'],['s-ab','Caractéristiques'],['s-sk','Compétences'],['s-eq','Équipement'],['s-sp','Sorts'],['s-fiche','Fiche']];
+const steps = () => STEPS.filter(s => s[0] !== 's-sp' || castInfo());
+function go(i){ cur = i; wizard(); const t = $('#steps').getBoundingClientRect().top + scrollY - 50; if (scrollY > t) scrollTo({top: t}); const o = $('#steps .on'); if (o) $('#steps').scrollLeft = o.offsetLeft - 16; }
+function wizard(){
+  const L = steps(); cur = Math.max(0, Math.min(L.length - 1, cur));
+  OK['s-fiche'] = L.slice(0, -1).every(s => OK[s[0]]);
+  put($('#steps'), L.map(([id, n], i) => `<li><button type="button" data-go="${i}" class="${i === cur ? 'on' : ''} ${OK[id] ? 'done' : ''}"><span class="n">${OK[id] ? '✓' : i + 1}</span><span class="l">${n}</span></button></li>`).join(''));
+  for (const [id] of STEPS) $('#' + id).hidden = id !== L[cur][0];
+  put($('#ccnav'), (cur > 0 ? `<button type="button" class="btn" data-go="${cur - 1}">◂ ${L[cur - 1][1]}</button>` : '<span></span>')
+    + (cur < L.length - 1 ? `<button type="button" class="btn red" data-go="${cur + 1}">${L[cur + 1][1]} ▸</button>` : ''));
+  summary();
+}
+function meter(lab, v, max){ const p = max ? Math.min(100, v / max * 100) : 0;
+  return `<div class="cc-meter"><label>${lab} <b class="${v > max ? 'ko' : v === max ? 'ok' : ''}">${v} / ${max}</b></label><div class="cc-bar ${v > max ? 'over' : ''}"><i style="width:${p}%"></i></div></div>`; }
+function summary(){
+  const c = C(), s = S(), ci = castInfo(), L = steps(), lv = id => (D.spells.find(x => x.id === id) || {}).l;
+  let m = meter('Étapes', L.slice(0, -1).filter(x => OK[x[0]]).length, L.length - 1);
+  if (P.method === 'pb') m += meter('Achat de points', pbCost(), 27);
+  if (c) m += meter('Compétences de classe', Object.values(P.skills).filter(v => v === 'cls').length, c.skn);
+  if (ci){ const nc = P.spells.filter(id => lv(id) === 0).length; if (ci.can) m += meter('Sorts mineurs', nc, ci.can); m += meter('Sorts préparés', P.spells.length - nc, ci.prep); }
+  $('#sum').innerHTML = `<div class="cc-id"><div class="cc-av">${esc((P.nom || '?').slice(0, 2).toUpperCase())}</div><div><div class="cc-nm">${esc(P.nom) || 'Sans nom'}</div>
+      <div class="cc-rl">${[s && s.n, c && c.n + ' ' + P.niveau].filter(Boolean).map(esc).join(' · ') || 'Espèce et classe à choisir'}</div></div></div>
+    <div class="cc-mini">${AB.map(a => `<div><span>${a}</span><b>${score(a)}</b><small>${sg(M(a))}</small></div>`).join('')}</div>
+    <div class="cc-der"><div><span>CA</span><b>${ac()}</b></div><div><span>PV</span><b>${hp()}</b></div><div><span>Init.</span><b>${sg(M('Dex') + (featName() === 'Vigilant' ? pb() : 0))}</b></div><div><span>Maîtrise</span><b>${sg(pb())}</b></div></div>
+    ${m}<p class="cc-save">● sauvegarde automatique dans ce navigateur</p>`;
+}
+
+// ------------------------------------------------------------------ caractéristiques
+const STDV = [8,10,12,13,14,15];
+const pbCost = () => AB.reduce((t, a) => t + (COST[P.base[a]] ?? 99), 0);
+function abOK(){ const v = AB.map(a => +P.base[a]);
+  if (P.method === 'std') return [...v].sort((x, y) => x - y).join() === STDV.join();
+  if (P.method === 'pb') return pbCost() <= 27;
+  return v.every(x => x >= 3 && x <= 18); }
+// anciens brouillons sans méthode : on la déduit des valeurs
+function guessMethod(o){ if (o && o.method) return; P.method = 'std'; if (abOK()) return; P.method = 'pb'; if (abOK()) return; P.method = 'des'; }
+function abilities(){
+  const c = C(), m = P.method, prio = c ? c.order.slice(0, 2) : [], left = 27 - pbCost();
+  const tools = [['std','Tableau standard'],['pb','Achat de points'],['des','Dés (4d6)']].map(([k, l]) => `<button type="button" class="chip ${m === k ? 'on' : ''}" data-meth="${k}">${l}</button>`).join('')
+    + '<span class="sep"></span>' + (m === 'des' ? '<button type="button" class="btn" data-ab="roll">🎲 Tirer 4d6 × 6</button>' : `<button type="button" class="btn" data-ab="auto">⚡ Répartition conseillée${c ? ' (' + esc(c.n) + ')' : ''}</button>`)
+    + '<button type="button" class="btn" data-ab="reset">↺ Réinitialiser</button>';
+  const intro = m === 'std' ? 'Attribuez <strong>15, 14, 13, 12, 10 et 8</strong>, une valeur par caractéristique. Cliquer une valeur déjà prise échange les deux.'
+    : m === 'pb' ? `<strong>27 points</strong>, valeurs de 8 à 15 (14 coûte 7, 15 coûte 9). Il reste <b class="${left < 0 ? 'ko' : left === 0 ? 'ok' : 'crit'}">${left}</b> point${Math.abs(left) > 1 ? 's' : ''}.`
+    : 'Lancez 4d6 six fois en gardant les trois meilleurs dés ; les résultats sont répartis selon votre classe, ajustez ensuite avec − et +.';
+  const rows = AB.map(a => {
+    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a);
+    const ctl = m === 'std' ? STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')
+      : m === 'pb' ? [8,9,10,11,12,13,14,15].map(n => `<button type="button" class="pip ${n <= v ? 'f' : ''}" data-set="${a}" data-v="${n}" title="${n} : ${COST[n]} point${COST[n] > 1 ? 's' : ''}">${n}</button>`).join('')
+      : Array.from({length: 16}, (_, i) => `<button type="button" class="pip ${i + 3 <= v ? 'f' : ''}" data-set="${a}" data-v="${i + 3}" title="${i + 3}"></button>`).join('');
+    return `<div class="cc-stat ${pr ? 'prio' : ''}"><div class="cc-sl"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Importante pour votre classe">★</i>' : ''}</div>
+      <div class="cc-pips">${ctl}</div>
+      <div class="cc-step">${m === 'std' ? `<output>${v}</output>` : `<button type="button" data-dn="${a}" aria-label="${ABN[a]} moins">−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus">+</button>`}</div>
+      <div class="cc-bon" title="Bonus d’historique">${bb ? '+' + bb : ''}</div>
+      <div class="cc-step sm" title="Améliorations de niveau, dons…"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div>
+      <div class="cc-tot">${score(a)}<small>${sg(M(a))}</small></div></div>`; }).join('');
+  put($('#ab-ui'), `<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p>
+    <div class="cc-stats"><div class="cc-stat hd"><span>Caractéristique</span><span></span><span>Base</span><span>Hist.</span><span>Niv./dons</span><span>Total</span></div>${rows}</div>`);
+}
+function abClick(e){
+  const t = e.target.closest('button'); if (!t) return; const d = t.dataset, o = C() ? C().order : AB;
+  if (d.meth){ P.method = d.meth; if (!abOK()) o.forEach((a, i) => P.base[a] = d.meth === 'pb' ? 8 : STD[i]); }
+  else if (d.ab === 'auto') o.forEach((a, i) => P.base[a] = STD[i]);  // le tableau standard coûte aussi 27 points à l'achat
+  else if (d.ab === 'reset') AB.forEach(a => P.base[a] = P.method === 'std' ? STD[o.indexOf(a)] : P.method === 'pb' ? 8 : 10);
+  else if (d.ab === 'roll'){ const r = () => { const x = [0,0,0,0].map(() => 1 + Math.floor(Math.random() * 6)).sort((p, q) => p - q); return x[1] + x[2] + x[3]; };
+    const v = AB.map(r).sort((p, q) => q - p); o.forEach((a, i) => P.base[a] = v[i]); }
+  else if (d.set){ const a = d.set, v = +d.v; if (P.method === 'std'){ const b = AB.find(k => k !== a && +P.base[k] === v); if (b) P.base[b] = P.base[a]; } P.base[a] = v; }
+  else if (d.up || d.dn){ const a = d.up || d.dn, [lo, hi] = P.method === 'pb' ? [8, 15] : [3, 18]; P.base[a] = Math.max(lo, Math.min(hi, +P.base[a] + (d.up ? 1 : -1))); }
+  else if (d.xup || d.xdn){ const a = d.xup || d.xdn; P.extra[a] = Math.max(-5, Math.min(10, (+P.extra[a] || 0) + (d.xup ? 1 : -1))); }
+  else return;
+  render();
 }
 
 // ------------------------------------------------------------------ fiche
@@ -463,17 +584,13 @@ function sheet(){
 
 // ------------------------------------------------------------------ événements
 function bind(){
-  for (const k of ['nom','joueur','align','espnote','apparence','histoire','notes']) $('#f-' + k).addEventListener('input', e => { P[k === 'espnote' ? 'espNote' : k] = e.target.value; sheet(); store.set('grimoire-pj-brouillon', P); });
+  for (const k of ['nom','joueur','align','espnote','apparence','histoire','notes']) $('#f-' + k).addEventListener('input', e => { P[k === 'espnote' ? 'espNote' : k] = e.target.value; sheet(); summary(); stepOK('s-id', !!P.nom, 'nom à choisir'); wizard(); store.set('grimoire-pj-brouillon', P); });
   $('#f-niveau').addEventListener('change', e => { P.niveau = Math.max(1, Math.min(20, +e.target.value || 1)); render(); });
   $('#f-sub').addEventListener('change', e => { P.sub = e.target.value; render(); });
   $('#bg-ab').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (m){ P.bgMode = m.dataset.m; render(); } });
   $('#bg-ab').addEventListener('change', e => { if (e.target.id === 'f-bg2') P.bg2 = e.target.value; if (e.target.id === 'f-bg1') P.bg1 = e.target.value; render(); });
-  for (const a of AB){ $('#b-' + a).addEventListener('change', e => { P.base[a] = Math.max(1, Math.min(20, +e.target.value || 8)); render(); });
-    $('#x-' + a).addEventListener('change', e => { P.extra[a] = +e.target.value || 0; render(); }); }
-  $('#ab-std').onclick = () => { const c = C(), o = c ? c.order : AB; o.forEach((a, i) => P.base[a] = STD[i]); render(); };
-  $('#ab-pb').onclick = () => { for (const a of AB) P.base[a] = 8; render(); };
-  $('#ab-roll').onclick = () => { const r = () => { const d = [0,0,0,0].map(() => 1 + Math.floor(Math.random() * 6)).sort((x, y) => x - y); return d[1] + d[2] + d[3]; };
-    const v = AB.map(r).sort((x, y) => y - x), o = C() ? C().order : AB; o.forEach((a, i) => P.base[a] = v[i]); render(); };
+  $('#s-ab').addEventListener('click', abClick);
+  document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) go(+g.dataset.go); });
   $('#skills').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; const k = b.dataset.s, v = P.skills[k], c = C();
     // cycle : rien → classe (si permise) → autre (espèce, don) → expertise → rien ; une compétence d'historique passe directement à l'expertise
     const canCls = c && (c.skl.length === 0 || c.skl.includes(k));
@@ -481,7 +598,7 @@ function bind(){
     if (v === 'exp' && B() && B().sk.includes(k)) P.skills[k] = 'bg';
     if (!P.skills[k]) delete P.skills[k]; render(); });
   $('#eq').addEventListener('change', e => { if (e.target.name) P[e.target.name] = e.target.value; render(); });
-  $('#f-ca').addEventListener('input', e => { P.ca = e.target.value.trim(); sheet(); });
+  $('#f-ca').addEventListener('input', e => { P.ca = e.target.value.trim(); sheet(); summary(); });
   $('#sp-q').addEventListener('input', render);
   $('#sp-list').addEventListener('change', e => { const id = e.target.dataset.sp; if (!id) return; P.spells = e.target.checked ? [...P.spells, id] : P.spells.filter(x => x !== id); render(); });
   // sauvegarde
@@ -490,16 +607,16 @@ function bind(){
     <span class="acts"><button type="button" class="btn small" data-load="${i}">Ouvrir</button><button type="button" class="btn small" data-del="${i}">Supprimer</button></span></li>`).join('') || '<li><div class="hint">Aucun personnage enregistré.</div></li>'; }
   $('#save').onclick = () => { if (!P.nom) return msg('Donnez d’abord un nom au personnage.'); const L = list(), i = L.findIndex(x => x.nom === P.nom); if (i >= 0) L[i] = P; else L.push(P); store.set('grimoire-pj', L); saved(); msg('Personnage enregistré dans ce navigateur.'); };
   $('#saved').onclick = e => { const l = e.target.dataset.load, d = e.target.dataset.del, L = list();
-    if (l !== undefined){ P = Object.assign(fresh(), L[+l]); render(); scrollTo({top: 0}); }
+    if (l !== undefined){ P = Object.assign(fresh(), L[+l]); guessMethod(L[+l]); cur = 99; render(); scrollTo({top: 0}); }
     if (d !== undefined && confirm('Supprimer « ' + (L[+d].nom || 'Sans nom') + ' » ?')){ L.splice(+d, 1); store.set('grimoire-pj', L); saved(); } };
   $('#new').onclick = () => { if (confirm('Effacer le personnage en cours ?')){ P = fresh(); render(); } };
   $('#print').onclick = () => print();
   $('#export').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(P, null, 1)], {type: 'application/json'})); a.download = (P.nom || 'personnage').replace(/[^\w-]+/g, '_') + '.json'; a.click(); };
   $('#import').onclick = () => $('#file').click();
-  $('#file').onchange = async e => { try { const x = JSON.parse(await e.target.files[0].text()); if (typeof x !== 'object' || !x || !('base' in x)) throw 0; P = Object.assign(fresh(), x); render(); msg('Personnage importé.'); } catch(_) { msg('Fichier invalide.'); } e.target.value = ''; };
+  $('#file').onchange = async e => { try { const x = JSON.parse(await e.target.files[0].text()); if (typeof x !== 'object' || !x || !('base' in x)) throw 0; P = Object.assign(fresh(), x); guessMethod(x); render(); msg('Personnage importé.'); } catch(_) { msg('Fichier invalide.'); } e.target.value = ''; };
   saved();
 }
-P = Object.assign(fresh(), store.get('grimoire-pj-brouillon', {}));
+{ const d = store.get('grimoire-pj-brouillon', {}); P = Object.assign(fresh(), d); guessMethod(d); }
 bind(); render();
 
 </script>
