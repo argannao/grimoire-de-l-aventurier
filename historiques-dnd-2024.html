@@ -7,7 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
+<style>/* historiques des suppléments */
+.supp-sep{display:flex;align-items:center;gap:14px;max-width:1000px;margin:46px auto 26px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase}
+.supp-sep::before,.supp-sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent)}
+.book-mode .supp-book-bg{display:none!important}
+
 
 :root{
   --ink:#2b1d12; --ink-soft:#5a4330;
@@ -619,6 +623,22 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
   <div class="links"><span>Sources</span><a href="https://www.aidedd.org/regles-24/origines-des-personnages/description-des-historiques/" target="_blank" rel="noopener">Historiques 2024 (AideDD)</a><a href="https://www.dndbeyond.com/backgrounds?filter-search=Voyageur" target="_blank" rel="noopener">D&amp;D Beyond</a></div>
 </section>
 
+<!--maj-hist--><div class="supp-sep" role="separator"><span>Historiques des suppléments</span></div>
+<section class="panel bg supp-book-bg" id="chercheur-de-pacte" data-abil="Con Int Cha" data-feat="Pacte planaire">
+  <div class="bg-head"><div><h2>Chercheur de pacte</h2><div class="sub">Pact Seeker · Drop D&amp;D Beyond (mai 2026) · hors SRD</div>
+  <div class="abrow"><span class="ab">Constitution</span><span class="ab">Intelligence</span><span class="ab">Charisme</span></div></div></div>
+  <p>En quête de savoir, de pouvoir ou de secrets, vous êtes entré en contact avec une entité d’un autre plan, et votre vie en a été changée. Cet historique permet de passer un pacte sans être occultiste.</p>
+  <div class="stats">
+    <div class="stat"><b>Valeurs de caractéristique</b>Constitution, Intelligence, Charisme</div>
+    <div class="stat"><b>Don d’origine</b>Un don de pacte planaire : <a href="dons-dnd-2024.html#pacte-feerique">Pacte féerique</a>, <a href="dons-dnd-2024.html#pacte-infernal">Pacte infernal</a>, <a href="dons-dnd-2024.html#pacte-de-l-ombre">Pacte de l’ombre</a> ou <a href="dons-dnd-2024.html#pacte-des-plans-superieurs">Pacte des Plans supérieurs</a></div>
+    <div class="stat"><b>Compétences</b>Arcanes <small>(Intelligence)</small>, Persuasion <small>(Charisme)</small></div>
+    <div class="stat"><b>Outil</b><a href="magasin-dnd-2024.html#materiel-de-calligraphe">Matériel de calligraphe</a></div>
+  </div>
+  <h3>Équipement</h3>
+  <p class="kitsum"><b>Option A</b> : livre, matériel de calligraphe, encre, plume, parchemin (10 feuilles), vêtements de voyage et 2 po · <b>Option B</b> : 50 po.</p>
+  <p class="summary-note">Les Drops sont réservés aux abonnés D&amp;D Beyond ; résumé rédigé pour ce site.</p>
+  <div class="links"><span>Sources</span><a href="https://www.dndbeyond.com/posts" target="_blank" rel="noopener">Drops D&amp;D Beyond</a></div>
+</section><!--/maj-hist-->
 <section class="panel" id="comparer">
   <h2>Comparer les historiques</h2>
   <table class="cmp"><tr><th>Historique</th><th>Carac.</th><th>Don</th><th>Compétences</th><th>Outil</th><th>Or (A)</th></tr><tr data-abil="Int Sag Cha"><td><a href="#acolyte"><b>Acolyte</b></a></td><td>Int, Sag, Cha</td><td>Initié à la magie (Clerc)</td><td>Intuition, Religion</td><td>Matériel de calligraphe</td><td>8 po</td></tr><tr data-abil="For Dex Int"><td><a href="#artisan"><b>Artisan</b></a></td><td>For, Dex, Int</td><td>Façonneur</td><td>Investigation, Persuasion</td><td>Outils d’artisan au choix</td><td>32 po</td></tr><tr data-abil="For Dex Cha"><td><a href="#artiste"><b>Artiste</b></a></td><td>For, Dex, Cha</td><td>Musicien</td><td>Acrobaties, Représentation</td><td>Instrument de musique au choix</td><td>11 po</td></tr><tr data-abil="Dex Con Cha"><td><a href="#charlatan"><b>Charlatan</b></a></td><td>Dex, Con, Cha</td><td>Doué</td><td>Escamotage, Tromperie</td><td>Matériel de contrefaçon</td><td>15 po</td></tr><tr data-abil="Dex Con Int"><td><a href="#criminel"><b>Criminel</b></a></td><td>Dex, Con, Int</td><td>Vigilant</td><td>Discrétion, Escamotage</td><td>Outils de voleur</td><td>16 po</td></tr><tr data-abil="Con Sag Cha"><td><a href="#ermite"><b>Ermite</b></a></td><td>Con, Sag, Cha</td><td>Guérisseur</td><td>Médecine, Religion</td><td>Matériel d’herboriste</td><td>16 po</td></tr><tr data-abil="For Con Sag"><td><a href="#fermier"><b>Fermier</b></a></td><td>For, Con, Sag</td><td>Robuste</td><td>Dressage, Nature</td><td>Outils de charpentier</td><td>30 po</td></tr><tr data-abil="For Int Sag"><td><a href="#garde"><b>Garde</b></a></td><td>For, Int, Sag</td><td>Vigilant</td><td>Athlétisme, Perception</td><td>Boîte de jeux au choix</td><td>12 po</td></tr><tr data-abil="Dex Con Sag"><td><a href="#guide"><b>Guide</b></a></td><td>Dex, Con, Sag</td><td>Initié à la magie (Druide)</td><td>Discrétion, Survie</td><td>Outils de cartographe</td><td>3 po</td></tr><tr data-abil="Con Int Cha"><td><a href="#marchand"><b>Marchand</b></a></td><td>Con, Int, Cha</td><td>Chanceux</td><td>Dressage, Persuasion</td><td>Instruments de navigateur</td><td>22 po</td></tr><tr data-abil="For Dex Sag"><td><a href="#marin"><b>Marin</b></a></td><td>For, Dex, Sag</td><td>Bagarreur de tavernes</td><td>Acrobaties, Perception</td><td>Instruments de navigateur</td><td>20 po</td></tr><tr data-abil="For Int Cha"><td><a href="#noble"><b>Noble</b></a></td><td>For, Int, Cha</td><td>Doué</td><td>Histoire, Persuasion</td><td>Boîte de jeux au choix</td><td>29 po</td></tr><tr data-abil="Con Int Sag"><td><a href="#sage"><b>Sage</b></a></td><td>Con, Int, Sag</td><td>Initié à la magie (Magicien)</td><td>Arcanes, Histoire</td><td>Matériel de calligraphe</td><td>8 po</td></tr><tr data-abil="Dex Int Sag"><td><a href="#scribe"><b>Scribe</b></a></td><td>Dex, Int, Sag</td><td>Doué</td><td>Investigation, Perception</td><td>Matériel de calligraphe</td><td>23 po</td></tr><tr data-abil="For Dex Con"><td><a href="#soldat"><b>Soldat</b></a></td><td>For, Dex, Con</td><td>Sauvagerie martiale</td><td>Athlétisme, Intimidation</td><td>Boîte de jeux au choix</td><td>14 po</td></tr><tr data-abil="Dex Sag Cha"><td><a href="#voyageur"><b>Voyageur</b></a></td><td>Dex, Sag, Cha</td><td>Chanceux</td><td>Discrétion, Intuition</td><td>Outils de voleur</td><td>16 po</td></tr></table>
