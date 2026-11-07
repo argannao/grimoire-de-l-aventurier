@@ -542,22 +542,22 @@ function abilities(){
     : 'Lancez 4d6 six fois en gardant les trois meilleurs dés ; les résultats sont répartis selon votre classe, ajustez ensuite avec − et +.';
   const use = c ? c.order.slice(2, 4) : [], b = B();
   const rows = AB.map(a => {
-    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a), us = use.includes(a);
-    const ctl = m === 'std' ? `<div class="ab-std">${STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')}</div>`
-      : `<div class="cc-step"><button type="button" data-dn="${a}" aria-label="${ABN[a]} moins" ${v <= (m === 'pb' ? 8 : 3) ? 'disabled' : ''}>−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus" ${v >= (m === 'pb' ? 15 : 18) ? 'disabled' : ''}>+</button></div>`;
-    return `<div class="ab-card ${pr ? 'prio' : us ? 'use' : ''}">
-      <div class="ab-h"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Priorité pour votre classe">★</i>' : us ? '<i title="Utile pour votre classe">☆</i>' : ''}</div>
-      <div class="ab-big">${score(a)}<small>${sg(M(a))}</small></div>
-      ${ctl}
-      <div class="ab-meta">base ${v}${m === 'pb' ? ` · coût ${COST[v] ?? '—'}` : ''}${bb ? ` · <span class="g">+${bb} hist.</span>` : ''}</div>
-      <div class="ab-x" title="Améliorations de caractéristique (niveaux 4, 8, 12…) et dons"><span>niv./dons</span><div class="cc-step sm"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div></div>
-    </div>`; }).join('');
+    const v = +P.base[a], bb = bgBonus(a), x = +P.extra[a] || 0, pr = prio.includes(a), us = use.includes(a), [lo, hi] = m === 'pb' ? [8, 15] : [3, 18];
+    const ctl = m === 'std' ? STDV.map(n => `<button type="button" class="pip ${n === v ? 'f' : ''}" data-set="${a}" data-v="${n}">${n}</button>`).join('')
+      : m === 'pb' ? [8,9,10,11,12,13,14,15].map(n => `<button type="button" class="pip ${n <= v ? 'f' : ''}" data-set="${a}" data-v="${n}" title="${n} : ${COST[n]} point${COST[n] > 1 ? 's' : ''}">${n}</button>`).join('')
+      : Array.from({length: 16}, (_, i) => `<button type="button" class="pip ${i + 3 <= v ? 'f' : ''}" data-set="${a}" data-v="${i + 3}" title="${i + 3}"></button>`).join('');
+    return `<div class="cc-stat ${pr ? 'prio' : ''}"><div class="cc-sl"><b>${a}</b><span>${ABN[a]}</span>${pr ? '<i title="Priorité pour votre classe">★</i>' : us ? '<i title="Utile pour votre classe">☆</i>' : ''}</div>
+      <div class="cc-pips">${ctl}</div>
+      <div class="cc-step">${m === 'std' ? `<output>${v}</output>` : `<button type="button" data-dn="${a}" aria-label="${ABN[a]} moins" ${v <= lo ? 'disabled' : ''}>−</button><output>${v}</output><button type="button" data-up="${a}" aria-label="${ABN[a]} plus" ${v >= hi ? 'disabled' : ''}>+</button>`}</div>
+      <div class="cc-bon" title="Bonus d’historique">${bb ? '+' + bb : ''}</div>
+      <div class="cc-step sm" title="Améliorations de niveau, dons…"><button type="button" data-xdn="${a}" aria-label="bonus moins">−</button><output>${x ? sg(x) : 0}</output><button type="button" data-xup="${a}" aria-label="bonus plus">+</button></div>
+      <div class="cc-tot">${score(a)}<small>${sg(M(a))}</small></div></div>`; }).join('');
   const rec = c ? `<div class="ab-rec"><h4>Recommandations pour ${esc(c.n)}${P.sub ? ' · ' + esc(P.sub) : ''}</h4>
       <div><span class="tg p">Priorité</span> ${prio.map(k => ABN[k]).join(', ')} · <span class="tg u">Utile</span> ${use.map(k => ABN[k]).join(', ')}${REC[c.k] ? ' — ' + REC[c.k] : ''}</div>
       ${b ? `<div class="sm">Historique ${esc(b.n)} : ${b.ab.some(k => prio.includes(k)) ? `placez le +2 en ${ABN[b.ab.find(k => prio.includes(k))]}.` : `aucune de vos priorités n’en profite (${b.ab.map(k => ABN[k]).join(', ')}) : un autre historique ira peut-être mieux.`}</div>` : ''}
       <div class="sm">Le modificateur vaut (valeur − 10) ÷ 2, arrondi vers le bas : 14 et 15 donnent le même +2. Visez un total pair après le bonus d’historique.</div></div>`
     : '<div class="ab-rec"><div class="sm">Choisissez une classe pour voir les caractéristiques à privilégier.</div></div>';
-  put($('#ab-ui'), `${rec}<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p><div class="ab-grid">${rows}</div>`);
+  put($('#ab-ui'), `${rec}<div class="cc-tools">${tools}</div><p class="cc-p">${intro}</p><div class="cc-stats"><div class="cc-stat hd"><span>Caractéristique</span><span></span><span>Base</span><span>Hist.</span><span>Niv./dons</span><span>Total</span></div>${rows}</div>`);
 }
 const REC = {barbare: 'frapper fort et encaisser ; sans armure, la CA vaut 10 + Dex + Con.', barde: 'le Charisme fait les sorts et l’Inspiration, la Dextérité la CA et l’initiative.',
   clerc: 'la Sagesse fait les sorts, la Constitution tient la Concentration ; la Force sert en armure lourde.', druide: 'la Sagesse fait les sorts et la Forme sauvage, la Constitution tient la Concentration.',
