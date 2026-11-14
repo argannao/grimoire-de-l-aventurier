@@ -237,6 +237,12 @@ main.pmain{max-width:1440px}
 .livres fieldset{border:0;border-top:1px dashed #d9c49a;margin:6px 0 0;padding:6px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:2px 12px}
 .livres legend{font-family:'Cinzel',serif;font-size:12px;color:var(--ink-soft);padding:0 6px 0 0}.livres legend .chip{margin-left:6px;font-size:10.5px;padding:1px 7px}
 .livres label{display:flex;gap:6px;align-items:center;font-size:15px;cursor:pointer}.livres input{width:auto;margin:0;accent-color:var(--blood)}
+.table-in{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin:6px 0}.table-in .fld{flex:1;min-width:220px;margin:0}.table-in .msg{color:var(--blood)}
+.table-on{background:#f4e4b8;border:1px solid var(--gold);border-radius:3px;padding:7px 10px;margin:6px 0;font-size:15.5px}
+.mj .fld{display:block;margin-top:6px}.mj{margin-top:10px;border-top:1px dashed #d9c49a;padding-top:6px}.mj > summary{cursor:pointer;font-family:'Cinzel',serif;font-size:13px;color:var(--ink-soft)}
+#mj-list{max-height:320px;overflow:auto;border:1px solid #d9c49a;border-radius:3px;padding:4px 8px;background:#fff}
+#mj-list fieldset{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}#mj-list small{color:var(--ink-soft)}
+.mj-out{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.mj-out input{flex:1;min-width:200px;font-family:monospace;font-size:13px}
 /* assistant à étapes */
 .work{grid-template-columns:minmax(0,1fr) 320px}
 .cc-steps{list-style:none;margin:0 0 16px;padding:8px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px;position:sticky;top:44px;z-index:20;background:rgba(28,19,13,.94);backdrop-filter:blur(4px)}
@@ -377,7 +383,7 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
     <datalist id="aligns"><option>Loyal bon</option><option>Neutre bon</option><option>Chaotique bon</option><option>Loyal neutre</option><option>Neutre</option><option>Chaotique neutre</option><option>Loyal mauvais</option><option>Neutre mauvais</option><option>Chaotique mauvais</option></datalist>
     <div class="row"><label class="fld"><span>Apparence</span><textarea id="f-apparence" rows="2"></textarea></label><label class="fld"><span>Histoire et personnalité</span><textarea id="f-histoire" rows="2"></textarea></label></div>
     <label class="fld"><span>Notes</span><textarea id="f-notes" rows="2"></textarea></label>
-    <details class="livres" id="livres" open><summary>Livres et règles autorisés <span id="livres-n"></span></summary><div id="livres-ui"></div><p class="hint">Seules les espèces et sous-classes des livres cochés sont proposées. Le Manuel des joueurs 2024 reste la base (classes, historiques, sorts). Les sous-classes 2014 gardent leurs niveaux d’origine.</p></details>
+    <details class="livres" id="livres" open><summary>Livres et règles autorisés <span id="livres-n"></span></summary><div id="table-ui"></div><div id="livres-ui"></div><details class="mj" id="mj"><summary>Je suis MJ : créer un code de table</summary><p class="hint">Cochez ci-dessus les livres autorisés, puis le contenu interdit ci-dessous. Donnez le code à vos joueurs : ils le collent dans « Code de table » et ne peuvent plus choisir que ce que vous autorisez.</p><label class="fld"><span>Nom de la table (facultatif)</span><input id="mj-nom" maxlength="60" placeholder="Ex. : Campagne de Phandalin"></label><input id="mj-q" placeholder="Filtrer le contenu…" style="margin:8px 0 4px"><div id="mj-list"></div><div class="mj-out"><button type="button" class="btn red" id="mj-gen">Générer le code</button><input id="mj-code" readonly placeholder="Le code apparaîtra ici"><button type="button" class="btn" id="mj-copy">Copier</button></div></details><p class="hint">Seules les espèces et sous-classes des livres cochés sont proposées. Le Manuel des joueurs 2024 reste la base (classes, historiques, sorts). Les sous-classes 2014 gardent leurs niveaux d’origine.</p></details>
   </section>
   <section class="box" id="s-esp"><h2>Espèce <span class="st"></span></h2>
     <div class="pick" id="esp"></div><div class="desc" id="esp-d"></div>
@@ -440,7 +446,7 @@ const WEAP = {'hache à deux mains':['1d12','tr',''],'hachette':['1d6','tr','j']
   'lance':['1d6','perf','j'],'bâton':['1d6','cont',''],'épée longue':['1d8','tr',''],'javeline':['1d6','perf','j'],'cimeterre':['1d6','tr','f'],'épée courte':['1d6','perf','f'],'arc long':['1d8','perf','d'],'arc court':['1d6','perf','d']};
 const ARM = [['cuir clouté',12,99],['armure de cuir',11,99],['chemise de mailles',13,2],['cotte de mailles',16,0]];
 const fresh = () => ({nom:'', joueur:'', niveau:1, esp:'', espNote:'', cls:'', sub:'', bg:'', bgMode:'21', bg2:'', bg1:'', base:{For:8,Dex:8,Con:8,Int:8,Sag:8,Cha:8}, extra:{For:0,Dex:0,Con:0,Int:0,Sag:0,Cha:0},
-  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:'', method:'pb', livres:["phb", "eberron", "lorwyn", "faerun", "ravenloft", "arcana"]});
+  skills:{}, eqC:'A', eqB:'A', spells:[], ca:'', align:'', apparence:'', histoire:'', notes:'', method:'pb', table:null, livres:["phb", "eberron", "lorwyn", "faerun", "ravenloft", "arcana"]});
 let P = fresh();
 // n'écrit que si le contenu change : un rendu déclenché par un blur ne doit pas remplacer le bouton qu'on est en train de cliquer
 const put = (el, h) => { if (el._h !== h){ el._h = h; el.innerHTML = h; } };
@@ -477,19 +483,19 @@ function render(){
   $('#f-nom').value = P.nom; $('#f-joueur').value = P.joueur; $('#f-niveau').value = P.niveau; $('#f-align').value = P.align;
   stepOK('s-id', !!P.nom, 'nom à choisir');
   // espèce
-  livres(); const okB = x => P.livres.includes(x.bk || 'phb');
+  livres(); const okB = x => books().includes(x.bk || 'phb') && !banned('s:' + x.n) && !banned('e:' + x.k);
   picker($('#esp'), D.species.filter(x => okB(x) || x.k === P.esp), P.esp, 'esp', x => x.b + (okB(x) ? '' : ' · non autorisé'));
   $('#esp-d').innerHTML = s ? `<dl>${Object.entries(s.st).map(([k, v]) => `<b>${esc(k)}</b> ${esc(v)}`).join(' · ')}</dl><ul>${s.tr.map(([n, t]) => `<li><b>${esc(n)}.</b> ${t}</li>`).join('')}</ul>` : '';
   $('#f-espnote').value = P.espNote; stepOK('s-esp', !!s && okB(s), !s ? 'à choisir' : 'livre non autorisé');
   // classe
-  picker($('#cls'), D.classes, P.cls, 'cls', x => 'd' + x.hd + ' · ' + ABN[x.prim]);
+  picker($('#cls'), D.classes.filter(x => !banned('c:' + x.k) || x.k === P.cls), P.cls, 'cls', x => 'd' + x.hd + ' · ' + ABN[x.prim] + (banned('c:' + x.k) ? ' · interdite' : ''));
   $('#sub-w').hidden = !c || P.niveau < 3;
   if (c){ $('#f-sub').innerHTML = '<option value="">— sous-classe —</option>' + c.subs.filter(x => okB(x) || x.n === P.sub).map(x => `<option value="${esc(x.n)}" ${x.n === P.sub ? 'selected' : ''}>${esc(x.n)}${x.bk && x.bk !== 'phb' ? ' (' + esc(x.b) + ')' : ''}${okB(x) ? '' : ' · non autorisé'}</option>`).join(''); }
   $('#cls-d').innerHTML = c ? `<b>Dé de vie</b> d${c.hd} · <b>Sauvegardes</b> ${c.saves.map(a => ABN[a]).join(', ')} · <b>Armures</b> ${esc(c.arm)} · <b>Armes</b> ${esc(c.wea)}${c.tools ? ' · <b>Outils</b> ' + esc(c.tools) : ''}
     <ul>${c.feats.filter(f => f[0] <= P.niveau).map(f => `<li><span class="lvl">${f[0]}</span> <b>${esc(f[1])}.</b> ${f[2]}</li>`).join('')}</ul>` : '';
-  { const sb = c && c.subs.find(x => x.n === P.sub); stepOK('s-cls', !!c && (P.niveau < 3 || (!!sb && okB(sb))), !c ? 'à choisir' : sb && !okB(sb) ? 'sous-classe non autorisée' : 'sous-classe à choisir'); }
+  { const sb = c && c.subs.find(x => x.n === P.sub); stepOK('s-cls', !!c && !banned('c:' + c.k) && (P.niveau < 3 || (!!sb && okB(sb))), !c ? 'à choisir' : banned('c:' + c.k) ? 'classe interdite par le MJ' : sb && !okB(sb) ? 'sous-classe non autorisée' : 'sous-classe à choisir'); }
   // historique
-  picker($('#bg'), D.bgs, P.bg, 'bg', x => x.ab.join(' · '));
+  picker($('#bg'), D.bgs.filter(x => !banned('h:' + x.k) || x.k === P.bg), P.bg, 'bg', x => x.ab.join(' · ') + (banned('h:' + x.k) ? ' · interdit' : ''));
   $('#bg-ab').hidden = !b;
   if (b){ const opt = a => b.ab.map(x => `<option ${x === a ? 'selected' : ''}>${x}</option>`).join('');
     put($('#bg-ab'), `<div class="chips"><span class="chip ${P.bgMode === '21' ? 'on' : ''}" data-m="21">+2 / +1</span><span class="chip ${P.bgMode === '111' ? 'on' : ''}" data-m="111">+1 / +1 / +1</span>
@@ -497,7 +503,7 @@ function render(){
     $('#bg-d').innerHTML = `<b>Don d’origine</b> ${esc(b.feat)}${b.featp ? ' (liste : ' + esc(b.featp) + ')' : ''} · <b>Compétences</b> ${b.sk.join(', ')} · <b>Outil</b> ${esc(b.tool)}<div>${D.feats[b.feat] || ''}</div>`; }
   else $('#bg-d').innerHTML = '';
   const bgOK = b && (P.bgMode === '111' || (P.bg2 && P.bg1 && P.bg2 !== P.bg1));
-  stepOK('s-bg', bgOK, !b ? 'à choisir' : '+2 et +1 sur deux caractéristiques différentes');
+  stepOK('s-bg', bgOK && !banned('h:' + b.k), !b ? 'à choisir' : banned('h:' + b.k) ? 'historique interdit par le MJ' : '+2 et +1 sur deux caractéristiques différentes');
   // caractéristiques
   abilities(); stepOK('s-ab', abOK(), {std: 'une valeur du tableau chacune', pb: 'au plus 27 points, de 8 à 15', des: 'valeurs de 3 à 18'}[P.method]);
   // compétences
@@ -630,19 +636,69 @@ function sheet(){
       ${s ? s.tr.map(([n, t]) => `<p><b>${esc(n)}.</b> ${t.replace(/<div class="table-wrap">[\s\S]*?<\/div>/g, '').replace(/<[^>]+>/g, '')}</p>`).join('') : ''}${P.espNote ? `<p><b>Choix d’espèce.</b> ${esc(P.espNote)}</p>` : ''}
       ${feats.map(f => `<p><b>${esc(f[1])}</b> (niv. ${f[0]}). ${f[2].replace(/<[^>]+>/g, '')}</p>`).join('')}</div>
     ${P.apparence || P.histoire || P.notes ? `<h4>Personnage</h4>${[P.apparence, P.histoire, P.notes].filter(Boolean).map(t => `<p style="white-space:pre-wrap;margin:3px 0">${esc(t)}</p>`).join('')}` : ''}
-    <div class="foot"><span>Grimoire de l’aventurier · règles 2024${D.books[2][1].some(([k]) => P.livres.includes(k)) ? ' et options 2014' : ''}</span><span>${new Date().toLocaleDateString('fr-FR')}</span></div></div>`;
+    <div class="foot"><span>Grimoire de l’aventurier · règles 2024${D.books[2][1].some(([k]) => books().includes(k)) ? ' et options 2014' : ''}</span><span>${new Date().toLocaleDateString('fr-FR')}</span></div></div>`;
 }
 
 // ------------------------------------------------------------------ événements
+
+// ------------------------------------------------------------------ code de table (MJ → joueurs)
+const KNOWN = new Set(D.books.flatMap(([, L]) => L.map(([k]) => k)));
+const books = () => P.table ? P.table.l : P.livres;
+const banned = id => !!(P.table && P.table.x.includes(id));
+const b64e = s => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)));
+function encodeTable(t){ return 'GRIM1.' + b64e(JSON.stringify({n: t.n || '', l: t.l, x: t.x})); }
+function decodeTable(code){  // le code vient d'un tiers : on valide tout
+  const m = /^GRIM1\.([A-Za-z0-9_-]{4,6000})$/.exec(String(code).trim()); if (!m) return null;
+  let o; try { o = JSON.parse(b64d(m[1])); } catch(e){ return null; }
+  if (!o || typeof o !== 'object' || !Array.isArray(o.l) || !Array.isArray(o.x)) return null;
+  const l = o.l.filter(k => typeof k === 'string' && KNOWN.has(k)); if (!l.includes('phb')) l.unshift('phb');
+  const x = o.x.filter(k => typeof k === 'string' && k.length < 120 && /^[ecsh]:/.test(k)).slice(0, 600);
+  return {n: typeof o.n === 'string' ? o.n.slice(0, 60) : '', l, x};
+}
+function tableUI(){
+  const t = P.table;
+  put($('#table-ui'), t ? `<div class="table-on">🔒 <b>Règles de la table${t.n ? ' « ' + esc(t.n) + ' »' : ''}</b> : ${t.l.length} livre${t.l.length > 1 ? 's' : ''}${t.x.length ? `, ${t.x.length} contenu${t.x.length > 1 ? 's' : ''} interdit${t.x.length > 1 ? 's' : ''}` : ''}. <button type="button" class="chip" id="table-off">Retirer le code</button></div>`
+    : `<div class="table-in"><label class="fld"><span>Code de table (donné par le MJ)</span><input id="table-code" placeholder="GRIM1.…" spellcheck="false"></label><button type="button" class="btn" id="table-apply">Appliquer</button><span class="msg" id="table-msg"></span></div>`);
+}
+let MJ = store.get('grimoire-pj-mj', {n: '', x: []});
+function mjList(){
+  const q = ($('#mj-q').value || '').toLowerCase(), on = id => MJ.x.includes(id) ? 'checked' : '';
+  const box = (id, n, sub) => (!q || n.toLowerCase().includes(q)) ? `<label><input type="checkbox" data-ban="${esc(id)}" ${on(id)}> ${esc(n)}${sub ? ` <small>${esc(sub)}</small>` : ''}</label>` : '';
+  const grp = (t, items) => { const hh = items.join(''); return hh ? `<fieldset><legend>${t}</legend>${hh}</fieldset>` : ''; };
+  put($('#mj-list'), grp('Classes', D.classes.map(c => box('c:' + c.k, c.n)))
+    + D.classes.map(c => grp('Sous-classes · ' + c.n, c.subs.filter(s => P.livres.includes(s.bk || 'phb')).map(s => box('s:' + s.n, s.n, s.bk !== 'phb' ? s.b : '')))).join('')
+    + grp('Espèces', D.species.filter(s => P.livres.includes(s.bk || 'phb')).map(s => box('e:' + s.k, s.n, s.bk !== 'phb' ? s.b : '')))
+    + grp('Historiques', D.bgs.map(b => box('h:' + b.k, b.n))));
+}
+function bindTable(){
+  $('#table-ui').addEventListener('click', e => {
+    if (e.target.id === 'table-off'){ if (confirm('Retirer le code de table ? Vous pourrez de nouveau choisir tous les livres.')){ P.table = null; render(); } return; }
+    if (e.target.id !== 'table-apply') return;
+    const t = decodeTable($('#table-code').value);
+    if (!t){ $('#table-msg').textContent = 'Code invalide.'; return; }
+    P.table = t; render();
+  });
+  $('#mj').addEventListener('toggle', mjList);
+  $('#mj-q').addEventListener('input', mjList);
+  $('#mj-nom').value = MJ.n || '';
+  $('#mj-nom').addEventListener('input', e => { MJ.n = e.target.value; store.set('grimoire-pj-mj', MJ); });
+  $('#mj-list').addEventListener('change', e => { const id = e.target.dataset.ban; if (!id) return;
+    MJ.x = e.target.checked ? [...new Set([...MJ.x, id])] : MJ.x.filter(x => x !== id); store.set('grimoire-pj-mj', MJ); });
+  $('#mj-gen').onclick = () => { $('#mj-code').value = encodeTable({n: MJ.n, l: P.livres, x: MJ.x}); $('#mj-code').select(); };
+  $('#mj-copy').onclick = async () => { const v = $('#mj-code').value; if (!v) return; try { await navigator.clipboard.writeText(v); $('#mj-copy').textContent = 'Copié ✓'; } catch(e){ $('#mj-code').select(); } setTimeout(() => $('#mj-copy').textContent = 'Copier', 1500); };
+}
 function livres(){
   if (!Array.isArray(P.livres)) P.livres = fresh().livres;
   if (!P.livres.includes('phb')) P.livres.push('phb');
-  put($('#livres-ui'), D.books.map(([g, L]) => `<fieldset><legend>${g}${g.includes('2014') ? ' <button type="button" class="chip" data-tous="1">tout</button><button type="button" class="chip" data-tous="0">aucun</button>' : ''}</legend>${L.map(([k, n]) =>
-    `<label><input type="checkbox" data-livre="${k}" ${P.livres.includes(k) ? 'checked' : ''} ${k === 'phb' ? 'disabled' : ''}> ${n}</label>`).join('')}</fieldset>`).join(''));
-  const legacy = D.books[2][1].some(([k]) => P.livres.includes(k));
-  $('#livres-n').textContent = `· ${P.livres.length} livre${P.livres.length > 1 ? 's' : ''}${legacy ? ', options 2014 incluses' : ', règles 2024'}`;
+  tableUI(); const lock = !!P.table, B0 = books();
+  put($('#livres-ui'), D.books.map(([g, L]) => `<fieldset><legend>${g}${g.includes('2014') && !lock ? ' <button type="button" class="chip" data-tous="1">tout</button><button type="button" class="chip" data-tous="0">aucun</button>' : ''}</legend>${L.map(([k, n]) =>
+    `<label><input type="checkbox" data-livre="${k}" ${B0.includes(k) ? 'checked' : ''} ${k === 'phb' || lock ? 'disabled' : ''}> ${n}</label>`).join('')}</fieldset>`).join(''));
+  const legacy = D.books[2][1].some(([k]) => B0.includes(k));
+  $('#livres-n').textContent = `${lock ? '🔒 ' : '· '}${B0.length} livre${B0.length > 1 ? 's' : ''}${legacy ? ', options 2014 incluses' : ', règles 2024'}`;
 }
 function bind(){
+  bindTable();
   $('#livres-ui').addEventListener('change', e => { const k = e.target.dataset.livre; if (!k) return; P.livres = e.target.checked ? [...new Set([...P.livres, k])] : P.livres.filter(x => x !== k); render(); });
   $('#livres-ui').addEventListener('click', e => { const t = e.target.closest('[data-tous]'); if (!t) return; const L = D.books[2][1].map(([k]) => k);
     P.livres = t.dataset.tous === '1' ? [...new Set([...P.livres, ...L])] : P.livres.filter(x => !L.includes(x)); render(); });
@@ -675,10 +731,12 @@ function bind(){
   $('#print').onclick = () => print();
   $('#export').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(P, null, 1)], {type: 'application/json'})); a.download = (P.nom || 'personnage').replace(/[^\w-]+/g, '_') + '.json'; a.click(); };
   $('#import').onclick = () => $('#file').click();
-  $('#file').onchange = async e => { try { const x = JSON.parse(await e.target.files[0].text()); if (typeof x !== 'object' || !x || !('base' in x)) throw 0; P = Object.assign(fresh(), x); guessMethod(x); render(); msg('Personnage importé.'); } catch(_) { msg('Fichier invalide.'); } e.target.value = ''; };
+  $('#file').onchange = async e => { try { const x = JSON.parse(await e.target.files[0].text()); if (typeof x !== 'object' || !x || !('base' in x)) throw 0; P = Object.assign(fresh(), x); guessMethod(x); checkTable(); render(); msg('Personnage importé.'); } catch(_) { msg('Fichier invalide.'); } e.target.value = ''; };
   saved();
 }
 { const d = store.get('grimoire-pj-brouillon', {}); P = Object.assign(fresh(), d); guessMethod(d); }
+function checkTable(){ if (P.table) P.table = decodeTable(encodeTable(P.table)); }
+checkTable();
 bind(); render();
 
 </script>
