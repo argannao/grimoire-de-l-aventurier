@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Règles du jeu D&amp;D 2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#2b1d12; --ink-soft:#5a4330;
+  --parch:#f3e6c8; --parch-dark:#e6d2a6;
+  --blood:#8e1b1b; --blood-dark:#5e0f0f;
+  --gold:#b8892e; --gold-light:#d9b25f;
+  --forest:#3f6b3a;
+  --leather:#1c130d; --shadow:rgba(40,20,5,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--leather);
+  background-image:radial-gradient(ellipse at top,#3a2516 0%,transparent 60%),radial-gradient(ellipse at bottom,#2a1a10 0%,transparent 60%);
+  color:var(--ink); font-family:'Crimson Text',Georgia,serif; font-size:18px; line-height:1.55;
+}
+a{color:var(--blood)} a:hover{color:var(--blood-dark)}
+.spell{font-style:italic;text-decoration:none;border-bottom:1px dotted currentColor}
+
+/* En-tête */
+header{text-align:center;padding:56px 16px 40px;color:var(--parch)}
+header .sigil{width:74px;height:74px;margin:0 auto 14px;border:2px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(184,137,46,.15)}
+header .sigil span{transform:rotate(-45deg);font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold-light)}
+header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,6vw,56px);margin:0;color:var(--gold-light);text-shadow:0 2px 0 #000,0 0 24px rgba(217,178,95,.25)}
+header p{font-family:'Cinzel',serif;letter-spacing:3px;text-transform:uppercase;font-size:13px;color:#c9b48a;margin:10px 0 0}
+
+/* Navigation */
+nav{position:sticky;top:0;z-index:10;background:rgba(28,19,13,.95);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+nav ul{list-style:none;margin:0 auto;padding:10px 12px;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+nav a{font-family:'Cinzel',serif;font-size:14px;color:var(--parch);text-decoration:none;letter-spacing:1px}
+nav a:hover{color:var(--gold-light)}
+
+main{max-width:1000px;margin:36px auto 60px;padding:0 16px}
+.panel{
+  background:var(--parch);
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.35),transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,100,40,.18),transparent 50%);
+  border-radius:4px;box-shadow:0 10px 30px var(--shadow),inset 0 0 60px rgba(120,80,30,.25);
+  padding:32px clamp(18px,5vw,48px);margin-bottom:34px;position:relative;scroll-margin-top:70px;
+}
+.panel > h2{font-family:'Cinzel',serif;color:var(--blood);margin-top:0;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{font-family:'Cinzel',serif;font-size:17px;color:var(--blood);letter-spacing:1px;margin:24px 0 8px}
+
+/* Carte d'espèce */
+.species::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(var(--blood),var(--blood-dark));border-radius:4px 0 0 4px}
+.species-head{display:flex;align-items:center;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px}
+.emblem{width:112px;height:112px;flex:none;filter:drop-shadow(0 4px 6px rgba(40,20,5,.35))}
+.species-title{flex:1;min-width:0}
+.species h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(26px,4vw,36px);color:var(--blood);margin:0;letter-spacing:1px}
+.species .sub{font-style:italic;color:var(--ink-soft);font-size:18px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:3px 9px;border-radius:2px}
+.badge.alt{background:var(--ink)}
+.badge.green{background:var(--forest)}
+
+.lore p{margin:0 0 12px}
+.lore p:first-child::first-letter{font-family:'Cinzel Decorative',serif;float:left;font-size:54px;line-height:.9;padding:4px 8px 0 0;color:var(--blood)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:18px 0;clear:both}
+.stat{background:var(--parch-dark);border:1px solid var(--gold);padding:6px 12px;border-radius:2px;font-size:16px}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--blood)}
+
+.traits{list-style:none;padding:0;margin:0}
+.traits > li{padding:10px 0 10px 26px;position:relative;border-bottom:1px dotted rgba(90,67,48,.35)}
+.traits > li:last-child{border-bottom:none}
+.traits > li::before{content:"◆";position:absolute;left:4px;top:11px;color:var(--gold);font-size:13px}
+.traits strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.5px}
+.lvl{display:inline-block;font-family:'Cinzel',serif;font-size:11px;background:var(--ink);color:var(--gold-light);padding:1px 6px;border-radius:2px;margin-left:4px;vertical-align:2px}
+.traits ul{margin:6px 0 0;padding-left:20px}
+.traits ul li{margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:16px}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;background:var(--blood);color:var(--parch);padding:7px 8px;text-align:left}
+td{padding:7px 8px;border-bottom:1px solid rgba(90,67,48,.3);vertical-align:top}
+tr:nth-child(even) td{background:rgba(230,210,166,.55)}
+.table-wrap{overflow-x:auto}
+
+details{margin-top:14px;border:1px solid var(--gold);border-radius:2px;background:rgba(230,210,166,.45)}
+summary{cursor:pointer;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;color:var(--blood);padding:9px 14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--gold)}
+details[open] summary::before{content:"▾ "}
+details .inner{padding:0 16px 12px}
+details ul{padding-left:20px;margin:6px 0}
+details li{margin-bottom:5px}
+
+.links{margin-top:18px;padding-top:12px;border-top:1px solid rgba(184,137,46,.6);font-size:15px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.links span{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+.links a{text-decoration:none;border-bottom:1px solid currentColor}
+.top{float:right;font-family:'Cinzel',serif;font-size:12px;text-decoration:none}
+
+.note{font-size:15px;color:var(--ink-soft);font-style:italic}
+.other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px}
+.other{background:var(--parch-dark);border:1px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:16px}
+.other a{font-family:'Cinzel',serif;font-weight:700;text-decoration:none}
+
+footer{text-align:center;color:#a38f6a;font-size:14px;padding:0 16px 40px}
+@media (max-width:600px){
+  body{font-size:17px}
+  .species-head{flex-direction:column;text-align:center}
+  .badges{justify-content:center}
+  .emblem{width:96px;height:96px}
+}
+
+
+.topnav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 12px 0}
+.topnav a{font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;color:var(--gold-light);text-decoration:none;border:1px solid var(--gold);padding:5px 12px;border-radius:2px}
+.topnav a.on,.topnav a:hover{background:var(--gold);color:var(--leather)}
+main{max-width:1100px}
+.panel{overflow-wrap:break-word;scroll-margin-top:60px}
+#sources a{overflow-wrap:anywhere}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0}
+a.mini{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--parch-dark);border:1px solid var(--gold);padding:8px 10px;border-radius:3px;font-size:14.5px;line-height:1.3}
+a.mini:hover{background:#fff7e3}
+a.mini b{font-family:'Cinzel',serif;color:var(--blood);font-size:14.5px}
+a.mini em{font-style:normal;font-family:'Cinzel',serif;font-size:11px;background:var(--leather);color:var(--gold-light);padding:1px 6px;border-radius:8px}
+a.mini i{color:var(--ink-soft)}
+a.mini small{color:var(--forest);font-weight:600}
+.art svg{display:block}
+.chip{font-size:14px;text-decoration:none;border:1px solid var(--gold);background:#fff7e3;color:var(--ink);padding:2px 9px;border-radius:12px;white-space:nowrap;display:inline-block;margin:2px 0}
+.chip:hover{background:var(--gold);color:var(--leather)}
+.chip.r{border-color:var(--blood);color:var(--blood)}
+.gguide{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.gcard{background:var(--parch-dark);border:1px solid var(--gold);border-radius:3px;padding:8px 12px}
+.gcard h3{margin:0 0 4px;font-family:'Cinzel',serif;font-size:16px}
+.gcard h3 a{color:var(--blood);text-decoration:none}
+.gcard ul{margin:0;padding-left:18px;font-size:15px}
+.wildctl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;background:var(--parch-dark);border:1px solid var(--gold);padding:8px 12px;margin:10px 0;font-size:15.5px}
+.wildctl select{font-family:'Crimson Text',serif;font-size:15.5px;padding:4px 6px;border:1px solid var(--gold);background:#fffaf0}
+.wildctl .res{font-family:'Cinzel',serif;color:var(--blood);font-size:14px}
+.stat-inline{background:var(--parch-dark);border-left:4px solid var(--blood);padding:10px 14px;font-size:15.5px;margin:10px 0}
+.stat-inline b{font-family:'Cinzel',serif;font-size:12.5px;color:var(--blood)}
+table.inv td small{color:var(--ink-soft)}
+.note{font-size:14.5px;font-style:italic;color:var(--ink-soft)}
+.summary-note{font-size:14.5px;color:var(--ink-soft);font-style:italic;border-top:1px dotted var(--ink-soft);padding-top:6px}
+@media (max-width:600px){table.inv td:nth-child(3){display:none}}
+
+
+/* finitions */
+#sources a,.links a{overflow-wrap:anywhere}
+footer.sitefoot{padding:26px 16px 34px;margin-top:10px;border-top:1px solid rgba(184,137,46,.25);font-size:12.5px;color:#a38f6a;text-align:center}
+footer.sitefoot .fl{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px}
+footer.sitefoot a{color:#c9b48a;text-decoration:none}footer.sitefoot a:hover{color:var(--gold-light);text-decoration:underline}
+footer.sitefoot .gh{display:inline-flex;align-items:center;gap:7px;color:#c9b48a}
+footer.sitefoot .gh svg{width:20px;height:20px;fill:currentColor}
+footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
+@media (max-width:700px){.panel table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+/* règles du jeu */
+.rule{padding:4px 0 14px;border-bottom:1px dotted rgba(90,67,48,.35);scroll-margin-top:calc(var(--navh,50px) + 70px)}.rule:last-child{border-bottom:0}
+.rule h3{margin-top:14px}.rule ul,.rule ol{padding-left:22px;margin:6px 0}.rule li{margin-bottom:5px}
+.rsearch{position:sticky;top:calc(var(--navh,46px) + 8px);z-index:5;max-width:1000px;margin:0 auto 18px;display:flex;gap:10px;align-items:center;background:rgba(28,19,13,.92);border:1px solid var(--gold);border-radius:4px;padding:8px 12px}
+.rsearch input{flex:1;min-width:0;font:inherit;font-size:16px;padding:7px 10px;border:1px solid var(--gold);border-radius:3px;background:var(--parch)}
+.rsearch span{color:var(--gold-light);font-family:'Cinzel',serif;font-size:13px;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}.chips a{font-family:'Cinzel',serif;font-size:12px;text-decoration:none;border:1px solid var(--gold);border-radius:12px;padding:2px 10px;background:var(--parch-dark)}
+.panel[hidden],.rule[hidden]{display:none!important}
+@media(max-width:700px){.rsearch{position:static}.rule{scroll-margin-top:calc(var(--navh,110px) + 12px)}}
+</style>
+</head>
+<body>
+<script>/* MODE LIVRE : ?livre=regles n'affiche que le contenu des livres de règles */
+(function(){
+  if (!/[?&]livre=regles\b/.test(location.search)) return;
+  document.documentElement.classList.add('book-mode');
+  var st = document.createElement('style');
+  st.textContent = '.book-mode .topnav,.book-mode .supp-sep,.book-mode #autres,.book-mode .species.supp,.book-mode .supp-book,.book-mode .supp-note,.book-mode .supp-foot,'
+    + '.book-mode nav a[href="#autres"],.book-mode nav li:has(a[href="#autres"]),.book-mode .b-eberron,.book-mode #cat-marque,.book-mode #cat-marque + .cat-sub,.book-mode #fcat option[value=marque],'
+    + '.book-mode #fsrc option[value=eberron],.book-mode #fc option[value=artificer],.book-mode #fsub optgroup[label=Artificier],.book-mode #fsub optgroup[label=Psion],.book-mode .cats a[href="#cat-marque"]{display:none!important}'
+    + '.bookbar2{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 14px;background:rgba(28,19,13,.95);border-bottom:1px solid #b8892e;box-shadow:0 4px 14px rgba(0,0,0,.4)}'
+    + '.bookbar2 a{font-family:Cinzel,serif;font-size:13px;letter-spacing:1px;text-decoration:none;padding:6px 13px;border-radius:3px;border:1px solid #b8892e;color:#d9b25f}'
+    + '.bookbar2 a.home{background:#b8892e;color:#1c130d;font-weight:700}.bookbar2 span{font-family:Cinzel,serif;color:#d9b25f;font-size:14px;letter-spacing:1px}';
+  document.head.appendChild(st);
+  document.addEventListener('DOMContentLoaded', function(){
+    var bar = document.createElement('div'); bar.className = 'bookbar2';
+    bar.innerHTML = '<a class="home" href="index.html#bibliotheque">⌂ Accueil</a><a href="livre-dnd-2024.html#regles">← Règles de base 2024</a><span>Contenu des livres de règles uniquement</span>';
+    document.body.insertBefore(bar, document.body.firstChild);
+  });
+  function keep(a){
+      var h = a.getAttribute('href'); if (!h || /^(https?:|#|mailto:)/.test(h) || a.target === '_blank' || a.closest('.bookbar2')) return;
+      if (/^index\.html/.test(h) || /^livre-dnd-2024\.html/.test(h) || /livre=regles/.test(h)) return;
+      var m = h.match(/^([^?#]+\.html)(\?[^#]*)?(#.*)?$/); if (!m) return;
+      a.setAttribute('href', m[1] + '?livre=regles' + (m[3] || ''));
+  }
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('a[href]'); if (a) keep(a); }, true);
+  document.addEventListener('auxclick', function(e){ var a = e.target.closest && e.target.closest('a[href]'); if (a) keep(a); }, true);
+})();
+</script>
+<div class="topnav"><a href="index.html">⌂ Accueil</a><a class="on" href="regles-dnd-2024.html">Règles</a><a href="especes-dnd-2024.html">Espèces</a><a href="classes-dnd-2024.html">Classes</a><a href="historiques-dnd-2024.html">Historiques</a><a href="dons-dnd-2024.html">Dons</a><a href="sorts-dnd-2024.html">Sorts</a><a href="magasin-dnd-2024.html">Magasin</a><a href="bestiaire-dnd-2024.html">Bestiaire</a><a href="compagnons-dnd-2024.html">Compagnons</a><a href="createur-dnd-2024.html">Atelier</a></div>
+<header>
+  <div class="sigil"><span>⚖</span></div>
+  <h1>Règles du jeu</h1>
+  <p>Règles 2024 · tests, actions, combat, états, exploration, repos et magie</p>
+</header>
+<nav><ul><li><a href="#bases">Les bases</a></li><li><a href="#tests">Les tests d20</a></li><li><a href="#competences">Compétences</a></li><li><a href="#actions">Les actions</a></li><li><a href="#combat">Le combat</a></li><li><a href="#degats">Dégâts et mort</a></li><li><a href="#etats">Les états</a></li><li><a href="#exploration">Exploration</a></li><li><a href="#repos">Repos</a></li><li><a href="#magie">La magie</a></li></ul></nav>
+<main>
+<div class="rsearch" role="search"><input type="search" id="rq" placeholder="Chercher une règle : avantage, agrippé, repos long, concentration…" aria-label="Chercher une règle"><span id="rn"></span></div>
+<section class="panel" id="apercu"><h2>Les règles en un coup d’œil</h2>
+<p>Le résumé des règles du <b>Manuel des joueurs 2024</b> dont on a besoin à la table, d’après le SRD 5.2.1. Pour les options de personnage, voir les <a href="especes-dnd-2024.html">espèces</a>, <a href="classes-dnd-2024.html">classes</a>, <a href="dons-dnd-2024.html">dons</a> et <a href="sorts-dnd-2024.html">sorts</a> ; pour créer un héros, l’<a href="atelier-pj-dnd-2024.html">Atelier de PJ</a>.</p>
+<div class="chips"><a href="#d20">Test d20</a><a href="#avantage">Avantage</a><a href="#tour-actions">Mon tour</a><a href="#opportunite">Attaque d’opportunité</a><a href="#abri">Abri</a><a href="#zero-pv">Tomber à 0 PV</a><a href="#etat-agrippe">Agrippé</a><a href="#concentration">Concentration</a><a href="#repos-long">Repos long</a></div></section>
+<section class="panel" id="bases"><h2>Les bases</h2><div class="rule" id="boucle" data-kw="partie mj joueur pilier exploration social"><h3>Comment se joue une partie</h3><p>Une partie de D&amp;D est une conversation entre le <b>maître du jeu</b> (MJ) et les <b>joueurs</b>, qui suit toujours la même boucle :</p>
+<ol><li><b>Le MJ décrit la scène</b> : où sont les personnages, ce qu’ils voient et entendent.</li>
+<li><b>Les joueurs disent ce que font leurs personnages.</b> Parfois l’un parle pour le groupe, parfois chacun agit de son côté.</li>
+<li><b>Le MJ raconte le résultat.</b> Si l’issue est incertaine, il demande un jet de dé : c’est le <a href="#d20">test d20</a>.</li></ol>
+<p>Le jeu alterne trois piliers : l’<b>exploration</b> (voyager, fouiller, résoudre des énigmes), l’<b>interaction sociale</b> (parler, négocier, mentir) et le <b>combat</b>. Les règles servent à trancher ; en cas de doute, le MJ décide, et les règles particulières (une aptitude, un sort) l’emportent sur les règles générales.</p></div><div class="rule" id="des" data-kw="d4 d6 d8 d10 d12 d20 d100 arrondi"><h3>Les dés</h3><p>On note les dés par leur nombre de faces : d4, d6, d8, d10, d12 et d20. « 3d6 » signifie « lancez trois d6 et additionnez-les » ; « 1d8 + 2 », « lancez un d8 et ajoutez 2 ». Le d100 (ou « dés de pourcentage ») se lance avec deux d10 : les dizaines et les unités. On arrondit toujours <b>à l’inférieur</b>, sauf mention contraire.</p></div><div class="rule" id="carac" data-kw="force dextérité constitution intelligence sagesse charisme modificateur valeur"><h3>Les six caractéristiques</h3><div class="table-wrap"><table><tr><th>Caractéristique</th><th>Mesure</th><th>Exemples</th></tr><tr><td><b>Force</b> (For)</td><td>la puissance physique</td><td>soulever, pousser, Athlétisme, attaques au corps à corps</td></tr><tr><td><b>Dextérité</b> (Dex)</td><td>l’agilité, les réflexes</td><td>Acrobaties, Discrétion, attaques à distance, CA, initiative</td></tr><tr><td><b>Constitution</b> (Con)</td><td>l’endurance</td><td>points de vie, concentration</td></tr><tr><td><b>Intelligence</b> (Int)</td><td>le raisonnement, la mémoire</td><td>Arcanes, Histoire, Investigation, magicien</td></tr><tr><td><b>Sagesse</b> (Sag)</td><td>la perception, l’intuition</td><td>Perception, Intuition, Survie, clerc, druide</td></tr><tr><td><b>Charisme</b> (Cha)</td><td>la force de personnalité</td><td>Persuasion, Tromperie, barde, ensorceleur, occultiste, paladin</td></tr></table></div><p>Chaque valeur (de 1 à 30, 10 étant la moyenne humaine) donne un <b>modificateur</b> = (valeur − 10) ÷ 2, arrondi à l’inférieur :</p><div class="table-wrap"><table><tr><th>Valeur</th><th>1</th><th>2–3</th><th>4–5</th><th>6–7</th><th>8–9</th><th>10–11</th><th>12–13</th><th>14–15</th><th>16–17</th><th>18–19</th><th>20–21</th><th>22–23</th><th>24–25</th><th>26–27</th><th>28–29</th><th>30</th></tr><tr><td>Modificateur</td><td>−5</td><td>−4</td><td>−3</td><td>−2</td><td>−1</td><td>+0</td><td>+1</td><td>+2</td><td>+3</td><td>+4</td><td>+5</td><td>+6</td><td>+7</td><td>+8</td><td>+9</td><td>+10</td></tr></table></div></div><div class="rule" id="maitrise" data-kw="maîtrise bonus expertise niveau"><h3>Le bonus de maîtrise</h3><p>Quand votre personnage <b>maîtrise</b> ce qu’il fait (une compétence, un outil, une arme, un jet de sauvegarde), il ajoute son bonus de maîtrise au jet. Il dépend du niveau (ou du facteur de puissance d’une créature) :</p><div class="table-wrap"><table><tr><th>Niveau</th><th>1–4</th><th>5–8</th><th>9–12</th><th>13–16</th><th>17–20</th></tr><tr><td>Bonus</td><td>+2</td><td>+3</td><td>+4</td><td>+5</td><td>+6</td></tr></table></div><p>On ne l’ajoute qu’une fois par jet. L’<b>Expertise</b> le double pour une compétence.</p></div></section>
+<section class="panel" id="tests"><h2>Les tests d20</h2><div class="rule" id="d20" data-kw="test jet d20 dd ca réussite"><h3>Le test d20</h3><p>Toutes les actions incertaines se résolvent de la même façon :</p>
+<ol><li>Lancez un d20.</li><li>Ajoutez le modificateur de caractéristique, le bonus de maîtrise s’il s’applique, et les éventuels autres bonus ou malus.</li>
+<li>Comparez au nombre cible : un <b>degré de difficulté</b> (DD) ou une <b>classe d’armure</b> (CA). Égal ou supérieur, c’est une réussite.</li></ol>
+<p>Il existe trois tests d20 : le <b>test de caractéristique</b> (réussir une tâche), le <b>jet de sauvegarde</b> (résister à un danger) et le <b>jet d’attaque</b> (toucher une cible).</p></div><div class="rule" id="dd" data-kw="dd difficulté"><h3>Degrés de difficulté</h3><div class="table-wrap"><table><tr><th>Tâche</th><th>DD</th></tr><tr><td>Très facile</td><td>5</td></tr><tr><td>Facile</td><td>10</td></tr><tr><td>Moyenne</td><td>15</td></tr><tr><td>Difficile</td><td>20</td></tr><tr><td>Très difficile</td><td>25</td></tr><tr><td>Quasi impossible</td><td>30</td></tr></table></div><p>Le MJ ne demande un jet que si l’échec est possible et intéressant. Une tâche facile se réussit sans jet.</p></div><div class="rule" id="avantage" data-kw="avantage désavantage deux d20"><h3>Avantage et désavantage</h3><p>Avec l’<b>avantage</b>, lancez deux d20 et gardez le plus haut ; avec le <b>désavantage</b>, gardez le plus bas. Plusieurs avantages ne se cumulent pas : on en a un ou pas. Si vous avez à la fois l’avantage et le désavantage, ils s’annulent et vous lancez un seul d20.</p></div><div class="rule" id="inspiration" data-kw="inspiration héroïque relance"><h3>Inspiration héroïque</h3><p>Le MJ peut l’accorder pour une belle action, un bon jeu de rôle ou un moment héroïque ; certaines aptitudes la donnent aussi (les humains la gagnent à chaque repos long). Vous la dépensez pour <b>relancer n’importe quel dé</b> juste après l’avoir lancé, en gardant le nouveau résultat. On ne peut en avoir qu’une : si vous en gagnez une alors que vous l’avez déjà, vous pouvez la donner à un autre personnage du groupe qui ne l’a pas.</p></div><div class="rule" id="caracteristique" data-kw="test caractéristique opposition passive groupe aide"><h3>Tests de caractéristique</h3><p>Pour tout ce qui n’est ni une attaque ni une sauvegarde : grimper, crocheter, convaincre, se souvenir… Le MJ choisit la caractéristique et, souvent, une <a href="#competences">compétence</a> ou un outil. Si le personnage les maîtrise, il ajoute son bonus de maîtrise.</p>
+<ul><li><b>Opposition</b> : quand deux créatures s’affrontent (bras de fer, se cacher d’un garde), chacune fait son test ; le plus haut l’emporte, et en cas d’égalité la situation ne change pas.</li>
+<li><b>Valeur passive</b> : sans jet, une valeur = 10 + tous les modificateurs du test (+5 avec l’avantage, −5 avec le désavantage). Par exemple la Perception passive, pour remarquer un piège sans le chercher.</li>
+<li><b>Test de groupe</b> : chacun lance ; si au moins la moitié réussit, tout le groupe réussit.</li>
+<li><b>Coopération</b> : un personnage qui maîtrise la compétence peut <a href="#act-aide">aider</a> et donner l’avantage.</li></ul></div><div class="rule" id="sauvegarde" data-kw="jet de sauvegarde résister dd"><h3>Jets de sauvegarde</h3><p>On les fait pour résister à un sort, un poison, un piège : d20 + modificateur de la caractéristique visée + bonus de maîtrise si la classe maîtrise cette sauvegarde. Le DD vient de l’effet ; pour un sort, c’est le <a href="#incantation">DD des sorts</a> du lanceur. Chaque classe maîtrise deux sauvegardes.</p></div><div class="rule" id="attaque" data-kw="attaque ca corps à corps distance portée critique 20 naturel 1 naturel invisible"><h3>Jets d’attaque</h3><p>d20 + modificateur + bonus de maîtrise (si vous maîtrisez l’arme), contre la <b>CA</b> de la cible.</p>
+<ul><li><b>Corps à corps</b> : Force (ou Dextérité avec une arme de finesse) ; portée de 1,50 m, plus avec une arme à allonge.</li>
+<li><b>Distance</b> : Dextérité (ou Force avec une arme de lancer). Au-delà de la portée normale et jusqu’à la portée longue : désavantage. Un ennemi qui vous voit à 1,50 m et n’est pas neutralisé vous donne aussi le désavantage.</li>
+<li><b>Sort</b> : modificateur d’incantation + bonus de maîtrise.</li>
+<li><b>20 naturel</b> : l’attaque touche quoi qu’il arrive, c’est un <a href="#critique">coup critique</a>. <b>1 naturel</b> : elle rate quoi qu’il arrive. Pour les autres tests, 20 et 1 n’ont rien de spécial.</li>
+<li><b>Ne pas voir</b> : attaquer une cible qu’on ne voit pas donne le désavantage ; être attaqué par quelqu’un qu’on ne voit pas lui donne l’avantage.</li></ul></div></section>
+<section class="panel" id="competences"><h2>Compétences</h2><div class="rule" id="liste-competences" data-kw="acrobaties arcanes athlétisme discrétion dressage escamotage histoire intimidation intuition investigation médecine nature perception persuasion religion représentation survie tromperie outil"><h3>Les 18 compétences</h3><div class="table-wrap"><table><tr><th>Compétence</th><th>Caract.</th><th>Pour…</th></tr><tr><td><b>Acrobaties</b></td><td>Dex</td><td>garder l’équilibre, faire une cabriole, se dégager</td></tr><tr><td><b>Arcanes</b></td><td>Int</td><td>sorts, objets magiques, plans d’existence</td></tr><tr><td><b>Athlétisme</b></td><td>For</td><td>sauter, nager, escalader, agripper</td></tr><tr><td><b>Discrétion</b></td><td>Dex</td><td>se cacher, se déplacer sans bruit</td></tr><tr><td><b>Dressage</b></td><td>Sag</td><td>calmer ou diriger un animal</td></tr><tr><td><b>Escamotage</b></td><td>Dex</td><td>vol à la tire, tour de passe-passe</td></tr><tr><td><b>Histoire</b></td><td>Int</td><td>événements, peuples, guerres passées</td></tr><tr><td><b>Intimidation</b></td><td>Cha</td><td>menacer, impressionner</td></tr><tr><td><b>Intuition</b></td><td>Sag</td><td>deviner les intentions, repérer un mensonge</td></tr><tr><td><b>Investigation</b></td><td>Int</td><td>déduire, trouver un indice, un mécanisme</td></tr><tr><td><b>Médecine</b></td><td>Sag</td><td>soigner, diagnostiquer, stabiliser un mourant</td></tr><tr><td><b>Nature</b></td><td>Int</td><td>terrain, plantes, animaux, climat</td></tr><tr><td><b>Perception</b></td><td>Sag</td><td>voir, entendre, remarquer</td></tr><tr><td><b>Persuasion</b></td><td>Cha</td><td>convaincre avec tact</td></tr><tr><td><b>Religion</b></td><td>Int</td><td>dieux, rites, ordres religieux</td></tr><tr><td><b>Représentation</b></td><td>Cha</td><td>chanter, jouer, divertir</td></tr><tr><td><b>Survie</b></td><td>Sag</td><td>pister, s’orienter, chasser</td></tr><tr><td><b>Tromperie</b></td><td>Cha</td><td>mentir, bluffer, se déguiser</td></tr></table></div><p>Le MJ peut associer une compétence à une autre caractéristique (Athlétisme avec la Constitution pour nager longtemps, par exemple). Les <b>outils</b> fonctionnent de la même façon : leur maîtrise ajoute le bonus de maîtrise aux tests qui les utilisent.</p></div></section>
+<section class="panel" id="actions"><h2>Les actions</h2><div class="rule" id="tour-actions" data-kw="action bonus réaction déplacement interaction"><h3>Ce qu’on peut faire à son tour</h3><ul><li><b>Une action</b> : l’une des actions ci-dessous, ou une action donnée par une aptitude.</li>
+<li><b>Un déplacement</b> jusqu’à votre vitesse, que vous pouvez fractionner avant, pendant et après l’action.</li>
+<li><b>Une action Bonus</b>, seulement si une aptitude ou un sort en donne une (attaque de la seconde arme, <em>mot de guérison</em>…).</li>
+<li><b>Une réaction</b> par round, même pendant le tour des autres (attaque d’opportunité, <em>bouclier</em>) ; elle revient au début de votre tour.</li>
+<li><b>Une interaction gratuite</b> avec un objet, et parler brièvement.</li></ul></div><div class="rule" id="act-attaque" data-kw="action attaque"><h3>Attaque</h3><p>Une attaque avec une arme ou à mains nues (plus avec Attaque supplémentaire). Vous pouvez dégainer ou rengainer une arme pendant chaque attaque.</p></div><div class="rule" id="act-aide" data-kw="action aide"><h3>Aide</h3><p>Donnez l’avantage au prochain test de caractéristique d’un allié pour une tâche dont vous maîtrisez la compétence ou l’outil, ou au prochain jet d’attaque d’un allié contre un ennemi à 1,50 m de vous, avant le début de votre prochain tour. L’Aide sert aussi à stabiliser un mourant (Sagesse (Médecine) DD 10).</p></div><div class="rule" id="act-desengagement" data-kw="action désengagement"><h3>Désengagement</h3><p>Votre déplacement ne provoque pas d’attaque d’opportunité jusqu’à la fin du tour.</p></div><div class="rule" id="act-esquive" data-kw="action esquive"><h3>Esquive</h3><p>Jusqu’au début de votre prochain tour, les attaques contre vous ont le désavantage (si vous voyez l’attaquant) et vous avez l’avantage aux sauvegardes de Dextérité. Perdu si vous êtes neutralisé ou si votre vitesse tombe à 0.</p></div><div class="rule" id="act-etude" data-kw="action étude"><h3>Étude</h3><p>Un test d’Intelligence pour vous souvenir ou analyser : Arcanes, Histoire, Investigation, Nature ou Religion.</p></div><div class="rule" id="act-foncer" data-kw="action foncer"><h3>Foncer</h3><p>Vous gagnez un déplacement supplémentaire égal à votre vitesse pour ce tour.</p></div><div class="rule" id="act-fouille" data-kw="action fouille"><h3>Fouille</h3><p>Un test de Sagesse pour repérer ce qui n’est pas évident : Intuition, Médecine, Perception ou Survie.</p></div><div class="rule" id="act-furtivite" data-kw="action furtivité"><h3>Furtivité</h3><p>Si vous êtes dans une zone à visibilité nulle ou derrière un abri important ou total, hors de vue des ennemis : Dextérité (Discrétion) DD 15. En cas de réussite, vous avez l’état <a href="#etat-invisible">invisible</a> ; votre résultat devient le DD pour vous trouver. L’effet cesse si vous faites du bruit (plus qu’un murmure), si on vous trouve, si vous attaquez ou si vous lancez un sort à composante verbale.</p></div><div class="rule" id="act-influence" data-kw="action influence"><h3>Influence</h3><p>Persuader, tromper, intimider ou divertir une créature. Le MJ fixe son attitude (amicale, indifférente, hostile) ; une créature indifférente demande souvent un test DD 15 ou égal à son Intelligence (le plus haut des deux). Une créature hostile ou une demande contraire à sa nature peut être impossible.</p></div><div class="rule" id="act-magie" data-kw="action magie"><h3>Magie</h3><p>Lancer un sort au temps d’incantation d’une action, utiliser un objet magique ou une aptitude magique.</p></div><div class="rule" id="act-preparation" data-kw="action préparation"><h3>Préparation</h3><p>Choisissez un déclencheur perceptible et une réaction (une action ou un déplacement jusqu’à votre vitesse). Quand il survient, vous agissez par votre réaction. Préparer un sort demande de le lancer tout de suite et de maintenir la concentration jusqu’au déclencheur.</p></div><div class="rule" id="act-utilisation" data-kw="action utilisation"><h3>Utilisation</h3><p>Utiliser un objet non magique qui le demande : boire ou administrer une potion, allumer une lanterne, actionner un levier, crocheter une serrure avec des outils. Interagir avec un seul objet en passant (ouvrir une porte, ramasser une épée) est gratuit une fois par tour.</p></div></section>
+<section class="panel" id="combat"><h2>Le combat</h2><div class="rule" id="deroulement" data-kw="initiative round tour surprise"><h3>Le déroulement d’un combat</h3><ol><li><b>Positions</b> : le MJ place les créatures.</li>
+<li><b>Initiative</b> : chacun fait un test de Dextérité ; l’ordre va du plus haut au plus bas et reste le même tout le combat. Le MJ lance une fois pour un groupe de monstres identiques.</li>
+<li><b>Tours</b> : chacun agit à son tour. Un <b>round</b> (tout le monde a joué une fois) dure environ 6 secondes.</li>
+<li>On recommence les tours jusqu’à la fin du combat.</li></ol>
+<p><b>Surprise</b> : une créature prise au dépourvu a le désavantage à son jet d’initiative. Une créature <a href="#etat-invisible">invisible</a> a l’avantage.</p></div><div class="rule" id="deplacement" data-kw="déplacement terrain difficile escalade nage ramper saut se relever"><h3>Se déplacer</h3><ul><li><b>Terrain difficile</b> (broussailles, gravats, escalier, neige) : chaque mètre coûte un mètre de plus.</li>
+<li><b>Escalader, nager, ramper</b> : chaque mètre coûte un mètre de plus, sauf si vous avez une vitesse d’escalade ou de nage.</li>
+<li><b>Se relever</b> quand on est <a href="#etat-a-terre">à terre</a> coûte la moitié de sa vitesse. Se jeter à terre ne coûte rien.</li>
+<li><b>Saut en longueur</b> : autant de fois 30 cm que votre Force, avec 3 m d’élan (moitié sans élan). <b>Saut en hauteur</b> : (3 + modificateur de Force) × 30 cm avec élan, moitié sans élan.</li>
+<li><b>Traverser une créature</b> : l’espace d’un allié, d’une créature neutralisée, très petite, ou plus grande ou plus petite d’au moins deux tailles se traverse, comme un terrain difficile ; on ne peut pas y terminer son déplacement.</li></ul></div><div class="rule" id="opportunite" data-kw="attaque d’opportunité réaction allonge"><h3>Attaque d’opportunité</h3><p>Quand une créature que vous voyez sort de votre allonge, vous pouvez utiliser votre réaction pour lui porter une attaque au corps à corps. Pas d’attaque d’opportunité si elle prend l’action <a href="#act-desengagement">Désengagement</a>, se téléporte ou est déplacée sans utiliser son déplacement, son action ou sa réaction (une poussée, par exemple).</p></div><div class="rule" id="abri" data-kw="abri couvert ca"><h3>Abri</h3><div class="table-wrap"><table><tr><th>Abri</th><th>Effet</th><th>Exemple</th></tr><tr><td>Partiel (moitié)</td><td>+2 à la CA et aux sauvegardes de Dextérité</td><td>muret, tronc, autre créature</td></tr><tr><td>Important (trois quarts)</td><td>+5 à la CA et aux sauvegardes de Dextérité</td><td>meurtrière, herse</td></tr><tr><td>Total</td><td>impossible à cibler directement</td><td>mur plein</td></tr></table></div></div><div class="rule" id="mains-nues" data-kw="mains nues empoigner agripper pousser lutte"><h3>Frappe à mains nues, empoigner, pousser</h3><p>Une frappe à mains nues inflige 1 + modificateur de Force dégâts contondants. Au lieu de frapper, vous pouvez :</p>
+<ul><li><b>Empoigner</b> une créature d’au plus une taille de plus que vous, avec une main libre : elle fait une sauvegarde de Force ou de Dextérité (son choix) contre DD 8 + Force + bonus de maîtrise, ou elle est <a href="#etat-agrippe">agrippée</a>.</li>
+<li><b>Pousser</b> : même sauvegarde, ou vous la repoussez de 1,50 m ou la faites tomber <a href="#etat-a-terre">à terre</a>.</li></ul></div><div class="rule" id="deux-armes" data-kw="deux armes légère action bonus botte"><h3>Combattre à deux armes</h3><p>Quand vous attaquez avec une arme légère, vous pouvez attaquer avec une autre arme légère tenue dans l’autre main par une action Bonus, sans ajouter votre modificateur aux dégâts (sauf s’il est négatif). Certaines <b>bottes d’arme</b> (maîtrise des armes) changent ces règles.</p></div><div class="rule" id="monture" data-kw="monture cheval sous l’eau nage"><h3>Combat monté et sous l’eau</h3><p><b>Monture</b> : monter ou descendre coûte la moitié de votre vitesse. Une monture dressée que vous contrôlez agit à votre initiative et ne peut que Foncer, se Désengager ou Esquiver ; une monture indépendante garde son initiative et agit à sa guise.</p>
+<p><b>Sous l’eau</b> : sans vitesse de nage, les attaques au corps à corps ont le désavantage, sauf avec une dague, un javelot, une épée courte, une lance ou un trident. Les attaques à distance ratent au-delà de la portée normale et ont le désavantage en deçà (sauf arbalète, filet ou armes de lancer comme le javelot). Une créature entièrement immergée résiste aux dégâts de feu.</p></div><div class="rule" id="tailles" data-kw="taille espace case quadrillage"><h3>Tailles et espace</h3><div class="table-wrap"><table><tr><th>Taille</th><th>Espace occupé</th></tr><tr><td>Très petite (TP)</td><td>75 cm × 75 cm</td></tr><tr><td>Petite (P)</td><td>1,50 m × 1,50 m</td></tr><tr><td>Moyenne (M)</td><td>1,50 m × 1,50 m</td></tr><tr><td>Grande (G)</td><td>3 m × 3 m</td></tr><tr><td>Très grande (TG)</td><td>4,50 m × 4,50 m</td></tr><tr><td>Gigantesque (Gig)</td><td>6 m × 6 m ou plus</td></tr></table></div><p>Sur un quadrillage, une case fait 1,50 m de côté.</p></div></section>
+<section class="panel" id="degats"><h2>Dégâts et mort</h2><div class="rule" id="critique" data-kw="dégâts critique types"><h3>Dégâts et coups critiques</h3><p>Une attaque qui touche inflige les dégâts de l’arme ou du sort, plus le modificateur utilisé pour l’attaque (pour les armes). Sur un <b>coup critique</b>, lancez deux fois les dés de dégâts de l’attaque, puis ajoutez les modificateurs une seule fois.</p>
+<p>Il existe 13 types de dégâts : acide, contondant, feu, force, foudre, froid, nécrotique, perforant, poison, psychique, radiant, tonnerre, tranchant.</p></div><div class="rule" id="resistance" data-kw="résistance vulnérabilité immunité"><h3>Résistance, vulnérabilité, immunité</h3><p><b>Résistance</b> : les dégâts de ce type sont divisés par deux. <b>Vulnérabilité</b> : ils sont doublés. <b>Immunité</b> : ils sont ignorés. Plusieurs résistances au même type ne se cumulent pas. On applique d’abord les bonus et malus, puis la résistance, puis la vulnérabilité.</p></div><div class="rule" id="pv" data-kw="points de vie pv soins en sang temporaires"><h3>Points de vie et soins</h3><p>Les PV mesurent l’endurance et la chance. Une créature à la moitié de ses PV ou moins est <b>En sang</b> (certaines aptitudes en tiennent compte). Les soins ne font jamais dépasser le maximum.</p>
+<p><b>PV temporaires</b> : un tampon qui encaisse les dégâts en premier. Ils ne se cumulent pas : quand on en reçoit de nouveaux, on garde le plus grand total. Ils disparaissent au repos long.</p></div><div class="rule" id="zero-pv" data-kw="mort 0 pv jet de sauvegarde contre la mort stabiliser inconscient assommer"><h3>Tomber à 0 PV</h3><ul><li><b>Mort instantanée</b> : si les dégâts restants après être tombé à 0 PV sont égaux ou supérieurs à votre maximum de PV, vous mourez.</li>
+<li>Sinon vous êtes <a href="#etat-inconscient">inconscient</a> et faites un <b>jet de sauvegarde contre la mort</b> au début de chacun de vos tours : d20 sans modificateur, 10 ou plus = réussite. Trois réussites : vous êtes stabilisé. Trois échecs : vous mourez.</li>
+<li><b>20 naturel</b> : vous reprenez 1 PV. <b>1 naturel</b> : deux échecs.</li>
+<li>Subir des dégâts à 0 PV compte comme un échec (deux sur un coup critique). Tout soin vous réveille.</li>
+<li><b>Stabiliser</b> un mourant : action Aide et test de Sagesse (Médecine) DD 10. Un personnage stable reprend 1 PV au bout de 1d4 heures.</li>
+<li><b>Assommer</b> : quand vous réduisez une créature à 0 PV avec une attaque au corps à corps, vous pouvez choisir de la laisser inconsciente plutôt que de la tuer.</li></ul></div></section>
+<section class="panel" id="etats"><h2>Les états</h2><div class="rule" id="etats-intro" data-kw="état condition"><h3>Comment lire les états</h3><p>Un état dure jusqu’à ce que son effet l’annule ou que sa durée s’écoule. Le même état ne se cumule pas avec lui-même (sauf l’Épuisement) : on l’a ou on ne l’a pas. Les états sont aussi rappelés dans les profils du <a href="bestiaire-dnd-2024.html">Bestiaire</a>.</p></div><div class="rule" id="etat-a-terre" data-kw="état à terre"><h3>À terre</h3><p>Vous ne pouvez que ramper ou dépenser la moitié de votre vitesse pour vous relever. Désavantage à vos jets d’attaque. Les attaques contre vous ont l’avantage à 1,50 m ou moins, le désavantage au-delà.</p></div><div class="rule" id="etat-agrippe" data-kw="état agrippé"><h3>Agrippé</h3><p>Vitesse 0. Désavantage aux attaques contre toute autre cible que l’agrippeur. L’agrippeur peut vous déplacer avec lui (chaque mètre lui coûte un mètre de plus, sauf si vous êtes très petit ou deux tailles plus petit). Pour vous libérer : une action, test de Force (Athlétisme) ou de Dextérité (Acrobaties) contre le DD de la prise. Prend fin si l’agrippeur est neutralisé ou si vous êtes hors de son allonge.</p></div><div class="rule" id="etat-assourdi" data-kw="état assourdi"><h3>Assourdi</h3><p>Vous n’entendez pas et ratez automatiquement les tests qui demandent l’ouïe.</p></div><div class="rule" id="etat-aveugle" data-kw="état aveuglé"><h3>Aveuglé</h3><p>Vous ne voyez pas et ratez automatiquement les tests qui demandent la vue. Les attaques contre vous ont l’avantage ; les vôtres ont le désavantage.</p></div><div class="rule" id="etat-charme" data-kw="état charmé"><h3>Charmé</h3><p>Vous ne pouvez pas attaquer celui qui vous a charmé ni le cibler avec une capacité ou un effet magique nuisible. Il a l’avantage à ses tests pour interagir socialement avec vous.</p></div><div class="rule" id="etat-effraye" data-kw="état effrayé"><h3>Effrayé</h3><p>Désavantage à vos tests de caractéristique et jets d’attaque tant que la source de votre peur est en vue. Vous ne pouvez pas vous en approcher volontairement.</p></div><div class="rule" id="etat-empoisonne" data-kw="état empoisonné"><h3>Empoisonné</h3><p>Désavantage à vos jets d’attaque et tests de caractéristique.</p></div><div class="rule" id="etat-entrave" data-kw="état entravé"><h3>Entravé</h3><p>Vitesse 0. Les attaques contre vous ont l’avantage ; les vôtres ont le désavantage. Désavantage à vos sauvegardes de Dextérité.</p></div><div class="rule" id="etat-epuisement" data-kw="état épuisement"><h3>Épuisement</h3><p>Cumulable de 1 à 6 niveaux. Chaque niveau donne −2 à tous vos tests d20 et −1,50 m de vitesse. Au niveau 6, vous mourez. Un repos long retire un niveau.</p></div><div class="rule" id="etat-etourdi" data-kw="état étourdi"><h3>Étourdi</h3><p>Vous êtes neutralisé. Vous ratez automatiquement les sauvegardes de Force et de Dextérité. Les attaques contre vous ont l’avantage.</p></div><div class="rule" id="etat-inconscient" data-kw="état inconscient"><h3>Inconscient</h3><p>Vous êtes neutralisé et à terre, et vous lâchez ce que vous tenez. Vitesse 0. Vous ratez automatiquement les sauvegardes de Force et de Dextérité. Les attaques contre vous ont l’avantage, et toute attaque qui vous touche à 1,50 m ou moins est un coup critique. Vous n’avez pas conscience de ce qui vous entoure.</p></div><div class="rule" id="etat-invisible" data-kw="état invisible"><h3>Invisible</h3><p>Avantage à l’initiative. Les effets qui demandent de vous voir ne vous affectent pas, sauf si leur auteur vous voit malgré tout. Les attaques contre vous ont le désavantage ; les vôtres ont l’avantage, sauf contre une créature qui vous voit.</p></div><div class="rule" id="etat-neutralise" data-kw="état neutralisé"><h3>Neutralisé</h3><p>Pas d’action, d’action Bonus ni de réaction. Vous ne pouvez pas parler. Votre concentration est rompue. Désavantage à l’initiative si vous êtes neutralisé au moment de la lancer.</p></div><div class="rule" id="etat-paralyse" data-kw="état paralysé"><h3>Paralysé</h3><p>Vous êtes neutralisé. Vitesse 0. Vous ratez automatiquement les sauvegardes de Force et de Dextérité. Les attaques contre vous ont l’avantage, et toute attaque qui vous touche à 1,50 m ou moins est un coup critique.</p></div><div class="rule" id="etat-petrifie" data-kw="état pétrifié"><h3>Pétrifié</h3><p>Vous êtes changé en pierre (ou autre substance) avec tout ce que vous portez, et pesez dix fois plus. Vous êtes neutralisé, vitesse 0. Les attaques contre vous ont l’avantage. Vous ratez automatiquement les sauvegardes de Force et de Dextérité. Résistance à tous les dégâts, immunité à l’état empoisonné.</p></div></section>
+<section class="panel" id="exploration"><h2>Exploration</h2><div class="rule" id="vision" data-kw="vision lumière vive faible ténèbres vision dans le noir aveugle véritable visibilité"><h3>Vision et lumière</h3><ul><li><b>Lumière vive</b> : on voit normalement.</li>
+<li><b>Lumière faible</b> (pénombre, crépuscule, pleine lune) : zone à <b>visibilité réduite</b> ; désavantage aux tests de Sagesse (Perception) qui reposent sur la vue.</li>
+<li><b>Ténèbres</b> : zone à <b>visibilité nulle</b> ; on y est en pratique <a href="#etat-aveugle">aveuglé</a>. Un brouillard épais ou un feuillage dense font de même.</li>
+<li><b>Vision dans le noir</b> : dans sa portée, la lumière faible compte comme vive et les ténèbres comme de la lumière faible (en nuances de gris).</li>
+<li><b>Vision aveugle</b> : on perçoit sans la vue dans la portée. <b>Vision véritable</b> : on voit dans les ténèbres, même magiques, les créatures invisibles, les illusions et la forme réelle des métamorphes.</li></ul></div><div class="rule" id="voyage" data-kw="voyage allure vitesse km jour"><h3>Voyager</h3><div class="table-wrap"><table><tr><th>Allure</th><th>Par heure</th><th>Par jour (8 h)</th><th>Effet</th></tr><tr><td>Rapide</td><td>6 km</td><td>45 km</td><td>désavantage aux tests de Sagesse (Perception ou Survie)</td></tr><tr><td>Normale</td><td>4,5 km</td><td>36 km</td><td>—</td></tr><tr><td>Lente</td><td>3 km</td><td>27 km</td><td>avantage aux tests de Sagesse (Perception ou Survie)</td></tr></table></div><p>Le MJ décide de ce qui se passe en route : rencontres, terrain, météo. Un terrain difficile divise la distance par deux.</p></div><div class="rule" id="dangers" data-kw="chute suffocation souffle faim soif nourriture eau"><h3>Chutes, souffle, faim et soif</h3><ul><li><b>Chute</b> : 1d6 dégâts contondants par tranche de 3 m, jusqu’à 20d6 ; vous atterrissez à terre, sauf si vous évitez tous les dégâts.</li>
+<li><b>Retenir son souffle</b> : 1 + modificateur de Constitution minutes (au moins 30 secondes). Ensuite, vous gagnez un niveau d’<a href="#etat-epuisement">Épuisement</a> à la fin de chacun de vos tours, jusqu’à pouvoir respirer.</li>
+<li><b>Faim et soif</b> : sans nourriture ou sans eau suffisante, le MJ inflige des niveaux d’Épuisement, qu’un repos ne retire qu’une fois le personnage nourri et abreuvé.</li></ul></div><div class="rule" id="objets" data-kw="objet porte serrure briser"><h3>Objets</h3><p>Le MJ fixe la CA et les PV d’un objet selon sa matière et sa taille (une porte de bois : CA 15 environ ; une serrure de fer : CA 19). Les objets sont immunisés contre les dégâts psychiques et le poison. Enfoncer une porte est souvent un test de Force (Athlétisme).</p></div></section>
+<section class="panel" id="repos"><h2>Repos</h2><div class="rule" id="repos-court" data-kw="repos court dés de vie"><h3>Repos court</h3><p>Au moins <b>1 heure</b> de calme (manger, panser ses plaies, lire). Vous pouvez dépenser des <b>dés de vie</b> : pour chacun, lancez-le et ajoutez votre modificateur de Constitution ; vous récupérez autant de PV. Certaines aptitudes se rechargent aussi (Second souffle, emplacements de l’occultiste…). Un combat, un sort ou des dégâts l’interrompent.</p></div><div class="rule" id="repos-long" data-kw="repos long sommeil 8 heures"><h3>Repos long</h3><p>Au moins <b>8 heures</b>, dont 6 de sommeil et 2 d’activité légère. À la fin, vous récupérez tous vos PV et tous vos dés de vie dépensés, et vous perdez un niveau d’Épuisement. Il faut avoir au moins 1 PV pour en profiter, et on ne bénéficie que d’un repos long par période de 24 heures.</p>
+<p>Il est interrompu par un jet d’initiative, un sort autre qu’un sort mineur, des dégâts subis ou une heure de marche ou d’effort. Si l’interruption arrive après au moins 1 heure, vous bénéficiez d’un repos court.</p></div></section>
+<section class="panel" id="magie"><h2>La magie</h2><div class="rule" id="emplacements" data-kw="emplacement niveau sort mineur"><h3>Emplacements de sorts</h3><p>Un sort de niveau 1 à 9 consomme un <b>emplacement</b> de son niveau ou d’un niveau supérieur ; lancé avec un emplacement plus haut, il est souvent plus puissant. Les <b>sorts mineurs</b> (niveau 0) se lancent à volonté. Les emplacements reviennent au repos long (au repos court pour l’occultiste). On ne peut dépenser qu’<b>un emplacement par tour</b>.</p></div><div class="rule" id="incantation" data-kw="incantation composante verbale somatique matérielle dd attaque rituel focaliseur"><h3>Lancer un sort</h3><ul><li><b>Temps d’incantation</b> : une action (action Magie), une action Bonus, une réaction, ou plusieurs minutes ou heures.</li>
+<li><b>Composantes</b> : V (verbale : il faut pouvoir parler), S (somatique : une main libre ou tenant le focaliseur), M (matérielle : un composant ou un focaliseur ; un composant avec un prix doit être fourni, et s’il est « consommé », il disparaît).</li>
+<li><b>DD des sorts</b> = 8 + modificateur d’incantation + bonus de maîtrise. <b>Attaque de sort</b> = modificateur d’incantation + bonus de maîtrise.</li>
+<li><b>Rituel</b> : un sort marqué rituel peut se lancer sans emplacement en prenant 10 minutes de plus, si votre classe le permet.</li>
+<li><b>Ligne de mire</b> : pour cibler quelque chose, il faut un chemin dégagé jusqu’à lui ; un abri total bloque.</li></ul></div><div class="rule" id="concentration" data-kw="concentration sauvegarde constitution"><h3>Concentration</h3><p>Certains sorts durent tant que vous vous concentrez. Vous ne pouvez vous concentrer que sur un effet à la fois. Quand vous subissez des dégâts, faites une sauvegarde de Constitution DD 10 ou la moitié des dégâts (le plus haut, au maximum 30) ; un échec met fin au sort. La concentration cesse aussi si vous êtes neutralisé ou mort, ou quand vous le décidez.</p></div><div class="rule" id="zones" data-kw="zone cône cube cylindre émanation ligne sphère"><h3>Zones d’effet</h3><div class="table-wrap"><table><tr><th>Forme</th><th>Description</th></tr><tr><td>Cône</td><td>part de vous et s’élargit ; sa largeur égale sa longueur à chaque point</td></tr><tr><td>Cube</td><td>un point d’origine sur une face</td></tr><tr><td>Cylindre</td><td>un cercle au sol et une hauteur</td></tr><tr><td>Émanation</td><td>rayonne d’une créature ou d’un objet et le suit</td></tr><tr><td>Ligne</td><td>part de vous en ligne droite</td></tr><tr><td>Sphère</td><td>rayonne d’un point dans toutes les directions</td></tr></table></div><p>Un abri total bloque l’effet. Consultez le <a href="sorts-dnd-2024.html">grimoire des sorts</a> pour les détails de chaque sort.</p></div></section>
+<p class="note" style="color:#c9b48a;text-align:center;font-size:15px">Résumé rédigé pour le site d’après le SRD 5.2.1 de Wizards of the Coast (CC BY 4.0). Texte complet : <a style="color:#d9b25f" href="https://www.dndbeyond.com/sources/dnd/br-2024" target="_blank" rel="noopener">règles de base gratuites sur D&amp;D Beyond ↗</a></p>
+</main>
+<footer class="sitefoot"><div class="fl"><a class="gh" href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener" title="Code source sur GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>© 2026 Grimoire de l’aventurier</span></a><a href="mentions-legales.html#mentions">Mentions légales</a><a href="mentions-legales.html#licence">Licence</a><a href="mentions-legales.html#marques">Marques</a><a href="mentions-legales.html#confidentialite">Confidentialité</a><a href="mentions-legales.html#credits">Crédits</a><a href="mentions-legales.html#contact">Contact</a><a href="https://github.com/argannao/grimoire-de-l-aventurier/issues" target="_blank" rel="noopener">Signaler un problème</a><a href="https://github.com/argannao/grimoire-de-l-aventurier" target="_blank" rel="noopener">Code source</a></div><div class="fs">Référence de fan non officielle, compatible 5E · Dungeons &amp; Dragons est une marque de Wizards of the Coast LLC, non affiliée à ce site · Contient du matériel du SRD 5.2.1 sous licence CC BY 4.0</div></footer>
+<script>/* recherche dans les règles */
+(function(){
+  const q = document.getElementById('rq'), n = document.getElementById('rn'), norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const rules = [...document.querySelectorAll('.rule')].map(r => [r, norm(r.dataset.kw + ' ' + r.textContent)]);
+  function run(){
+    const w = norm(q.value.trim()).split(/\s+/).filter(Boolean); let c = 0;
+    rules.forEach(([r, t]) => { const ok = w.every(x => t.includes(x)); r.hidden = !ok; c += ok; });
+    document.querySelectorAll('main > section.panel').forEach(s => { s.hidden = w.length > 0 && (s.id === 'apercu' || !s.querySelector('.rule:not([hidden])')); });
+    n.textContent = w.length ? c + ' règle' + (c > 1 ? 's' : '') : rules.length + ' règles';
+  }
+  q.addEventListener('input', run); run();
+  window.addEventListener('hashchange', () => { if (q.value){ q.value = ''; run(); const t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); } });
+})();
+</script>
+<script>/* finitions : panneaux collants placés sous la barre de navigation, quelle que soit sa hauteur */
+(function(){
+  function place(){
+    var nav = document.querySelector('body > nav'); var h = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--navh', h + 'px');
+    var fl = document.querySelector('.filters'); var flh = (fl && getComputedStyle(fl).position === 'sticky') ? Math.ceil(fl.getBoundingClientRect().height) : 0;
+    document.querySelectorAll('.filters, .counter, .enc').forEach(function(el){
+      el.style.top = '';
+      if (getComputedStyle(el).position === 'sticky'){
+        var extra = el.classList.contains('filters') ? 6 : (flh ? flh + 14 : 8);
+        el.style.top = (h + extra) + 'px';
+        if (!el.classList.contains('filters')) el.style.maxHeight = 'calc(100vh - ' + (h + extra + 12) + 'px)';
+      } else if (!el.classList.contains('filters')) { el.style.maxHeight = ''; }
+    });
+    var f = document.querySelector('.filters'); var fh = (f && getComputedStyle(f).position === 'sticky') ? f.getBoundingClientRect().height + 6 : 0;
+    document.documentElement.style.scrollPaddingTop = (h + fh + 12) + 'px';
+  }
+  // la barre de recherche est en haut de page : dès qu'on filtre, on descend jusqu'aux résultats
+  function toResults(){
+    var t = document.getElementById('list') || document.querySelector('section.bg:not([hidden])');
+    if (t && t.getBoundingClientRect().top > innerHeight * 0.6) t.scrollIntoView({block:'start'});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var fl = document.querySelector('.filters'); if (!fl) return;
+    var sticky = function(){ return getComputedStyle(fl).position === 'sticky'; };
+    // pendant la frappe, on ne descend que si la barre reste visible (écran large) ; sur téléphone, à la validation
+    fl.addEventListener('input', function(e){ if (e.target.matches('input[type=search]') && sticky()) toResults(); });
+    fl.addEventListener('change', function(e){ setTimeout(toResults, 30); });
+  });
+  window.addEventListener('resize', place); document.addEventListener('DOMContentLoaded', place);
+  if (document.fonts) document.fonts.ready.then(place); setTimeout(place, 300);
+})();
+</script>
+</body>
+</html>

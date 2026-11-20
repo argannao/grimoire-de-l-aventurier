@@ -139,6 +139,9 @@ footer.sitefoot .fs{margin-top:9px;font-size:11.5px;color:#8a7657}
      statut      : "disponible", "bientot", "prototype" (carte grisée, non cliquable) ou "prototype-ouvert" (prototype utilisable)
    ===================================================================== */
 const MODULES = [
+  { titre:"Règles du jeu", accroche:"Comment on joue", categorie:"Règles",
+    description:"Tests d20, avantage, actions, combat, états, exploration, repos et magie : les règles 2024 résumées, avec une recherche.",
+    fichier:"regles-dnd-2024.html", icone:"des", statut:"disponible" },
   { titre:"Espèces", accroche:"Les peuples du multivers", categorie:"Création de personnage",
     description:"Les 10 espèces du Manuel des Joueurs 2024 : lore, traits, conseils de jeu et changements depuis 2014.",
     fichier:"especes-dnd-2024.html", icone:"especes", statut:"disponible" },
@@ -235,7 +238,7 @@ function emblem(key){
 const BOOKS = [
   { cle:"regles", titre:"Règles de base 2024", sous:"Manuel des joueurs · Guide du Maître · Manuel des monstres", annee:"2024 – 2025", classe:"cv-core", tag:"Livres de règles",
     resume:"Le cœur du jeu : espèces, classes, historiques, dons, sorts, équipement et créatures. Une partie est libre dans le SRD 5.2.1.",
-    apports:[["10 espèces","especes-dnd-2024.html"],["12 classes","classes-dnd-2024.html"],["16 historiques","historiques-dnd-2024.html"],["Dons","dons-dnd-2024.html"],["390 sorts","sorts-dnd-2024.html"],["Magasin","magasin-dnd-2024.html"],["Bestiaire","bestiaire-dnd-2024.html"]],
+    apports:[["Règles du jeu","regles-dnd-2024.html"],["10 espèces","especes-dnd-2024.html"],["12 classes","classes-dnd-2024.html"],["16 historiques","historiques-dnd-2024.html"],["Dons","dons-dnd-2024.html"],["390 sorts","sorts-dnd-2024.html"],["Magasin","magasin-dnd-2024.html"],["Bestiaire","bestiaire-dnd-2024.html"]],
     liens:[["Règles de base gratuites (D&D Beyond)","https://www.dndbeyond.com/sources/dnd/br-2024"],["SRD 5.2.1","https://www.dndbeyond.com/srd"]] },
   { cle:"eberron", titre:"Eberron : Forge of the Artificer", sous:"Univers de campagne", annee:"2025", classe:"cv-eberron", tag:"Supplément",
     resume:"Un monde où la magie est une industrie : l’artificier revu pour 2024, cinq espèces et les marques du dragon des grandes maisons.",
